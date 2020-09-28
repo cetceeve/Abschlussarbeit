@@ -21,5 +21,11 @@
   "bugs": {
     "url": "https://github.com/cetceeve/Abschlussarbeit/issues"
   },
-  "homepage": "https://github.com/cetceeve/Abschlussarbeit#readme"
+  "homepage": "https://github.com/cetceeve/Abschlussarbeit#readme",
+  "devDependencies": {
+    "eslint": "^7.10.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
