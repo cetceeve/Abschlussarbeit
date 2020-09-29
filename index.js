@@ -23,3 +23,10 @@ server.app.post("/comments", (req, res) => {
   console.log("/comments: sending...");
   res.json(comments);
 });
+
+server.app.post("/insert", (req, res) => {
+  console.log(req.body);
+  res.json({
+    "success": true,
+  });
+});

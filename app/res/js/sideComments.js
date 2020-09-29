@@ -8,24 +8,18 @@ class SideComments extends Observable {
     constructor() {
         super();
 
-        this.initDataServiceListeners();
-        DataService.getComments();
-    }
+        let dataService = new DataService();
+        dataService.addEventListener("commentsLoaded", event => {
+            // eslint-disable-next-line no-undef
+            let SideComments = require("side-comments");
+            this.sideComments = new SideComments("#commentable-area", this.currentUser, event.data.allComments);
+            this.initUIListeners();
 
-    initDataServiceListeners() {
-        DataService.addEventListener("commentsLoaded", event => this.initSideComments(event.data));
-    }
-
-    initSideComments(commentData) {
-        // eslint-disable-next-line no-undef
-        let SideComments = require("side-comments");
-        this.sideComments = new SideComments("#commentable-area", this.currentUser, commentData);
-
-        this.initUIListeners();
-
-        this.notifyAll(new Event("initDone", {
-            message: "Side Comments are initialized!",
-        }));
+            this.notifyAll(new Event("initDone", {
+                message: "Side Comments are initialized!",
+            }));
+        });
+        dataService.getComments();
     }
 
     initUIListeners() {
@@ -41,7 +35,11 @@ class SideComments extends Observable {
     }
 
     handleCommentPosted(comment) {
-        console.log(comment);
+        let dataService = new DataService();
+        dataService.addEventListener("commentSaved", () => {
+            this.sideComments.insertComment(comment);
+        });
+        dataService.saveComment(comment);
     }
 }
 

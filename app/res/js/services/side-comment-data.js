@@ -12,20 +12,42 @@ class SideCommentsDataService extends Observable {
         console.log("SideCommentService: init all comment fetch");
         this.fetchAllComments().then(
             comments => {
-                this.notifyAll(new Event("commentsLoaded", comments));
+                this.notifyAll(new Event("commentsLoaded", {
+                    allComments: comments,
+                }));
             });
     }
 
     async fetchAllComments() {
         let serverRes = await fetch("/comments", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            }),
-            data = await serverRes.json();
-        return data;
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        return await serverRes.json();
+    }
+
+    saveComment(comment) {
+        console.log("SideCommentService: Saving Comment");
+        this.fetchSaveComment(comment).then(
+            success => {
+                if (success) {
+                    this.notifyAll(new Event("commentSaved"));
+                }
+            });
+    }
+
+    async fetchSaveComment(comment) {
+        let serverRes = await fetch("/insert", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(comment),
+        });
+        return await serverRes.json();
     }
 }
 
-export default new SideCommentsDataService();
+export default SideCommentsDataService;
