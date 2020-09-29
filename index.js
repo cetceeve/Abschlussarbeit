@@ -1,6 +1,7 @@
 /* eslint-env node */
 
-const AppServer = require("./lib/AppServer.js");
+const AppServer = require("./lib/AppServer.js"),
+  fs = require("fs");
 
 var server;
 
@@ -16,3 +17,9 @@ function init() {
 }
 
 init();
+
+server.app.post("/comments", (req, res) => {
+  let comments = JSON.parse(fs.readFileSync("./data/comments.json", "utf8"));
+  console.log("/comments: sending...");
+  res.json(comments);
+});
