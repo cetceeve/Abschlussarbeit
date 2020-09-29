@@ -1,18 +1,19 @@
 const currentUser = {
     id: 123,
-    avatarUrl: "https://images6.fanpop.com/image/photos/42600000/LOONA-X-X-photoshoot-behind-Hyunjin-loo-CE-A0-CE-94-42662157-840-1260.jpg",
-    name: "Hyunjin"
+    avatarUrl: "https://pbs.twimg.com/profile_images/964204609186222081/I7Mc16_z.jpg",
+    name: "Seoulbear"
 }
 
 function init() {
     console.log("javascript initialized");
     var SideComments = require("side-comments"),
-        existingComments = JSON.parse(document.querySelector("#existing-comments").innerHTML);
+        existingComments = JSON.parse(document.querySelector("#existing-comments").innerHTML),
+        myCodeMirror = CodeMirror(document.body, {
+            value: "function myScript(){return 100;}\n",
+            mode: "javascript"
+        });
 
-    console.log(SideComments);
-    console.log(existingComments);
-
-    sideComments = new SideComments("#commentable-area", currentUser, existingComments);
+    let sideComments = new SideComments("#commentable-area", currentUser, existingComments);
 }
 
 init();
