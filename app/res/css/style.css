@@ -14,3 +14,7 @@ p {
     margin-left: 220px;
     margin-right: 10vw;
 }
+
+.CodeMirror pre.CodeMirror-line {
+    margin-right: 200px;
+}

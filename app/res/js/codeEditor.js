@@ -9,10 +9,15 @@ class CodeEditor extends Observable {
         super();
         this.counter = this.increment();
         // eslint-disable-next-line no-undef
-        this.editor = CodeMirror(document.body, {
-            mode: "javascript",
-            lineNumbers: true,
-        });
+        // this.editor = CodeMirror(document.body, {
+        //     mode: "javascript",
+        //     lineNumbers: true,
+        // });
+
+        // eslint-disable-next-line no-undef
+        this.editor = CodeMirror.fromTextArea(document.querySelector("#textarea"));
+        this.setConfiguration();
+
         this.initListeners();
         this.editor.setValue(this.loadContent());
         this.notifyAll(new Event("initDone", {
@@ -20,18 +25,31 @@ class CodeEditor extends Observable {
         }));
     }
 
+    setConfiguration() {
+        this.editor.setOption("lineNumbers", true);
+        this.editor.setOption("mode", "javascript");
+        this.editor.setOption("readOnly", true);
+    }
+
     initListeners() {
         this.editor.on("renderLine", (instance, line, element) => {
-            let number = this.counter.next().value;
-            console.log("Line Number: " + number);
-            console.log(instance);
-            console.log(line);
-            console.log(element);
+            this.embedSideComments(element);
         });
     }
 
     loadContent() {
         return "function hi(){return 'I love you';}\nconsole.log(hi());";
+    }
+
+    // <p data-section-id="1" class="commentable-section">Ich will einen Kaffee und zwar schnell!</p>
+    embedSideComments(lineEl) {
+        let number = this.counter.next().value;
+        lineEl.classList.add("commentable-section");
+        lineEl.setAttribute("data-section-id", number.toString());
+    }
+
+    get wrapperElement() {
+        return this.editor.getWrapperElement();
     }
 
     * increment() {
