@@ -1,9 +1,9 @@
 import {
     Event,
     Observable,
-} from "../utils/Observable.js";
+} from "./Observable.js";
 
-class EditorDataService extends Observable {
+class EditorDataConnection extends Observable {
     constructor() {
         super();
     }
@@ -19,4 +19,4 @@ class EditorDataService extends Observable {
     }
 }
 
-export default EditorDataService;
+export default EditorDataConnection;

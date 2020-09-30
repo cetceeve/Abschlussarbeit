@@ -2,7 +2,7 @@ import {
     Event,
     Observable,
 } from "./utils/Observable.js";
-import DataService from "./services/editor-data.js";
+import DataConnection from "./services/editor-data.js";
 
 class CodeEditor extends Observable {
     constructor() {
@@ -38,8 +38,8 @@ class CodeEditor extends Observable {
 
     loadContent() {
         // this.editor.setValue(this.testText);
-        let dataService = new DataService();
-        dataService.getContent().then(content => {
+        let dataConnection = new DataConnection();
+        dataConnection.getContent().then(content => {
             this.editor.setValue(content);
 
             this.notifyAll(new Event("initDone", {
