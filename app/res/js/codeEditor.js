@@ -2,7 +2,7 @@ import {
     Event,
     Observable,
 } from "./utils/Observable.js";
-import DataConnection from "./services/editor-data.js";
+import DataConnection from "./utils/editor-data-connection.js";
 
 class CodeEditor extends Observable {
     constructor() {
