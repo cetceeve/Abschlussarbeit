@@ -12,6 +12,10 @@ function init() {
       console.log(event.data.message);
     });
   });
+
+  document.querySelector("#vue-button").addEventListener("click", () => {
+    window.location.href = "http://localhost:8000/app/vuetest.html";
+  });
 }
 
 init();
