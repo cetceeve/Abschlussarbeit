@@ -2,7 +2,7 @@ import {
     Event,
     Observable,
 } from "./utils/Observable.js";
-import DataService from "./services/side-comment-data.js";
+import DataService from "./services/editor-data.js";
 
 class CodeEditor extends Observable {
     constructor() {
@@ -12,6 +12,8 @@ class CodeEditor extends Observable {
         // this.editor = CodeMirror(document.body, {
         //     mode: "javascript",
         //     lineNumbers: true,
+        //     readOnly: true,
+        //     inputStyle: "contenteditable",
         // });
 
         // eslint-disable-next-line no-undef
@@ -19,10 +21,7 @@ class CodeEditor extends Observable {
         this.setConfiguration();
 
         this.initListeners();
-        this.editor.setValue(this.loadContent());
-        this.notifyAll(new Event("initDone", {
-            message: "CodeEditor: initialization complete",
-        }));
+        this.loadContent();
     }
 
     setConfiguration() {
@@ -38,10 +37,17 @@ class CodeEditor extends Observable {
     }
 
     loadContent() {
-        return "function hi(){return 'I love you';}\nconsole.log(hi());";
+        // this.editor.setValue(this.testText);
+        let dataService = new DataService();
+        dataService.getContent().then(content => {
+            this.editor.setValue(content);
+
+            this.notifyAll(new Event("initDone", {
+                message: "CodeEditor: initialization complete",
+            }));
+        });
     }
 
-    // <p data-section-id="1" class="commentable-section">Ich will einen Kaffee und zwar schnell!</p>
     embedSideComments(lineEl) {
         let number = this.counter.next().value;
         lineEl.classList.add("commentable-section");
@@ -58,6 +64,10 @@ class CodeEditor extends Observable {
             yield index++;
         }
     }
+
+    get testText() {
+        return "20\n19\n18\n17\n16\n15\n14\n13\n12\n11\n10\n9\n8\n7\n6\n5\n4\n3\n2\n1\n0";
+    }
 }
 
-export default new CodeEditor();
+export default CodeEditor;

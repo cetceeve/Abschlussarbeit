@@ -18,3 +18,8 @@ p {
 .CodeMirror pre.CodeMirror-line {
     margin-right: 200px;
 }
+
+.CodeMirror {
+    border: 1px solid #eee;
+    height: auto;
+}

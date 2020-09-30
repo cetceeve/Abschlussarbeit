@@ -30,3 +30,8 @@ server.app.post("/insert", (req, res) => {
     "success": true,
   });
 });
+
+server.app.post("/editor", (req, res) => {
+  console.log("/editor: sending");
+  res.send(fs.readFileSync("./lib/AppServer.js", "utf8"));
+});

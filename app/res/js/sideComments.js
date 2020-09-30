@@ -43,4 +43,4 @@ class SideComments extends Observable {
     }
 }
 
-export default new SideComments();
+export default SideComments;
