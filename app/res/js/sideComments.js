@@ -5,14 +5,14 @@ import {
 import DataService from "./services/side-comment-data.js";
 
 class SideComments extends Observable {
-    constructor() {
+    constructor(wrapper) {
         super();
 
         let dataService = new DataService();
         dataService.addEventListener("commentsLoaded", event => {
             // eslint-disable-next-line no-undef
             let SideComments = require("side-comments");
-            this.sideComments = new SideComments("#commentable-area", this.currentUser, event.data.allComments);
+            this.sideComments = new SideComments(wrapper, this.currentUser, event.data.allComments);
             this.initUIListeners();
 
             this.notifyAll(new Event("initDone", {

@@ -9,16 +9,16 @@ class CodeEditor extends Observable {
         super();
         this.counter = this.increment();
         // eslint-disable-next-line no-undef
-        // this.editor = CodeMirror(document.body, {
-        //     mode: "javascript",
-        //     lineNumbers: true,
-        //     readOnly: true,
-        //     inputStyle: "contenteditable",
-        // });
+        this.editor = CodeMirror(document.body, {
+            mode: "javascript",
+            lineNumbers: true,
+            readOnly: true,
+            inputStyle: "contenteditable",
+        });
 
         // eslint-disable-next-line no-undef
-        this.editor = CodeMirror.fromTextArea(document.querySelector("#textarea"));
-        this.setConfiguration();
+        // this.editor = CodeMirror.fromTextArea(document.querySelector("#textarea"));
+        // this.setConfiguration();
 
         this.initListeners();
         this.loadContent();

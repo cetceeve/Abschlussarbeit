@@ -7,7 +7,7 @@ function init() {
 
   codeEditor.addEventListener("initDone", event => {
     console.log(event.data.message);
-    sideComments = new SideComments();
+    sideComments = new SideComments(codeEditor.wrapperElement);
     sideComments.addEventListener("initDone", event => {
       console.log(event.data.message);
     });
