@@ -29,7 +29,7 @@ class SideComments extends Observable {
     get currentUser() {
         return {
             id: 123,
-            avatarUrl: "https://pbs.twimg.com/profile_images/964204609186222081/I7Mc16_z.jpg",
+            avatarUrl: "https://i.pinimg.com/736x/94/4d/e6/944de633cabdd975da26380177a58c50.jpg",
             name: "Seoulbear",
         };
     }
