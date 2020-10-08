@@ -1,8 +1,8 @@
 import {
     Event,
     Observable,
-} from "./utils/Observable.js";
-import DataService from "./services/side-comment-data.js";
+} from "../utils/Observable.js";
+import DataService from "./side-comment-data.js";
 
 class SideComments extends Observable {
     constructor(wrapper) {

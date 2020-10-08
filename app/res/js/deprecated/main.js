@@ -1,4 +1,4 @@
-import CodeEditor from "./codeEditor.js";
+import CodeEditor from "../codeEditor.js";
 import SideComments from "./sideComments.js";
 
 function init() {

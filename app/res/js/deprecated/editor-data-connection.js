@@ -1,7 +1,7 @@
 import {
     Event,
     Observable,
-} from "./Observable.js";
+} from "../utils/Observable.js";
 
 class EditorDataConnection extends Observable {
     constructor() {
