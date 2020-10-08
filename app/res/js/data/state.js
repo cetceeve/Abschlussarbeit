@@ -3,6 +3,8 @@ var state = {
         debug: true,
         id: "0000",
         repositoryUrl: "undefined",
+        status: "wip",
+        activeStage: "undefined",
     },
     user: {
         id: 123,
@@ -12,7 +14,8 @@ var state = {
     faq: {
         url: "undefined",
     },
-    storage: {
+    checklist: [],
+    database: {
         revisionId: "undefined",
         databaseUrl: "undefined",
         saved: false,
@@ -51,7 +54,6 @@ var state = {
             },
         ],
     },
-    checklist: [],
     setComments(fileSha, data) {
         this.comments[fileSha] = data;
         this.debug();
