@@ -35,13 +35,24 @@ var CommentComponent = {
             this.sideComments.on("commentPosted", comment => this.handleCommentPosted(comment));
         },
     },
-    beforeCreate: function () {
-        loader.addEventListener("commentsLoaded", () => {
-            this.initSideComments();
-        });
-    },
     mounted: function () {
-        loader.loadComments(state.code.currentFile);
+        // loader.addEventListener("commentsLoaded", () => {
+        //     this.initSideComments();
+        // });
+        // loader.loadComments(state.code.currentFile);
+
+        // eslint-disable-next-line no-undef
+        let SideComments = require("side-comments");
+        this.sideComments = new SideComments("#commentable-area", state.user);
+
+        for (let comment of state.comments[state.code.currentFile]) {
+            this.sideComments.insertComment(comment);
+        }
+
+        this.sideComments.on("commentPosted", comment => {
+            this.sideComments.insertComment(comment);
+            state.setComment(state.code.currentFile, comment);
+        });
     },
 };
 
