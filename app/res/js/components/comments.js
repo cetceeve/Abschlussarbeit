@@ -1,5 +1,4 @@
-import state from "../data/state.js";
-import loader from "../data/loader.js";
+import storage from "../data/storage.js";
 
 var CommentComponent = {
     template: "#review-comments-template",
@@ -24,34 +23,18 @@ var CommentComponent = {
             ],
         };
     },
-    methods: {
-        handleCommentPosted: function (comment) {
-            this.sideComments.insertComment(comment);
-        },
-        initSideComments: function () {
-            // eslint-disable-next-line no-undef
-            let SideComments = require("side-comments");
-            this.sideComments = new SideComments("#commentable-area", state.user, state.comments[state.code.currentFile]);
-            this.sideComments.on("commentPosted", comment => this.handleCommentPosted(comment));
-        },
-    },
     mounted: function () {
-        // loader.addEventListener("commentsLoaded", () => {
-        //     this.initSideComments();
-        // });
-        // loader.loadComments(state.code.currentFile);
-
         // eslint-disable-next-line no-undef
         let SideComments = require("side-comments");
-        this.sideComments = new SideComments("#commentable-area", state.user);
+        this.sideComments = new SideComments("#commentable-area", storage.state.user);
 
-        for (let comment of state.comments[state.code.currentFile]) {
+        for (let comment of storage.state.comments[storage.state.code.currentFile]) {
             this.sideComments.insertComment(comment);
         }
 
         this.sideComments.on("commentPosted", comment => {
             this.sideComments.insertComment(comment);
-            state.setComment(state.code.currentFile, comment);
+            storage.setComment(storage.state.code.currentFile, comment);
         });
     },
 };
