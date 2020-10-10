@@ -1,7 +1,7 @@
 import storage from "../data/storage.js";
 
 var CommentComponent = {
-    template: "#review-comments-template",
+    template: "#review-comments-component-template",
     data() {
         return {
             items: [{

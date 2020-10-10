@@ -1,3 +1,5 @@
+import api from "./api.js";
+
 class Storage {
     constructor() {
         this.state = {
@@ -28,15 +30,75 @@ class Storage {
                 owner: "undefined",
             },
             code: {
-                currentFile: "fileSha-0000",
-                files: {},
+                currentFile: "fileSha0000",
+                files: {
+                    "fileSha0000": {
+                        sha: "fileSha000",
+                        value: "/* eslint-env node */\r\n" +
+                        "\r\n" +
+                        "const path = require(\"path\"),\r\n" +
+                        "  express = require(\"express\");\r\n" +
+                        "\r\n" +
+                        "/**\r\n" +
+                        " * AppServer\r\n" +
+                        " *\r\n" +
+                        " * Creates a simple web server by using express to static serve files from a given directory.\r\n" +
+                        " *\r\n" +
+                        " * @author: Alexander Bazo\r\n" +
+                        " * @version: 1.0\r\n" +
+                        " */\r\n" +
+                        "\r\n" +
+                        "class AppServer {\r\n" +
+                        "\r\n" +
+                        "  /**\r\n" +
+                        "   * Creates full path to given appDir and constructors express application with\r\n" +
+                        "   * static \"/app\" route to serve files from app directory.\r\n" +
+                        "   * \r\n" +
+                        "   * @constructor\r\n" +
+                        "   * @param  {String} appDir Relative path to application dir (from parent)\r\n" +
+                        "   */\r\n" +
+                        "  constructor(appDir) {\r\n" +
+                        "    this.appDir = path.join(__dirname, \"../\", appDir);\r\n" +
+                        "    this.app = express();\r\n" +
+                        "    this.app.use(express.json());\r\n" +
+                        "    this.app.use(\"/app\", express.static(this.appDir));\r\n" +
+                        "  }\r\n" +
+                        "\r\n" +
+                        "  /**\r\n" +
+                        "   * Starts server on given port\r\n" +
+                        "   * \r\n" +
+                        "   * @param  {Number} port Port to use for serving static files\r\n" +
+                        "   */\r\n" +
+                        "  start(port) {\r\n" +
+                        "    this.server = this.app.listen(port, function () {\r\n" +
+                        "      console.log(\r\n" +
+                        "        `AppServer started. Client available at http://localhost:${port}/app`\r\n" +
+                        "      );\r\n" +
+                        "    });\r\n" +
+                        "  }\r\n" +
+                        "\r\n" +
+                        "  /**\r\n" +
+                        "   * Stops running express server\r\n" +
+                        "   */\r\n" +
+                        "  stop() {\r\n" +
+                        "    if (this.server === undefined) {\r\n" +
+                        "      return;\r\n" +
+                        "    }\r\n" +
+                        "    this.server.close();\r\n" +
+                        "  }\r\n" +
+                        "\r\n" +
+                        "}\r\n" +
+                        "\r\n" +
+                        "module.exports = AppServer;",
+                    },
+                },
                 filetree: {
                     name: "undefined",
                     children: [],
                 },
             },
             comments: {
-                "fileSha-0000": [{
+                "fileSha0000": [{
                         sectionId: 1,
                         authorAvatarUrl: "https://www.ansoko.info/wp-content/uploads/2020/01/Kim-Hyunjin.jpg",
                         authorName: "Hyunjini",
@@ -62,6 +124,14 @@ class Storage {
 
     setComment(fileSha, comment) {
         this.state.comments[fileSha].push(comment);
+        this.debug();
+    }
+
+    setFile() {
+        api.fetchFile().then(data => {
+            this.state.code.files[data.sha].sha = data.sha;
+            this.state.code.files[data.sha].value = data.value;
+        });
         this.debug();
     }
 

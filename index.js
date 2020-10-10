@@ -33,5 +33,9 @@ server.app.post("/insert", (req, res) => {
 
 server.app.post("/editor", (req, res) => {
   console.log("/editor: sending");
-  res.send(fs.readFileSync("./lib/AppServer.js", "utf8"));
+  let fileString = fs.readFileSync("./lib/AppServer.js", "utf8");
+  res.json({
+    sha: "fileSha0000",
+    value: fileString,
+  });
 });

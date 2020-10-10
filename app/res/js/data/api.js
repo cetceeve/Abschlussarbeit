@@ -11,6 +11,15 @@ var api = {
         });
         return await serverRes.json();
     },
+    fetchFile: async function() {
+        let serverRes = await fetch("/editor", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        return await serverRes.json();
+    },
 };
 
 export default api;
