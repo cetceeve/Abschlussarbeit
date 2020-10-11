@@ -6,10 +6,16 @@ var CodeEditorComponent = {
         return {
             code: storage.state.code.files[storage.state.code.currentFile].value,
             cmOption: {
+                placeholder: "nothing here :(",
                 mode: "javascript",
-                foldGutter: true,
-                lineNumbers: true,
                 readOnly: true,
+                lineNumbers: true,
+                scrollbarStyle: "simple",
+                foldGutter: true,
+                scrollPastEnd: true,
+                styleSelectedText: true,
+                highlightSelectionMatches: {showToken: /\w/, annotateScrollbar: true},
+                matchBrackets: true,
             },
         };
     },

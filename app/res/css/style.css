@@ -15,11 +15,23 @@ p {
     margin-right: 10vw;
 }
 
-.CodeMirror pre.CodeMirror-line {
-    margin-right: 220px;
-}
-
-.CodeMirror {
+/* .CodeMirror {
     border: 1px solid #eee;
     height: auto;
+} */
+
+.CodeMirror-selected {
+    background-color: white !important;
+}
+
+.CodeMirror-selectedtext {
+    color: red !important;
+}
+
+.cm-matchhighlight {
+    background-color: lightgreen
+}
+
+.CodeMirror-selection-highlight-scrollbar {
+    background-color: green
 }

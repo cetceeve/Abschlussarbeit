@@ -19,11 +19,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/theme/the-matrix.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/theme/idea.min.css">
     <!-- codemirror addon themes -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/foldgutter.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/dialog/dialog.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/lint/lint.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/scroll/simplescrollbars.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/search/matchesonscrollbar.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/lint/lint.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/dialog/dialog.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/foldgutter.min.css">
+    <!-- my style -->
+    <link rel="stylesheet" href="./res/css/style.css">
 </head>
 
 <body>
@@ -55,34 +57,35 @@
     <script src="./vendors/side-comments/side-comments.js"></script>
     <!-- codemirror base-->
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/lib/codemirror.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/mode/javascript/javascript.js"></script>
     <!-- codemirror addons -->
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/foldgutter.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/brace-fold.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/comment-fold.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/foldcode.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/indent-fold.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/markdown-fold.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/xml-fold.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/scroll/annotatescrollbar.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/scroll/simplescrollbars.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/scroll/scrollpastend.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/edit/matchbrackets.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/edit/matchtags.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/search/match-highlighter.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/search/matchesonscrollbar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/dialog/dialog.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/mode/meta.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/display/placeholder.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/lint/lint.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/lint/css-lint.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/lint/html-lint.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/lint/javascript-lint.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/lint/json-lint.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/lint/lint.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/mode/meta.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/display/placeholder.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/scroll/simplescrollbars.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/scroll/annotatescrollbar.min.js"></script> <!-- depends on simplescrollbars -->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/scroll/scrollpastend.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/search/searchcursor.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/search/match-highlighter.min.js"></script> <!-- depends on searchcursor, annontatescrollbar -->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/search/matchesonscrollbar.min.js"></script> <!-- depends on match-highlighter, annontatescrollbar -->
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/selection/mark-selection.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/search/search.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/search/search.min.js"></script> <!-- depends on searchcursor, dialog -->
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/search/jump-to-line.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/dialog/dialog.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/foldcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/brace-fold.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/comment-fold.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/indent-fold.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/markdown-fold.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/xml-fold.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/foldgutter.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/edit/matchbrackets.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/edit/matchtags.min.js"></script> <!-- depends on xml-fold -->
+    <!-- codemirror modes -->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/mode/javascript/javascript.js"></script>
     <!-- vue-codemirror -->
     <script src="https://cdn.jsdelivr.net/npm/vue-codemirror@4.0.6/dist/vue-codemirror.min.js"></script>
     <!-- app -->
