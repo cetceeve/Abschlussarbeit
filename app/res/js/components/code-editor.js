@@ -19,6 +19,17 @@ var CodeEditorComponent = {
             },
         };
     },
+    computed: {
+        codemirror() {
+          return this.$refs.cmEditor.codemirror;
+        },
+    },
+    mounted() {
+        console.log("look at my codemirror instance:", this.codemirror);
+
+        let lineHandle = this.codemirror.addLineClass(0, "background", "background-modifier");
+        console.dir(lineHandle);
+    },
 };
 
 export default CodeEditorComponent;

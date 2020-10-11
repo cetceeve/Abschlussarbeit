@@ -35,3 +35,11 @@ p {
 .CodeMirror-selection-highlight-scrollbar {
     background-color: green
 }
+
+.background-modifier {
+    background-color: red;
+}
+
+.CodeMirror-matchingbracket {
+    color: red;
+}
