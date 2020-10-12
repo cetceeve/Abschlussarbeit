@@ -99,19 +99,19 @@ class Storage {
             },
             comments: {
                 "fileSha0000": [{
-                        sectionId: 1,
+                        sectionId: "1",
                         authorAvatarUrl: "https://www.ansoko.info/wp-content/uploads/2020/01/Kim-Hyunjin.jpg",
                         authorName: "Hyunjini",
                         comment: "AERYONG",
                     },
                     {
-                        sectionId: 1,
+                        sectionId: "1",
                         authorAvatarUrl: "https://1.bp.blogspot.com/-OJSNqG09K88/XEF7y8RzQHI/AAAAAAAAAUs/tuyOX-EgK4gLnvy1-Yc5iYu0W6rqzt1kgCLcBGAs/s500-c/yeri.jpg",
                         authorName: "Yerimi",
                         comment: "I am gonna write a super long and not at all helpful comment because i am a dick and i want to destroy this holes tool career.",
                     },
                     {
-                        sectionId: 3,
+                        sectionId: "3",
                         authorAvatarUrl: "https://1.bp.blogspot.com/-OJSNqG09K88/XEF7y8RzQHI/AAAAAAAAAUs/tuyOX-EgK4gLnvy1-Yc5iYu0W6rqzt1kgCLcBGAs/s500-c/yeri.jpg",
                         authorName: "Yerimi",
                         comment: "Coding is not hard.",

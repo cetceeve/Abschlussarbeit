@@ -27,8 +27,46 @@ var CodeEditorComponent = {
     mounted() {
         console.log("look at my codemirror instance:", this.codemirror);
 
-        let lineHandle = this.codemirror.addLineClass(0, "background", "background-modifier");
-        console.dir(lineHandle);
+        // let codemirrorCodeElementChildNodes = document.querySelector(".CodeMirror-code").childNodes;
+        
+        // for (let i = 0; i < codemirrorCodeElementChildNodes.length; i++) {
+        //     let div = document.createElement("div");
+        //     div.classList.add("commentable-section", "CodeMirror-linebackground");
+        //     div.setAttribute("data-section-id", i + "");
+        //     codemirrorCodeElementChildNodes[i].insertBefore(div, codemirrorCodeElementChildNodes[i].firstChild);
+        //     console.log(codemirrorCodeElementChildNodes[i]);
+        //     console.log(codemirrorCodeElementChildNodes[i].parentElement);
+        // }
+
+        // for (let i = 0; i < codemirrorCodeElementChildNodes.length; i++) {
+        //     this.codemirror.addLineClass(i, "background", "identifier" + i);
+        //     let el = this.codemirror.getWrapperElement().querySelector(".identifier" + i);
+        //     el.classList.add("commentable-section", "CodeMirror-linebackground");
+        //     el.setAttribute("data-section-id", i + "");
+        //     console.log(el);
+        // }
+    
+        this.codemirror.on("renderLine", (instance, lineHandle, element) => {
+            element.classList.add("commentable-section");
+            element.setAttribute("data-section-id", this.codemirror.lineInfo(lineHandle).line.toString());
+            //element.parentElement.insertBefore(div, element.parentElement.firstChild);
+        });
+
+        // let lineHandle = this.codemirror.addLineClass(0, "background", "background-modifier");
+        // console.dir(lineHandle);
+
+        // eslint-disable-next-line no-undef
+        let SideComments = require("side-comments"),
+        sideComments = new SideComments(document.querySelector(".CodeMirror-code"), storage.state.user);
+
+        for (let comment of storage.state.comments[storage.state.code.currentFile]) {
+            sideComments.insertComment(comment);
+        }
+
+        sideComments.on("commentPosted", comment => {
+            sideComments.insertComment(comment);
+            storage.setComment(storage.state.code.currentFile, comment);
+        });
     },
 };
 
