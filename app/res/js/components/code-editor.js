@@ -9,7 +9,7 @@ import storage from "../data/storage.js";
  * Handles display of the code
  * Holds the configuration for codemirror
  * 
- * @mudule CodeEditorComponent
+ * @module CodeEditorComponent
  * @requires storage
  */
 var CodeEditorComponent = {
@@ -47,6 +47,10 @@ var CodeEditorComponent = {
           return this.$refs.cmEditor.codemirror;
         },
     },
+    /**
+     * code to execute when component is mounted
+     * @see{@link https://vuejs.org/v2/guide/instance.html|Vue-Instance-Lifecycle}
+     */
     mounted() {
         /** Add padding for the side-comments button on every codemirror line.
          *  Necessary to avoid drawing the button on top of code. Additionally avoids click trough onto code.

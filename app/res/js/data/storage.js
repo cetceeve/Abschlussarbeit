@@ -1,7 +1,20 @@
 import api from "./api.js";
 
+/**
+ * Module to store the current state and all state operations.
+ * Follows the Store Pattern
+ * @see{@link https://vuejs.org/v2/guide/state-management.html#Simple-State-Management-from-Scratch|Store-Pattern }
+ * @module Storage
+ * @property {Object} state - represents the state of the code-editor, can be safed to external database.
+ */
 class Storage {
+    /**
+     * create a default state
+     */
     constructor() {
+        /**
+         * represents the state of the code-editor, can be safed to external database.
+         */
         this.state = {
             meta: {
                 debug: true,
@@ -122,11 +135,19 @@ class Storage {
         this.debug();
     }
 
+    /**
+     * Set one comment for one code file
+     * @param {String} fileSha
+     * @param {Object} comment - object properties currenty specified by side-comments 
+     */
     setComment(fileSha, comment) {
         this.state.comments[fileSha].push(comment);
         this.debug();
     }
 
+    /**
+     * @deprecated - will most likely not be used
+     */
     setFile() {
         api.fetchFile().then(data => {
             this.state.code.files[data.sha].sha = data.sha;
@@ -135,16 +156,25 @@ class Storage {
         this.debug();
     }
 
+    /**
+     * if enabled in state, outputs current state to console
+     */
     debug() {
         if (this.state.meta.debug) {
             console.log(this.state);
         }
     }
 
+    /**
+     * Return stringified current state.
+     */
     getStateString() {
         return JSON.stringify(this.state);
     }
 
+    /**
+     * Return deep copy of current state.
+     */
     getStateCopy() {
         return JSON.parse(this.getStateString());
     }
