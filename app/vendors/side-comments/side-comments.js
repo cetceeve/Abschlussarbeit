@@ -11,10 +11,10 @@ function require(path, parent, orig) {
   var resolved = require.resolve(path);
 
   // lookup failed
-  if (null == resolved) {
+  if (resolved == null) {
     orig = orig || path;
-    parent = parent || 'root';
-    var err = new Error('Failed to require "' + orig + '" from "' + parent + '"');
+    parent = parent || "root";
+    var err = new Error("Failed to require \"" + orig + "\" from \"" + parent + "\"");
     err.path = orig;
     err.parent = parent;
     err.require = true;
@@ -66,20 +66,20 @@ require.aliases = {};
  */
 
 require.resolve = function(path) {
-  if (path.charAt(0) === '/') path = path.slice(1);
+  if (path.charAt(0) === "/") {path = path.slice(1);}
 
   var paths = [
     path,
-    path + '.js',
-    path + '.json',
-    path + '/index.js',
-    path + '/index.json'
+    path + ".js",
+    path + ".json",
+    path + "/index.js",
+    path + "/index.json",
   ];
 
   for (var i = 0; i < paths.length; i++) {
     var path = paths[i];
-    if (require.modules.hasOwnProperty(path)) return path;
-    if (require.aliases.hasOwnProperty(path)) return require.aliases[path];
+    if (require.modules.hasOwnProperty(path)) {return path;}
+    if (require.aliases.hasOwnProperty(path)) {return require.aliases[path];}
   }
 };
 
@@ -95,20 +95,20 @@ require.resolve = function(path) {
 require.normalize = function(curr, path) {
   var segs = [];
 
-  if ('.' != path.charAt(0)) return path;
+  if (path.charAt(0) != ".") {return path;}
 
-  curr = curr.split('/');
-  path = path.split('/');
+  curr = curr.split("/");
+  path = path.split("/");
 
   for (var i = 0; i < path.length; ++i) {
-    if ('..' == path[i]) {
+    if (path[i] == "..") {
       curr.pop();
-    } else if ('.' != path[i] && '' != path[i]) {
+    } else if (path[i] != "." && path[i] != "") {
       segs.push(path[i]);
     }
   }
 
-  return curr.concat(segs).join('/');
+  return curr.concat(segs).join("/");
 };
 
 /**
@@ -133,7 +133,7 @@ require.register = function(path, definition) {
 
 require.alias = function(from, to) {
   if (!require.modules.hasOwnProperty(from)) {
-    throw new Error('Failed to alias "' + from + '", it does not exist');
+    throw new Error("Failed to alias \"" + from + "\", it does not exist");
   }
   require.aliases[to] = from;
 };
@@ -147,7 +147,7 @@ require.alias = function(from, to) {
  */
 
 require.relative = function(parent) {
-  var p = require.normalize(parent, '..');
+  var p = require.normalize(parent, "..");
 
   /**
    * lastIndexOf helper.
@@ -156,7 +156,7 @@ require.relative = function(parent) {
   function lastIndexOf(arr, obj) {
     var i = arr.length;
     while (i--) {
-      if (arr[i] === obj) return i;
+      if (arr[i] === obj) {return i;}
     }
     return -1;
   }
@@ -176,16 +176,16 @@ require.relative = function(parent) {
 
   localRequire.resolve = function(path) {
     var c = path.charAt(0);
-    if ('/' == c) return path.slice(1);
-    if ('.' == c) return require.normalize(p, path);
+    if (c == "/") {return path.slice(1);}
+    if (c == ".") {return require.normalize(p, path);}
 
     // resolve deps by returning
     // the dep in the nearest "deps"
     // directory
-    var segs = parent.split('/');
-    var i = lastIndexOf(segs, 'deps') + 1;
-    if (!i) i = 0;
-    path = segs.slice(0, i + 1).join('/') + '/deps/' + path;
+    var segs = parent.split("/"),
+     i = lastIndexOf(segs, "deps") + 1;
+    if (!i) {i = 0;}
+    path = segs.slice(0, i + 1).join("/") + "/deps/" + path;
     return path;
   };
 
@@ -214,8 +214,8 @@ module.exports = Emitter;
  */
 
 function Emitter(obj) {
-  if (obj) return mixin(obj);
-};
+  if (obj) {return mixin(obj);}
+}
 
 /**
  * Mixin the emitter properties.
@@ -290,17 +290,17 @@ Emitter.prototype.removeEventListener = function(event, fn){
   this._callbacks = this._callbacks || {};
 
   // all
-  if (0 == arguments.length) {
+  if (arguments.length == 0) {
     this._callbacks = {};
     return this;
   }
 
   // specific event
   var callbacks = this._callbacks[event];
-  if (!callbacks) return this;
+  if (!callbacks) {return this;}
 
   // remove all handlers
-  if (1 == arguments.length) {
+  if (arguments.length == 1) {
     delete this._callbacks[event];
     return this;
   }
@@ -367,10 +367,10 @@ Emitter.prototype.hasListeners = function(event){
 
 });
 require.register("side-comments/js/main.js", function(exports, require, module){
-var _ = require('./vendor/lodash-custom.js');
-var Section = require('./section.js');
-var Emitter = require('emitter');
-var $ = jQuery;
+var _ = require("./vendor/lodash-custom.js");
+var Section = require("./section.js");
+var Emitter = require("emitter"),
+ $ = jQuery;
 
 /**
  * Creates a new SideComments instance.
@@ -387,7 +387,7 @@ var $ = jQuery;
  */
 function SideComments( el, currentUser, existingComments ) {
   this.$el = $(el);
-  this.$body = $('body');
+  this.$body = $("body");
   this.eventPipe = new Emitter;
 
   this.currentUser = _.clone(currentUser) || null;
@@ -396,14 +396,14 @@ function SideComments( el, currentUser, existingComments ) {
   this.activeSection = null;
 
   // Event bindings
-  this.eventPipe.on('showComments', _.bind(this.showComments, this));
-  this.eventPipe.on('hideComments', _.bind(this.hideComments, this));
-  this.eventPipe.on('sectionSelected', _.bind(this.sectionSelected, this));
-  this.eventPipe.on('sectionDeselected', _.bind(this.sectionDeselected, this));
-  this.eventPipe.on('commentPosted', _.bind(this.commentPosted, this));
-  this.eventPipe.on('commentDeleted', _.bind(this.commentDeleted, this));
-  this.eventPipe.on('addCommentAttempted', _.bind(this.addCommentAttempted, this));
-  this.$body.on('click', _.bind(this.bodyClick, this));
+  this.eventPipe.on("showComments", _.bind(this.showComments, this));
+  this.eventPipe.on("hideComments", _.bind(this.hideComments, this));
+  this.eventPipe.on("sectionSelected", _.bind(this.sectionSelected, this));
+  this.eventPipe.on("sectionDeselected", _.bind(this.sectionDeselected, this));
+  this.eventPipe.on("commentPosted", _.bind(this.commentPosted, this));
+  this.eventPipe.on("commentDeleted", _.bind(this.commentDeleted, this));
+  this.eventPipe.on("addCommentAttempted", _.bind(this.addCommentAttempted, this));
+  this.$body.on("click", _.bind(this.bodyClick, this));
   this.initialize(this.existingComments);
 }
 
@@ -414,10 +414,10 @@ Emitter(SideComments.prototype);
  * Adds the comments beside each commentable section.
  */
 SideComments.prototype.initialize = function( existingComments ) {
-  _.each(this.$el.find('.commentable-section'), function( section ){
-    var $section = $(section);
-    var sectionId = $section.data('section-id').toString();
-    var sectionComments = _.find(this.existingComments, { sectionId: sectionId });
+  _.each(this.$el.find(".commentable-section"), function( section ){
+    var $section = $(section),
+     sectionId = $section.data("section-id").toString(),
+     sectionComments = _.find(this.existingComments, { sectionId: sectionId });
 
     this.sections.push(new Section(this.eventPipe, $section, this.currentUser, sectionComments));
   }, this);
@@ -427,7 +427,7 @@ SideComments.prototype.initialize = function( existingComments ) {
  * Shows the side comments.
  */
 SideComments.prototype.showComments = function() {
-  this.$el.addClass('side-comments-open');
+  this.$el.addClass("side-comments-open");
 };
 
 /**
@@ -439,7 +439,7 @@ SideComments.prototype.hideComments = function() {
     this.activeSection = null;
   }
 
-  this.$el.removeClass('side-comments-open');
+  this.$el.removeClass("side-comments-open");
 };
 
 /**
@@ -470,7 +470,7 @@ SideComments.prototype.sectionDeselected = function( section ) {
  * @param  {Object} comment  The comment object to be posted.
  */
 SideComments.prototype.commentPosted = function( comment ) {
-  this.emit('commentPosted', comment);
+  this.emit("commentPosted", comment);
 };
 
 /**
@@ -478,7 +478,7 @@ SideComments.prototype.commentPosted = function( comment ) {
  * @param  {Object} comment  The commentId of the deleted comment.
  */
 SideComments.prototype.commentDeleted = function( comment ) {
-  this.emit('commentDeleted', comment);
+  this.emit("commentDeleted", comment);
 };
 
 /**
@@ -486,7 +486,7 @@ SideComments.prototype.commentDeleted = function( comment ) {
  * a currentUser.
  */
 SideComments.prototype.addCommentAttempted = function() {
-  this.emit('addCommentAttempted');
+  this.emit("addCommentAttempted");
 };
 
 /**
@@ -523,7 +523,7 @@ SideComments.prototype.deleteComment = function( sectionId, commentId ) {
  * @return {Boolean} Whether or not the comments are visible.
  */
 SideComments.prototype.commentsAreVisible = function() {
-  return this.$el.hasClass('side-comments-open');
+  return this.$el.hasClass("side-comments-open");
 };
 
 /**
@@ -536,7 +536,7 @@ SideComments.prototype.bodyClick = function( event ) {
   // We do a check on $('body') existing here because if the $target has
   // no parent body then it's because it belongs to a deleted comment and
   // we should NOT hide the SideComments.
-  if ($target.closest('.side-comment').length < 1 && $target.closest('body').length > 0) {
+  if ($target.closest(".side-comment").length < 1 && $target.closest("body").length > 0) {
     if (this.activeSection) {
       this.activeSection.deselect();
     }
@@ -576,11 +576,11 @@ module.exports = SideComments;
 
 });
 require.register("side-comments/js/section.js", function(exports, require, module){
-var _ = require('./vendor/lodash-custom.js');
-var Template = require('../templates/section.html');
-var CommentTemplate = require('../templates/comment.html');
-var mobileCheck = require('./helpers/mobile-check.js');
-var $ = jQuery;
+var _ = require("./vendor/lodash-custom.js");
+var Template = require("../templates/section.html");
+var CommentTemplate = require("../templates/comment.html");
+var mobileCheck = require("./helpers/mobile-check.js"),
+ $ = jQuery;
 
 /**
  * Creates a new Section object, which is responsible for managing a
@@ -593,15 +593,15 @@ function Section( eventPipe, $el, currentUser, comments ) {
 	this.$el = $el;
 	this.comments = comments ? comments.comments : [];
 	this.currentUser = currentUser || null;
-	this.clickEventName = mobileCheck() ? 'touchstart' : 'click';
+	this.clickEventName = mobileCheck() ? "touchstart" : "click";
 
-	this.id = $el.data('section-id');
+	this.id = $el.data("section-id");
 
-	this.$el.on(this.clickEventName, '.side-comment .marker', _.bind(this.markerClick, this));
-	this.$el.on(this.clickEventName, '.side-comment .add-comment', _.bind(this.addCommentClick, this));
-	this.$el.on(this.clickEventName, '.side-comment .post', _.bind(this.postCommentClick, this));
-	this.$el.on(this.clickEventName, '.side-comment .cancel', _.bind(this.cancelCommentClick, this));
-	this.$el.on(this.clickEventName, '.side-comment .delete', _.bind(this.deleteCommentClick, this));
+	this.$el.on(this.clickEventName, ".side-comment .marker", _.bind(this.markerClick, this));
+	this.$el.on(this.clickEventName, ".side-comment .add-comment", _.bind(this.addCommentClick, this));
+	this.$el.on(this.clickEventName, ".side-comment .post", _.bind(this.postCommentClick, this));
+	this.$el.on(this.clickEventName, ".side-comment .cancel", _.bind(this.cancelCommentClick, this));
+	this.$el.on(this.clickEventName, ".side-comment .delete", _.bind(this.deleteCommentClick, this));
 	this.render();
 }
 
@@ -623,7 +623,7 @@ Section.prototype.addCommentClick = function( event ) {
   if (this.currentUser) {
   	this.showCommentForm();
   } else {
-  	this.eventPipe.emit('addCommentAttempted');
+  	this.eventPipe.emit("addCommentAttempted");
   }
 };
 
@@ -632,8 +632,8 @@ Section.prototype.addCommentClick = function( event ) {
  */
 Section.prototype.showCommentForm = function() {
   if (this.comments.length > 0) {
-    this.$el.find('.add-comment').addClass('hide');
-    this.$el.find('.comment-form').addClass('active');
+    this.$el.find(".add-comment").addClass("hide");
+    this.$el.find(".comment-form").addClass("active");
   }
 
   this.focusCommentBox();
@@ -644,11 +644,11 @@ Section.prototype.showCommentForm = function() {
  */
 Section.prototype.hideCommentForm = function() {
   if (this.comments.length > 0) {
-    this.$el.find('.add-comment').removeClass('hide');
-    this.$el.find('.comment-form').removeClass('active');
+    this.$el.find(".add-comment").removeClass("hide");
+    this.$el.find(".comment-form").removeClass("active");
   }
 
-  this.$el.find('.comment-box').empty();
+  this.$el.find(".comment-box").empty();
 };
 
 /**
@@ -659,7 +659,7 @@ Section.prototype.focusCommentBox = function() {
 	// "jump" in the form. It renders wider than it should be on screens under 768px
 	// and then jumps to a smaller size.
 	setTimeout(_.bind(function(){
-		this.$el.find('.comment-box').get(0).focus();
+		this.$el.find(".comment-box").get(0).focus();
 	}, this), 300);
 };
 
@@ -680,7 +680,7 @@ Section.prototype.cancelComment = function() {
     this.hideCommentForm();
   } else {
   	this.deselect();
-    this.eventPipe.emit('hideComments');
+    this.eventPipe.emit("hideComments");
   }
 };
 
@@ -697,18 +697,18 @@ Section.prototype.postCommentClick = function( event ) {
  * Post a comment to this section.
  */
 Section.prototype.postComment = function() {
-	var $commentBox = this.$el.find('.comment-box');
-  var commentBody = $commentBox.val();
-  var comment = {
+	var $commentBox = this.$el.find(".comment-box"),
+   commentBody = $commentBox.val(),
+   comment = {
   	sectionId: this.id,
   	comment: commentBody,
   	authorAvatarUrl: this.currentUser.avatarUrl,
   	authorName: this.currentUser.name,
   	authorId: this.currentUser.id,
-  	authorUrl: this.currentUser.authorUrl || null
+  	authorUrl: this.currentUser.authorUrl || null,
   };
-  $commentBox.val(''); // Clear the comment.
-  this.eventPipe.emit('commentPosted', comment);
+  $commentBox.val(""); // Clear the comment.
+  this.eventPipe.emit("commentPosted", comment);
 };
 
 /**
@@ -719,10 +719,10 @@ Section.prototype.insertComment = function( comment ) {
 	this.comments.push(comment);
 	var newCommentHtml = _.template(CommentTemplate, {
 		comment: comment,
-		currentUser: this.currentUser
+		currentUser: this.currentUser,
 	});
-	this.$el.find('.comments').append(newCommentHtml);
-	this.$el.find('.side-comment').addClass('has-comments');
+	this.$el.find(".comments").append(newCommentHtml);
+	this.$el.find(".side-comment").addClass("has-comments");
 	this.updateCommentCount();
 	this.hideCommentForm();
 };
@@ -731,7 +731,7 @@ Section.prototype.insertComment = function( comment ) {
  * Increments the comment count for a given section.
  */
 Section.prototype.updateCommentCount = function() {
-	this.$el.find('.marker span').text(this.comments.length);
+	this.$el.find(".marker span").text(this.comments.length);
 };
 
 /**
@@ -740,7 +740,7 @@ Section.prototype.updateCommentCount = function() {
  */
 Section.prototype.deleteCommentClick = function( event ) {
 	event.preventDefault();
-	var commentId = $(event.target).closest('li').data('comment-id');
+	var commentId = $(event.target).closest("li").data("comment-id");
 
 	if (window.confirm("Are you sure you want to delete this comment?")) {
 		this.deleteComment(commentId);
@@ -753,7 +753,7 @@ Section.prototype.deleteCommentClick = function( event ) {
 Section.prototype.deleteComment = function( commentId ) {
 	var comment = _.find(this.comments, { id: commentId });
 	comment.sectionId = this.id;
-	this.eventPipe.emit('commentDeleted', comment);
+	this.eventPipe.emit("commentDeleted", comment);
 };
 
 /**
@@ -762,10 +762,10 @@ Section.prototype.deleteComment = function( commentId ) {
  */
 Section.prototype.removeComment = function( commentId ) {
 	this.comments = _.reject(this.comments, { id: commentId });
-	this.$el.find('.side-comment .comments li[data-comment-id="'+commentId+'"]').remove();
+	this.$el.find(".side-comment .comments li[data-comment-id=\""+commentId+"\"]").remove();
 	this.updateCommentCount();
 	if (this.comments.length < 1) {
-		this.$el.find('.side-comment').removeClass('has-comments');
+		this.$el.find(".side-comment").removeClass("has-comments");
 	}
 };
 
@@ -775,15 +775,15 @@ Section.prototype.removeComment = function( commentId ) {
 Section.prototype.select = function() {
 	if (this.isSelected()) {
 		this.deselect();
-		this.eventPipe.emit('sectionDeselected', this);
+		this.eventPipe.emit("sectionDeselected", this);
 	} else {
-		this.$el.find('.side-comment').addClass('active');
+		this.$el.find(".side-comment").addClass("active");
 
 		if (this.comments.length === 0 && this.currentUser) {
 		  this.focusCommentBox();
 		}
 
-		this.eventPipe.emit('sectionSelected', this);
+		this.eventPipe.emit("sectionSelected", this);
 	}
 };
 
@@ -791,12 +791,12 @@ Section.prototype.select = function() {
  * Deselect this section.
  */
 Section.prototype.deselect = function() {
-	this.$el.find('.side-comment').removeClass('active');
+	this.$el.find(".side-comment").removeClass("active");
 	this.hideCommentForm();
 };
 
 Section.prototype.isSelected = function() {
-	return this.$el.find('.side-comment').hasClass('active');
+	return this.$el.find(".side-comment").hasClass("active");
 };
 
 /**
@@ -804,13 +804,13 @@ Section.prototype.isSelected = function() {
  * @return {String} The class names to use.
  */
 Section.prototype.sectionClasses = function() {
-	var classes = '';
+	var classes = "";
 
 	if (this.comments.length > 0) {
-		classes = classes + ' has-comments';
+		classes = classes + " has-comments";
 	}
 	if (!this.currentUser) {
-		classes = classes + ' no-current-user'
+		classes = classes + " no-current-user";
 	}
 
 	return classes;
@@ -820,12 +820,12 @@ Section.prototype.sectionClasses = function() {
  * Render this section into the DOM.
  */
 Section.prototype.render = function() {
-	this.$el.find('.side-comment').remove();
+	this.$el.find(".side-comment").remove();
 	$(_.template(Template, {
 	  commentTemplate: CommentTemplate,
 	  comments: this.comments,
 	  sectionClasses: this.sectionClasses(),
-	  currentUser: this.currentUser
+	  currentUser: this.currentUser,
 	})).appendTo(this.$el);
 };
 
@@ -834,7 +834,7 @@ Section.prototype.render = function() {
  */
 Section.prototype.destroy = function() {
 	this.$el.off();
-}
+};
 
 module.exports = Section;
 });
@@ -848,72 +848,72 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-;(function() {
+(function() {
 
   /** Used as a safe reference for `undefined` in pre ES5 environments */
-  var undefined;
+  var undefined,
 
   /** Used to pool arrays and objects used internally */
-  var arrayPool = [];
+   arrayPool = [],
 
   /** Used internally to indicate various things */
-  var indicatorObject = {};
+   indicatorObject = {},
 
   /** Used as the max size of the `arrayPool` and `objectPool` */
-  var maxPoolSize = 40;
+   maxPoolSize = 40,
 
   /** Used to match empty string literals in compiled template source */
-  var reEmptyStringLeading = /\b__p \+= '';/g,
+   reEmptyStringLeading = /\b__p \+= '';/g,
       reEmptyStringMiddle = /\b(__p \+=) '' \+/g,
-      reEmptyStringTrailing = /(__e\(.*?\)|\b__t\)) \+\n'';/g;
+      reEmptyStringTrailing = /(__e\(.*?\)|\b__t\)) \+\n'';/g,
 
   /**
    * Used to match ES6 template delimiters
    * http://people.mozilla.org/~jorendorff/es6-draft.html#sec-literals-string-literals
    */
-  var reEsTemplate = /\$\{([^\\}]*(?:\\.[^\\}]*)*)\}/g;
+   reEsTemplate = /\$\{([^\\}]*(?:\\.[^\\}]*)*)\}/g,
 
   /** Used to match regexp flags from their coerced string values */
-  var reFlags = /\w*$/;
+   reFlags = /\w*$/,
 
   /** Used to detected named functions */
-  var reFuncName = /^\s*function[ \n\r\t]+\w/;
+   reFuncName = /^\s*function[ \n\r\t]+\w/,
 
   /** Used to match "interpolate" template delimiters */
-  var reInterpolate = /<%=([\s\S]+?)%>/g;
+   reInterpolate = /<%=([\s\S]+?)%>/g,
 
   /** Used to ensure capturing order of template delimiters */
-  var reNoMatch = /($^)/;
+   reNoMatch = /($^)/,
 
   /** Used to detect functions containing a `this` reference */
-  var reThis = /\bthis\b/;
+   reThis = /\bthis\b/,
 
   /** Used to match unescaped characters in compiled string literals */
-  var reUnescapedString = /['\n\r\t\u2028\u2029\\]/g;
+   reUnescapedString = /['\n\r\t\u2028\u2029\\]/g,
 
   /** Used to fix the JScript [[DontEnum]] bug */
-  var shadowedProps = [
-    'constructor', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable',
-    'toLocaleString', 'toString', 'valueOf'
-  ];
+   shadowedProps = [
+    "constructor", "hasOwnProperty", "isPrototypeOf", "propertyIsEnumerable",
+    "toLocaleString", "toString", "valueOf",
+  ],
 
   /** Used to make template sourceURLs easier to identify */
-  var templateCounter = 0;
+   templateCounter = 0,
 
   /** `Object#toString` result shortcuts */
-  var argsClass = '[object Arguments]',
-      arrayClass = '[object Array]',
-      boolClass = '[object Boolean]',
-      dateClass = '[object Date]',
-      errorClass = '[object Error]',
-      funcClass = '[object Function]',
-      numberClass = '[object Number]',
-      objectClass = '[object Object]',
-      regexpClass = '[object RegExp]',
-      stringClass = '[object String]';
+   argsClass = "[object Arguments]",
+      arrayClass = "[object Array]",
+      boolClass = "[object Boolean]",
+      dateClass = "[object Date]",
+      errorClass = "[object Error]",
+      funcClass = "[object Function]",
+      numberClass = "[object Number]",
+      objectClass = "[object Object]",
+      regexpClass = "[object RegExp]",
+      stringClass = "[object String]",
 
   /** Used to identify object classifications that `_.clone` supports */
-  var cloneableClasses = {};
+   cloneableClasses = {};
   cloneableClasses[funcClass] = false;
   cloneableClasses[argsClass] = cloneableClasses[arrayClass] =
   cloneableClasses[boolClass] = cloneableClasses[dateClass] =
@@ -922,62 +922,62 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
 
   /** Used as the property descriptor for `__bindData__` */
   var descriptor = {
-    'configurable': false,
-    'enumerable': false,
-    'value': null,
-    'writable': false
-  };
+    "configurable": false,
+    "enumerable": false,
+    "value": null,
+    "writable": false,
+  },
 
   /** Used as the data object for `iteratorTemplate` */
-  var iteratorData = {
-    'args': '',
-    'array': null,
-    'bottom': '',
-    'firstArg': '',
-    'init': '',
-    'keys': null,
-    'loop': '',
-    'shadowedProps': null,
-    'support': null,
-    'top': '',
-    'useHas': false
-  };
+   iteratorData = {
+    "args": "",
+    "array": null,
+    "bottom": "",
+    "firstArg": "",
+    "init": "",
+    "keys": null,
+    "loop": "",
+    "shadowedProps": null,
+    "support": null,
+    "top": "",
+    "useHas": false,
+  },
 
   /** Used to determine if values are of the language type Object */
-  var objectTypes = {
-    'boolean': false,
-    'function': true,
-    'object': true,
-    'number': false,
-    'string': false,
-    'undefined': false
-  };
+   objectTypes = {
+    "boolean": false,
+    "function": true,
+    "object": true,
+    "number": false,
+    "string": false,
+    "undefined": false,
+  },
 
   /** Used to escape characters for inclusion in compiled string literals */
-  var stringEscapes = {
-    '\\': '\\',
+   stringEscapes = {
+    "\\": "\\",
     "'": "'",
-    '\n': 'n',
-    '\r': 'r',
-    '\t': 't',
-    '\u2028': 'u2028',
-    '\u2029': 'u2029'
-  };
+    "\n": "n",
+    "\r": "r",
+    "\t": "t",
+    "\u2028": "u2028",
+    "\u2029": "u2029",
+  },
 
   /** Used as a reference to the global object */
-  var root = (objectTypes[typeof window] && window) || this;
+   root = (objectTypes[typeof window] && window) || this,
 
   /** Detect free variable `exports` */
-  var freeExports = objectTypes[typeof exports] && exports && !exports.nodeType && exports;
+   freeExports = objectTypes[typeof exports] && exports && !exports.nodeType && exports,
 
   /** Detect free variable `module` */
-  var freeModule = objectTypes[typeof module] && module && !module.nodeType && module;
+   freeModule = objectTypes[typeof module] && module && !module.nodeType && module,
 
   /** Detect the popular CommonJS extension `module.exports` */
-  var moduleExports = freeModule && freeModule.exports === freeExports && freeExports;
+   moduleExports = freeModule && freeModule.exports === freeExports && freeExports,
 
   /** Detect free variable `global` from Node.js or Browserified code and use it as `root` */
-  var freeGlobal = objectTypes[typeof global] && global;
+   freeGlobal = objectTypes[typeof global] && global;
   if (freeGlobal && (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal)) {
     root = freeGlobal;
   }
@@ -993,7 +993,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * @returns {string} Returns the escaped character.
    */
   function escapeStringChar(match) {
-    return '\\' + stringEscapes[match];
+    return "\\" + stringEscapes[match];
   }
 
   /**
@@ -1016,7 +1016,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
   function isNode(value) {
     // IE < 9 presents DOM nodes as `Object` objects except they have `toString`
     // methods that are `typeof` "string" and still can coerce nodes to strings
-    return typeof value.toString != 'function' && typeof (value + '') == 'string';
+    return typeof value.toString !== "function" && typeof (value + "") === "string";
   }
 
   /**
@@ -1047,7 +1047,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    */
   function slice(array, start, end) {
     start || (start = 0);
-    if (typeof end == 'undefined') {
+    if (typeof end === "undefined") {
       end = array ? array.length : 0;
     }
     var index = -1,
@@ -1068,32 +1068,32 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * Normally `Array.prototype` would suffice, however, using an array literal
    * avoids issues in Narwhal.
    */
-  var arrayRef = [];
+  var arrayRef = [],
 
   /** Used for native method references */
-  var errorProto = Error.prototype,
+   errorProto = Error.prototype,
       objectProto = Object.prototype,
-      stringProto = String.prototype;
+      stringProto = String.prototype,
 
   /** Used to resolve the internal [[Class]] of values */
-  var toString = objectProto.toString;
+   toString = objectProto.toString,
 
   /** Used to detect if a method is native */
-  var reNative = RegExp('^' +
+   reNative = RegExp("^" +
     String(toString)
-      .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-      .replace(/toString| for [^\]]+/g, '.*?') + '$'
-  );
+      .replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+      .replace(/toString| for [^\]]+/g, ".*?") + "$",
+  ),
 
   /** Native method shortcuts */
-  var fnToString = Function.prototype.toString,
+   fnToString = Function.prototype.toString,
       hasOwnProperty = objectProto.hasOwnProperty,
       push = arrayRef.push,
       propertyIsEnumerable = objectProto.propertyIsEnumerable,
-      unshift = arrayRef.unshift;
+      unshift = arrayRef.unshift,
 
   /** Used to set meta data on functions */
-  var defineProperty = (function() {
+   defineProperty = (function() {
     // IE 8 only accepts DOM elements
     try {
       var o = {},
@@ -1101,15 +1101,15 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
           result = func(o, o, o) && func;
     } catch(e) { }
     return result;
-  }());
+  }()),
 
   /* Native method shortcuts for methods with the same name as other `lodash` methods */
-  var nativeCreate = isNative(nativeCreate = Object.create) && nativeCreate,
+   nativeCreate = isNative(nativeCreate = Object.create) && nativeCreate,
       nativeIsArray = isNative(nativeIsArray = Array.isArray) && nativeIsArray,
-      nativeKeys = isNative(nativeKeys = Object.keys) && nativeKeys;
+      nativeKeys = isNative(nativeKeys = Object.keys) && nativeKeys,
 
   /** Used to lookup a built-in constructor by [[Class]] */
-  var ctorByClass = {};
+   ctorByClass = {};
   ctorByClass[arrayClass] = Array;
   ctorByClass[boolClass] = Boolean;
   ctorByClass[dateClass] = Date;
@@ -1121,10 +1121,10 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
 
   /** Used to avoid iterating non-enumerable properties in IE < 9 */
   var nonEnumProps = {};
-  nonEnumProps[arrayClass] = nonEnumProps[dateClass] = nonEnumProps[numberClass] = { 'constructor': true, 'toLocaleString': true, 'toString': true, 'valueOf': true };
-  nonEnumProps[boolClass] = nonEnumProps[stringClass] = { 'constructor': true, 'toString': true, 'valueOf': true };
-  nonEnumProps[errorClass] = nonEnumProps[funcClass] = nonEnumProps[regexpClass] = { 'constructor': true, 'toString': true };
-  nonEnumProps[objectClass] = { 'constructor': true };
+  nonEnumProps[arrayClass] = nonEnumProps[dateClass] = nonEnumProps[numberClass] = { "constructor": true, "toLocaleString": true, "toString": true, "valueOf": true };
+  nonEnumProps[boolClass] = nonEnumProps[stringClass] = { "constructor": true, "toString": true, "valueOf": true };
+  nonEnumProps[errorClass] = nonEnumProps[funcClass] = nonEnumProps[regexpClass] = { "constructor": true, "toString": true };
+  nonEnumProps[objectClass] = { "constructor": true };
 
   (function() {
     var length = shadowedProps.length;
@@ -1220,10 +1220,10 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
 
   (function() {
     var ctor = function() { this.x = 1; },
-        object = { '0': 1, 'length': 1 },
+        object = { "0": 1, "length": 1 },
         props = [];
 
-    ctor.prototype = { 'valueOf': 1, 'y': 1 };
+    ctor.prototype = { "valueOf": 1, "y": 1 };
     for (var key in new ctor) { props.push(key); }
     for (key in arguments) { }
 
@@ -1250,7 +1250,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
      * @memberOf _.support
      * @type boolean
      */
-    support.enumErrorProps = propertyIsEnumerable.call(errorProto, 'message') || propertyIsEnumerable.call(errorProto, 'name');
+    support.enumErrorProps = propertyIsEnumerable.call(errorProto, "message") || propertyIsEnumerable.call(errorProto, "name");
 
     /**
      * Detect if `prototype` properties are enumerable by default.
@@ -1263,7 +1263,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
      * @memberOf _.support
      * @type boolean
      */
-    support.enumPrototypes = propertyIsEnumerable.call(ctor, 'prototype');
+    support.enumPrototypes = propertyIsEnumerable.call(ctor, "prototype");
 
     /**
      * Detect if functions can be decompiled by `Function#toString`
@@ -1280,7 +1280,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
      * @memberOf _.support
      * @type boolean
      */
-    support.funcNames = typeof Function.name == 'string';
+    support.funcNames = typeof Function.name === "string";
 
     /**
      * Detect if `arguments` object indexes are non-enumerable
@@ -1325,7 +1325,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
      * @memberOf _.support
      * @type boolean
      */
-    support.unindexedChars = ('x'[0] + Object('x')[0]) != 'xx';
+    support.unindexedChars = ("x"[0] + Object("x")[0]) != "xx";
 
     /**
      * Detect if a DOM node's [[Class]] is resolvable (all but IE < 9)
@@ -1336,7 +1336,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
      * @type boolean
      */
     try {
-      support.nodeClass = !(toString.call(document) == objectClass && !({ 'toString': 0 } + ''));
+      support.nodeClass = !(toString.call(document) == objectClass && !({ "toString": 0 } + ""));
     } catch(e) {
       support.nodeClass = true;
     }
@@ -1359,7 +1359,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
      * @memberOf _.templateSettings
      * @type RegExp
      */
-    'escape': /<%-([\s\S]+?)%>/g,
+    "escape": /<%-([\s\S]+?)%>/g,
 
     /**
      * Used to detect code to be evaluated.
@@ -1367,7 +1367,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
      * @memberOf _.templateSettings
      * @type RegExp
      */
-    'evaluate': /<%([\s\S]+?)%>/g,
+    "evaluate": /<%([\s\S]+?)%>/g,
 
     /**
      * Used to detect `data` property values to inject.
@@ -1375,7 +1375,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
      * @memberOf _.templateSettings
      * @type RegExp
      */
-    'interpolate': reInterpolate,
+    "interpolate": reInterpolate,
 
     /**
      * Used to reference the data object in the template text.
@@ -1383,7 +1383,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
      * @memberOf _.templateSettings
      * @type string
      */
-    'variable': '',
+    "variable": "",
 
     /**
      * Used to import variables into the compiled template.
@@ -1391,7 +1391,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
      * @memberOf _.templateSettings
      * @type Object
      */
-    'imports': {
+    "imports": {
 
       /**
        * A reference to the `lodash` function.
@@ -1399,8 +1399,8 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
        * @memberOf _.templateSettings.imports
        * @type Function
        */
-      '_': lodash
-    }
+      "_": lodash,
+    },
   };
 
   /*--------------------------------------------------------------------------*/
@@ -1414,93 +1414,93 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    */
   var iteratorTemplate = function(obj) {
 
-    var __p = 'var index, iterable = ' +
+    var __p = "var index, iterable = " +
     (obj.firstArg) +
-    ', result = ' +
+    ", result = " +
     (obj.init) +
-    ';\nif (!iterable) return result;\n' +
+    ";\nif (!iterable) return result;\n" +
     (obj.top) +
-    ';';
+    ";";
      if (obj.array) {
-    __p += '\nvar length = iterable.length; index = -1;\nif (' +
+    __p += "\nvar length = iterable.length; index = -1;\nif (" +
     (obj.array) +
-    ') {  ';
+    ") {  ";
      if (support.unindexedChars) {
-    __p += '\n  if (isString(iterable)) {\n    iterable = iterable.split(\'\')\n  }  ';
+    __p += "\n  if (isString(iterable)) {\n    iterable = iterable.split('')\n  }  ";
      }
-    __p += '\n  while (++index < length) {\n    ' +
+    __p += "\n  while (++index < length) {\n    " +
     (obj.loop) +
-    ';\n  }\n}\nelse {  ';
+    ";\n  }\n}\nelse {  ";
      } else if (support.nonEnumArgs) {
-    __p += '\n  var length = iterable.length; index = -1;\n  if (length && isArguments(iterable)) {\n    while (++index < length) {\n      index += \'\';\n      ' +
+    __p += "\n  var length = iterable.length; index = -1;\n  if (length && isArguments(iterable)) {\n    while (++index < length) {\n      index += '';\n      " +
     (obj.loop) +
-    ';\n    }\n  } else {  ';
+    ";\n    }\n  } else {  ";
      }
 
      if (support.enumPrototypes) {
-    __p += '\n  var skipProto = typeof iterable == \'function\';\n  ';
+    __p += "\n  var skipProto = typeof iterable == 'function';\n  ";
      }
 
      if (support.enumErrorProps) {
-    __p += '\n  var skipErrorProps = iterable === errorProto || iterable instanceof Error;\n  ';
+    __p += "\n  var skipErrorProps = iterable === errorProto || iterable instanceof Error;\n  ";
      }
 
-        var conditions = [];    if (support.enumPrototypes) { conditions.push('!(skipProto && index == "prototype")'); }    if (support.enumErrorProps)  { conditions.push('!(skipErrorProps && (index == "message" || index == "name"))'); }
+        var conditions = []; if (support.enumPrototypes) { conditions.push("!(skipProto && index == \"prototype\")"); } if (support.enumErrorProps) { conditions.push("!(skipErrorProps && (index == \"message\" || index == \"name\"))"); }
 
      if (obj.useHas && obj.keys) {
-    __p += '\n  var ownIndex = -1,\n      ownProps = objectTypes[typeof iterable] && keys(iterable),\n      length = ownProps ? ownProps.length : 0;\n\n  while (++ownIndex < length) {\n    index = ownProps[ownIndex];\n';
+    __p += "\n  var ownIndex = -1,\n      ownProps = objectTypes[typeof iterable] && keys(iterable),\n      length = ownProps ? ownProps.length : 0;\n\n  while (++ownIndex < length) {\n    index = ownProps[ownIndex];\n";
         if (conditions.length) {
-    __p += '    if (' +
-    (conditions.join(' && ')) +
-    ') {\n  ';
+    __p += "    if (" +
+    (conditions.join(" && ")) +
+    ") {\n  ";
      }
     __p +=
     (obj.loop) +
-    ';    ';
+    ";    ";
      if (conditions.length) {
-    __p += '\n    }';
+    __p += "\n    }";
      }
-    __p += '\n  }  ';
+    __p += "\n  }  ";
      } else {
-    __p += '\n  for (index in iterable) {\n';
-        if (obj.useHas) { conditions.push("hasOwnProperty.call(iterable, index)"); }    if (conditions.length) {
-    __p += '    if (' +
-    (conditions.join(' && ')) +
-    ') {\n  ';
+    __p += "\n  for (index in iterable) {\n";
+        if (obj.useHas) { conditions.push("hasOwnProperty.call(iterable, index)"); } if (conditions.length) {
+    __p += "    if (" +
+    (conditions.join(" && ")) +
+    ") {\n  ";
      }
     __p +=
     (obj.loop) +
-    ';    ';
+    ";    ";
      if (conditions.length) {
-    __p += '\n    }';
+    __p += "\n    }";
      }
-    __p += '\n  }    ';
+    __p += "\n  }    ";
      if (support.nonEnumShadows) {
-    __p += '\n\n  if (iterable !== objectProto) {\n    var ctor = iterable.constructor,\n        isProto = iterable === (ctor && ctor.prototype),\n        className = iterable === stringProto ? stringClass : iterable === errorProto ? errorClass : toString.call(iterable),\n        nonEnum = nonEnumProps[className];\n      ';
+    __p += "\n\n  if (iterable !== objectProto) {\n    var ctor = iterable.constructor,\n        isProto = iterable === (ctor && ctor.prototype),\n        className = iterable === stringProto ? stringClass : iterable === errorProto ? errorClass : toString.call(iterable),\n        nonEnum = nonEnumProps[className];\n      ";
      for (k = 0; k < 7; k++) {
-    __p += '\n    index = \'' +
+    __p += "\n    index = '" +
     (obj.shadowedProps[k]) +
-    '\';\n    if ((!(isProto && nonEnum[index]) && hasOwnProperty.call(iterable, index))';
+    "';\n    if ((!(isProto && nonEnum[index]) && hasOwnProperty.call(iterable, index))";
             if (!obj.useHas) {
-    __p += ' || (!nonEnum[index] && iterable[index] !== objectProto[index])';
+    __p += " || (!nonEnum[index] && iterable[index] !== objectProto[index])";
      }
-    __p += ') {\n      ' +
+    __p += ") {\n      " +
     (obj.loop) +
-    ';\n    }      ';
+    ";\n    }      ";
      }
-    __p += '\n  }    ';
+    __p += "\n  }    ";
      }
 
      }
 
      if (obj.array || support.nonEnumArgs) {
-    __p += '\n}';
+    __p += "\n}";
      }
     __p +=
     (obj.bottom) +
-    ';\nreturn result';
+    ";\nreturn result";
 
-    return __p
+    return __p;
   };
 
   /*--------------------------------------------------------------------------*/
@@ -1557,7 +1557,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
   function baseClone(value, isDeep, callback, stackA, stackB) {
     if (callback) {
       var result = callback(value);
-      if (typeof result != 'undefined') {
+      if (typeof result !== "undefined") {
         return result;
       }
     }
@@ -1606,10 +1606,10 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
     }
     // add array properties assigned by `RegExp#exec`
     if (isArr) {
-      if (hasOwnProperty.call(value, 'index')) {
+      if (hasOwnProperty.call(value, "index")) {
         result.index = value.index;
       }
-      if (hasOwnProperty.call(value, 'input')) {
+      if (hasOwnProperty.call(value, "input")) {
         result.input = value.input;
       }
     }
@@ -1671,15 +1671,15 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * @returns {Function} Returns a callback function.
    */
   function baseCreateCallback(func, thisArg, argCount) {
-    if (typeof func != 'function') {
+    if (typeof func !== "function") {
       return identity;
     }
     // exit early for no `thisArg` or already bound by `Function#bind`
-    if (typeof thisArg == 'undefined' || !('prototype' in func)) {
+    if (typeof thisArg === "undefined" || !("prototype" in func)) {
       return func;
     }
     var bindData = func.__bindData__;
-    if (typeof bindData == 'undefined') {
+    if (typeof bindData === "undefined") {
       if (support.funcNames) {
         bindData = !func.name;
       }
@@ -1731,9 +1731,9 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
         partialArgs = bindData[2],
         partialRightArgs = bindData[3],
         thisArg = bindData[4],
-        arity = bindData[5];
+        arity = bindData[5],
 
-    var isBind = bitmask & 1,
+     isBind = bitmask & 1,
         isBindKey = bitmask & 2,
         isCurry = bitmask & 4,
         isCurryBound = bitmask & 8,
@@ -1787,7 +1787,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
     // used to indicate that when comparing objects, `a` has at least the properties of `b`
     if (callback) {
       var result = callback(a, b);
-      if (typeof result != 'undefined') {
+      if (typeof result !== "undefined") {
         return !!result;
       }
     }
@@ -1846,8 +1846,8 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
     var isArr = className == arrayClass;
     if (!isArr) {
       // unwrap any `lodash` wrapped values
-      var aWrapped = hasOwnProperty.call(a, '__wrapped__'),
-          bWrapped = hasOwnProperty.call(b, '__wrapped__');
+      var aWrapped = hasOwnProperty.call(a, "__wrapped__"),
+          bWrapped = hasOwnProperty.call(b, "__wrapped__");
 
       if (aWrapped || bWrapped) {
         return baseIsEqual(aWrapped ? a.__wrapped__ : a, bWrapped ? b.__wrapped__ : b, callback, isWhere, stackA, stackB);
@@ -1863,7 +1863,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
       // non `Object` object instances with different constructors are not equal
       if (ctorA != ctorB &&
             !(isFunction(ctorA) && ctorA instanceof ctorA && isFunction(ctorB) && ctorB instanceof ctorB) &&
-            ('constructor' in a && 'constructor' in b)
+            ("constructor" in a && "constructor" in b)
           ) {
         return false;
       }
@@ -2044,8 +2044,8 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
     iteratorData.shadowedProps = shadowedProps;
 
     // iterator options
-    iteratorData.array = iteratorData.bottom = iteratorData.loop = iteratorData.top = '';
-    iteratorData.init = 'iterable';
+    iteratorData.array = iteratorData.bottom = iteratorData.loop = iteratorData.top = "";
+    iteratorData.init = "iterable";
     iteratorData.useHas = true;
 
     // merge options into a template data object
@@ -2059,17 +2059,17 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
 
     // create the function factory
     var factory = Function(
-        'baseCreateCallback, errorClass, errorProto, hasOwnProperty, ' +
-        'indicatorObject, isArguments, isArray, isString, keys, objectProto, ' +
-        'objectTypes, nonEnumProps, stringClass, stringProto, toString',
-      'return function(' + args + ') {\n' + iteratorTemplate(iteratorData) + '\n}'
+        "baseCreateCallback, errorClass, errorProto, hasOwnProperty, " +
+        "indicatorObject, isArguments, isArray, isString, keys, objectProto, " +
+        "objectTypes, nonEnumProps, stringClass, stringProto, toString",
+      "return function(" + args + ") {\n" + iteratorTemplate(iteratorData) + "\n}",
     );
 
     // return the compiled function
     return factory(
       baseCreateCallback, errorClass, errorProto, hasOwnProperty,
       indicatorObject, isArguments, isArray, isString, iteratorData.keys, objectProto,
-      objectTypes, nonEnumProps, stringClass, stringProto, toString
+      objectTypes, nonEnumProps, stringClass, stringProto, toString,
     );
   }
 
@@ -2092,7 +2092,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * @returns {boolean} Returns `true` if the `value` is a native function, else `false`.
    */
   function isNative(value) {
-    return typeof value == 'function' && reNative.test(value);
+    return typeof value === "function" && reNative.test(value);
   }
 
   /**
@@ -2104,7 +2104,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    */
   var setBindData = !defineProperty ? noop : function(func, value) {
     descriptor.value = value;
-    defineProperty(func, '__bindData__', descriptor);
+    defineProperty(func, "__bindData__", descriptor);
   };
 
   /*--------------------------------------------------------------------------*/
@@ -2126,14 +2126,14 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * // => false
    */
   function isArguments(value) {
-    return value && typeof value == 'object' && typeof value.length == 'number' &&
+    return value && typeof value === "object" && typeof value.length === "number" &&
       toString.call(value) == argsClass || false;
   }
   // fallback for browsers that can't detect `arguments` objects by [[Class]]
   if (!support.argsClass) {
     isArguments = function(value) {
-      return value && typeof value == 'object' && typeof value.length == 'number' &&
-        hasOwnProperty.call(value, 'callee') && !propertyIsEnumerable.call(value, 'callee') || false;
+      return value && typeof value === "object" && typeof value.length === "number" &&
+        hasOwnProperty.call(value, "callee") && !propertyIsEnumerable.call(value, "callee") || false;
     };
   }
 
@@ -2155,9 +2155,9 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * // => true
    */
   var isArray = nativeIsArray || function(value) {
-    return value && typeof value == 'object' && typeof value.length == 'number' &&
+    return value && typeof value === "object" && typeof value.length === "number" &&
       toString.call(value) == arrayClass || false;
-  };
+  },
 
   /**
    * A fallback implementation of `Object.keys` which produces an array of the
@@ -2168,12 +2168,12 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * @param {Object} object The object to inspect.
    * @returns {Array} Returns an array of property names.
    */
-  var shimKeys = createIterator({
-    'args': 'object',
-    'init': '[]',
-    'top': 'if (!(objectTypes[typeof object])) return result',
-    'loop': 'result.push(index)'
-  });
+   shimKeys = createIterator({
+    "args": "object",
+    "init": "[]",
+    "top": "if (!(objectTypes[typeof object])) return result",
+    "loop": "result.push(index)",
+  }),
 
   /**
    * Creates an array composed of the own enumerable property names of an object.
@@ -2188,46 +2188,46 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * _.keys({ 'one': 1, 'two': 2, 'three': 3 });
    * // => ['one', 'two', 'three'] (property order is not guaranteed across environments)
    */
-  var keys = !nativeKeys ? shimKeys : function(object) {
+   keys = !nativeKeys ? shimKeys : function(object) {
     if (!isObject(object)) {
       return [];
     }
-    if ((support.enumPrototypes && typeof object == 'function') ||
+    if ((support.enumPrototypes && typeof object === "function") ||
         (support.nonEnumArgs && object.length && isArguments(object))) {
       return shimKeys(object);
     }
     return nativeKeys(object);
-  };
+  },
 
   /** Reusable iterator options shared by `each`, `forIn`, and `forOwn` */
-  var eachIteratorOptions = {
-    'args': 'collection, callback, thisArg',
-    'top': "callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3)",
-    'array': "typeof length == 'number'",
-    'keys': keys,
-    'loop': 'if (callback(iterable[index], index, collection) === false) return result'
-  };
+   eachIteratorOptions = {
+    "args": "collection, callback, thisArg",
+    "top": "callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3)",
+    "array": "typeof length == 'number'",
+    "keys": keys,
+    "loop": "if (callback(iterable[index], index, collection) === false) return result",
+  },
 
   /** Reusable iterator options for `assign` and `defaults` */
-  var defaultsIteratorOptions = {
-    'args': 'object, source, guard',
-    'top':
-      'var args = arguments,\n' +
-      '    argsIndex = 0,\n' +
+   defaultsIteratorOptions = {
+    "args": "object, source, guard",
+    "top":
+      "var args = arguments,\n" +
+      "    argsIndex = 0,\n" +
       "    argsLength = typeof guard == 'number' ? 2 : args.length;\n" +
-      'while (++argsIndex < argsLength) {\n' +
-      '  iterable = args[argsIndex];\n' +
-      '  if (iterable && objectTypes[typeof iterable]) {',
-    'keys': keys,
-    'loop': "if (typeof result[index] == 'undefined') result[index] = iterable[index]",
-    'bottom': '  }\n}'
-  };
+      "while (++argsIndex < argsLength) {\n" +
+      "  iterable = args[argsIndex];\n" +
+      "  if (iterable && objectTypes[typeof iterable]) {",
+    "keys": keys,
+    "loop": "if (typeof result[index] == 'undefined') result[index] = iterable[index]",
+    "bottom": "  }\n}",
+  },
 
   /** Reusable iterator options for `forIn` and `forOwn` */
-  var forOwnIteratorOptions = {
-    'top': 'if (!objectTypes[typeof iterable]) return result;\n' + eachIteratorOptions.top,
-    'array': false
-  };
+   forOwnIteratorOptions = {
+    "top": "if (!objectTypes[typeof iterable]) return result;\n" + eachIteratorOptions.top,
+    "array": false,
+  },
 
   /**
    * Used to convert characters to HTML entities:
@@ -2237,16 +2237,16 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * of a tag or an unquoted attribute value.
    * http://mathiasbynens.be/notes/ambiguous-ampersands (under "semi-related fun fact")
    */
-  var htmlEscapes = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;'
-  };
+   htmlEscapes = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    "\"": "&quot;",
+    "'": "&#39;",
+  },
 
   /** Used to match HTML entities and HTML characters */
-  var reUnescapedHtml = RegExp('[' + keys(htmlEscapes).join('') + ']', 'g');
+   reUnescapedHtml = RegExp("[" + keys(htmlEscapes).join("") + "]", "g"),
 
   /**
    * A function compiled to iterate `arguments` objects, arrays, objects, and
@@ -2262,7 +2262,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * @param {*} [thisArg] The `this` binding of `callback`.
    * @returns {Array|Object|string} Returns `collection`.
    */
-  var baseEach = createIterator(eachIteratorOptions);
+   baseEach = createIterator(eachIteratorOptions),
 
   /*--------------------------------------------------------------------------*/
 
@@ -2296,17 +2296,17 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * defaults(object, { 'name': 'fred', 'employer': 'slate' });
    * // => { 'name': 'barney', 'employer': 'slate' }
    */
-  var assign = createIterator(defaultsIteratorOptions, {
-    'top':
-      defaultsIteratorOptions.top.replace(';',
-        ';\n' +
+   assign = createIterator(defaultsIteratorOptions, {
+    "top":
+      defaultsIteratorOptions.top.replace(";",
+        ";\n" +
         "if (argsLength > 3 && typeof args[argsLength - 2] == 'function') {\n" +
-        '  var callback = baseCreateCallback(args[--argsLength - 1], args[argsLength--], 2);\n' +
+        "  var callback = baseCreateCallback(args[--argsLength - 1], args[argsLength--], 2);\n" +
         "} else if (argsLength > 2 && typeof args[argsLength - 1] == 'function') {\n" +
-        '  callback = args[--argsLength];\n' +
-        '}'
+        "  callback = args[--argsLength];\n" +
+        "}",
       ),
-    'loop': 'result[index] = callback ? callback(result[index], iterable[index]) : iterable[index]'
+    "loop": "result[index] = callback ? callback(result[index], iterable[index]) : iterable[index]",
   });
 
   /**
@@ -2352,12 +2352,12 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
   function clone(value, isDeep, callback, thisArg) {
     // allows working with "Collections" methods without using their `index`
     // and `collection` arguments for `isDeep` and `callback`
-    if (typeof isDeep != 'boolean' && isDeep != null) {
+    if (typeof isDeep !== "boolean" && isDeep != null) {
       thisArg = callback;
       callback = isDeep;
       isDeep = false;
     }
-    return baseClone(value, isDeep, typeof callback == 'function' && baseCreateCallback(callback, thisArg, 1));
+    return baseClone(value, isDeep, typeof callback === "function" && baseCreateCallback(callback, thisArg, 1));
   }
 
   /**
@@ -2402,7 +2402,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * // => false
    */
   function cloneDeep(value, callback, thisArg) {
-    return baseClone(value, true, typeof callback == 'function' && baseCreateCallback(callback, thisArg, 1));
+    return baseClone(value, true, typeof callback === "function" && baseCreateCallback(callback, thisArg, 1));
   }
 
   /**
@@ -2425,7 +2425,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * _.defaults(object, { 'name': 'fred', 'employer': 'slate' });
    * // => { 'name': 'barney', 'employer': 'slate' }
    */
-  var defaults = createIterator(defaultsIteratorOptions);
+  var defaults = createIterator(defaultsIteratorOptions),
 
   /**
    * Iterates over own and inherited enumerable properties of an object,
@@ -2458,9 +2458,9 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * });
    * // => logs 'x', 'y', and 'move' (property order is not guaranteed across environments)
    */
-  var forIn = createIterator(eachIteratorOptions, forOwnIteratorOptions, {
-    'useHas': false
-  });
+   forIn = createIterator(eachIteratorOptions, forOwnIteratorOptions, {
+    "useHas": false,
+  }),
 
   /**
    * Iterates over own enumerable properties of an object, executing the callback
@@ -2483,7 +2483,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * });
    * // => logs '0', '1', and 'length' (property order is not guaranteed across environments)
    */
-  var forOwn = createIterator(eachIteratorOptions, forOwnIteratorOptions);
+   forOwn = createIterator(eachIteratorOptions, forOwnIteratorOptions);
 
   /**
    * Checks if `value` is a function.
@@ -2499,12 +2499,12 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * // => true
    */
   function isFunction(value) {
-    return typeof value == 'function';
+    return typeof value === "function";
   }
   // fallback for older versions of Chrome and Safari
   if (isFunction(/x/)) {
     isFunction = function(value) {
-      return typeof value == 'function' && toString.call(value) == funcClass;
+      return typeof value === "function" && toString.call(value) == funcClass;
     };
   }
 
@@ -2550,8 +2550,8 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * // => true
    */
   function isString(value) {
-    return typeof value == 'string' ||
-      value && typeof value == 'object' && toString.call(value) == stringClass || false;
+    return typeof value === "string" ||
+      value && typeof value === "object" && toString.call(value) == stringClass || false;
   }
 
   /**
@@ -2740,7 +2740,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * // => logs each number and returns the object (property order is not guaranteed across environments)
    */
   function forEach(collection, callback, thisArg) {
-    if (callback && typeof thisArg == 'undefined' && isArray(collection)) {
+    if (callback && typeof thisArg === "undefined" && isArray(collection)) {
       var index = -1,
           length = collection.length;
 
@@ -2865,11 +2865,11 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    */
   function createCallback(func, thisArg, argCount) {
     var type = typeof func;
-    if (func == null || type == 'function') {
+    if (func == null || type == "function") {
       return baseCreateCallback(func, thisArg, argCount);
     }
     // handle "_.pluck" style callback shorthands
-    if (type != 'object') {
+    if (type != "object") {
       return property(func);
     }
     var props = keys(func),
@@ -2913,7 +2913,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * // => 'Fred, Wilma, &amp; Pebbles'
    */
   function escape(string) {
-    return string == null ? '' : String(string).replace(reUnescapedHtml, escapeHtmlChar);
+    return string == null ? "" : String(string).replace(reUnescapedHtml, escapeHtmlChar);
   }
 
   /**
@@ -3072,27 +3072,27 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
     // and Laura Doktorova's doT.js
     // https://github.com/olado/doT
     var settings = lodash.templateSettings;
-    text = String(text || '');
+    text = String(text || "");
 
     // avoid missing dependencies when `iteratorTemplate` is not defined
     options = defaults({}, options, settings);
 
     var imports = defaults({}, options.imports, settings.imports),
         importsKeys = keys(imports),
-        importsValues = values(imports);
+        importsValues = values(imports),
 
-    var isEvaluating,
+     isEvaluating,
         index = 0,
         interpolate = options.interpolate || reNoMatch,
-        source = "__p += '";
+        source = "__p += '",
 
     // compile the regexp to match each delimiter
-    var reDelimiters = RegExp(
-      (options.escape || reNoMatch).source + '|' +
-      interpolate.source + '|' +
-      (interpolate === reInterpolate ? reEsTemplate : reNoMatch).source + '|' +
-      (options.evaluate || reNoMatch).source + '|$'
-    , 'g');
+     reDelimiters = RegExp(
+      (options.escape || reNoMatch).source + "|" +
+      interpolate.source + "|" +
+      (interpolate === reInterpolate ? reEsTemplate : reNoMatch).source + "|" +
+      (options.evaluate || reNoMatch).source + "|$"
+    , "g");
 
     text.replace(reDelimiters, function(match, escapeValue, interpolateValue, esTemplateValue, evaluateValue, offset) {
       interpolateValue || (interpolateValue = esTemplateValue);
@@ -3126,32 +3126,32 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
         hasVariable = variable;
 
     if (!hasVariable) {
-      variable = 'obj';
-      source = 'with (' + variable + ') {\n' + source + '\n}\n';
+      variable = "obj";
+      source = "with (" + variable + ") {\n" + source + "\n}\n";
     }
     // cleanup code by stripping empty strings
-    source = (isEvaluating ? source.replace(reEmptyStringLeading, '') : source)
-      .replace(reEmptyStringMiddle, '$1')
-      .replace(reEmptyStringTrailing, '$1;');
+    source = (isEvaluating ? source.replace(reEmptyStringLeading, "") : source)
+      .replace(reEmptyStringMiddle, "$1")
+      .replace(reEmptyStringTrailing, "$1;");
 
     // frame code as the function body
-    source = 'function(' + variable + ') {\n' +
-      (hasVariable ? '' : variable + ' || (' + variable + ' = {});\n') +
+    source = "function(" + variable + ") {\n" +
+      (hasVariable ? "" : variable + " || (" + variable + " = {});\n") +
       "var __t, __p = '', __e = _.escape" +
       (isEvaluating
-        ? ', __j = Array.prototype.join;\n' +
+        ? ", __j = Array.prototype.join;\n" +
           "function print() { __p += __j.call(arguments, '') }\n"
-        : ';\n'
+        : ";\n"
       ) +
       source +
-      'return __p\n}';
+      "return __p\n}";
 
     // Use a sourceURL for easier debugging.
     // http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl
-    var sourceURL = '\n/*\n//# sourceURL=' + (options.sourceURL || '/lodash/template/source[' + (templateCounter++) + ']') + '\n*/';
+    var sourceURL = "\n/*\n//# sourceURL=" + (options.sourceURL || "/lodash/template/source[" + (templateCounter++) + "]") + "\n*/";
 
     try {
-      var result = Function(importsKeys, 'return ' + source + sourceURL).apply(undefined, importsValues);
+      var result = Function(importsKeys, "return " + source + sourceURL).apply(undefined, importsValues);
     } catch(e) {
       e.source = source;
       throw e;
@@ -3213,7 +3213,7 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
    * @memberOf _
    * @type string
    */
-  lodash.VERSION = '2.4.1';
+  lodash.VERSION = "2.4.1";
 
   /*--------------------------------------------------------------------------*/
 
@@ -3234,16 +3234,16 @@ require.register("side-comments/js/vendor/lodash-custom.js", function(exports, r
 require.register("side-comments/js/helpers/mobile-check.js", function(exports, require, module){
 module.exports = function() {
 	var check = false;
-	(function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4)))check = true})(navigator.userAgent||navigator.vendor||window.opera);
+	(function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))){check = true;}})(navigator.userAgent||navigator.vendor||window.opera);
 	return check;
-}
+};
 });
 
 require.register("side-comments/templates/section.html", function(exports, require, module){
-module.exports = '<div class="side-comment <%= sectionClasses %>">\n  <a href="#" class="marker">\n    <span><%= comments.length %></span>\n  </a>\n  \n  <div class="comments-wrapper">\n    <ul class="comments">\n      <% _.each(comments, function( comment ){ %>\n        <%= _.template(commentTemplate, { comment: comment, currentUser: currentUser }) %>\n      <% }) %>\n    </ul>\n    \n    <a href="#" class="add-comment">Leave a comment</a>\n    \n    <% if (currentUser){ %>\n      <div class="comment-form">\n        <div class="author-avatar">\n          <img src="<%= currentUser.avatarUrl %>">\n        </div>\n        <p class="author-name">\n          <%= currentUser.name %>\n        </p>\n        <input type="text" class="comment-box right-of-avatar" placeholder="Leave a comment...">\n        <div class="actions right-of-avatar">\n          <a href="#" class="action-link post">Post</a>\n          <a href="#" class="action-link cancel">Cancel</a>\n        </div>\n      </div>\n    <% } %>\n  </div>\n</div>';
+module.exports = "<div class=\"side-comment <%= sectionClasses %>\">\n  <a href=\"#\" class=\"marker\">\n    <span><%= comments.length %></span>\n  </a>\n  \n  <div class=\"comments-wrapper\">\n    <ul class=\"comments\">\n      <% _.each(comments, function( comment ){ %>\n        <%= _.template(commentTemplate, { comment: comment, currentUser: currentUser }) %>\n      <% }) %>\n    </ul>\n    \n    <a href=\"#\" class=\"add-comment\">Leave a comment</a>\n    \n    <% if (currentUser){ %>\n      <div class=\"comment-form\">\n        <div class=\"author-avatar\">\n          <img src=\"<%= currentUser.avatarUrl %>\">\n        </div>\n        <p class=\"author-name\">\n          <%= currentUser.name %>\n        </p>\n        <input type=\"text\" class=\"comment-box right-of-avatar\" placeholder=\"Leave a comment...\">\n        <div class=\"actions right-of-avatar\">\n          <a href=\"#\" class=\"action-link post\">Post</a>\n          <a href=\"#\" class=\"action-link cancel\">Cancel</a>\n        </div>\n      </div>\n    <% } %>\n  </div>\n</div>";
 });
 require.register("side-comments/templates/comment.html", function(exports, require, module){
-module.exports = '<li data-comment-id="<%= comment.id %>">\n  <div class="author-avatar">\n    <img src="<%= comment.authorAvatarUrl %>">\n  </div>\n  <% if (comment.authorUrl) { %>\n    <a class="author-name right-of-avatar" href="<%= comment.authorUrl %>">\n      <%= comment.authorName %>\n    </a>\n  <% } else { %>\n    <p class="author-name right-of-avatar">\n      <%= comment.authorName %>\n    </p>\n  <% } %>\n  <p class="comment right-of-avatar">\n    <%= comment.comment %>\n  </p>\n  <% if (currentUser && comment.authorId === currentUser.id){ %>\n  <a href="#" class="action-link delete">Delete</a>\n  <% } %>\n</li>';
+module.exports = "<li data-comment-id=\"<%= comment.id %>\">\n  <div class=\"author-avatar\">\n    <img src=\"<%= comment.authorAvatarUrl %>\">\n  </div>\n  <% if (comment.authorUrl) { %>\n    <a class=\"author-name right-of-avatar\" href=\"<%= comment.authorUrl %>\">\n      <%= comment.authorName %>\n    </a>\n  <% } else { %>\n    <p class=\"author-name right-of-avatar\">\n      <%= comment.authorName %>\n    </p>\n  <% } %>\n  <p class=\"comment right-of-avatar\">\n    <%= comment.comment %>\n  </p>\n  <% if (currentUser && comment.authorId === currentUser.id){ %>\n  <a href=\"#\" class=\"action-link delete\">Delete</a>\n  <% } %>\n</li>";
 });
 require.alias("component-emitter/index.js", "side-comments/deps/emitter/index.js");
 require.alias("component-emitter/index.js", "emitter/index.js");
