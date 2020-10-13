@@ -15,10 +15,12 @@ p {
     margin-right: 10vw;
 }
 
-/* .CodeMirror {
-    border: 1px solid #eee;
-    height: auto;
-} */
+.CodeMirror {
+    /* border: 1px solid #eee;
+    height: auto; */
+    line-height: 20px;
+}
+
 
 .CodeMirror-selected {
     background-color: white !important;
