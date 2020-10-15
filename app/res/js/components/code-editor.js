@@ -40,6 +40,7 @@ var CodeEditorComponent = {
                 styleSelectedText: true,
                 highlightSelectionMatches: {showToken: /\w/, annotateScrollbar: true},
                 matchBrackets: true,
+                viewportMargin: Infinity,
             },
             cmLineHeight: "20px",
             linePaddingRight: "20px",
