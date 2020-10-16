@@ -33,14 +33,26 @@
 </body>
     <div id="app" style="width: 100vw;">
         <h2 id="robert">{{ header }}</h2>
+        <p class="commentable-section">content
+            <comment-marker section="1"></comment-marker>
+        </p>
         <div style="display: flex; height: 100%;">
-            <code-editor></code-editor>
+            <!-- <code-editor></code-editor> -->
         </div>
     </div>
 
     <script type="text/x-template" id="code-editor-component-template">
         <div>
             <codemirror ref="cmEditor" v-model="code" :options="cmOption"></codemirror>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="comments-marker-component-template">
+        <div class="side-comment has-comments">
+            <a href="#" class="marker">
+                <span>{{ amountOfComments }}</span>
+            </a>
+            <div class="comments-wrapper"></div>
         </div>
     </script>
 

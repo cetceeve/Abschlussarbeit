@@ -10,6 +10,7 @@ import storage from "../data/storage.js";
  * Holds the configuration for codemirror.
  * 
  * @module components/CodeEditorComponent
+ * @author Fabian Zeiher <fzeiher@gmail.com>
  * @requires module:data/Storage
  */
 /**
