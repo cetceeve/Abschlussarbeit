@@ -40,7 +40,7 @@ var CodeEditorComponent = {
                 styleSelectedText: true,
                 highlightSelectionMatches: {showToken: /\w/, annotateScrollbar: true},
                 matchBrackets: true,
-                viewportMargin: Infinity,
+                // viewportMargin: Infinity,
             },
             cmLineHeight: "20px",
             linePaddingRight: "20px",
@@ -120,15 +120,15 @@ var CodeEditorComponent = {
             });
         };
 
-        console.log("look at my codemirror instance:", this.codemirror);
-        // Prepare codemirror for side-comments integration
-        addSideCommentDomHooks(this.cmLineHeight);
-        addLinePadding(this.linePaddingRight);
+        // console.log("look at my codemirror instance:", this.codemirror);
+        // // Prepare codemirror for side-comments integration
+        // addSideCommentDomHooks(this.cmLineHeight);
+        // addLinePadding(this.linePaddingRight);
         
-        // add side-comments elements to codemirror
-        let sideComments = initSideComments(this.codemirror.getScrollerElement());
-        insertStoredComments(sideComments);
-        registerSideCommentsListeners(sideComments);
+        // // add side-comments elements to codemirror
+        // let sideComments = initSideComments(this.codemirror.getScrollerElement());
+        // insertStoredComments(sideComments);
+        // registerSideCommentsListeners(sideComments);
 
         // let lineHandle = this.codemirror.addLineClass(0, "background", "background-modifier");
         // console.dir(lineHandle.height);
