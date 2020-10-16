@@ -34,6 +34,9 @@ import storage from "../data/storage.js";
             let countIDs = (acc, comment) => comment.sectionId === parseInt(this.section) ? ++acc : acc;
             return storage.state.comments[storage.state.code.currentFile].reduce(countIDs, 0);
         },
+        hasComments() {
+            return this.amountOfComments > 0;
+        },
     },
  };
 

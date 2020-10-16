@@ -48,7 +48,7 @@
     </script>
 
     <script type="text/x-template" id="comments-marker-component-template">
-        <div class="side-comment has-comments">
+        <div class="side-comment" :class="{'has-comments': hasComments}">
             <a href="#" class="marker">
                 <span>{{ amountOfComments }}</span>
             </a>
