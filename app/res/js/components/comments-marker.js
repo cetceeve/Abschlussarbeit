@@ -1,4 +1,5 @@
 import storage from "../data/storage.js";
+import { Event, Observable } from "../utils/Observable.js";
 
 /**
  * Marker component to be added to one codemirror line.
@@ -17,6 +18,7 @@ import storage from "../data/storage.js";
  var CommentsMarkerComponent = {
      /**
       * Attributes that are exposed to accept data from the parent component.
+      * @type {Object}
       * @property {Number} section - The section this marker is connected to.
       */
     props: {
@@ -53,6 +55,30 @@ import storage from "../data/storage.js";
         },
         hasComments() {
             return this.amountOfComments > 0;
+        },
+    },
+    /**
+     * Hold methods for this component.
+     * @type {Object}
+     * @namespace
+     */
+    methods: {
+        /**
+         * Event: onMarkerClicked
+         * @event CommentsMarkerComponent.methods#onMarkerClicked
+         * @type {object}
+         * @property {number} sectionId - Id of the section that the clicked comment marker belonged to.
+         */
+        /**
+         * Listener for clicks on the marker. Emits event with section id.
+         * @param {Event} event - click event from the DOM
+         * @listens click
+         * @fires CommentsMarkerComponent.methods#onMarkerClicked
+         */
+        onMarkerClicked(event) {
+            this.$emit("onMarkerClicked", { sectionId: this.section});
+            event.preventDefault();
+            event.stopPropagation();
         },
     },
  };

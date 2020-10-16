@@ -47,7 +47,7 @@
     <script type="text/x-template" id="comments-marker-component-template">
         <div class="commentable-section" style="bottom: 20px">
             <div class="side-comment" :class="{'has-comments': hasComments}">
-                <a href="#" class="marker">
+                <a href="#" class="marker" @click="onMarkerClicked">
                     <span>{{ amountOfComments }}</span>
                 </a>
             </div>

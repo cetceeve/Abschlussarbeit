@@ -47,7 +47,7 @@ var CodeEditorComponent = {
                 matchBrackets: true,
                 // viewportMargin: Infinity,
             },
-            linePaddingRight: "20px",
+            linePaddingRight: "22px",
         };
     },
     /** Hold computed properties for the component.
@@ -86,6 +86,9 @@ var CodeEditorComponent = {
                 for (let i = fromLine; i <= toLine; i++) {
                     let widget = new widgetClass({
                         propsData: {section: i},
+                    });
+                    widget.$on("onMarkerClicked", (event) => {
+                        console.log("Clicked on section: " + event.sectionId);
                     });
                     // vue component is rendered at the end of the dom
                     // component is then injected into codemirror as a line-widget
