@@ -80,15 +80,17 @@ var CodeEditorComponent = {
          * @param {Object} widgetClass - Vue Component Class to generate new component instance from
          */
         addSideCommentDomHooks = (widgetClass) => {
-            for (let i = 0; i < this.codemirror.lineCount(); i++) {
-                let widget = new widgetClass({
-                    propsData: {section: i.toString()},
-                });
-                // vue component is rendered at the end of the dom
-                // component is then injected into codemirror as a line-widget
-                widget.$mount();
-                this.codemirror.addLineWidget(i, widget.$el, { handleMouseEvents: true});
-            }
+            this.codemirror.on("viewportChange", (instance, fromLine, toLine) => {
+                for (let i = fromLine; i <= toLine; i++) {
+                    let widget = new widgetClass({
+                        propsData: {section: i.toString()},
+                    });
+                    // vue component is rendered at the end of the dom
+                    // component is then injected into codemirror as a line-widget
+                    widget.$mount();
+                    this.codemirror.addLineWidget(i, widget.$el, { handleMouseEvents: true});
+                }
+            });
         },
         /**
          * Iniate a side-comments instance with a user object.

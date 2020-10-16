@@ -18,6 +18,7 @@ p {
 .CodeMirror {
     /* border: 1px solid #eee;
     height: auto; */
+    width: 960px;
     line-height: 20px;
 }
 

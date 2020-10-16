@@ -158,6 +158,12 @@ class Storage {
                         authorName: "Yerimi",
                         comment: "Coding is not hard.",
                     },
+                    {
+                        sectionId: 54,
+                        authorAvatarUrl: "https://www.ansoko.info/wp-content/uploads/2020/01/Kim-Hyunjin.jpg",
+                        authorName: "Hyunjini",
+                        comment: "Side-Comments in not coded well",
+                    },
                 ],
             },
         };
