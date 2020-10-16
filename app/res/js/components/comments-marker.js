@@ -15,23 +15,35 @@ import storage from "../data/storage.js";
   * @namespace
   */
  var CommentsMarkerComponent = {
+    props: {
+        section: Number,
+    },
      /** Css-selector for component template.
      * @type {String}
      */
     template: "#comments-marker-component-template",
-    // data() {
-    //     return {
-    //         sectionID: "undefined",
-    //     };
-    // },
-    props: {
-        section: String,
+    /** Hold reactive data for the component.
+     * Component will re-render if this data changes, see link below.
+     * @type {Object}
+     * @property {Array} commentArray - The Array of comments currently relevant for display
+     * @see https://vuejs.org/v2/guide/reactivity.html
+     */
+    data() {
+        return {
+            // the relevant comment array is added as a data property to utilize Vue build in reactivity to update on state changes automatically
+            commentArray: storage.state.comments[storage.state.code.currentFile],
+        };
     },
+    /** Hold computed properties for the component.
+     * @type {Object}
+     * @property {Number} amountOfComments - The amount of comments for this section.
+     * @property {Boolean} hasComments - Uses amountOfComments to evaluate if there are comments.
+     */
     computed: {
         amountOfComments() {
             // eslint-disable-next-line no-param-reassign
-            let countIDs = (acc, comment) => comment.sectionId === parseInt(this.section) ? ++acc : acc;
-            return storage.state.comments[storage.state.code.currentFile].reduce(countIDs, 0);
+            let countCommentsBySectionId = (acc, comment) => comment.sectionId === this.section ? ++acc : acc;
+            return this.commentArray.reduce(countCommentsBySectionId, 0);
         },
         hasComments() {
             return this.amountOfComments > 0;

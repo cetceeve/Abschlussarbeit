@@ -24,10 +24,12 @@ var CodeEditorComponent = {
      * @type {String}
      */
     template: "#code-editor-component-template",
-    /** hold data for the component
+    /** Hold reactive data for the component.
+     * Component will re-render if this data changes, see link below.
+     * @property {String} code
      * @property {Object} cmOption - Codemirror configuration object.
-     * @property {String} cmLineHeight - Height of codemirror lines in css terminology (e.g. "20px").
      * @property {String} linePaddingRight - Right padding for codemirror lines in css terminology (e.g. "20px").
+     * @see https://vuejs.org/v2/guide/reactivity.html
      */
     data() {
         return {
@@ -76,14 +78,14 @@ var CodeEditorComponent = {
             });
         },
         /** 
-         * Add the side-comments marker on every line.
+         * Add the side-comments marker on all visible lines
          * @param {Object} widgetClass - Vue Component Class to generate new component instance from
          */
         addSideCommentDomHooks = (widgetClass) => {
             this.codemirror.on("viewportChange", (instance, fromLine, toLine) => {
                 for (let i = fromLine; i <= toLine; i++) {
                     let widget = new widgetClass({
-                        propsData: {section: i.toString()},
+                        propsData: {section: i},
                     });
                     // vue component is rendered at the end of the dom
                     // component is then injected into codemirror as a line-widget
@@ -126,7 +128,7 @@ var CodeEditorComponent = {
         };
 
         console.log("look at my codemirror instance:", this.codemirror);
-        // Prepare codemirror for side-comments integration
+        // integrate side-comment markers into codemirror
         addSideCommentDomHooks(Vue.extend(CommentsMarkerComponent));
         addLinePadding(this.linePaddingRight);
         
