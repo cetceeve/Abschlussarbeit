@@ -73,7 +73,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line57">line 57</a>
+        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line62">line 62</a>
     </li></ul></dd>
     
 
@@ -220,7 +220,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line70">line 70</a>
+        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line75">line 75</a>
     </li></ul></dd>
     
 
@@ -256,7 +256,7 @@
     
 
     
-    <h4 class="name" id="~addSideCommentDomHooks"><span class="type-signature">(inner) </span>addSideCommentDomHooks<span class="signature">(lineHeight)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~addSideCommentDomHooks"><span class="type-signature">(inner) </span>addSideCommentDomHooks<span class="signature">(widgetClass)</span><span class="type-signature"></span></h4>
     
 
     
@@ -264,7 +264,7 @@
 
 
 <div class="description">
-    Add the side-comments button on every line utilising codemirrors line-widgets.Parameter lineHeight is required to position the widget on the line instead of below
+    Add the side-comments marker on all visible lines
 </div>
 
 
@@ -300,13 +300,13 @@
 
         <tr>
             
-                <td class="name"><code>lineHeight</code></td>
+                <td class="name"><code>widgetClass</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Object</span>
 
 
             
@@ -316,7 +316,7 @@
 
             
 
-            <td class="description last">String describing the codemirror line height in css terminlogy (e.g. "20px").</td>
+            <td class="description last">Vue Component Class to generate new component instance from</td>
         </tr>
 
     
@@ -357,7 +357,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line80">line 80</a>
+        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line84">line 84</a>
     </li></ul></dd>
     
 
@@ -494,7 +494,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line95">line 95</a>
+        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line103">line 103</a>
     </li></ul></dd>
     
 
@@ -660,7 +660,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line105">line 105</a>
+        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line113">line 113</a>
     </li></ul></dd>
     
 
@@ -797,7 +797,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line115">line 115</a>
+        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line123">line 123</a>
     </li></ul></dd>
     
 
@@ -843,13 +843,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-components_CodeEditorComponent.html">components/CodeEditorComponent</a></li><li><a href="module-data_Storage.html">data/Storage</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.html">CodeEditorComponent</a></li><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.mounted.html">mounted</a></li></ul><h3>Classes</h3><ul><li><a href="module-data_Storage-Storage.html">Storage</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-components_CodeEditorComponent.html">components/CodeEditorComponent</a></li><li><a href="module-components_CommentsMarkerComponent.html">components/CommentsMarkerComponent</a></li><li><a href="module-data_Storage.html">data/Storage</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.html">CodeEditorComponent</a></li><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.mounted.html">mounted</a></li><li><a href="module-components_CommentsMarkerComponent-CommentsMarkerComponent.html">CommentsMarkerComponent</a></li></ul><h3>Classes</h3><ul><li><a href="module-data_Storage-Storage.html">Storage</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Wed Oct 14 2020 16:11:10 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Oct 16 2020 17:37:25 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>

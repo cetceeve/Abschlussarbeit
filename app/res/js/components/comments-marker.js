@@ -5,7 +5,7 @@ import storage from "../data/storage.js";
  * Clickable to create new or display existing comments.
  * Shows number of comments on one line
  * 
- * @module components/CodeEditorComponent/CommentsMarkerComponent
+ * @module components/CommentsMarkerComponent
  * @author Fabian Zeiher <fzeiher@gmail.com>
  * @requires module:data/Storage
  */
@@ -15,14 +15,20 @@ import storage from "../data/storage.js";
   * @namespace
   */
  var CommentsMarkerComponent = {
+     /**
+      * Attributes that are exposed to accept data from the parent component.
+      * @property {Number} section - The section this marker is connected to.
+      */
     props: {
         section: Number,
     },
-     /** Css-selector for component template.
+    /** 
+     * Css-selector for component template.
      * @type {String}
      */
     template: "#comments-marker-component-template",
-    /** Hold reactive data for the component.
+    /** 
+     * Hold reactive data for the component.
      * Component will re-render if this data changes, see link below.
      * @type {Object}
      * @property {Array} commentArray - The Array of comments currently relevant for display

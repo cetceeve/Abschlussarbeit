@@ -27,6 +27,8 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import storage from "../data/storage.js";
+import CommentsMarkerComponent from "./comments-marker.js";
+import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.esm.browser.js";
 
 /**
  * Vue-Component to display the code and comments together.
@@ -38,6 +40,7 @@
  * Holds the configuration for codemirror.
  * 
  * @module components/CodeEditorComponent
+ * @author Fabian Zeiher &lt;fzeiher@gmail.com>
  * @requires module:data/Storage
  */
 /**
@@ -49,10 +52,12 @@ var CodeEditorComponent = {
      * @type {String}
      */
     template: "#code-editor-component-template",
-    /** hold data for the component
+    /** Hold reactive data for the component.
+     * Component will re-render if this data changes, see link below.
+     * @property {String} code
      * @property {Object} cmOption - Codemirror configuration object.
-     * @property {String} cmLineHeight - Height of codemirror lines in css terminology (e.g. "20px").
      * @property {String} linePaddingRight - Right padding for codemirror lines in css terminology (e.g. "20px").
+     * @see https://vuejs.org/v2/guide/reactivity.html
      */
     data() {
         return {
@@ -68,8 +73,8 @@ var CodeEditorComponent = {
                 styleSelectedText: true,
                 highlightSelectionMatches: {showToken: /\w/, annotateScrollbar: true},
                 matchBrackets: true,
+                // viewportMargin: Infinity,
             },
-            cmLineHeight: "20px",
             linePaddingRight: "20px",
         };
     },
@@ -101,18 +106,21 @@ var CodeEditorComponent = {
             });
         },
         /** 
-         * Add the side-comments button on every line utilising codemirrors line-widgets.
-         * Parameter lineHeight is required to position the widget on the line instead of below
-         * @param {String} lineHeight - String describing the codemirror line height in css terminlogy (e.g. "20px").
+         * Add the side-comments marker on all visible lines
+         * @param {Object} widgetClass - Vue Component Class to generate new component instance from
          */
-        addSideCommentDomHooks = (lineHeight) => {
-            for (let i = 0; i &lt; this.codemirror.lineCount(); i++) {
-                let widget = document.createElement("div");
-                widget.setAttribute("style", "bottom: " + lineHeight);
-                widget.setAttribute("class", "commentable-section");
-                widget.setAttribute("data-section-id", i.toString());
-                this.codemirror.addLineWidget(i, widget, { handleMouseEvents: true});
-            }
+        addSideCommentDomHooks = (widgetClass) => {
+            this.codemirror.on("viewportChange", (instance, fromLine, toLine) => {
+                for (let i = fromLine; i &lt;= toLine; i++) {
+                    let widget = new widgetClass({
+                        propsData: {section: i},
+                    });
+                    // vue component is rendered at the end of the dom
+                    // component is then injected into codemirror as a line-widget
+                    widget.$mount();
+                    this.codemirror.addLineWidget(i, widget.$el, { handleMouseEvents: true});
+                }
+            });
         },
         /**
          * Iniate a side-comments instance with a user object.
@@ -148,14 +156,14 @@ var CodeEditorComponent = {
         };
 
         console.log("look at my codemirror instance:", this.codemirror);
-        // Prepare codemirror for side-comments integration
-        addSideCommentDomHooks(this.cmLineHeight);
+        // integrate side-comment markers into codemirror
+        addSideCommentDomHooks(Vue.extend(CommentsMarkerComponent));
         addLinePadding(this.linePaddingRight);
         
-        // add side-comments elements to codemirror
-        let sideComments = initSideComments(this.codemirror.getScrollerElement());
-        insertStoredComments(sideComments);
-        registerSideCommentsListeners(sideComments);
+        // // add side-comments elements to codemirror
+        // let sideComments = initSideComments(this.codemirror.getScrollerElement());
+        // insertStoredComments(sideComments);
+        // registerSideCommentsListeners(sideComments);
 
         // let lineHandle = this.codemirror.addLineClass(0, "background", "background-modifier");
         // console.dir(lineHandle.height);
@@ -172,13 +180,13 @@ export default CodeEditorComponent;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-components_CodeEditorComponent.html">components/CodeEditorComponent</a></li><li><a href="module-data_Storage.html">data/Storage</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.html">CodeEditorComponent</a></li><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.mounted.html">mounted</a></li></ul><h3>Classes</h3><ul><li><a href="module-data_Storage-Storage.html">Storage</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-components_CodeEditorComponent.html">components/CodeEditorComponent</a></li><li><a href="module-components_CommentsMarkerComponent.html">components/CommentsMarkerComponent</a></li><li><a href="module-data_Storage.html">data/Storage</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.html">CodeEditorComponent</a></li><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.mounted.html">mounted</a></li><li><a href="module-components_CommentsMarkerComponent-CommentsMarkerComponent.html">CommentsMarkerComponent</a></li></ul><h3>Classes</h3><ul><li><a href="module-data_Storage-Storage.html">Storage</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Wed Oct 14 2020 16:11:10 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Oct 16 2020 17:37:25 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>

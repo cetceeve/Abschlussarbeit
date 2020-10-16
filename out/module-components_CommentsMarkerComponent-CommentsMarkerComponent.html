@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: CodeEditorComponent</title>
+    <title>JSDoc: Namespace: CommentsMarkerComponent</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: CodeEditorComponent</h1>
+    <h1 class="page-title">Namespace: CommentsMarkerComponent</h1>
 
     
 
@@ -29,7 +29,7 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-components_CodeEditorComponent.html">components/CodeEditorComponent</a>~</span>CodeEditorComponent</h2>
+            <span class="ancestors"><a href="module-components_CommentsMarkerComponent.html">components/CommentsMarkerComponent</a>~</span>CommentsMarkerComponent</h2>
         
     
 </header>
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Namespace Object for Code Editor Component.</div>
+            <div class="description">Namespace Object for Marker Component</div>
         
 
         
@@ -73,7 +73,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line22">line 22</a>
+        <a href="components_comments-marker.js.html">components/comments-marker.js</a>, <a href="components_comments-marker.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -99,13 +99,6 @@
 
     
 
-    
-        <h3 class="subsection-title">Namespaces</h3>
-
-        <dl>
-            <dt><a href="module-components_CodeEditorComponent-CodeEditorComponent.mounted.html">mounted</a></dt>
-            <dd></dd>
-        </dl>
     
 
     
@@ -164,13 +157,13 @@
 
         <tr>
             
-                <td class="name"><code>codemirror</code></td>
+                <td class="name"><code>amountOfComments</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">Number</span>
 
 
             
@@ -180,7 +173,30 @@
 
             
 
-            <td class="description last">The current codemirror instance.</td>
+            <td class="description last">The amount of comments for this section.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>hasComments</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Uses amountOfComments to evaluate if there are comments.</td>
         </tr>
 
     
@@ -219,7 +235,121 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line57">line 57</a>
+        <a href="components_comments-marker.js.html">components/comments-marker.js</a>, <a href="components_comments-marker.js.html#line48">line 48</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".props"><span class="type-signature">(static) </span>props<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Attributes that are exposed to accept data from the parent component.
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>section</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The section this marker is connected to.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_comments-marker.js.html">components/comments-marker.js</a>, <a href="components_comments-marker.js.html#line22">line 22</a>
     </li></ul></dd>
     
 
@@ -291,7 +421,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line26">line 26</a>
+        <a href="components_comments-marker.js.html">components/comments-marker.js</a>, <a href="components_comments-marker.js.html#line29">line 29</a>
     </li></ul></dd>
     
 
@@ -368,13 +498,13 @@
 
         <tr>
             
-                <td class="name"><code>code</code></td>
+                <td class="name"><code>commentArray</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Array</span>
 
 
             
@@ -384,53 +514,7 @@
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>cmOption</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Codemirror configuration object.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>linePaddingRight</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Right padding for codemirror lines in css terminology (e.g. "20px").</td>
+            <td class="description last">The Array of comments currently relevant for display</td>
         </tr>
 
     
@@ -469,7 +553,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line34">line 34</a>
+        <a href="components_comments-marker.js.html">components/comments-marker.js</a>, <a href="components_comments-marker.js.html#line37">line 37</a>
     </li></ul></dd>
     
 
