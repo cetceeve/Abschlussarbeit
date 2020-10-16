@@ -1,4 +1,6 @@
 import storage from "../data/storage.js";
+import CommentsMarkerComponent from "./comments-marker.js";
+import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.esm.browser.js";
 
 /**
  * Vue-Component to display the code and comments together.
@@ -43,7 +45,6 @@ var CodeEditorComponent = {
                 matchBrackets: true,
                 // viewportMargin: Infinity,
             },
-            cmLineHeight: "20px",
             linePaddingRight: "20px",
         };
     },
@@ -75,17 +76,18 @@ var CodeEditorComponent = {
             });
         },
         /** 
-         * Add the side-comments button on every line utilising codemirrors line-widgets.
-         * Parameter lineHeight is required to position the widget on the line instead of below
-         * @param {String} lineHeight - String describing the codemirror line height in css terminlogy (e.g. "20px").
+         * Add the side-comments marker on every line.
+         * @param {Object} widgetClass - Vue Component Class to generate new component instance from
          */
-        addSideCommentDomHooks = (lineHeight) => {
+        addSideCommentDomHooks = (widgetClass) => {
             for (let i = 0; i < this.codemirror.lineCount(); i++) {
-                let widget = document.createElement("div");
-                widget.setAttribute("style", "bottom: " + lineHeight);
-                widget.setAttribute("class", "commentable-section");
-                widget.setAttribute("data-section-id", i.toString());
-                this.codemirror.addLineWidget(i, widget, { handleMouseEvents: true});
+                let widget = new widgetClass({
+                    propsData: {section: i.toString()},
+                });
+                // vue component is rendered at the end of the dom
+                // component is then injected into codemirror as a line-widget
+                widget.$mount();
+                this.codemirror.addLineWidget(i, widget.$el, { handleMouseEvents: true});
             }
         },
         /**
@@ -121,10 +123,10 @@ var CodeEditorComponent = {
             });
         };
 
-        // console.log("look at my codemirror instance:", this.codemirror);
-        // // Prepare codemirror for side-comments integration
-        // addSideCommentDomHooks(this.cmLineHeight);
-        // addLinePadding(this.linePaddingRight);
+        console.log("look at my codemirror instance:", this.codemirror);
+        // Prepare codemirror for side-comments integration
+        addSideCommentDomHooks(Vue.extend(CommentsMarkerComponent));
+        addLinePadding(this.linePaddingRight);
         
         // // add side-comments elements to codemirror
         // let sideComments = initSideComments(this.codemirror.getScrollerElement());
