@@ -38,7 +38,7 @@ import store from "../data/store.js";
     data() {
         return {
             // the relevant comment array is added as a data property to utilize Vue build in reactivity to update on state changes automatically
-            commentArray: store.state.comments[store.state.code.currentFile],
+            commentArray: store.state.comments[store.state.code.currentFile].comments,
         };
     },
     /** Hold computed properties for the component.
@@ -67,15 +67,16 @@ import store from "../data/store.js";
          * @event CommentsMarkerComponent.methods#onMarkerClicked
          * @type {object}
          * @property {number} sectionId - Id of the section that the clicked comment marker belonged to.
+         * @deprecated event no longer in use
          */
         /**
          * Listener for clicks on the marker. Emits event with section id.
          * @param {Event} event - click event from the DOM
          * @listens click
-         * @fires CommentsMarkerComponent.methods#onMarkerClicked
          */
         markerClick(event) {
-            this.$emit("onMarkerClicked", { sectionId: this.section});
+            console.log("Click on marker for section: " + this.section);
+            store.setActiveSection(store.state.code.currentFile, this.section);
             event.preventDefault();
             event.stopPropagation();
         },

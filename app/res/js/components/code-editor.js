@@ -92,9 +92,6 @@ var CodeEditorComponent = {
                     let widget = new widgetClass({
                         propsData: {section: i},
                     });
-                    widget.$on("onMarkerClicked", (event) => {
-                        console.log("Clicked on section: " + event.sectionId);
-                    });
                     // vue component is rendered at the end of the dom
                     // component is then injected into codemirror as a line-widget
                     widget.$mount();

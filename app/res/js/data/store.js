@@ -1,10 +1,10 @@
 import api from "./api.js";
 /**
- * Module to store the current state and all state operations.
- * The state object must not be manipulated directly.
- * Follows the {@link https://vuejs.org/v2/guide/state-management.html#Simple-State-Management-from-Scratch|Store-Pattern}.
- * @module data/store
- */
+* Module to store the current state and all state operations.
+* The state object must not be manipulated directly.
+* Follows the {@link https://vuejs.org/v2/guide/state-management.html#Simple-State-Management-from-Scratch|Store-Pattern}.
+* @module data/store
+*/
 /**
 * Represents the state of the Review-Editor, can be safed to external database.
 * @typedef State
@@ -38,10 +38,10 @@ import api from "./api.js";
 */
 
 /**
- * Namespace object for store module.
- * @namespace
- * @property {module:data/store~State} state - Represents the state of the Review-Editor, can be safed to external database.
- */
+* Namespace object for store module.
+* @namespace
+* @property {module:data/store~State} state - Represents the state of the Review-Editor, can be safed to external database.
+*/
 var store = {
     debug: true,
     state: {
@@ -174,40 +174,48 @@ var store = {
             },
         },
         comments: {
-            "fileSha0000": [
-                {
-                    sectionId: 1,
-                    authorAvatarUrl: "https://www.ansoko.info/wp-content/uploads/2020/01/Kim-Hyunjin.jpg",
-                    authorName: "Hyunjini",
-                    comment: "AERYONG",
-                },
-                {
-                    sectionId: 1,
-                    authorAvatarUrl: "https://1.bp.blogspot.com/-OJSNqG09K88/XEF7y8RzQHI/AAAAAAAAAUs/tuyOX-EgK4gLnvy1-Yc5iYu0W6rqzt1kgCLcBGAs/s500-c/yeri.jpg",
-                    authorName: "Yerimi",
-                    comment: "I am gonna write a super long and not at all helpful comment because i am a dick and i want to destroy this holes tool career.",
-                },
-                {
-                    sectionId: 3,
-                    authorAvatarUrl: "https://1.bp.blogspot.com/-OJSNqG09K88/XEF7y8RzQHI/AAAAAAAAAUs/tuyOX-EgK4gLnvy1-Yc5iYu0W6rqzt1kgCLcBGAs/s500-c/yeri.jpg",
-                    authorName: "Yerimi",
-                    comment: "Coding is not hard.",
-                },
-                {
-                    sectionId: 54,
-                    authorAvatarUrl: "https://www.ansoko.info/wp-content/uploads/2020/01/Kim-Hyunjin.jpg",
-                    authorName: "Hyunjini",
-                    comment: "Side-Comments in not coded well",
-                },
-            ],
-            "fileSha0001": [
-                {
-                    sectionId: 2,
-                    authorAvatarUrl: "https://i.pinimg.com/originals/fe/62/e3/fe62e3a5963a4ab3310f5f95d3c72b4e.jpg",
-                    authorName: "Bae",
-                    comment: "Whats up with you?",
-                },
-            ],
+            "fileSha0000": {
+                activeSection: null, 
+                comments: [
+                    {
+                        sectionId: 1,
+                        authorAvatarUrl: "https://www.ansoko.info/wp-content/uploads/2020/01/Kim-Hyunjin.jpg",
+                        authorUrl: "https://images6.fanpop.com/image/photos/40900000/HyunJin-loo-CE-A0-CE-94-40926384-400-400.gif",
+                        authorName: "Hyunjini",
+                        comment: "AERYONG",
+                    },
+                    {
+                        sectionId: 1,
+                        authorAvatarUrl: "https://media.tenor.com/images/2358de5b4a95de5aa74418305b3c2728/tenor.gif",
+                        authorName: "Yerimi",
+                        comment: "I am gonna write a super long and not at all helpful comment because i am a dick and i want to destroy this holes tool career.",
+                    },
+                    {
+                        sectionId: 3,
+                        authorAvatarUrl: "https://media.tenor.com/images/2358de5b4a95de5aa74418305b3c2728/tenor.gif",
+                        authorName: "Yerimi",
+                        comment: "Coding is not hard.",
+                    },
+                    {
+                        sectionId: 54,
+                        authorAvatarUrl: "https://www.ansoko.info/wp-content/uploads/2020/01/Kim-Hyunjin.jpg",
+                        authorUrl: "https://images6.fanpop.com/image/photos/40900000/HyunJin-loo-CE-A0-CE-94-40926384-400-400.gif",
+                        authorName: "Hyunjini",
+                        comment: "Side-Comments in not coded well",
+                    },
+                ],
+            },
+            "fileSha0001": {
+                activeSection: null,
+                comments: [
+                    {
+                        sectionId: 2,
+                        authorAvatarUrl: "https://i.pinimg.com/originals/fe/62/e3/fe62e3a5963a4ab3310f5f95d3c72b4e.jpg",
+                        authorName: "Bae",
+                        comment: "Whats up with you?",
+                    },
+                ],
+            },
         },
     },
     /**
@@ -216,7 +224,7 @@ var store = {
     * @param {module:data/store~Comment} comment - Comment for side-comments.
     */
     setComment(fileSha, comment) {
-        this.state.comments[fileSha].push(comment);
+        this.state.comments[fileSha].comments.push(comment);
         this.log();
     },
     
@@ -232,6 +240,20 @@ var store = {
             this.state.code.currentFile = fileSha;
         }
         console.log(this.state.code.currentFile);
+    },
+
+    /**
+     * Set active selection for comments on one file
+     * @param {String} fileSha - File the comments are connected to.
+     * @param {Number} sectionId - Section id to set as active section.
+     */
+    setActiveSection(fileSha, sectionId) {
+        // This is essentially a deselect
+        if (this.state.comments[fileSha].activeSection === sectionId) {
+            this.state.comments[fileSha].activeSection = null;
+        } else {
+            this.state.comments[fileSha].activeSection = sectionId;
+        }
     },
     
     /**

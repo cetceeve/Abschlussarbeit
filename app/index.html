@@ -60,13 +60,21 @@
 
 <script type="text/x-template" id="comments-display-component-template">
     <div style="position: relative;">
-        <div class="side-comment" :class="{active: isActive}">
+        <div class="side-comment" :class="{active: isActive, 'has-comments': hasComments}">
             <div class="comments-wrapper">
                 <ul class="comments">
-                    <!-- <% _.each(comments, function( comment ){ %>\n        <%= _.template(commentTemplate, { comment: comment, currentUser: currentUser }) %>\n      <% }) %>\n     -->
+                    <li v-for="comment in comments" :key="comment.id">
+                        <div class="author-avatar">
+                            <img :src="comment.authorAvatarUrl">
+                        </div>
+                        <a v-if="comment.authorUrl" class="author-name right-of-avatar" :href="comment.authorUrl">{{ comment.authorName }}</a>
+                        <p v-else class="author-name right-of-avatar">{{ comment.authorName }}</p>
+                        <p class="comment right-of-avatar">{{ comment.comment }}</p>
+                        <a v-if="comment.authorId === currentUser.id" href="#" class="action-link delete">Delete</a>
+                    </li>
                 </ul>
                 <a href="#" class="add-comment">Leave a comment</a>
-                <div class="comment-form">
+                <div v-if="!hasComments" class="comment-form">
                     <div class="author-avatar">
                         <img :src="currentUser.avatarUrl">
                     </div>

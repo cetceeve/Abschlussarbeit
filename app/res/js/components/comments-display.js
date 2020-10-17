@@ -11,14 +11,6 @@ import store from "../data/store.js";
   * @namespace
   */
  var CommentsDisplayComponent = {
-    /**
-     * Attributes that are exposed to accept data from the parent component.
-     * @type {Object}
-     * @property {Number} section - The section this marker is connected to.
-    */
-    props: {
-        section: Number,
-    },
     /** Css-selector for component template.
      * @type {String}
      */
@@ -29,15 +21,23 @@ import store from "../data/store.js";
      */
     data() {
         return {
+            commentStore: store.state.comments,
             currentUser: store.state.user,
-            isActive: true,
         };
     },
      /** Hold computed properties for the component.
      * @type {Object}
      */
     computed: {
-
+        comments() {
+            return this.commentStore[store.state.code.currentFile].comments.filter(comment => comment.sectionId === this.commentStore[store.state.code.currentFile].activeSection);
+        },
+        hasComments() {
+            return this.comments.length > 0;
+        },
+        isActive() {
+            return this.commentStore[store.state.code.currentFile].activeSection !== null;
+        },
     },
     /**
      * Hold methods for this component.
