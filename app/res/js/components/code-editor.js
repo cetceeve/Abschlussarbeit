@@ -72,38 +72,53 @@ var CodeEditorComponent = {
      * @namespace
      */
     mounted() {
-        /** Add padding for the side-comments button on every codemirror line.
-         *  Necessary to avoid drawing the button on top of code. Additionally avoids click trough onto code.
-         * @param {String} linePadding - String describing the padding amount in css terminology (e.g. "20px").
-         */
-        const addLinePadding = (linePadding) => {
-            this.codemirror.on("renderLine", (instance, lineHandle, element) => {
-                element.setAttribute("style", "padding-right: " + linePadding);
-            });
-        },
-        /** 
-         * Add the side-comments marker on all visible lines
-         * @param {Object} widgetClass - Vue Component Class to generate new component instance from
-         * @listens CommentsMarkerComponent.methods#onMarkerClicked
-         */
-        addSideCommentDomHooks = (widgetClass) => {
-            this.codemirror.on("viewportChange", (instance, fromLine, toLine) => {
-                for (let i = fromLine; i <= toLine; i++) {
-                    let widget = new widgetClass({
-                        propsData: {section: i},
-                    });
-                    // vue component is rendered at the end of the dom
-                    // component is then injected into codemirror as a line-widget
-                    widget.$mount();
-                    this.codemirror.addLineWidget(i, widget.$el, { handleMouseEvents: true});
+        const dynamicComponentList = {
+            componentClass: Vue.extend(CommentsMarkerComponent),
+            items: [],
+            createComponentElement(sectionId) {
+                let instance = new this.componentClass({
+                    propsData: {section: sectionId},
+                });
+                // vue component is rendered at the end of the dom
+                // component can later be injected into codemirror as a line-widget
+                instance.$mount();
+                return instance.$el;
+            },
+            setLength(length) {
+                // add components if there are not enouph
+                if (this.items.length < length) {
+                    for (let i = this.items.length; i <= length; i++) {
+                        this.items.push(this.createComponentElement(i));
+                    }
+                // remove components if there are a lot to many
+                } else if (this.items.length > length + 100) {
+                    this.items.splice(length);
                 }
-            });
+            },
+        },
+        initOnce = () => {
+            dynamicComponentList.setLength(this.codemirror.lineCount());
+            for (let i = 0; i < this.codemirror.lineCount(); i++) {
+                this.codemirror.addLineWidget(i, dynamicComponentList.items[i], { handleMouseEvents: true});
+            }
         };
 
-        console.log("look at my codemirror instance:", this.codemirror);
-        // integrate side-comment markers into codemirror
-        addSideCommentDomHooks(Vue.extend(CommentsMarkerComponent));
-        addLinePadding(this.linePaddingRight);
+        // Re-add comment marker elements to codemirror when the editors content changes.
+        // Marker elements get reused for performance reasons.
+        this.codemirror.on("change", () => {
+            dynamicComponentList.setLength(this.codemirror.lineCount());
+            for (let i = 0; i < this.codemirror.lineCount(); i++) {
+                this.codemirror.addLineWidget(i, dynamicComponentList.items[i], { handleMouseEvents: true});
+            }
+        });
+        
+        // Add padding for the side-comments button on every codemirror line.
+        // Necessary to avoid drawing the button on top of code. Additionally avoids click trough onto code.
+        this.codemirror.on("renderLine", (instance, lineHandle, element) => {
+            element.setAttribute("style", "padding-right: " + this.linePaddingRight);
+        });
+
+        initOnce();
     },
 };
 
