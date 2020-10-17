@@ -1,4 +1,4 @@
-import storage from "../data/storage.js";
+import store from "../data/store.js";
 import CommentsMarkerComponent from "./comments-marker.js";
 import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.esm.browser.js";
 
@@ -13,7 +13,7 @@ import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.esm.browser.js
  * 
  * @module components/CodeEditorComponent
  * @author Fabian Zeiher <fzeiher@gmail.com>
- * @requires module:data/Storage
+ * @requires module:data/store
  */
 /**
  * Namespace Object for Code Editor Component.
@@ -33,7 +33,7 @@ var CodeEditorComponent = {
      */
     data() {
         return {
-            sharedState: storage.state.code,
+            sharedState: store.state.code,
             cmOption: {
                 placeholder: "nothing here :(",
                 mode: "javascript",
@@ -109,7 +109,7 @@ var CodeEditorComponent = {
         initSideComments = (wrapperElement) => {
             // eslint-disable-next-line no-undef    
             let SideComments = require("side-comments");
-            return new SideComments(wrapperElement, storage.state.user);
+            return new SideComments(wrapperElement, store.state.user);
         },
         /**
          * Add stored comments for the current file.
@@ -117,19 +117,19 @@ var CodeEditorComponent = {
          * @param {Object} sideComments - A side-comments instance.
          */
         insertStoredComments = (sideComments) => {
-            for (let comment of storage.state.comments[storage.state.code.currentFile]) {
+            for (let comment of store.state.comments[store.state.code.currentFile]) {
                 sideComments.insertComment(comment);
             }
         },
         /**
          * Register Listeners on the side-comments instance.
-         * On "commentPosted" the comment will be saved to storage and then inserted to the DOM.
+         * On "commentPosted" the comment will be saved to store and then inserted to the DOM.
          * @param {Object} sideComments - A side-comments instance.
          */
         registerSideCommentsListeners = (sideComments) => {
             sideComments.on("commentPosted", comment => {
                 sideComments.insertComment(comment);
-                storage.setComment(storage.state.code.currentFile, comment);
+                store.setComment(store.state.code.currentFile, comment);
             });
         };
 

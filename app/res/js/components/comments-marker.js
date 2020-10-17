@@ -1,5 +1,4 @@
-import storage from "../data/storage.js";
-import { Event, Observable } from "../utils/Observable.js";
+import store from "../data/store.js";
 
 /**
  * Marker component to be added to one codemirror line.
@@ -8,7 +7,7 @@ import { Event, Observable } from "../utils/Observable.js";
  * 
  * @module components/CommentsMarkerComponent
  * @author Fabian Zeiher <fzeiher@gmail.com>
- * @requires module:data/Storage
+ * @requires module:data/store
  */
 
  /**
@@ -39,7 +38,7 @@ import { Event, Observable } from "../utils/Observable.js";
     data() {
         return {
             // the relevant comment array is added as a data property to utilize Vue build in reactivity to update on state changes automatically
-            commentArray: storage.state.comments[storage.state.code.currentFile],
+            commentArray: store.state.comments[store.state.code.currentFile],
         };
     },
     /** Hold computed properties for the component.
