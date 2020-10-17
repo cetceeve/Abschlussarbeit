@@ -32,12 +32,12 @@ import store from "../data/store.js";
      * Hold reactive data for the component.
      * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
      * @type {Object}
-     * @property {Array} commentArray - The Array of comments currently relevant for display
+     * @property {module:data/store~State} sharedState - Reference to the state object in order to utilize Vues built in reactivity for automatic re-render.
      * @see https://vuejs.org/v2/guide/reactivity.html
      */
     data() {
         return {
-            commentStore: store.state.comments,
+            sharedState: store.state,
         };
     },
     /** Hold computed properties for the component.
@@ -49,13 +49,13 @@ import store from "../data/store.js";
         amountOfComments() {
             // eslint-disable-next-line no-param-reassign
             let countCommentsBySectionId = (acc, comment) => comment.sectionId === this.section ? ++acc : acc;
-            return this.commentStore[store.state.code.currentFile].comments.reduce(countCommentsBySectionId, 0);
+            return this.sharedState.content[this.sharedState.content.currentFile].comments.reduce(countCommentsBySectionId, 0);
         },
         hasComments() {
             return this.amountOfComments > 0;
         },
         isActive() {
-            return this.commentStore[store.state.code.currentFile].activeSection === this.section;
+            return this.sharedState.content[this.sharedState.content.currentFile].activeCommentSection === this.section;
         },
     },
     /**
@@ -71,7 +71,7 @@ import store from "../data/store.js";
          */
         markerClick(event) {
             console.log("Click on marker for section: " + this.section);
-            store.setActiveSection(store.state.code.currentFile, this.section);
+            store.setActiveSection(this.sharedState.content.currentFile, this.section);
             event.preventDefault();
             event.stopPropagation();
         },

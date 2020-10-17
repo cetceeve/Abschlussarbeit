@@ -18,12 +18,12 @@ import store from "../data/store.js";
     /** Hold reactive data for the component.
      * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
      * @see https://vuejs.org/v2/guide/reactivity.html
-     * @property {Object} commentStore - points to the comment area of store
+     * @property {module:data/store~State} sharedState - Reference to the state object in order to utilize Vues built in reactivity for automatic re-render.
      * @property {Object} currentUser - points to the user area of store
      */
     data() {
         return {
-            commentStore: store.state.comments,
+            sharedState: store.state,
             currentUser: store.state.user,
         };
     },
@@ -35,13 +35,15 @@ import store from "../data/store.js";
      */
     computed: {
         comments() {
-            return this.commentStore[store.state.code.currentFile].comments.filter(comment => comment.sectionId === this.commentStore[store.state.code.currentFile].activeSection);
+            return this.sharedState.content[store.state.code.currentFile].comments.filter(comment => {
+                return comment.sectionId === this.sharedState.content[this.sharedState.content.currentFile].activeCommentSection;
+            });
         },
         hasComments() {
             return this.comments.length > 0;
         },
         isActive() {
-            return this.commentStore[store.state.code.currentFile].activeSection !== null;
+            return this.sharedState.comments[store.state.code.currentFile].activeCommentSection !== null;
         },
     },
     /**
