@@ -1,4 +1,3 @@
-import api from "./api.js";
 /**
 * Module to store the current state and all state operations.
 * The state object must not be manipulated directly.
@@ -139,7 +138,7 @@ var store = {
                     "}\r\n" +
                     "\r\n" +
                     "module.exports = AppServer;",
-                    activeSection: null, 
+                    activeCommentSection: null, 
                     comments: 
                     [
                         {
@@ -166,12 +165,10 @@ var store = {
                             authorAvatarUrl: "https://www.ansoko.info/wp-content/uploads/2020/01/Kim-Hyunjin.jpg",
                             authorUrl: "https://images6.fanpop.com/image/photos/40900000/HyunJin-loo-CE-A0-CE-94-40926384-400-400.gif",
                             authorName: "Hyunjini",
-                            comment: "Side-Comments in not coded well",
+                            comment: "Side-Comments is not coded well.",
                         },
                     ],
-                    get activeCommentSection() { return this.activeSection; }, 
                 },
-                
                 "fileSha0001": {
                     sha: "fileSha0001",
                     text: "/**\r\n" +
@@ -206,27 +203,22 @@ var store = {
                     "        storage.setComment(storage.state.code.currentFile, comment);\r\n" +
                     "    });\r\n" +
                     "};",
-                    activeSection: 2,
+                    activeCommentSection: 2,
                     comments: [
                         {
                             sectionId: 2,
                             authorAvatarUrl: "https://i.pinimg.com/originals/fe/62/e3/fe62e3a5963a4ab3310f5f95d3c72b4e.jpg",
                             authorName: "Bae",
-                            comment: "Whats up with you?",
+                            comment: "What's up with you?",
                         },
                     ],
-                    get activeCommentSection() {return this.activeSection; },
                 },
             },
             filetree: {
                 name: "undefined",
                 children: [],
             },
-            get fileSha0000() { return this.files.fileSha0000; },
-            get fileSha0001() { return this.files.fileSha0001; },
         },
-        get comments() { return this.content; },
-        get code() { return this.content; },
     },
     /**
     * Set one comment for one code file
@@ -234,7 +226,7 @@ var store = {
     * @param {module:data/store~Comment} comment - Comment for side-comments.
     */
     setComment(fileSha, comment) {
-        this.state.comments[fileSha].comments.push(comment);
+        this.state.content.files[fileSha].comments.push(comment);
         this.log();
     },
     
@@ -243,13 +235,12 @@ var store = {
     * @param {String} fileSha
     */
     setCurrentFile(fileSha) {
-        if (fileSha === this.state.code.currentFile) {
-            return;
+        if (fileSha !== this.state.content.currentFile) {        
+            if (Object.keys(this.state.content.files).includes(fileSha)) {
+                this.state.content.currentFile = fileSha;
+                if (this.debug) { console.log("new current File: " + this.state.content.currentFile); }
+            }
         }
-        if (Object.keys(this.state.code.files).includes(fileSha)) {
-            this.state.code.currentFile = fileSha;
-        }
-        console.log(this.state.code.currentFile);
     },
     
     /**
@@ -259,22 +250,13 @@ var store = {
     */
     setActiveSection(fileSha, sectionId) {
         // This is essentially a deselect
-        if (this.state.comments[fileSha].activeSection === sectionId) {
-            this.state.comments[fileSha].activeSection = null;
+        if (this.state.content.files[fileSha].activeCommentSection === sectionId) {
+            this.state.content.files[fileSha].activeCommentSection = null;
+            if (this.debug) { console.log("active comment section deselected"); }
         } else {
-            this.state.comments[fileSha].activeSection = sectionId;
+            this.state.content.files[fileSha].activeCommentSection = sectionId;
+            if (this.debug) { console.log("new active comment section selected: " + this.state.content.files[fileSha].activeCommentSection); }
         }
-    },
-    
-    /**
-    * @deprecated - will most likely not be used
-    */
-    setFile() {
-        api.fetchFile().then(data => {
-            this.state.code.files[data.sha].sha = data.sha;
-            this.state.code.files[data.sha].value = data.value;
-        });
-        this.log();
     },
     
     /**

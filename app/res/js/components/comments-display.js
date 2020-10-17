@@ -35,15 +35,15 @@ import store from "../data/store.js";
      */
     computed: {
         comments() {
-            return this.sharedState.content[store.state.code.currentFile].comments.filter(comment => {
-                return comment.sectionId === this.sharedState.content[this.sharedState.content.currentFile].activeCommentSection;
+            return this.sharedState.content.files[this.sharedState.content.currentFile].comments.filter(comment => {
+                return comment.sectionId === this.sharedState.content.files[this.sharedState.content.currentFile].activeCommentSection;
             });
         },
         hasComments() {
             return this.comments.length > 0;
         },
         isActive() {
-            return this.sharedState.comments[store.state.code.currentFile].activeCommentSection !== null;
+            return this.sharedState.content.files[this.sharedState.content.currentFile].activeCommentSection !== null;
         },
     },
     /**

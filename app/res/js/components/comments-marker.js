@@ -49,13 +49,13 @@ import store from "../data/store.js";
         amountOfComments() {
             // eslint-disable-next-line no-param-reassign
             let countCommentsBySectionId = (acc, comment) => comment.sectionId === this.section ? ++acc : acc;
-            return this.sharedState.content[this.sharedState.content.currentFile].comments.reduce(countCommentsBySectionId, 0);
+            return this.sharedState.content.files[this.sharedState.content.currentFile].comments.reduce(countCommentsBySectionId, 0);
         },
         hasComments() {
             return this.amountOfComments > 0;
         },
         isActive() {
-            return this.sharedState.content[this.sharedState.content.currentFile].activeCommentSection === this.section;
+            return this.sharedState.content.files[this.sharedState.content.currentFile].activeCommentSection === this.section;
         },
     },
     /**
