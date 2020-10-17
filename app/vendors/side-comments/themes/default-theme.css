@@ -4,9 +4,9 @@
 }
 
 .side-comments-open {
-  /* -webkit-transform: translate(-220px, 0);
+  -webkit-transform: translate(-220px, 0);
   -ms-transform: translate(-220px, 0);
-  transform: translate(-220px, 0); */
+  transform: translate(-220px, 0);
 }
 
 .commentable-section {

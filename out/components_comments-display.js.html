@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: components/comments-marker.js</title>
+    <title>JSDoc: Source: components/comments-display.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: components/comments-marker.js</h1>
+    <h1 class="page-title">Source: components/comments-display.js</h1>
 
     
 
@@ -29,84 +29,58 @@
             <pre class="prettyprint source linenums"><code>import store from "../data/store.js";
 
 /**
- * Marker component to be added to one codemirror line.
- * Clickable to create new or display existing comments.
- * Shows number of comments on one line
- * 
- * @module components/CommentsMarkerComponent
+ * Display the currently selected visible section of comments
+ * @module components/CommentsDisplayComponent
  * @author Fabian Zeiher &lt;fzeiher@gmail.com>
  * @requires module:data/store
  */
-
- /**
-  * Namespace Object for Marker Component
+/**
+  * Namespace Object for Comments Display Component
   * @namespace
   */
- var CommentsMarkerComponent = {
-    /**
-     * Attributes that are exposed to accept data from the parent component.
-     * @type {Object}
-     * @property {Number} section - The section this marker is connected to.
-    */
-    props: {
-        section: Number,
-    },
-    /** 
-     * Css-selector for component template.
+ var CommentsDisplayComponent = {
+    /** Css-selector for component template.
      * @type {String}
      */
-    template: "#comments-marker-component-template",
-    /** 
-     * Hold reactive data for the component.
+    template: "#comments-display-component-template",
+    /** Hold reactive data for the component.
      * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
-     * @type {Object}
-     * @property {Array} commentArray - The Array of comments currently relevant for display
      * @see https://vuejs.org/v2/guide/reactivity.html
+     * @property {Object} commentStore - points to the comment area of store
+     * @property {Object} currentUser - points to the user area of store
      */
     data() {
         return {
             commentStore: store.state.comments,
+            currentUser: store.state.user,
         };
     },
-    /** Hold computed properties for the component.
+     /** Hold computed properties for the component.
      * @type {Object}
-     * @property {Number} amountOfComments - The amount of comments for this section.
-     * @property {Boolean} hasComments - Uses amountOfComments to evaluate if there are comments.
+     * @property {module:data/store~Comment[]} comments - Comments to be displayed for the selected section.
+     * @property {Boolean} hasComments - uses comments internally
+     * @property {Boolean} isActive - checks if there is a currently active section
      */
     computed: {
-        amountOfComments() {
-            // eslint-disable-next-line no-param-reassign
-            let countCommentsBySectionId = (acc, comment) => comment.sectionId === this.section ? ++acc : acc;
-            return this.commentStore[store.state.code.currentFile].comments.reduce(countCommentsBySectionId, 0);
+        comments() {
+            return this.commentStore[store.state.code.currentFile].comments.filter(comment => comment.sectionId === this.commentStore[store.state.code.currentFile].activeSection);
         },
         hasComments() {
-            return this.amountOfComments > 0;
+            return this.comments.length > 0;
         },
         isActive() {
-            return this.commentStore[store.state.code.currentFile].activeSection === this.section;
+            return this.commentStore[store.state.code.currentFile].activeSection !== null;
         },
     },
     /**
      * Hold methods for this component.
      * @type {Object}
-     * @namespace
      */
     methods: {
-        /**
-         * Listener for clicks on the marker.
-         * @param {Event} event - click event from the DOM
-         * @listens click
-         */
-        markerClick(event) {
-            console.log("Click on marker for section: " + this.section);
-            store.setActiveSection(store.state.code.currentFile, this.section);
-            event.preventDefault();
-            event.stopPropagation();
-        },
     },
  };
 
- export default CommentsMarkerComponent;</code></pre>
+ export default CommentsDisplayComponent;</code></pre>
         </article>
     </section>
 

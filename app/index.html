@@ -50,7 +50,7 @@
 
 <script type="text/x-template" id="comments-marker-component-template">
     <div class="commentable-section" style="bottom: 20px">
-        <div class="side-comment" :class="{'has-comments': hasComments}">
+        <div class="side-comment" :class="{active: isActive, 'has-comments': hasComments}">
             <a href="#" class="marker" @click="markerClick">
                 <span>{{ amountOfComments }}</span>
             </a>

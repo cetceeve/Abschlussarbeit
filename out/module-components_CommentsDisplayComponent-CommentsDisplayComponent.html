@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: CodeEditorComponent</title>
+    <title>JSDoc: Namespace: CommentsDisplayComponent</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: CodeEditorComponent</h1>
+    <h1 class="page-title">Namespace: CommentsDisplayComponent</h1>
 
     
 
@@ -29,7 +29,7 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-components_CodeEditorComponent.html">components/CodeEditorComponent</a>~</span>CodeEditorComponent</h2>
+            <span class="ancestors"><a href="module-components_CommentsDisplayComponent.html">components/CommentsDisplayComponent</a>~</span>CommentsDisplayComponent</h2>
         
     
 </header>
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Namespace Object for Code Editor Component.</div>
+            <div class="description">Namespace Object for Comments Display Component</div>
         
 
         
@@ -73,7 +73,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line22">line 22</a>
+        <a href="components_comments-display.js.html">components/comments-display.js</a>, <a href="components_comments-display.js.html#line13">line 13</a>
     </li></ul></dd>
     
 
@@ -99,13 +99,6 @@
 
     
 
-    
-        <h3 class="subsection-title">Namespaces</h3>
-
-        <dl>
-            <dt><a href="module-components_CodeEditorComponent-CodeEditorComponent.mounted.html">mounted</a></dt>
-            <dd></dd>
-        </dl>
     
 
     
@@ -164,13 +157,13 @@
 
         <tr>
             
-                <td class="name"><code>codemirror</code></td>
+                <td class="name"><code>comments</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">Array.&lt;<a href="module-data_store.html#~Comment">module:data/store~Comment</a>></span>
 
 
             
@@ -180,20 +173,20 @@
 
             
 
-            <td class="description last">The current codemirror instance.</td>
+            <td class="description last">Comments to be displayed for the selected section.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>code</code></td>
+                <td class="name"><code>hasComments</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Boolean</span>
 
 
             
@@ -203,7 +196,30 @@
 
             
 
-            <td class="description last">Get current code string from shared state.</td>
+            <td class="description last">uses comments internally</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isActive</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">checks if there is a currently active section</td>
         </tr>
 
     
@@ -242,7 +258,79 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line58">line 58</a>
+        <a href="components_comments-display.js.html">components/comments-display.js</a>, <a href="components_comments-display.js.html#line36">line 36</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".methods"><span class="type-signature">(static) </span>methods<span class="type-signature"> :Object</span></h4>
+
+
+
+
+<div class="description">
+    Hold methods for this component.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_comments-display.js.html">components/comments-display.js</a>, <a href="components_comments-display.js.html#line51">line 51</a>
     </li></ul></dd>
     
 
@@ -314,7 +402,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line26">line 26</a>
+        <a href="components_comments-display.js.html">components/comments-display.js</a>, <a href="components_comments-display.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -391,7 +479,7 @@
 
         <tr>
             
-                <td class="name"><code>sharedState</code></td>
+                <td class="name"><code>commentStore</code></td>
             
 
             <td class="type">
@@ -407,14 +495,14 @@
 
             
 
-            <td class="description last">Reference to the state object in order to utilize Vues built in reactivity for automatic re-render.</td>
+            <td class="description last">points to the comment area of store</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>cmOption</code></td>
+                <td class="name"><code>currentUser</code></td>
             
 
             <td class="type">
@@ -430,30 +518,7 @@
 
             
 
-            <td class="description last">Codemirror configuration object.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>linePaddingRight</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Right padding for codemirror lines in css terminology (e.g. "20px").</td>
+            <td class="description last">points to the user area of store</td>
         </tr>
 
     
@@ -492,7 +557,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_code-editor.js.html">components/code-editor.js</a>, <a href="components_code-editor.js.html#line34">line 34</a>
+        <a href="components_comments-display.js.html">components/comments-display.js</a>, <a href="components_comments-display.js.html#line24">line 24</a>
     </li></ul></dd>
     
 

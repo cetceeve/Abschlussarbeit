@@ -2,7 +2,7 @@ import store from "../data/store.js";
 
 /**
  * Display the currently selected visible section of comments
- * @module CommentsDisplayComponent
+ * @module components/CommentsDisplayComponent
  * @author Fabian Zeiher <fzeiher@gmail.com>
  * @requires module:data/store
  */
@@ -16,8 +16,10 @@ import store from "../data/store.js";
      */
     template: "#comments-display-component-template",
     /** Hold reactive data for the component.
-     * Component will re-render if this data changes, see link below.
+     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
      * @see https://vuejs.org/v2/guide/reactivity.html
+     * @property {Object} commentStore - points to the comment area of store
+     * @property {Object} currentUser - points to the user area of store
      */
     data() {
         return {
@@ -27,6 +29,9 @@ import store from "../data/store.js";
     },
      /** Hold computed properties for the component.
      * @type {Object}
+     * @property {module:data/store~Comment[]} comments - Comments to be displayed for the selected section.
+     * @property {Boolean} hasComments - uses comments internally
+     * @property {Boolean} isActive - checks if there is a currently active section
      */
     computed: {
         comments() {

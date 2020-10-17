@@ -30,15 +30,14 @@ import store from "../data/store.js";
     template: "#comments-marker-component-template",
     /** 
      * Hold reactive data for the component.
-     * Component will re-render if this data changes, see link below.
+     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
      * @type {Object}
      * @property {Array} commentArray - The Array of comments currently relevant for display
      * @see https://vuejs.org/v2/guide/reactivity.html
      */
     data() {
         return {
-            // the relevant comment array is added as a data property to utilize Vue build in reactivity to update on state changes automatically
-            commentArray: store.state.comments[store.state.code.currentFile].comments,
+            commentStore: store.state.comments,
         };
     },
     /** Hold computed properties for the component.
@@ -50,10 +49,13 @@ import store from "../data/store.js";
         amountOfComments() {
             // eslint-disable-next-line no-param-reassign
             let countCommentsBySectionId = (acc, comment) => comment.sectionId === this.section ? ++acc : acc;
-            return this.commentArray.reduce(countCommentsBySectionId, 0);
+            return this.commentStore[store.state.code.currentFile].comments.reduce(countCommentsBySectionId, 0);
         },
         hasComments() {
             return this.amountOfComments > 0;
+        },
+        isActive() {
+            return this.commentStore[store.state.code.currentFile].activeSection === this.section;
         },
     },
     /**
@@ -63,14 +65,7 @@ import store from "../data/store.js";
      */
     methods: {
         /**
-         * Event: onMarkerClicked
-         * @event CommentsMarkerComponent.methods#onMarkerClicked
-         * @type {object}
-         * @property {number} sectionId - Id of the section that the clicked comment marker belonged to.
-         * @deprecated event no longer in use
-         */
-        /**
-         * Listener for clicks on the marker. Emits event with section id.
+         * Listener for clicks on the marker.
          * @param {Event} event - click event from the DOM
          * @listens click
          */

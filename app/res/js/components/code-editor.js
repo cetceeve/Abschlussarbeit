@@ -25,7 +25,7 @@ var CodeEditorComponent = {
      */
     template: "#code-editor-component-template",
     /** Hold reactive data for the component.
-     * Component will re-render if this data changes, see link below.
+     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
      * @property {Object} sharedState - Reference to the state object in order to utilize Vues built in reactivity for automatic re-render.
      * @property {Object} cmOption - Codemirror configuration object.
      * @property {String} linePaddingRight - Right padding for codemirror lines in css terminology (e.g. "20px").
