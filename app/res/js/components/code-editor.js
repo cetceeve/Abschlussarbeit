@@ -33,7 +33,7 @@ var CodeEditorComponent = {
      */
     data() {
         return {
-            code: storage.state.code.files[storage.state.code.currentFile].value,
+            sharedState: storage.state.code,
             cmOption: {
                 placeholder: "nothing here :(",
                 mode: "javascript",
@@ -57,6 +57,9 @@ var CodeEditorComponent = {
     computed: {
         codemirror() {
           return this.$refs.cmEditor.codemirror;
+        },
+        code() {
+           return this.sharedState.files[this.sharedState.currentFile].value;
         },
     },
     /**
