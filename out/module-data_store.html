@@ -155,7 +155,7 @@
 
 
 <div class="description">
-    Data object used by the side-comments tool
+    Data object for side-comments. Origin see below.
 </div>
 
 
@@ -188,6 +188,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -213,6 +215,12 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+                </td>
+            
 
             
 
@@ -235,6 +243,12 @@
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+                </td>
             
 
             
@@ -259,10 +273,47 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+                </td>
+            
 
             
 
             <td class="description last">Display name of the comment author.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>authorUrl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Url for the page/profile of the author.</td>
         </tr>
 
     
@@ -281,6 +332,12 @@
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+                </td>
             
 
             
@@ -324,7 +381,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="data_store.js.html">data/store.js</a>, <a href="data_store.js.html#line29">line 29</a>
+        <a href="data_store.js.html">data/store.js</a>, <a href="data_store.js.html#line36">line 36</a>
     </li></ul></dd>
     
 
@@ -337,6 +394,195 @@
             <li><a href="http://aroc.github.io/side-comments-demo/">http://aroc.github.io/side-comments-demo/</a></li>
         </ul>
     </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="~File">File</h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sha</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Unique identifier for file.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>text</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Text content stored inside that file.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>activeCommentSection</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Currently active Comment section. 'null' if no section is active.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>comments</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="module-data_store.html#~Comment">module:data/store~Comment</a>></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Array of comment objects.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="data_store.js.html">data/store.js</a>, <a href="data_store.js.html#line28">line 28</a>
+    </li></ul></dd>
+    
+
+    
+
     
 
     
@@ -657,7 +903,7 @@
 
         <tr>
             
-                <td class="name"><code>code</code></td>
+                <td class="name"><code>content</code></td>
             
 
             <td class="type">
@@ -727,7 +973,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object.&lt;String, Object></span>
+<span class="param-type">Object.&lt;String, <a href="module-data_store.html#~File">module:data/store~File</a>></span>
 
 
             
@@ -737,7 +983,30 @@
 
             
 
-            <td class="description last">Dictonary for all files. Key: file sha. Value: file object.</td>
+            <td class="description last">Dictonary of files. Key: file sha. Value: file object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>filetree</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">File tree for the repository.</td>
         </tr>
 
     
@@ -745,29 +1014,6 @@
 </table>
 
             </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>comments</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object.&lt;String, Array.&lt;<a href="module-data_store.html#~Comment">module:data/store~Comment</a>>></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Dictonary of Arrays of Comment Objects. Key: file sha. Value: Array of Comments</td>
         </tr>
 
     
@@ -842,7 +1088,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sat Oct 17 2020 17:47:03 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sat Oct 17 2020 20:16:21 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -20,19 +20,27 @@ import api from "./api.js";
 * @property {String} user.name - Display name of the user.
 * @property {String} user.avatarUrl - Link to the avatar picture of the user. Should be 1:1 and not too large.
 * 
-* @property {Object} code
-* @property {String} code.currentFile - Sha for the currently displayed file.
-* @property {Object.<String, Object>} code.files - Dictonary for all files. Key: file sha. Value: file object.
-* 
-* @property {Object.<String, module:data/store~Comment[]>} comments - Dictonary of Arrays of Comment Objects. Key: file sha. Value: Array of Comments
+* @property {Object} content
+* @property {String} content.currentFile - Sha for the currently displayed file.
+* @property {Object.<String, module:data/store~File>} content.files - Dictonary of files. Key: file sha. Value: file object.
+* @property {Object} content.filetree - File tree for the repository.
 */
 /**
-* Data object used by the side-comments tool
+ * @typedef File
+ * @type {Object}
+ * @property {String} sha - Unique identifier for file.
+ * @property {String} text - Text content stored inside that file.
+ * @property {Number} activeCommentSection - Currently active Comment section. 'null' if no section is active.
+ * @property {module:data/store~Comment[]} comments - Array of comment objects.
+ */
+/**
+* Data object for side-comments. Origin see below.
 * @typedef Comment
 * @type {Object}
 * @property {Number} sectionId - Generally represents which element the comment is attached to.
 * @property {String} authorAvatarUrl - Link to the avatar picture of the comment author, should be 1:1 and not too large.
 * @property {String} authorName - Display name of the comment author.
+* @property {String} [authorUrl] - Url for the page/profile of the author.
 * @property {String} comment - The value/content of one comment.
 * @see http://aroc.github.io/side-comments-demo/
 */
@@ -75,7 +83,7 @@ var store = {
             files: {
                 "fileSha0000": {
                     sha: "fileSha000",
-                    code: "/* eslint-env node */\r\n" +
+                    text: "/* eslint-env node */\r\n" +
                     "\r\n" +
                     "const path = require(\"path\"),\r\n" +
                     "  express = require(\"express\");\r\n" +
@@ -161,13 +169,12 @@ var store = {
                             comment: "Side-Comments in not coded well",
                         },
                     ],
-                    get value() { return this.code; },
                     get activeCommentSection() { return this.activeSection; }, 
                 },
                 
                 "fileSha0001": {
                     sha: "fileSha0001",
-                    code: "/**\r\n" +
+                    text: "/**\r\n" +
                     " * Iniate a side-comments instance with a user object.\r\n" +
                     " * @param {Object} wrapperElement - The element which contains all the .commentable-section elements.\r\n" +
                     " * @see http://aroc.github.io/side-comments-demo/\r\n" +
@@ -208,7 +215,6 @@ var store = {
                             comment: "Whats up with you?",
                         },
                     ],
-                    get value() { return this.code; },
                     get activeCommentSection() {return this.activeSection; },
                 },
             },

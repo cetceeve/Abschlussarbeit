@@ -60,7 +60,7 @@ var CodeEditorComponent = {
           return this.$refs.cmEditor.codemirror;
         },
         code() {
-           return this.sharedState.content.files[this.sharedState.content.currentFile].code;
+           return this.sharedState.content.files[this.sharedState.content.currentFile].text;
         },
     },
     /**
