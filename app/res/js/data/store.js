@@ -70,12 +70,12 @@ var store = {
             description: "undefined",
             owner: "undefined",
         },
-        code: {
+        content: {
             currentFile: "fileSha0000",
             files: {
                 "fileSha0000": {
                     sha: "fileSha000",
-                    value: "/* eslint-env node */\r\n" +
+                    code: "/* eslint-env node */\r\n" +
                     "\r\n" +
                     "const path = require(\"path\"),\r\n" +
                     "  express = require(\"express\");\r\n" +
@@ -131,10 +131,43 @@ var store = {
                     "}\r\n" +
                     "\r\n" +
                     "module.exports = AppServer;",
+                    activeSection: null, 
+                    comments: 
+                    [
+                        {
+                            sectionId: 1,
+                            authorAvatarUrl: "https://www.ansoko.info/wp-content/uploads/2020/01/Kim-Hyunjin.jpg",
+                            authorUrl: "https://images6.fanpop.com/image/photos/40900000/HyunJin-loo-CE-A0-CE-94-40926384-400-400.gif",
+                            authorName: "Hyunjini",
+                            comment: "AERYONG",
+                        },
+                        {
+                            sectionId: 1,
+                            authorAvatarUrl: "https://media.tenor.com/images/2358de5b4a95de5aa74418305b3c2728/tenor.gif",
+                            authorName: "Yerimi",
+                            comment: "I am gonna write a super long and not at all helpful comment because i am a dick and i want to destroy this holes tool career.",
+                        },
+                        {
+                            sectionId: 3,
+                            authorAvatarUrl: "https://media.tenor.com/images/2358de5b4a95de5aa74418305b3c2728/tenor.gif",
+                            authorName: "Yerimi",
+                            comment: "Coding is not hard.",
+                        },
+                        {
+                            sectionId: 54,
+                            authorAvatarUrl: "https://www.ansoko.info/wp-content/uploads/2020/01/Kim-Hyunjin.jpg",
+                            authorUrl: "https://images6.fanpop.com/image/photos/40900000/HyunJin-loo-CE-A0-CE-94-40926384-400-400.gif",
+                            authorName: "Hyunjini",
+                            comment: "Side-Comments in not coded well",
+                        },
+                    ],
+                    get value() { return this.code; },
+                    get activeCommentSection() { return this.activeSection; }, 
                 },
+                
                 "fileSha0001": {
                     sha: "fileSha0001",
-                    value: "/**\r\n" +
+                    code: "/**\r\n" +
                     " * Iniate a side-comments instance with a user object.\r\n" +
                     " * @param {Object} wrapperElement - The element which contains all the .commentable-section elements.\r\n" +
                     " * @see http://aroc.github.io/side-comments-demo/\r\n" +
@@ -166,57 +199,28 @@ var store = {
                     "        storage.setComment(storage.state.code.currentFile, comment);\r\n" +
                     "    });\r\n" +
                     "};",
+                    activeSection: 2,
+                    comments: [
+                        {
+                            sectionId: 2,
+                            authorAvatarUrl: "https://i.pinimg.com/originals/fe/62/e3/fe62e3a5963a4ab3310f5f95d3c72b4e.jpg",
+                            authorName: "Bae",
+                            comment: "Whats up with you?",
+                        },
+                    ],
+                    get value() { return this.code; },
+                    get activeCommentSection() {return this.activeSection; },
                 },
             },
             filetree: {
                 name: "undefined",
                 children: [],
             },
+            get fileSha0000() { return this.files.fileSha0000; },
+            get fileSha0001() { return this.files.fileSha0001; },
         },
-        comments: {
-            "fileSha0000": {
-                activeSection: null, 
-                comments: [
-                    {
-                        sectionId: 1,
-                        authorAvatarUrl: "https://www.ansoko.info/wp-content/uploads/2020/01/Kim-Hyunjin.jpg",
-                        authorUrl: "https://images6.fanpop.com/image/photos/40900000/HyunJin-loo-CE-A0-CE-94-40926384-400-400.gif",
-                        authorName: "Hyunjini",
-                        comment: "AERYONG",
-                    },
-                    {
-                        sectionId: 1,
-                        authorAvatarUrl: "https://media.tenor.com/images/2358de5b4a95de5aa74418305b3c2728/tenor.gif",
-                        authorName: "Yerimi",
-                        comment: "I am gonna write a super long and not at all helpful comment because i am a dick and i want to destroy this holes tool career.",
-                    },
-                    {
-                        sectionId: 3,
-                        authorAvatarUrl: "https://media.tenor.com/images/2358de5b4a95de5aa74418305b3c2728/tenor.gif",
-                        authorName: "Yerimi",
-                        comment: "Coding is not hard.",
-                    },
-                    {
-                        sectionId: 54,
-                        authorAvatarUrl: "https://www.ansoko.info/wp-content/uploads/2020/01/Kim-Hyunjin.jpg",
-                        authorUrl: "https://images6.fanpop.com/image/photos/40900000/HyunJin-loo-CE-A0-CE-94-40926384-400-400.gif",
-                        authorName: "Hyunjini",
-                        comment: "Side-Comments in not coded well",
-                    },
-                ],
-            },
-            "fileSha0001": {
-                activeSection: null,
-                comments: [
-                    {
-                        sectionId: 2,
-                        authorAvatarUrl: "https://i.pinimg.com/originals/fe/62/e3/fe62e3a5963a4ab3310f5f95d3c72b4e.jpg",
-                        authorName: "Bae",
-                        comment: "Whats up with you?",
-                    },
-                ],
-            },
-        },
+        get comments() { return this.content; },
+        get code() { return this.content; },
     },
     /**
     * Set one comment for one code file
@@ -241,12 +245,12 @@ var store = {
         }
         console.log(this.state.code.currentFile);
     },
-
+    
     /**
-     * Set active selection for comments on one file
-     * @param {String} fileSha - File the comments are connected to.
-     * @param {Number} sectionId - Section id to set as active section.
-     */
+    * Set active selection for comments on one file
+    * @param {String} fileSha - File the comments are connected to.
+    * @param {Number} sectionId - Section id to set as active section.
+    */
     setActiveSection(fileSha, sectionId) {
         // This is essentially a deselect
         if (this.state.comments[fileSha].activeSection === sectionId) {
