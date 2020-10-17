@@ -26,7 +26,7 @@ var CodeEditorComponent = {
     template: "#code-editor-component-template",
     /** Hold reactive data for the component.
      * Component will re-render if this data changes, see link below.
-     * @property {String} code
+     * @property {Object} sharedState - Reference to the state object in order to utilize Vues built in reactivity for automatic re-render.
      * @property {Object} cmOption - Codemirror configuration object.
      * @property {String} linePaddingRight - Right padding for codemirror lines in css terminology (e.g. "20px").
      * @see https://vuejs.org/v2/guide/reactivity.html
@@ -53,6 +53,7 @@ var CodeEditorComponent = {
     /** Hold computed properties for the component.
      * @type {Object}
      * @property {Object} codemirror - The current codemirror instance.
+     * @property {String} code - Get current code string from shared state.
      */
     computed: {
         codemirror() {
@@ -83,6 +84,7 @@ var CodeEditorComponent = {
         /** 
          * Add the side-comments marker on all visible lines
          * @param {Object} widgetClass - Vue Component Class to generate new component instance from
+         * @listens CommentsMarkerComponent.methods#onMarkerClicked
          */
         addSideCommentDomHooks = (widgetClass) => {
             this.codemirror.on("viewportChange", (instance, fromLine, toLine) => {
@@ -105,6 +107,7 @@ var CodeEditorComponent = {
          * @param {Object} wrapperElement - The element which contains all the .commentable-section elements.
          * @see http://aroc.github.io/side-comments-demo/
          * @returns {Object} - New instance of side-comments.
+         * @deprecated side-comment library no longer in use
          */
         initSideComments = (wrapperElement) => {
             // eslint-disable-next-line no-undef    
@@ -115,6 +118,7 @@ var CodeEditorComponent = {
          * Add stored comments for the current file.
          * Utilises side-comments insertCommit() function internaly.
          * @param {Object} sideComments - A side-comments instance.
+         * @deprecated side-comment library no longer in use
          */
         insertStoredComments = (sideComments) => {
             for (let comment of store.state.comments[store.state.code.currentFile]) {
@@ -125,6 +129,7 @@ var CodeEditorComponent = {
          * Register Listeners on the side-comments instance.
          * On "commentPosted" the comment will be saved to store and then inserted to the DOM.
          * @param {Object} sideComments - A side-comments instance.
+         * @deprecated side-comment library no longer in use
          */
         registerSideCommentsListeners = (sideComments) => {
             sideComments.on("commentPosted", comment => {

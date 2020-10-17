@@ -26,7 +26,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import storage from "../data/storage.js";
+            <pre class="prettyprint source linenums"><code>import store from "../data/store.js";
 import CommentsMarkerComponent from "./comments-marker.js";
 import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.esm.browser.js";
 
@@ -41,7 +41,7 @@ import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.esm.browser.js
  * 
  * @module components/CodeEditorComponent
  * @author Fabian Zeiher &lt;fzeiher@gmail.com>
- * @requires module:data/Storage
+ * @requires module:data/store
  */
 /**
  * Namespace Object for Code Editor Component.
@@ -54,14 +54,14 @@ var CodeEditorComponent = {
     template: "#code-editor-component-template",
     /** Hold reactive data for the component.
      * Component will re-render if this data changes, see link below.
-     * @property {String} code
+     * @property {Object} sharedState - Reference to the state object in order to utilize Vues built in reactivity for automatic re-render.
      * @property {Object} cmOption - Codemirror configuration object.
      * @property {String} linePaddingRight - Right padding for codemirror lines in css terminology (e.g. "20px").
      * @see https://vuejs.org/v2/guide/reactivity.html
      */
     data() {
         return {
-            code: storage.state.code.files[storage.state.code.currentFile].value,
+            sharedState: store.state.code,
             cmOption: {
                 placeholder: "nothing here :(",
                 mode: "javascript",
@@ -81,10 +81,14 @@ var CodeEditorComponent = {
     /** Hold computed properties for the component.
      * @type {Object}
      * @property {Object} codemirror - The current codemirror instance.
+     * @property {String} code - Get current code string from shared state.
      */
     computed: {
         codemirror() {
           return this.$refs.cmEditor.codemirror;
+        },
+        code() {
+           return this.sharedState.files[this.sharedState.currentFile].value;
         },
     },
     /**
@@ -108,12 +112,16 @@ var CodeEditorComponent = {
         /** 
          * Add the side-comments marker on all visible lines
          * @param {Object} widgetClass - Vue Component Class to generate new component instance from
+         * @listens CommentsMarkerComponent.methods#onMarkerClicked
          */
         addSideCommentDomHooks = (widgetClass) => {
             this.codemirror.on("viewportChange", (instance, fromLine, toLine) => {
                 for (let i = fromLine; i &lt;= toLine; i++) {
                     let widget = new widgetClass({
                         propsData: {section: i},
+                    });
+                    widget.$on("onMarkerClicked", (event) => {
+                        console.log("Clicked on section: " + event.sectionId);
                     });
                     // vue component is rendered at the end of the dom
                     // component is then injected into codemirror as a line-widget
@@ -127,31 +135,34 @@ var CodeEditorComponent = {
          * @param {Object} wrapperElement - The element which contains all the .commentable-section elements.
          * @see http://aroc.github.io/side-comments-demo/
          * @returns {Object} - New instance of side-comments.
+         * @deprecated side-comment library no longer in use
          */
         initSideComments = (wrapperElement) => {
             // eslint-disable-next-line no-undef    
             let SideComments = require("side-comments");
-            return new SideComments(wrapperElement, storage.state.user);
+            return new SideComments(wrapperElement, store.state.user);
         },
         /**
          * Add stored comments for the current file.
          * Utilises side-comments insertCommit() function internaly.
          * @param {Object} sideComments - A side-comments instance.
+         * @deprecated side-comment library no longer in use
          */
         insertStoredComments = (sideComments) => {
-            for (let comment of storage.state.comments[storage.state.code.currentFile]) {
+            for (let comment of store.state.comments[store.state.code.currentFile]) {
                 sideComments.insertComment(comment);
             }
         },
         /**
          * Register Listeners on the side-comments instance.
-         * On "commentPosted" the comment will be saved to storage and then inserted to the DOM.
+         * On "commentPosted" the comment will be saved to store and then inserted to the DOM.
          * @param {Object} sideComments - A side-comments instance.
+         * @deprecated side-comment library no longer in use
          */
         registerSideCommentsListeners = (sideComments) => {
             sideComments.on("commentPosted", comment => {
                 sideComments.insertComment(comment);
-                storage.setComment(storage.state.code.currentFile, comment);
+                store.setComment(store.state.code.currentFile, comment);
             });
         };
 
@@ -180,13 +191,13 @@ export default CodeEditorComponent;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-components_CodeEditorComponent.html">components/CodeEditorComponent</a></li><li><a href="module-components_CommentsMarkerComponent.html">components/CommentsMarkerComponent</a></li><li><a href="module-data_Storage.html">data/Storage</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.html">CodeEditorComponent</a></li><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.mounted.html">mounted</a></li><li><a href="module-components_CommentsMarkerComponent-CommentsMarkerComponent.html">CommentsMarkerComponent</a></li><li><a href="module-components_CommentsMarkerComponent-CommentsMarkerComponent.methods.html">methods</a></li></ul><h3>Classes</h3><ul><li><a href="module-data_Storage-Storage.html">Storage</a></li></ul><h3>Events</h3><ul><li><a href="CommentsMarkerComponent.methods.html#event:onMarkerClicked">onMarkerClicked</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-components_CodeEditorComponent.html">components/CodeEditorComponent</a></li><li><a href="module-components_CommentsMarkerComponent.html">components/CommentsMarkerComponent</a></li><li><a href="module-data_store.html">data/store</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.html">CodeEditorComponent</a></li><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.mounted.html">mounted</a></li><li><a href="module-components_CommentsMarkerComponent-CommentsMarkerComponent.html">CommentsMarkerComponent</a></li><li><a href="module-components_CommentsMarkerComponent-CommentsMarkerComponent.methods.html">methods</a></li><li><a href="module-data_store-store.html">store</a></li></ul><h3>Events</h3><ul><li><a href="CommentsMarkerComponent.methods.html#event:onMarkerClicked">onMarkerClicked</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Oct 16 2020 21:35:29 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sat Oct 17 2020 09:55:56 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>

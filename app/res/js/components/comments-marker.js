@@ -74,7 +74,7 @@ import store from "../data/store.js";
          * @listens click
          * @fires CommentsMarkerComponent.methods#onMarkerClicked
          */
-        onMarkerClicked(event) {
+        markerClick(event) {
             this.$emit("onMarkerClicked", { sectionId: this.section});
             event.preventDefault();
             event.stopPropagation();
