@@ -241,6 +241,7 @@ var store = {
                 if (this.debug) { console.log("new current File: " + this.state.content.currentFile); }
             }
         }
+        this.log();
     },
     
     /**
@@ -257,6 +258,7 @@ var store = {
             this.state.content.files[fileSha].activeCommentSection = sectionId;
             if (this.debug) { console.log("new active comment section selected: " + this.state.content.files[fileSha].activeCommentSection); }
         }
+        this.log();
     },
     
     /**
@@ -264,7 +266,9 @@ var store = {
     */
     log() {
         if (this.debug) {
+            console.log("--------  State changed  ----------");
             console.log(this.state);
+            console.log("-----------------------------------");
         }
     },
     

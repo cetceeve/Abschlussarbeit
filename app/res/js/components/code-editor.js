@@ -98,55 +98,12 @@ var CodeEditorComponent = {
                     this.codemirror.addLineWidget(i, widget.$el, { handleMouseEvents: true});
                 }
             });
-        },
-        /**
-         * Iniate a side-comments instance with a user object.
-         * @param {Object} wrapperElement - The element which contains all the .commentable-section elements.
-         * @see http://aroc.github.io/side-comments-demo/
-         * @returns {Object} - New instance of side-comments.
-         * @deprecated side-comment library no longer in use
-         */
-        initSideComments = (wrapperElement) => {
-            // eslint-disable-next-line no-undef    
-            let SideComments = require("side-comments");
-            return new SideComments(wrapperElement, store.state.user);
-        },
-        /**
-         * Add stored comments for the current file.
-         * Utilises side-comments insertCommit() function internaly.
-         * @param {Object} sideComments - A side-comments instance.
-         * @deprecated side-comment library no longer in use
-         */
-        insertStoredComments = (sideComments) => {
-            for (let comment of store.state.comments[store.state.code.currentFile]) {
-                sideComments.insertComment(comment);
-            }
-        },
-        /**
-         * Register Listeners on the side-comments instance.
-         * On "commentPosted" the comment will be saved to store and then inserted to the DOM.
-         * @param {Object} sideComments - A side-comments instance.
-         * @deprecated side-comment library no longer in use
-         */
-        registerSideCommentsListeners = (sideComments) => {
-            sideComments.on("commentPosted", comment => {
-                sideComments.insertComment(comment);
-                store.setComment(store.state.code.currentFile, comment);
-            });
         };
 
         console.log("look at my codemirror instance:", this.codemirror);
         // integrate side-comment markers into codemirror
         addSideCommentDomHooks(Vue.extend(CommentsMarkerComponent));
         addLinePadding(this.linePaddingRight);
-        
-        // // add side-comments elements to codemirror
-        // let sideComments = initSideComments(this.codemirror.getScrollerElement());
-        // insertStoredComments(sideComments);
-        // registerSideCommentsListeners(sideComments);
-
-        // let lineHandle = this.codemirror.addLineClass(0, "background", "background-modifier");
-        // console.dir(lineHandle.height);
     },
 };
 

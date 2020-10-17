@@ -70,7 +70,7 @@ import store from "../data/store.js";
          * @listens click
          */
         markerClick(event) {
-            console.log("Click on marker for section: " + this.section);
+            console.log("click on marker for section: " + this.section);
             store.setActiveSection(this.sharedState.content.currentFile, this.section);
             event.preventDefault();
             event.stopPropagation();
