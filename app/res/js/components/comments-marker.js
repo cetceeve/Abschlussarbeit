@@ -15,11 +15,11 @@ import store from "../data/store.js";
   * @namespace
   */
  var CommentsMarkerComponent = {
-     /**
-      * Attributes that are exposed to accept data from the parent component.
-      * @type {Object}
-      * @property {Number} section - The section this marker is connected to.
-      */
+    /**
+     * Attributes that are exposed to accept data from the parent component.
+     * @type {Object}
+     * @property {Number} section - The section this marker is connected to.
+    */
     props: {
         section: Number,
     },
