@@ -1,5 +1,6 @@
 import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.esm.browser.js";
 import CodeEditorComponent from "./components/code-editor.js";
+import storage from "./data/storage.js";
 
 /* eslint-disable-next-line no-undef */
 Vue.use(VueCodemirror);
@@ -11,5 +12,10 @@ const vue = new Vue({
     },
     data: {
         header: "Please, enjoy the vue!",
+    },
+    methods: {
+        toSha(fileSha) {
+            storage.setCurrentFile(fileSha);
+        },
     },
 });

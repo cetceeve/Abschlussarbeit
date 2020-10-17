@@ -133,6 +133,41 @@ class Storage {
                         "\r\n" +
                         "module.exports = AppServer;",
                     },
+                    "fileSha0001": {
+                        sha: "fileSha0001",
+                        value: "/**" +
+                        " * Iniate a side-comments instance with a user object." +
+                        " * @param {Object} wrapperElement - The element which contains all the .commentable-section elements." +
+                        " * @see http://aroc.github.io/side-comments-demo/" +
+                        " * @returns {Object} - New instance of side-comments." +
+                        " */" +
+                        "initSideComments = (wrapperElement) => {" +
+                        "    // eslint-disable-next-line no-undef    " +
+                        "    let SideComments = require(\"side-comments\");" +
+                        "    return new SideComments(wrapperElement, storage.state.user);" +
+                        "}," +
+                        "/**" +
+                        " * Add stored comments for the current file." +
+                        " * Utilises side-comments insertCommit() function internaly." +
+                        " * @param {Object} sideComments - A side-comments instance." +
+                        " */" +
+                        "insertStoredComments = (sideComments) => {" +
+                        "    for (let comment of storage.state.comments[storage.state.code.currentFile]) {" +
+                        "        sideComments.insertComment(comment);" +
+                        "    }" +
+                        "}," +
+                        "/**" +
+                        " * Register Listeners on the side-comments instance." +
+                        " * On \"commentPosted\" the comment will be saved to storage and then inserted to the DOM." +
+                        " * @param {Object} sideComments - A side-comments instance." +
+                        " */" +
+                        "registerSideCommentsListeners = (sideComments) => {" +
+                        "    sideComments.on(\"commentPosted\", comment => {" +
+                        "        sideComments.insertComment(comment);" +
+                        "        storage.setComment(storage.state.code.currentFile, comment);" +
+                        "    });" +
+                        "};",
+                    },
                 },
                 filetree: {
                     name: "undefined",
@@ -165,6 +200,14 @@ class Storage {
                         comment: "Side-Comments in not coded well",
                     },
                 ],
+                "fileSha0001": [
+                    {
+                        sectionId: 2,
+                        authorAvatarUrl: "https://i.pinimg.com/originals/fe/62/e3/fe62e3a5963a4ab3310f5f95d3c72b4e.jpg",
+                        authorName: "Bae",
+                        comment: "Whats up with you?",
+                    },
+                ],
             },
         };
         this.debug();
@@ -178,6 +221,20 @@ class Storage {
     setComment(fileSha, comment) {
         this.state.comments[fileSha].push(comment);
         this.debug();
+    }
+
+    /**
+     * Set the current file on display
+     * @param {String} fileSha
+     */
+    setCurrentFile(fileSha) {
+        if (fileSha === this.state.code.currentFile) {
+            return;
+        }
+        if (Object.keys(this.state.code.files).includes(fileSha)) {
+            this.state.code.currentFile = fileSha;
+        }
+        console.log(this.state.code.currentFile);
     }
 
     /**
