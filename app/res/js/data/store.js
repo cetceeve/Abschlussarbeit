@@ -15,9 +15,10 @@
 * @property {String} meta.activeStage - The currently active stage of the Review.
 * 
 * @property {Object} user - Data for the logged in user.
-* @property {String} user.id - User id.
+* @property {Number} user.id - User id.
 * @property {String} user.name - Display name of the user.
 * @property {String} user.avatarUrl - Link to the avatar picture of the user. Should be 1:1 and not too large.
+* @property {String} [user.url] - Url for the page/profile of the author.
 * 
 * @property {Object} content
 * @property {String} content.currentFile - Sha for the currently displayed file.
@@ -37,6 +38,7 @@
 * @typedef Comment
 * @type {Object}
 * @property {Number} sectionId - Generally represents which element the comment is attached to.
+* @property {Number} authorId - Id of the author.
 * @property {String} authorAvatarUrl - Link to the avatar picture of the comment author, should be 1:1 and not too large.
 * @property {String} authorName - Display name of the comment author.
 * @property {String} [authorUrl] - Url for the page/profile of the author.
@@ -58,7 +60,7 @@ var store = {
             activeStage: "undefined",
         },
         user: {
-            id: "123",
+            id: 123,
             name: "Seoulbear",
             avatarUrl: "https://pbs.twimg.com/profile_images/964204609186222081/I7Mc16_z.jpg",
         },
@@ -210,6 +212,13 @@ var store = {
                             authorAvatarUrl: "https://i.pinimg.com/originals/fe/62/e3/fe62e3a5963a4ab3310f5f95d3c72b4e.jpg",
                             authorName: "Bae",
                             comment: "What's up with you?",
+                        },
+                        {
+                            sectionId: 12,
+                            authorId: 123,
+                            authorAvatarUrl: "https://pbs.twimg.com/profile_images/964204609186222081/I7Mc16_z.jpg",
+                            authorName: "Seoulbear",
+                            comment: "Why would you delete this?",
                         },
                     ],
                 },
