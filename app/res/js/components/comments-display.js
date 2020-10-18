@@ -61,7 +61,6 @@ var CommentsDisplayComponent = {
             this.commentFormIsVisible = true;
         },
         cancelCommentInput() {
-            this.$refs.input.value = "";
             if (this.hasComments) {
                 this.commentFormIsVisible = false;
             } else {
@@ -69,7 +68,7 @@ var CommentsDisplayComponent = {
             }
         },
         postNewComment() {
-            store.setComment(this.sharedState.content.currentFile, {
+            store.addComment(this.sharedState.content.currentFile, {
                 sectionId: this.sharedState.content.files[this.sharedState.content.currentFile].activeCommentSection,
                 authorId: this.currentUser.id,
                 authorAvatarUrl: this.currentUser.avatarUrl,

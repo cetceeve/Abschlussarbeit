@@ -15,7 +15,7 @@
 * @property {String} meta.activeStage - The currently active stage of the Review.
 * 
 * @property {Object} user - Data for the logged in user.
-* @property {Number} user.id - User id.
+* @property {String} user.id - User id.
 * @property {String} user.name - Display name of the user.
 * @property {String} user.avatarUrl - Link to the avatar picture of the user. Should be 1:1 and not too large.
 * @property {String} [user.url] - Url for the page/profile of the author.
@@ -30,15 +30,15 @@
  * @type {Object}
  * @property {String} sha - Unique identifier for file.
  * @property {String} text - Text content stored inside that file.
- * @property {Number} activeCommentSection - Currently active Comment section. 'null' if no section is active.
+ * @property {String} activeCommentSection - Currently active Comment section. 'null' if no section is active.
  * @property {module:data/store~Comment[]} comments - Array of comment objects.
  */
 /**
 * Data object for side-comments. Origin see below.
 * @typedef Comment
 * @type {Object}
-* @property {Number} sectionId - Generally represents which element the comment is attached to.
-* @property {Number} authorId - Id of the author.
+* @property {String} sectionId - Generally represents which element the comment is attached to.
+* @property {String} authorId - Id of the author.
 * @property {String} authorAvatarUrl - Link to the avatar picture of the comment author, should be 1:1 and not too large.
 * @property {String} authorName - Display name of the comment author.
 * @property {String} [authorUrl] - Url for the page/profile of the author.
@@ -60,7 +60,7 @@ var store = {
             activeStage: "undefined",
         },
         user: {
-            id: 123,
+            id: "123",
             name: "Seoulbear",
             avatarUrl: "https://pbs.twimg.com/profile_images/964204609186222081/I7Mc16_z.jpg",
         },
@@ -144,26 +144,34 @@ var store = {
                     comments: 
                     [
                         {
-                            sectionId: 1,
+                            sectionId: "1",
+                            authorId: "2",
+                            commentId: "10001",
                             authorAvatarUrl: "https://www.ansoko.info/wp-content/uploads/2020/01/Kim-Hyunjin.jpg",
                             authorUrl: "https://images6.fanpop.com/image/photos/40900000/HyunJin-loo-CE-A0-CE-94-40926384-400-400.gif",
                             authorName: "Hyunjini",
                             comment: "AERYONG",
                         },
                         {
-                            sectionId: 1,
+                            sectionId: "1",
+                            authorId: "12",
+                            commentId: "10002",
                             authorAvatarUrl: "https://media.tenor.com/images/2358de5b4a95de5aa74418305b3c2728/tenor.gif",
                             authorName: "Yerimi",
                             comment: "I am gonna write a super long and not at all helpful comment because i am a dick and i want to destroy this holes tool career.",
                         },
                         {
-                            sectionId: 3,
+                            sectionId: "3",
+                            authorId: "12",
+                            commentId: "10003",
                             authorAvatarUrl: "https://media.tenor.com/images/2358de5b4a95de5aa74418305b3c2728/tenor.gif",
                             authorName: "Yerimi",
                             comment: "Coding is not hard.",
                         },
                         {
-                            sectionId: 54,
+                            sectionId: "54",
+                            authorId: "2",
+                            commentId: "10004",
                             authorAvatarUrl: "https://www.ansoko.info/wp-content/uploads/2020/01/Kim-Hyunjin.jpg",
                             authorUrl: "https://images6.fanpop.com/image/photos/40900000/HyunJin-loo-CE-A0-CE-94-40926384-400-400.gif",
                             authorName: "Hyunjini",
@@ -205,17 +213,20 @@ var store = {
                     "        storage.setComment(storage.state.code.currentFile, comment);\r\n" +
                     "    });\r\n" +
                     "};",
-                    activeCommentSection: 2,
+                    activeCommentSection: "2",
                     comments: [
                         {
-                            sectionId: 2,
+                            sectionId: "2",
+                            authorId: "1111",
+                            commentId: "20001",
                             authorAvatarUrl: "https://i.pinimg.com/originals/fe/62/e3/fe62e3a5963a4ab3310f5f95d3c72b4e.jpg",
                             authorName: "Bae",
                             comment: "What's up with you?",
                         },
                         {
-                            sectionId: 12,
-                            authorId: 123,
+                            sectionId: "12",
+                            authorId: "123",
+                            commentId: "20002",
                             authorAvatarUrl: "https://pbs.twimg.com/profile_images/964204609186222081/I7Mc16_z.jpg",
                             authorName: "Seoulbear",
                             comment: "Why would you delete this?",
@@ -230,11 +241,11 @@ var store = {
         },
     },
     /**
-    * Set one comment for one code file
+    * Add one comment for one code file
     * @param {String} fileSha
     * @param {module:data/store~Comment} comment - Comment for side-comments.
     */
-    setComment(fileSha, comment) {
+    addComment(fileSha, comment) {
         this.state.content.files[fileSha].comments.push(comment);
         this.log();
     },
@@ -256,7 +267,7 @@ var store = {
     /**
     * Set active selection for comments on one file
     * @param {String} fileSha - File the comments are connected to.
-    * @param {Number} sectionId - Section id to set as active section.
+    * @param {String} sectionId - Section id to set as active section.
     */
     setActiveSection(fileSha, sectionId) {
         // This is essentially a deselect

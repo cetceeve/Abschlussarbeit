@@ -18,10 +18,10 @@ import store from "../data/store.js";
     /**
      * Attributes that are exposed to accept data from the parent component.
      * @type {Object}
-     * @property {Number} section - The section this marker is connected to.
+     * @property {String} section - The section this marker is connected to.
     */
     props: {
-        section: Number,
+        section: String,
     },
     /** 
      * Css-selector for component template.

@@ -92,7 +92,7 @@ var CodeEditorComponent = {
                 // add components if there are not enouph
                 if (this.items.length < length) {
                     for (let i = this.items.length; i <= length; i++) {
-                        this.items.push(this.createComponentElement(i));
+                        this.items.push(this.createComponentElement(i.toString()));
                     }
                 // remove components if there are a lot to many
                 } else if (this.items.length > length + 100) {
