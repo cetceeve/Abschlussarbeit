@@ -1,4 +1,5 @@
 import store from "../data/store.js";
+import _uniqueId from "../../../vendors/lodash/modularize/uniqueId.js";
 
 /**
 * Display the currently selected visible section of comments
@@ -75,6 +76,7 @@ var CommentsDisplayComponent = {
         },
         postNewComment() {
             store.addComment(this.sharedState.content.currentFile, {
+                id: _uniqueId("comment_"),
                 sectionId: this.sharedState.content.files[this.sharedState.content.currentFile].activeCommentSection,
                 authorId: this.currentUser.id,
                 authorAvatarUrl: this.currentUser.avatarUrl,
@@ -83,6 +85,9 @@ var CommentsDisplayComponent = {
                 comment: this.newComment,
             });
             this.newComment = "";
+        },
+        deleteComment(commentId) {
+            store.deleteComment(this.sharedState.content.currentFile, commentId);
         },
     },
     updated() {

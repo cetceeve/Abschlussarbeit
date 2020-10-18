@@ -51,7 +51,7 @@
 <script type="text/x-template" id="comments-marker-component-template">
     <div class="commentable-section" style="bottom: 20px">
         <div class="side-comment" :class="{active: isActive, 'has-comments': hasComments}">
-            <a href="#" class="marker" @click="markerClick">
+            <a href="#" class="marker" @click.stop="markerClick">
                 <span>{{ amountOfComments }}</span>
             </a>
         </div>
@@ -70,7 +70,7 @@
                         <a v-if="comment.authorUrl" class="author-name right-of-avatar" :href="comment.authorUrl">{{ comment.authorName }}</a>
                         <p v-else class="author-name right-of-avatar">{{ comment.authorName }}</p>
                         <p class="comment right-of-avatar">{{ comment.comment }}</p>
-                        <a v-if="comment.authorId === currentUser.id" href="#" class="action-link delete">Delete</a>
+                        <a v-if="comment.authorId === currentUser.id" @click="deleteComment(comment.id)" href="#" class="action-link delete">Delete</a>
                     </li>
                 </ul>
                 <a v-show="!commentFormIsVisible" @click="showCommentForm" href="#" class="add-comment">Leave a comment</a>

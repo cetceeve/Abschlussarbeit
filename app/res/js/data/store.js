@@ -37,6 +37,7 @@
 * Data object for side-comments. Origin see below.
 * @typedef Comment
 * @type {Object}
+* @property {String} id - Unique identifier for that comment.
 * @property {String} sectionId - Generally represents which element the comment is attached to.
 * @property {String} authorId - Id of the author.
 * @property {String} authorAvatarUrl - Link to the avatar picture of the comment author, should be 1:1 and not too large.
@@ -144,34 +145,34 @@ var store = {
                     comments: 
                     [
                         {
+                            id: "10001",
                             sectionId: "1",
                             authorId: "2",
-                            commentId: "10001",
                             authorAvatarUrl: "https://www.ansoko.info/wp-content/uploads/2020/01/Kim-Hyunjin.jpg",
                             authorUrl: "https://images6.fanpop.com/image/photos/40900000/HyunJin-loo-CE-A0-CE-94-40926384-400-400.gif",
                             authorName: "Hyunjini",
                             comment: "AERYONG",
                         },
                         {
+                            id: "10002",
                             sectionId: "1",
                             authorId: "12",
-                            commentId: "10002",
                             authorAvatarUrl: "https://media.tenor.com/images/2358de5b4a95de5aa74418305b3c2728/tenor.gif",
                             authorName: "Yerimi",
                             comment: "I am gonna write a super long and not at all helpful comment because i am a dick and i want to destroy this holes tool career.",
                         },
                         {
+                            id: "10003",
                             sectionId: "3",
                             authorId: "12",
-                            commentId: "10003",
                             authorAvatarUrl: "https://media.tenor.com/images/2358de5b4a95de5aa74418305b3c2728/tenor.gif",
                             authorName: "Yerimi",
                             comment: "Coding is not hard.",
                         },
                         {
+                            id: "10004",
                             sectionId: "54",
                             authorId: "2",
-                            commentId: "10004",
                             authorAvatarUrl: "https://www.ansoko.info/wp-content/uploads/2020/01/Kim-Hyunjin.jpg",
                             authorUrl: "https://images6.fanpop.com/image/photos/40900000/HyunJin-loo-CE-A0-CE-94-40926384-400-400.gif",
                             authorName: "Hyunjini",
@@ -216,20 +217,28 @@ var store = {
                     activeCommentSection: "2",
                     comments: [
                         {
+                            id: "20001",
                             sectionId: "2",
                             authorId: "1111",
-                            commentId: "20001",
                             authorAvatarUrl: "https://i.pinimg.com/originals/fe/62/e3/fe62e3a5963a4ab3310f5f95d3c72b4e.jpg",
                             authorName: "Bae",
                             comment: "What's up with you?",
                         },
                         {
+                            id: "20002",
                             sectionId: "12",
                             authorId: "123",
-                            commentId: "20002",
                             authorAvatarUrl: "https://pbs.twimg.com/profile_images/964204609186222081/I7Mc16_z.jpg",
                             authorName: "Seoulbear",
                             comment: "Why would you delete this?",
+                        },
+                        {
+                            id: "20003",
+                            sectionId: "12",
+                            authorId: "123",
+                            authorAvatarUrl: "https://pbs.twimg.com/profile_images/964204609186222081/I7Mc16_z.jpg",
+                            authorName: "Seoulbear",
+                            comment: "ID3 lol",
                         },
                     ],
                 },
@@ -247,6 +256,19 @@ var store = {
     */
     addComment(fileSha, comment) {
         this.state.content.files[fileSha].comments.push(comment);
+        this.log();
+    },
+
+    /**
+     * Delete one comment
+     * @param {String} fileSha
+     * @param {String} commentID - Id of comment to be deleted.
+     */
+    deleteComment(fileSha, commentId) {
+        let index = this.state.content.files[fileSha].comments.findIndex((comment) => {
+            return comment.id === commentId;
+        });
+        this.state.content.files[fileSha].comments.splice(index, 1);
         this.log();
     },
     
