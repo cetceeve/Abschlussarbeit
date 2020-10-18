@@ -25,6 +25,7 @@ import store from "../data/store.js";
         return {
             sharedState: store.state,
             currentUser: store.state.user,
+            commentFormIsVisible: true,
         };
     },
      /** Hold computed properties for the component.
@@ -40,6 +41,11 @@ import store from "../data/store.js";
             });
         },
         hasComments() {
+            if (this.comments.length > 0) {
+                this.commentFormIsVisible = false;
+            } else {
+                this.commentFormIsVisible = true;
+            }
             return this.comments.length > 0;
         },
         isActive() {
@@ -51,6 +57,15 @@ import store from "../data/store.js";
      * @type {Object}
      */
     methods: {
+        showCommentForm() {
+            this.commentFormIsVisible = true;
+        },
+    },
+    updated() {
+        if (this.commentFormIsVisible) {
+            this.$refs.input.focus();
+        }
+        this.$refs.input.value = "";
     },
  };
 

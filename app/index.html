@@ -73,13 +73,13 @@
                         <a v-if="comment.authorId === currentUser.id" href="#" class="action-link delete">Delete</a>
                     </li>
                 </ul>
-                <a href="#" class="add-comment">Leave a comment</a>
-                <div v-if="!hasComments" class="comment-form">
+                <a v-show="!commentFormIsVisible" @click="showCommentForm" href="#" class="add-comment">Leave a comment</a>
+                <div v-show="commentFormIsVisible" class="comment-form" :class="{active: commentFormIsVisible}">
                     <div class="author-avatar">
                         <img :src="currentUser.avatarUrl">
                     </div>
                     <p class="author-name">{{ currentUser.name }}</p>
-                    <input type="text" class="comment-box right-of-avatar" placeholder="Leave a comment...">
+                    <input ref="input" type="text" class="comment-box right-of-avatar" placeholder="Leave a comment...">
                     <div class="actions right-of-avatar">
                         <a href="#" class="action-link post">Post</a>
                         <a href="#" class="action-link cancel">Cancel</a>
