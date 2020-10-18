@@ -27,5 +27,8 @@ const vue = new Vue({
                 comment: "Whats up with you?",
             });
         },
+        deleteFatamorgana() {
+            store.deleteComment(store.state.content.currentFile, "99999999");
+        },
     },
 });

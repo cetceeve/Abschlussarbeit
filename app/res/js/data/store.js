@@ -268,8 +268,10 @@ var store = {
         let index = this.state.content.files[fileSha].comments.findIndex((comment) => {
             return comment.id === commentId;
         });
-        this.state.content.files[fileSha].comments.splice(index, 1);
-        this.log();
+        if (index !== -1) {
+            this.state.content.files[fileSha].comments.splice(index, 1);
+            this.log();
+        }
     },
     
     /**
@@ -281,9 +283,9 @@ var store = {
             if (Object.keys(this.state.content.files).includes(fileSha)) {
                 this.state.content.currentFile = fileSha;
                 if (this.debug) { console.log("new current File: " + this.state.content.currentFile); }
+                this.log();
             }
         }
-        this.log();
     },
     
     /**
