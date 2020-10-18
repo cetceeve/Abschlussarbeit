@@ -79,7 +79,6 @@ var CodeEditorComponent = {
         };
     },
     /** Hold computed properties for the component.
-     * @type {Object}
      * @property {Object} codemirror - The current codemirror instance.
      * @property {String} code - Get current code string from shared state.
      */
@@ -92,89 +91,66 @@ var CodeEditorComponent = {
         },
     },
     /**
-     * Code to execute when component is mounted.
-     * Reference Vue Lifecycle below.
-     * @function mounted
-     * @memberof module:components/CodeEditorComponent~CodeEditorComponent
+     * Code to execute when component is mounted, reference Vue Lifecycle below.
+     * Add Comment Marker Components as LineWidgets. Listen for events from codemirror to handle rerender and content changes.
      * @see https://vuejs.org/v2/guide/instance.html
-     * @namespace
      */
     mounted() {
-        /** Add padding for the side-comments button on every codemirror line.
-         *  Necessary to avoid drawing the button on top of code. Additionally avoids click trough onto code.
-         * @param {String} linePadding - String describing the padding amount in css terminology (e.g. "20px").
-         */
-        const addLinePadding = (linePadding) => {
-            this.codemirror.on("renderLine", (instance, lineHandle, element) => {
-                element.setAttribute("style", "padding-right: " + linePadding);
-            });
-        },
-        /** 
-         * Add the side-comments marker on all visible lines
-         * @param {Object} widgetClass - Vue Component Class to generate new component instance from
-         * @listens CommentsMarkerComponent.methods#onMarkerClicked
-         */
-        addSideCommentDomHooks = (widgetClass) => {
-            this.codemirror.on("viewportChange", (instance, fromLine, toLine) => {
-                for (let i = fromLine; i &lt;= toLine; i++) {
-                    let widget = new widgetClass({
-                        propsData: {section: i},
-                    });
-                    // vue component is rendered at the end of the dom
-                    // component is then injected into codemirror as a line-widget
-                    widget.$mount();
-                    this.codemirror.addLineWidget(i, widget.$el, { handleMouseEvents: true});
+        /*
+        Object to store a flexible amount of reusable Marker Components.
+        The Runtime initialization of Vue Components is expensive, this caused performace issues with codemirror since the dom is re-rendered often.
+        This object stores the Vue Components so on codemirror re-render the components are just re-added to the DOM, but not re-instanciated.
+        Since the Components themselfes are complete reactive, they will change there content according to the application state automatically.
+        */
+        const dynamicMarkerComponentList = {
+            componentClass: Vue.extend(CommentsMarkerComponent),
+            items: [],
+            createComponentElement(sectionId) {
+                let instance = new this.componentClass({
+                    propsData: {section: sectionId},
+                });
+                // vue component is rendered at the end of the dom
+                // component can later be injected into codemirror as a line-widget
+                instance.$mount();
+                return instance.$el;
+            },
+            setLength(length) {
+                // add components if there are not enouph
+                if (this.items.length &lt; length) {
+                    for (let i = this.items.length; i &lt;= length; i++) {
+                        this.items.push(this.createComponentElement(i.toString()));
+                    }
+                // remove components if there are a lot to many
+                } else if (this.items.length > length + 100) {
+                    this.items.splice(length);
                 }
-            });
+                console.log("Current amount of stored Marker-Components: " + this.items.length);
+            },
         },
-        /**
-         * Iniate a side-comments instance with a user object.
-         * @param {Object} wrapperElement - The element which contains all the .commentable-section elements.
-         * @see http://aroc.github.io/side-comments-demo/
-         * @returns {Object} - New instance of side-comments.
-         * @deprecated side-comment library no longer in use
-         */
-        initSideComments = (wrapperElement) => {
-            // eslint-disable-next-line no-undef    
-            let SideComments = require("side-comments");
-            return new SideComments(wrapperElement, store.state.user);
-        },
-        /**
-         * Add stored comments for the current file.
-         * Utilises side-comments insertCommit() function internaly.
-         * @param {Object} sideComments - A side-comments instance.
-         * @deprecated side-comment library no longer in use
-         */
-        insertStoredComments = (sideComments) => {
-            for (let comment of store.state.comments[store.state.code.currentFile]) {
-                sideComments.insertComment(comment);
+        // Manually adds marker components to codemirror once, because codemirror.on("change") is not called when the editor ist started.
+        initOnce = () => {
+            dynamicMarkerComponentList.setLength(this.codemirror.lineCount());
+            for (let i = 0; i &lt; this.codemirror.lineCount(); i++) {
+                this.codemirror.addLineWidget(i, dynamicMarkerComponentList.items[i], { handleMouseEvents: true});
             }
-        },
-        /**
-         * Register Listeners on the side-comments instance.
-         * On "commentPosted" the comment will be saved to store and then inserted to the DOM.
-         * @param {Object} sideComments - A side-comments instance.
-         * @deprecated side-comment library no longer in use
-         */
-        registerSideCommentsListeners = (sideComments) => {
-            sideComments.on("commentPosted", comment => {
-                sideComments.insertComment(comment);
-                store.setComment(store.state.code.currentFile, comment);
-            });
         };
 
-        console.log("look at my codemirror instance:", this.codemirror);
-        // integrate side-comment markers into codemirror
-        addSideCommentDomHooks(Vue.extend(CommentsMarkerComponent));
-        addLinePadding(this.linePaddingRight);
+        // Re-add comment marker elements to codemirror when the editors content changes.
+        // Marker elements get reused for performance reasons.
+        this.codemirror.on("change", () => {
+            dynamicMarkerComponentList.setLength(this.codemirror.lineCount());
+            for (let i = 0; i &lt; this.codemirror.lineCount(); i++) {
+                this.codemirror.addLineWidget(i, dynamicMarkerComponentList.items[i], { handleMouseEvents: true});
+            }
+        });
         
-        // // add side-comments elements to codemirror
-        // let sideComments = initSideComments(this.codemirror.getScrollerElement());
-        // insertStoredComments(sideComments);
-        // registerSideCommentsListeners(sideComments);
+        // Add padding for the side-comments button on every codemirror line.
+        // Necessary to avoid drawing the button on top of code. Additionally avoids click trough onto code.
+        this.codemirror.on("renderLine", (instance, lineHandle, element) => {
+            element.setAttribute("style", "padding-right: " + this.linePaddingRight);
+        });
 
-        // let lineHandle = this.codemirror.addLineClass(0, "background", "background-modifier");
-        // console.dir(lineHandle.height);
+        initOnce();
     },
 };
 
@@ -188,13 +164,13 @@ export default CodeEditorComponent;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-components_CodeEditorComponent.html">components/CodeEditorComponent</a></li><li><a href="module-components_CommentsDisplayComponent.html">components/CommentsDisplayComponent</a></li><li><a href="module-components_CommentsMarkerComponent.html">components/CommentsMarkerComponent</a></li><li><a href="module-data_store.html">data/store</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.html">CodeEditorComponent</a></li><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.mounted.html">mounted</a></li><li><a href="module-components_CommentsDisplayComponent-CommentsDisplayComponent.html">CommentsDisplayComponent</a></li><li><a href="module-components_CommentsMarkerComponent-CommentsMarkerComponent.html">CommentsMarkerComponent</a></li><li><a href="module-components_CommentsMarkerComponent-CommentsMarkerComponent.methods.html">methods</a></li><li><a href="module-data_store-store.html">store</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-components_CodeEditorComponent.html">components/CodeEditorComponent</a></li><li><a href="module-components_CommentsDisplayComponent.html">components/CommentsDisplayComponent</a></li><li><a href="module-components_CommentsMarkerComponent.html">components/CommentsMarkerComponent</a></li><li><a href="module-data_store.html">data/store</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.html">CodeEditorComponent</a></li><li><a href="module-components_CommentsDisplayComponent-CommentsDisplayComponent.html">CommentsDisplayComponent</a></li><li><a href="module-components_CommentsMarkerComponent-CommentsMarkerComponent.html">CommentsMarkerComponent</a></li><li><a href="module-data_store-store.html">store</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sat Oct 17 2020 20:16:21 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sun Oct 18 2020 20:26:31 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>

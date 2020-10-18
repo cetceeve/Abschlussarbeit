@@ -60,16 +60,11 @@ import store from "../data/store.js";
     },
     /**
      * Hold methods for this component.
-     * @type {Object}
-     * @namespace
+     * @property {Function} markerClick - Listen for clicks on this marker.
      */
     methods: {
-        /**
-         * Listener for clicks on the marker.
-         * @listens click
-         */
+        // Set activeMarkerSection in the state.
         markerClick() {
-            console.log("click on marker for section: " + this.section);
             store.setActiveSection(this.sharedState.content.currentFile, this.section);
         },
     },

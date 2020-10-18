@@ -26,8 +26,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import api from "./api.js";
-/**
+            <pre class="prettyprint source linenums"><code>/**
 * Module to store the current state and all state operations.
 * The state object must not be manipulated directly.
 * Follows the {@link https://vuejs.org/v2/guide/state-management.html#Simple-State-Management-from-Scratch|Store-Pattern}.
@@ -47,6 +46,7 @@
 * @property {String} user.id - User id.
 * @property {String} user.name - Display name of the user.
 * @property {String} user.avatarUrl - Link to the avatar picture of the user. Should be 1:1 and not too large.
+* @property {String} [user.url] - Url for the page/profile of the author.
 * 
 * @property {Object} content
 * @property {String} content.currentFile - Sha for the currently displayed file.
@@ -58,14 +58,16 @@
  * @type {Object}
  * @property {String} sha - Unique identifier for file.
  * @property {String} text - Text content stored inside that file.
- * @property {Number} activeCommentSection - Currently active Comment section. 'null' if no section is active.
+ * @property {String} activeCommentSection - Currently active Comment section. 'null' if no section is active.
  * @property {module:data/store~Comment[]} comments - Array of comment objects.
  */
 /**
 * Data object for side-comments. Origin see below.
 * @typedef Comment
 * @type {Object}
-* @property {Number} sectionId - Generally represents which element the comment is attached to.
+* @property {String} id - Unique identifier for that comment.
+* @property {String} sectionId - Generally represents which element the comment is attached to.
+* @property {String} authorId - Id of the author.
 * @property {String} authorAvatarUrl - Link to the avatar picture of the comment author, should be 1:1 and not too large.
 * @property {String} authorName - Display name of the comment author.
 * @property {String} [authorUrl] - Url for the page/profile of the author.
@@ -167,39 +169,45 @@ var store = {
                     "}\r\n" +
                     "\r\n" +
                     "module.exports = AppServer;",
-                    activeSection: null, 
+                    activeCommentSection: null, 
                     comments: 
                     [
                         {
-                            sectionId: 1,
+                            id: "10001",
+                            sectionId: "1",
+                            authorId: "2",
                             authorAvatarUrl: "https://www.ansoko.info/wp-content/uploads/2020/01/Kim-Hyunjin.jpg",
                             authorUrl: "https://images6.fanpop.com/image/photos/40900000/HyunJin-loo-CE-A0-CE-94-40926384-400-400.gif",
                             authorName: "Hyunjini",
                             comment: "AERYONG",
                         },
                         {
-                            sectionId: 1,
+                            id: "10002",
+                            sectionId: "1",
+                            authorId: "12",
                             authorAvatarUrl: "https://media.tenor.com/images/2358de5b4a95de5aa74418305b3c2728/tenor.gif",
                             authorName: "Yerimi",
                             comment: "I am gonna write a super long and not at all helpful comment because i am a dick and i want to destroy this holes tool career.",
                         },
                         {
-                            sectionId: 3,
+                            id: "10003",
+                            sectionId: "3",
+                            authorId: "12",
                             authorAvatarUrl: "https://media.tenor.com/images/2358de5b4a95de5aa74418305b3c2728/tenor.gif",
                             authorName: "Yerimi",
                             comment: "Coding is not hard.",
                         },
                         {
-                            sectionId: 54,
+                            id: "10004",
+                            sectionId: "54",
+                            authorId: "2",
                             authorAvatarUrl: "https://www.ansoko.info/wp-content/uploads/2020/01/Kim-Hyunjin.jpg",
                             authorUrl: "https://images6.fanpop.com/image/photos/40900000/HyunJin-loo-CE-A0-CE-94-40926384-400-400.gif",
                             authorName: "Hyunjini",
-                            comment: "Side-Comments in not coded well",
+                            comment: "Side-Comments is not coded well.",
                         },
                     ],
-                    get activeCommentSection() { return this.activeSection; }, 
                 },
-                
                 "fileSha0001": {
                     sha: "fileSha0001",
                     text: "/**\r\n" +
@@ -234,35 +242,61 @@ var store = {
                     "        storage.setComment(storage.state.code.currentFile, comment);\r\n" +
                     "    });\r\n" +
                     "};",
-                    activeSection: 2,
+                    activeCommentSection: "2",
                     comments: [
                         {
-                            sectionId: 2,
+                            id: "20001",
+                            sectionId: "2",
+                            authorId: "1111",
                             authorAvatarUrl: "https://i.pinimg.com/originals/fe/62/e3/fe62e3a5963a4ab3310f5f95d3c72b4e.jpg",
                             authorName: "Bae",
-                            comment: "Whats up with you?",
+                            comment: "What's up with you?",
+                        },
+                        {
+                            id: "20002",
+                            sectionId: "12",
+                            authorId: "123",
+                            authorAvatarUrl: "https://pbs.twimg.com/profile_images/964204609186222081/I7Mc16_z.jpg",
+                            authorName: "Seoulbear",
+                            comment: "Why would you delete this?",
+                        },
+                        {
+                            id: "20003",
+                            sectionId: "12",
+                            authorId: "123",
+                            authorAvatarUrl: "https://pbs.twimg.com/profile_images/964204609186222081/I7Mc16_z.jpg",
+                            authorName: "Seoulbear",
+                            comment: "ID3 lol",
                         },
                     ],
-                    get activeCommentSection() {return this.activeSection; },
                 },
             },
             filetree: {
                 name: "undefined",
                 children: [],
             },
-            get fileSha0000() { return this.files.fileSha0000; },
-            get fileSha0001() { return this.files.fileSha0001; },
         },
-        get comments() { return this.content; },
-        get code() { return this.content; },
     },
     /**
-    * Set one comment for one code file
+    * Add one comment for one code file
     * @param {String} fileSha
     * @param {module:data/store~Comment} comment - Comment for side-comments.
     */
-    setComment(fileSha, comment) {
-        this.state.comments[fileSha].comments.push(comment);
+    addComment(fileSha, comment) {
+        this.state.content.files[fileSha].comments.push(comment);
+        this.log();
+    },
+
+    /**
+     * Delete one comment
+     * @param {String} fileSha
+     * @param {String} commentID - Id of comment to be deleted.
+     */
+    deleteComment(fileSha, commentId) {
+        let index = this.state.content.files[fileSha].comments.findIndex((comment) => {
+            return comment.id === commentId;
+        });
+        this.state.content.files[fileSha].comments.splice(index, 1);
         this.log();
     },
     
@@ -271,37 +305,29 @@ var store = {
     * @param {String} fileSha
     */
     setCurrentFile(fileSha) {
-        if (fileSha === this.state.code.currentFile) {
-            return;
+        if (fileSha !== this.state.content.currentFile) {        
+            if (Object.keys(this.state.content.files).includes(fileSha)) {
+                this.state.content.currentFile = fileSha;
+                if (this.debug) { console.log("new current File: " + this.state.content.currentFile); }
+            }
         }
-        if (Object.keys(this.state.code.files).includes(fileSha)) {
-            this.state.code.currentFile = fileSha;
-        }
-        console.log(this.state.code.currentFile);
+        this.log();
     },
     
     /**
     * Set active selection for comments on one file
     * @param {String} fileSha - File the comments are connected to.
-    * @param {Number} sectionId - Section id to set as active section.
+    * @param {String} sectionId - Section id to set as active section.
     */
     setActiveSection(fileSha, sectionId) {
         // This is essentially a deselect
-        if (this.state.comments[fileSha].activeSection === sectionId) {
-            this.state.comments[fileSha].activeSection = null;
+        if (this.state.content.files[fileSha].activeCommentSection === sectionId) {
+            this.state.content.files[fileSha].activeCommentSection = null;
+            if (this.debug) { console.log("active comment section deselected"); }
         } else {
-            this.state.comments[fileSha].activeSection = sectionId;
+            this.state.content.files[fileSha].activeCommentSection = sectionId;
+            if (this.debug) { console.log("new active comment section selected: " + this.state.content.files[fileSha].activeCommentSection); }
         }
-    },
-    
-    /**
-    * @deprecated - will most likely not be used
-    */
-    setFile() {
-        api.fetchFile().then(data => {
-            this.state.code.files[data.sha].sha = data.sha;
-            this.state.code.files[data.sha].value = data.value;
-        });
         this.log();
     },
     
@@ -310,7 +336,9 @@ var store = {
     */
     log() {
         if (this.debug) {
+            console.log("--------  State changed  ----------");
             console.log(this.state);
+            console.log("-----------------------------------");
         }
     },
     
@@ -341,13 +369,13 @@ export default store;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-components_CodeEditorComponent.html">components/CodeEditorComponent</a></li><li><a href="module-components_CommentsDisplayComponent.html">components/CommentsDisplayComponent</a></li><li><a href="module-components_CommentsMarkerComponent.html">components/CommentsMarkerComponent</a></li><li><a href="module-data_store.html">data/store</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.html">CodeEditorComponent</a></li><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.mounted.html">mounted</a></li><li><a href="module-components_CommentsDisplayComponent-CommentsDisplayComponent.html">CommentsDisplayComponent</a></li><li><a href="module-components_CommentsMarkerComponent-CommentsMarkerComponent.html">CommentsMarkerComponent</a></li><li><a href="module-components_CommentsMarkerComponent-CommentsMarkerComponent.methods.html">methods</a></li><li><a href="module-data_store-store.html">store</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-components_CodeEditorComponent.html">components/CodeEditorComponent</a></li><li><a href="module-components_CommentsDisplayComponent.html">components/CommentsDisplayComponent</a></li><li><a href="module-components_CommentsMarkerComponent.html">components/CommentsMarkerComponent</a></li><li><a href="module-data_store.html">data/store</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.html">CodeEditorComponent</a></li><li><a href="module-components_CommentsDisplayComponent-CommentsDisplayComponent.html">CommentsDisplayComponent</a></li><li><a href="module-components_CommentsMarkerComponent-CommentsMarkerComponent.html">CommentsMarkerComponent</a></li><li><a href="module-data_store-store.html">store</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sat Oct 17 2020 20:16:21 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sun Oct 18 2020 20:26:31 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>

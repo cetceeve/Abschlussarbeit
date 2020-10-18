@@ -51,7 +51,6 @@ var CodeEditorComponent = {
         };
     },
     /** Hold computed properties for the component.
-     * @type {Object}
      * @property {Object} codemirror - The current codemirror instance.
      * @property {String} code - Get current code string from shared state.
      */
@@ -66,7 +65,6 @@ var CodeEditorComponent = {
     /**
      * Code to execute when component is mounted, reference Vue Lifecycle below.
      * Add Comment Marker Components as LineWidgets. Listen for events from codemirror to handle rerender and content changes.
-     * @function mounted
      * @see https://vuejs.org/v2/guide/instance.html
      */
     mounted() {
@@ -98,7 +96,7 @@ var CodeEditorComponent = {
                 } else if (this.items.length > length + 100) {
                     this.items.splice(length);
                 }
-                console.log("Current amount of stored Marker-Components: " + this.items.length);
+                console.log("Current amount of stored marker-components: " + this.items.length);
             },
         },
         // Manually adds marker components to codemirror once, because codemirror.on("change") is not called when the editor ist started.

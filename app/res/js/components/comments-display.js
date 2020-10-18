@@ -20,18 +20,19 @@ var CommentsDisplayComponent = {
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
     * @see https://vuejs.org/v2/guide/reactivity.html
     * @property {module:data/store~State} sharedState - Reference to the state object in order to utilize Vues built in reactivity for automatic re-render.
-    * @property {Object} currentUser - points to the user area of store
+    * @property {Object} currentUser - Points to the user area of store.
+    * @property {Boolean} commentInputFormIsVisible - Sentenial for controlling if the comment input form should be visible or not.
+    * @property {String} newComment - Input text of the comment input box. Bound by v-model.
     */
     data() {
         return {
             sharedState: store.state,
             currentUser: store.state.user,
-            commentFormIsVisible: true,
+            commentInputFormIsVisible: true,
             newComment: "",
         };
     },
     /** Hold computed properties for the component.
-    * @type {Object}
     * @property {module:data/store~Comment[]} comments - Comments to be displayed for the selected section.
     * @property {Boolean} hasComments - uses comments internally
     * @property {Boolean} isActive - checks if there is a currently active section
@@ -52,28 +53,38 @@ var CommentsDisplayComponent = {
     },
     /**
     * Hold methods for this component.
-    * @type {Object}
+    * @property {Function} updateCommentInputForm - Some conditional logic to determine the behaviour of the comment input form.
+    * @property {Function} showCommentForm - Trigger displaying of the comment input form.
+    * @property {Function} cancelCommentInput - Cancel the comment input.
+    * @property {Function} postNewComment - Take newComment and insert it into the state.
+    * @property {Function} deleteComment - Delete comment from the state by commentId.
     */
     methods: {
+        // Determine if the comment input form should be displayed.
+        // Called when the array of comments to be displayed changes.
+        // Clears the comment input form, therefore not bound directly to the vue instance update loop.
         updateCommentInputForm() {
             this.newComment = "";
             if (this.comments.length > 0) {
-                this.commentFormIsVisible = false;
+                this.commentInputFormIsVisible = false;
             } else {
-                this.commentFormIsVisible = true;
+                this.commentInputFormIsVisible = true;
             }
         },
+        // Set the Sentanial for displaying the comment input form to true.
         showCommentForm() {
-            this.commentFormIsVisible = true;
+            this.commentInputFormIsVisible = true;
         },
+        // Restore the display to before opening the input field.
         cancelCommentInput() {
             if (this.hasComments) {
-                this.commentFormIsVisible = false;
+                this.commentInputFormIsVisible = false;
             } else {
                 store.setActiveSection(this.sharedState.content.currentFile, null);
             }
             this.newComment = "";
         },
+        // Create the new comment and trigger addition to the state.
         postNewComment() {
             store.addComment(this.sharedState.content.currentFile, {
                 id: _uniqueId("comment_"),
@@ -86,12 +97,18 @@ var CommentsDisplayComponent = {
             });
             this.newComment = "";
         },
+        // Trigger deletion of comment by commentId from the state.
         deleteComment(commentId) {
             store.deleteComment(this.sharedState.content.currentFile, commentId);
         },
     },
+    /**
+     * Triggered when Vue has re-rendered the component, reference Vue Life Cycle below.
+     * @see https://vuejs.org/v2/guide/instance.html
+     */
     updated() {
-        if (this.commentFormIsVisible) {
+        // Set focus on the comment input box.
+        if (this.commentInputFormIsVisible) {
             this.$refs.input.focus();
         }
     },
