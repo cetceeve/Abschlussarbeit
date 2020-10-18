@@ -26,6 +26,7 @@ var CommentsDisplayComponent = {
             sharedState: store.state,
             currentUser: store.state.user,
             commentFormIsVisible: true,
+            newComment: "",
         };
     },
     /** Hold computed properties for the component.
@@ -41,11 +42,7 @@ var CommentsDisplayComponent = {
             });
         },
         hasComments() {
-            if (this.comments.length > 0) {
-                this.commentFormIsVisible = false;
-            } else {
-                this.commentFormIsVisible = true;
-            }
+            this.updateCommentInputForm();
             return this.comments.length > 0;
         },
         isActive() {
@@ -57,6 +54,14 @@ var CommentsDisplayComponent = {
     * @type {Object}
     */
     methods: {
+        updateCommentInputForm() {
+            this.newComment = "";
+            if (this.comments.length > 0) {
+                this.commentFormIsVisible = false;
+            } else {
+                this.commentFormIsVisible = true;
+            }
+        },
         showCommentForm() {
             this.commentFormIsVisible = true;
         },
@@ -66,6 +71,7 @@ var CommentsDisplayComponent = {
             } else {
                 store.setActiveSection(this.sharedState.content.currentFile, null);
             }
+            this.newComment = "";
         },
         postNewComment() {
             store.addComment(this.sharedState.content.currentFile, {
@@ -74,15 +80,15 @@ var CommentsDisplayComponent = {
                 authorAvatarUrl: this.currentUser.avatarUrl,
                 authorName: this.currentUser.name,
                 authorUrl: this.currentUser.url,
-                comment: this.$refs.input.value,
+                comment: this.newComment,
             });
+            this.newComment = "";
         },
     },
     updated() {
         if (this.commentFormIsVisible) {
             this.$refs.input.focus();
         }
-        this.$refs.input.value = "";
     },
 };
 
