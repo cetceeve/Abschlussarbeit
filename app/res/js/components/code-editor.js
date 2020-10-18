@@ -64,15 +64,19 @@ var CodeEditorComponent = {
         },
     },
     /**
-     * Code to execute when component is mounted.
-     * Reference Vue Lifecycle below.
+     * Code to execute when component is mounted, reference Vue Lifecycle below.
+     * Add Comment Marker Components as LineWidgets. Listen for events from codemirror to handle rerender and content changes.
      * @function mounted
-     * @memberof module:components/CodeEditorComponent~CodeEditorComponent
      * @see https://vuejs.org/v2/guide/instance.html
-     * @namespace
      */
     mounted() {
-        const dynamicComponentList = {
+        /*
+        Object to store a flexible amount of reusable Marker Components.
+        The Runtime initialization of Vue Components is expensive, this caused performace issues with codemirror since the dom is re-rendered often.
+        This object stores the Vue Components so on codemirror re-render the components are just re-added to the DOM, but not re-instanciated.
+        Since the Components themselfes are complete reactive, they will change there content according to the application state automatically.
+        */
+        const dynamicMarkerComponentList = {
             componentClass: Vue.extend(CommentsMarkerComponent),
             items: [],
             createComponentElement(sectionId) {
@@ -94,21 +98,23 @@ var CodeEditorComponent = {
                 } else if (this.items.length > length + 100) {
                     this.items.splice(length);
                 }
+                console.log("Current amount of stored Marker-Components: " + this.items.length);
             },
         },
+        // Manually adds marker components to codemirror once, because codemirror.on("change") is not called when the editor ist started.
         initOnce = () => {
-            dynamicComponentList.setLength(this.codemirror.lineCount());
+            dynamicMarkerComponentList.setLength(this.codemirror.lineCount());
             for (let i = 0; i < this.codemirror.lineCount(); i++) {
-                this.codemirror.addLineWidget(i, dynamicComponentList.items[i], { handleMouseEvents: true});
+                this.codemirror.addLineWidget(i, dynamicMarkerComponentList.items[i], { handleMouseEvents: true});
             }
         };
 
         // Re-add comment marker elements to codemirror when the editors content changes.
         // Marker elements get reused for performance reasons.
         this.codemirror.on("change", () => {
-            dynamicComponentList.setLength(this.codemirror.lineCount());
+            dynamicMarkerComponentList.setLength(this.codemirror.lineCount());
             for (let i = 0; i < this.codemirror.lineCount(); i++) {
-                this.codemirror.addLineWidget(i, dynamicComponentList.items[i], { handleMouseEvents: true});
+                this.codemirror.addLineWidget(i, dynamicMarkerComponentList.items[i], { handleMouseEvents: true});
             }
         });
         
