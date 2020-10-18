@@ -137,11 +137,11 @@
   text-decoration: none;
 }
 
-.side-comment .action-link.post .post {
+.side-comment .action-link.post {
   color: #89C794;
 }
 
-.side-comment .action-link.post .post:hover {
+.side-comment .action-link.post:hover {
   color: #468c54;
 }
 

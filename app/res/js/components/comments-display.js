@@ -60,6 +60,14 @@ import store from "../data/store.js";
         showCommentForm() {
             this.commentFormIsVisible = true;
         },
+        cancelCommentInput() {
+            this.$refs.input.value = "";
+            if (this.hasComments) {
+                this.commentFormIsVisible = false;
+            } else {
+                store.setActiveSection(this.sharedState.content.currentFile, null);
+            }
+        },
     },
     updated() {
         if (this.commentFormIsVisible) {
