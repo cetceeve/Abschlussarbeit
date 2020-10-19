@@ -1,10 +1,11 @@
-import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.esm.browser.js";
+/* global Vue VueCodemirror SemanticUIVue*/
+// import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.esm.browser.js";
 import CodeEditorComponent from "./components/code-editor.js";
 import CommentsDisplayComponent from "./components/comments-display.js";
 import store from "./data/store.js";
 
-/* eslint-disable-next-line no-undef */
 Vue.use(VueCodemirror);
+Vue.use(SemanticUIVue);
 
 const vue = new Vue({
     el: "#app",

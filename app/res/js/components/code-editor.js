@@ -1,6 +1,6 @@
 import store from "../data/store.js";
 import CommentsMarkerComponent from "./comments-marker.js";
-import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.esm.browser.js";
+// import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.esm.browser.js";
 
 /**
  * Vue-Component to display the code and comments together.
