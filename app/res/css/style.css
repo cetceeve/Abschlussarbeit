@@ -51,21 +51,6 @@ p {
     width: 200px;
 }
 
-ul.tree-view {
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-}
-
-.tree-view ul {
-    padding-left: 1em;
-    line-height: 1.5em;
-    list-style-type: dot;
-}
-
 .tree-view .item {
     cursor: pointer;
-}
-
-.tree-view .bold {
-    font-weight: bold;
 }

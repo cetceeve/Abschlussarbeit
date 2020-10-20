@@ -42,6 +42,15 @@ Vue.component("tree-item", {
         isFolder: function() {
             return this.item.children && this.item.children.length;
         },
+        iconName: function() {
+            if (this.isFolder) {
+                if (this.isOpen) {
+                    return "folder open";
+                } 
+                return "folder";
+            }
+            return "file code";
+        },
     },
     /**
     * Hold methods for this component.
