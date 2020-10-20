@@ -46,3 +46,17 @@ p {
 .CodeMirror-matchingbracket {
     color: red;
 }
+
+.tree-view ul {
+    padding-left: 1em;
+    line-height: 1.5em;
+    list-style-type: dot;
+}
+
+.tree-view.item {
+    cursor: pointer;
+}
+
+.tree-view.bold {
+    font-weight: bold;
+}
