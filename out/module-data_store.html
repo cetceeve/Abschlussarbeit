@@ -1105,7 +1105,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="module-data_store.html#~TreeItem">module:data/store~TreeItem</a></span>
 
 
             
@@ -1115,7 +1115,7 @@
 
             
 
-            <td class="description last">File tree for the repository.</td>
+            <td class="description last">File tree for the repository. Root item of the file tree.</td>
         </tr>
 
     
@@ -1178,6 +1178,231 @@
 
 
             
+                
+<h4 class="name" id="~TreeItem">TreeItem</h4>
+
+
+
+
+<div class="description">
+    Object to be recursivly used in file tree. Can represent a folder or a file.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Display name of the item.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>children</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="module-data_store.html#~TreeItem">module:data/store~TreeItem</a>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Array if tree items. Having children makes a tree item a folder.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sha</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Sha for the file represeted by this tree item.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isModified</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Indicates if the file was modified by the review author.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="data_store.js.html">data/store.js</a>, <a href="data_store.js.html#line49">line 49</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
     
 
     
@@ -1191,13 +1416,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-components_CodeEditorComponent.html">components/CodeEditorComponent</a></li><li><a href="module-components_CommentsDisplayComponent.html">components/CommentsDisplayComponent</a></li><li><a href="module-components_CommentsMarkerComponent.html">components/CommentsMarkerComponent</a></li><li><a href="module-data_store.html">data/store</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.html">CodeEditorComponent</a></li><li><a href="module-components_CommentsDisplayComponent-CommentsDisplayComponent.html">CommentsDisplayComponent</a></li><li><a href="module-components_CommentsMarkerComponent-CommentsMarkerComponent.html">CommentsMarkerComponent</a></li><li><a href="module-data_store-store.html">store</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-components_CodeEditorComponent.html">components/CodeEditorComponent</a></li><li><a href="module-components_CommentsDisplayComponent.html">components/CommentsDisplayComponent</a></li><li><a href="module-components_CommentsMarkerComponent.html">components/CommentsMarkerComponent</a></li><li><a href="module-components_TreeViewComponent.html">components/TreeViewComponent</a></li><li><a href="module-data_store.html">data/store</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.html">CodeEditorComponent</a></li><li><a href="module-components_CommentsDisplayComponent-CommentsDisplayComponent.html">CommentsDisplayComponent</a></li><li><a href="module-components_CommentsMarkerComponent-CommentsMarkerComponent.html">CommentsMarkerComponent</a></li><li><a href="module-components_TreeViewComponent-TreeViewComponent.html">TreeViewComponent</a></li><li><a href="module-data_store-store.html">store</a></li><li><a href="TreeItemComponent.html">TreeItemComponent</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sun Oct 18 2020 20:26:31 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Oct 20 2020 18:29:32 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>

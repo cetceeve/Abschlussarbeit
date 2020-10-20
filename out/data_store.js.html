@@ -51,16 +51,16 @@
 * @property {Object} content
 * @property {String} content.currentFile - Sha for the currently displayed file.
 * @property {Object.&lt;String, module:data/store~File>} content.files - Dictonary of files. Key: file sha. Value: file object.
-* @property {Object} content.filetree - File tree for the repository.
+* @property {module:data/store~TreeItem} content.filetree - File tree for the repository. Root item of the file tree.
 */
 /**
- * @typedef File
- * @type {Object}
- * @property {String} sha - Unique identifier for file.
- * @property {String} text - Text content stored inside that file.
- * @property {String} activeCommentSection - Currently active Comment section. 'null' if no section is active.
- * @property {module:data/store~Comment[]} comments - Array of comment objects.
- */
+* @typedef File
+* @type {Object}
+* @property {String} sha - Unique identifier for file.
+* @property {String} text - Text content stored inside that file.
+* @property {String} activeCommentSection - Currently active Comment section. 'null' if no section is active.
+* @property {module:data/store~Comment[]} comments - Array of comment objects.
+*/
 /**
 * Data object for side-comments. Origin see below.
 * @typedef Comment
@@ -74,6 +74,15 @@
 * @property {String} comment - The value/content of one comment.
 * @see http://aroc.github.io/side-comments-demo/
 */
+/**
+ * Object to be recursivly used in file tree. Can represent a folder or a file.
+ * @typedef TreeItem
+ * @type {Object}
+ * @property {String} name - Display name of the item.
+ * @property {module:data/store~TreeItem[]} [children] - Array if tree items. Having children makes a tree item a folder.
+ * @property {String} [sha] - Sha for the file represeted by this tree item.
+ * @property {Boolean} [isModified] - Indicates if the file was modified by the review author.
+ */
 
 /**
 * Namespace object for store module.
@@ -272,8 +281,20 @@ var store = {
                 },
             },
             filetree: {
-                name: "undefined",
-                children: [],
+                name: "src",
+                children: [
+                    { sha: "undefined", name: "test.html", isModified: false},
+                    { sha: "undefined", name: "test.htm", isModified: true},
+                    { sha: "undefined", name: "test.css", isModified: false},
+                    { sha: "undefined", name: "test.txt", isModified: false},
+                    {
+                        name: "js",
+                        children: [
+                            { sha: "fileSha0000", name: "AppServer.js", isModified: true},
+                            { sha: "fileSha0001", name: "SideComments.js", isModified: false},
+                        ],
+                    },
+                ],
             },
         },
     },
@@ -286,18 +307,20 @@ var store = {
         this.state.content.files[fileSha].comments.push(comment);
         this.log();
     },
-
+    
     /**
-     * Delete one comment
-     * @param {String} fileSha
-     * @param {String} commentID - Id of comment to be deleted.
-     */
+    * Delete one comment
+    * @param {String} fileSha
+    * @param {String} commentID - Id of comment to be deleted.
+    */
     deleteComment(fileSha, commentId) {
         let index = this.state.content.files[fileSha].comments.findIndex((comment) => {
             return comment.id === commentId;
         });
-        this.state.content.files[fileSha].comments.splice(index, 1);
-        this.log();
+        if (index !== -1) {
+            this.state.content.files[fileSha].comments.splice(index, 1);
+            this.log();
+        }
     },
     
     /**
@@ -309,9 +332,9 @@ var store = {
             if (Object.keys(this.state.content.files).includes(fileSha)) {
                 this.state.content.currentFile = fileSha;
                 if (this.debug) { console.log("new current File: " + this.state.content.currentFile); }
+                this.log();
             }
         }
-        this.log();
     },
     
     /**
@@ -369,13 +392,13 @@ export default store;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-components_CodeEditorComponent.html">components/CodeEditorComponent</a></li><li><a href="module-components_CommentsDisplayComponent.html">components/CommentsDisplayComponent</a></li><li><a href="module-components_CommentsMarkerComponent.html">components/CommentsMarkerComponent</a></li><li><a href="module-data_store.html">data/store</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.html">CodeEditorComponent</a></li><li><a href="module-components_CommentsDisplayComponent-CommentsDisplayComponent.html">CommentsDisplayComponent</a></li><li><a href="module-components_CommentsMarkerComponent-CommentsMarkerComponent.html">CommentsMarkerComponent</a></li><li><a href="module-data_store-store.html">store</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-components_CodeEditorComponent.html">components/CodeEditorComponent</a></li><li><a href="module-components_CommentsDisplayComponent.html">components/CommentsDisplayComponent</a></li><li><a href="module-components_CommentsMarkerComponent.html">components/CommentsMarkerComponent</a></li><li><a href="module-components_TreeViewComponent.html">components/TreeViewComponent</a></li><li><a href="module-data_store.html">data/store</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.html">CodeEditorComponent</a></li><li><a href="module-components_CommentsDisplayComponent-CommentsDisplayComponent.html">CommentsDisplayComponent</a></li><li><a href="module-components_CommentsMarkerComponent-CommentsMarkerComponent.html">CommentsMarkerComponent</a></li><li><a href="module-components_TreeViewComponent-TreeViewComponent.html">TreeViewComponent</a></li><li><a href="module-data_store-store.html">store</a></li><li><a href="TreeItemComponent.html">TreeItemComponent</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sun Oct 18 2020 20:26:31 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Oct 20 2020 18:29:32 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>

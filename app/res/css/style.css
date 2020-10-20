@@ -49,11 +49,12 @@ p {
 
 .tree-view {
     width: 200px;
-    color: #222 !important;
 }
 
 .tree-view .item {
     cursor: pointer;
+    -webkit-animation: fadein 0.2s;
+    animation: fadein 0.2s;
 }
 
 .tree-view .modified {

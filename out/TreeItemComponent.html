@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: CommentsMarkerComponent</title>
+    <title>JSDoc: Namespace: TreeItemComponent</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: CommentsMarkerComponent</h1>
+    <h1 class="page-title">Namespace: TreeItemComponent</h1>
 
     
 
@@ -28,8 +28,7 @@
 
 <header>
     
-        <h2>
-            <span class="ancestors"><a href="module-components_CommentsMarkerComponent.html">components/CommentsMarkerComponent</a>~</span>CommentsMarkerComponent</h2>
+        <h2>TreeItemComponent</h2>
         
     
 </header>
@@ -38,7 +37,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Namespace Object for Marker Component</div>
+            <div class="description">Namespace for tree item component.Component is globaly registered to allow for recursion.Originally from an example on the Vue website, see below.</div>
         
 
         
@@ -63,6 +62,13 @@
     
 
     
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Fabian Zeiher</li>
+        </ul>
+    </dd>
+    
 
     
 
@@ -73,12 +79,19 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_comments-marker.js.html">components/comments-marker.js</a>, <a href="components_comments-marker.js.html#line17">line 17</a>
+        <a href="components_tree-view.js.html">components/tree-view.js</a>, <a href="components_tree-view.js.html#line33">line 33</a>
     </li></ul></dd>
     
 
     
 
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://vuejs.org/v2/examples/tree-view.html">https://vuejs.org/v2/examples/tree-view.html</a></li>
+        </ul>
+    </dd>
     
 
     
@@ -91,6 +104,12 @@
 
     
 
+    
+        <h3 class="subsection-title">Requires</h3>
+
+        <ul>
+            <li><a href="module-data_store.html">module:data/store</a></li>
+        </ul>
     
 
     
@@ -106,7 +125,7 @@
 
         
             
-<h4 class="name" id=".computed"><span class="type-signature">(static) </span>computed<span class="type-signature"> :Object</span></h4>
+<h4 class="name" id=".computed"><span class="type-signature">(static) </span>computed<span class="type-signature"></span></h4>
 
 
 
@@ -116,16 +135,6 @@
 </div>
 
 
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Object</span>
-
-
-        </li>
-    </ul>
 
 
 
@@ -157,30 +166,7 @@
 
         <tr>
             
-                <td class="name"><code>amountOfComments</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The amount of comments for this section.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>hasComments</code></td>
+                <td class="name"><code>isFolder</code></td>
             
 
             <td class="type">
@@ -196,7 +182,53 @@
 
             
 
-            <td class="description last">Uses amountOfComments to evaluate if there are comments.</td>
+            <td class="description last">Determines if the item should be considered a 'folder'.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isSelected</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Checks if this file is the current file in application state.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>iconName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Conditional logic to figure out which icon should be displayed.</td>
         </tr>
 
     
@@ -235,7 +267,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_comments-marker.js.html">components/comments-marker.js</a>, <a href="components_comments-marker.js.html#line48">line 48</a>
+        <a href="components_tree-view.js.html">components/tree-view.js</a>, <a href="components_tree-view.js.html#line77">line 77</a>
     </li></ul></dd>
     
 
@@ -294,7 +326,7 @@
 
         <tr>
             
-                <td class="name"><code>markerClick</code></td>
+                <td class="name"><code>toggle</code></td>
             
 
             <td class="type">
@@ -310,7 +342,7 @@
 
             
 
-            <td class="description last">Listen for clicks on this marker.</td>
+            <td class="description last">Toggles isOpen on folder clicks. Sets new current file for file clicks.</td>
         </tr>
 
     
@@ -349,7 +381,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_comments-marker.js.html">components/comments-marker.js</a>, <a href="components_comments-marker.js.html#line65">line 65</a>
+        <a href="components_tree-view.js.html">components/tree-view.js</a>, <a href="components_tree-view.js.html#line110">line 110</a>
     </li></ul></dd>
     
 
@@ -367,7 +399,7 @@
 
         
             
-<h4 class="name" id=".props"><span class="type-signature">(static) </span>props<span class="type-signature"> :Object</span></h4>
+<h4 class="name" id=".props"><span class="type-signature">(static) </span>props<span class="type-signature"></span></h4>
 
 
 
@@ -377,16 +409,6 @@
 </div>
 
 
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Object</span>
-
-
-        </li>
-    </ul>
 
 
 
@@ -418,13 +440,13 @@
 
         <tr>
             
-                <td class="name"><code>section</code></td>
+                <td class="name"><code>item</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type"><a href="module-data_store.html#~TreeItem">module:data/store~TreeItem</a></span>
 
 
             
@@ -434,7 +456,7 @@
 
             
 
-            <td class="description last">The section this marker is connected to.</td>
+            <td class="description last">Data item for this node.</td>
         </tr>
 
     
@@ -473,7 +495,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_comments-marker.js.html">components/comments-marker.js</a>, <a href="components_comments-marker.js.html#line23">line 23</a>
+        <a href="components_tree-view.js.html">components/tree-view.js</a>, <a href="components_tree-view.js.html#line54">line 54</a>
     </li></ul></dd>
     
 
@@ -545,7 +567,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_comments-marker.js.html">components/comments-marker.js</a>, <a href="components_comments-marker.js.html#line30">line 30</a>
+        <a href="components_tree-view.js.html">components/tree-view.js</a>, <a href="components_tree-view.js.html#line48">line 48</a>
     </li></ul></dd>
     
 
@@ -642,6 +664,29 @@
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>isOpen</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Sentinel indicating if the items children are visible.</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -677,7 +722,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_comments-marker.js.html">components/comments-marker.js</a>, <a href="components_comments-marker.js.html#line38">line 38</a>
+        <a href="components_tree-view.js.html">components/tree-view.js</a>, <a href="components_tree-view.js.html#line64">line 64</a>
     </li></ul></dd>
     
 

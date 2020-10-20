@@ -23,7 +23,7 @@
 * @property {Object} content
 * @property {String} content.currentFile - Sha for the currently displayed file.
 * @property {Object.<String, module:data/store~File>} content.files - Dictonary of files. Key: file sha. Value: file object.
-* @property {Object} content.filetree - File tree for the repository.
+* @property {module:data/store~TreeItem} content.filetree - File tree for the repository. Root item of the file tree.
 */
 /**
 * @typedef File
@@ -46,6 +46,15 @@
 * @property {String} comment - The value/content of one comment.
 * @see http://aroc.github.io/side-comments-demo/
 */
+/**
+ * Object to be recursivly used in file tree. Can represent a folder or a file.
+ * @typedef TreeItem
+ * @type {Object}
+ * @property {String} name - Display name of the item.
+ * @property {module:data/store~TreeItem[]} [children] - Array if tree items. Having children makes a tree item a folder.
+ * @property {String} [sha] - Sha for the file represeted by this tree item.
+ * @property {Boolean} [isModified] - Indicates if the file was modified by the review author.
+ */
 
 /**
 * Namespace object for store module.

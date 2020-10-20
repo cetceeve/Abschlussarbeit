@@ -94,156 +94,21 @@
     
 
     
-
-    
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
+        <h3 class="subsection-title">Members</h3>
 
         
-                
-<h4 class="name" id="Comment">Comment</h4>
+            
+<h4 class="name" id="TreeItemComponent"><span class="type-signature"></span>TreeItemComponent<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Data object used by the side-comments tool
+    Namespace for tree item component.Component is globaly registered to allow for recursion.Originally from an example on the Vue website, see below.
 </div>
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Object</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>sectionId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Generally represents which element the comment is attached to.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>authorAvatarUrl</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Link to the avatar picture of the comment author, should be 1:1 and not too large.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>authorName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Display name of the comment author.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>comment</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The value/content of one comment.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -267,6 +132,13 @@
     
 
     
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Fabian Zeiher</li>
+        </ul>
+    </dd>
+    
 
     
 
@@ -277,7 +149,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="data_store.js.html">data/store.js</a>, <a href="data_store.js.html#line23">line 23</a>
+        <a href="components_tree-view.js.html">components/tree-view.js</a>, <a href="components_tree-view.js.html#line33">line 33</a>
     </li></ul></dd>
     
 
@@ -287,7 +159,7 @@
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="http://aroc.github.io/side-comments-demo/">http://aroc.github.io/side-comments-demo/</a></li>
+            <li><a href="https://vuejs.org/v2/examples/tree-view.html">https://vuejs.org/v2/examples/tree-view.html</a></li>
         </ul>
     </dd>
     
@@ -300,482 +172,11 @@
 
 
 
-            
-                
-<h4 class="name" id="State">State</h4>
-
-
-
-
-<div class="description">
-    Represents the state of the Review-Editor, can be safed to external database.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Object</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
         
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>meta</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Information regarding the Review-Editors context and status.
-                <h6>Properties</h6>
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the ID of the current state.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>debug</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Used to trigger debug behaviour.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>status</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Status of the Review [open, in-progress, finished].</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>activeStage</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The currently active stage of the Review.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>user</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Data for the logged in user.
-                <h6>Properties</h6>
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">User id.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Display name of the user.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>avatarUrl</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Link to the avatar picture of the user. Should be 1:1 and not too large.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>code</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <h6>Properties</h6>
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>currentFile</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Sha for the currently displayed file.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>files</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object.&lt;String, Object></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Dictonary for all files. Key: file sha. Value: file object.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>comments</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object.&lt;String, Array.&lt;module:data/Storage~Comment>></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Dictonary of Arrays of Comment Objects. Key: file sha. Value: Array of Comments</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
     
 
     
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="data_store.js.html">data/store.js</a>, <a href="data_store.js.html#line2">line 2</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-            
     
 
     
@@ -789,13 +190,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-components_CodeEditorComponent.html">components/CodeEditorComponent</a></li><li><a href="module-components_CommentsMarkerComponent.html">components/CommentsMarkerComponent</a></li><li><a href="module-data_store.html">data/store</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.html">CodeEditorComponent</a></li><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.mounted.html">mounted</a></li><li><a href="module-components_CommentsMarkerComponent-CommentsMarkerComponent.html">CommentsMarkerComponent</a></li><li><a href="module-components_CommentsMarkerComponent-CommentsMarkerComponent.methods.html">methods</a></li></ul><h3>Events</h3><ul><li><a href="CommentsMarkerComponent.methods.html#event:onMarkerClicked">onMarkerClicked</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-components_CodeEditorComponent.html">components/CodeEditorComponent</a></li><li><a href="module-components_CommentsDisplayComponent.html">components/CommentsDisplayComponent</a></li><li><a href="module-components_CommentsMarkerComponent.html">components/CommentsMarkerComponent</a></li><li><a href="module-components_TreeViewComponent.html">components/TreeViewComponent</a></li><li><a href="module-data_store.html">data/store</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-components_CodeEditorComponent-CodeEditorComponent.html">CodeEditorComponent</a></li><li><a href="module-components_CommentsDisplayComponent-CommentsDisplayComponent.html">CommentsDisplayComponent</a></li><li><a href="module-components_CommentsMarkerComponent-CommentsMarkerComponent.html">CommentsMarkerComponent</a></li><li><a href="module-components_TreeViewComponent-TreeViewComponent.html">TreeViewComponent</a></li><li><a href="module-data_store-store.html">store</a></li></ul><h3>Global</h3><ul><li><a href="global.html#TreeItemComponent">TreeItemComponent</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sat Oct 17 2020 09:34:21 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Oct 20 2020 18:25:41 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>
