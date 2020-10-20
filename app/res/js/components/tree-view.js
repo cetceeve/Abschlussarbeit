@@ -58,13 +58,13 @@ Vue.component("tree-item", {
                 case "htm":
                     return "html5";
                 case "css":
-                    return "css3";
+                    return "css3 alternate";
                 default:
                     return "file";
             }
         },
         isSelected: function() {
-            return this.item.name.split(".")[0] === this.sharedState.content.currentFile;
+            return this.item.sha === this.sharedState.content.currentFile;
         },
     },
     /**
@@ -76,7 +76,7 @@ Vue.component("tree-item", {
             if (this.isFolder) {
                 this.isOpen = !this.isOpen;
             } else {
-                store.setCurrentFile(this.item.name.split(".")[0]);
+                store.setCurrentFile(this.item.sha);
             }
         },
     },

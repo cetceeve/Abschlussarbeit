@@ -246,12 +246,16 @@ var store = {
             filetree: {
                 name: "src",
                 children: [
-                    { name: "test.html" },
-                    { name: "test.htm" },
-                    { name: "test.css" },
+                    { sha: "undefined", name: "test.html", isModified: false},
+                    { sha: "undefined", name: "test.htm", isModified: true},
+                    { sha: "undefined", name: "test.css", isModified: false},
+                    { sha: "undefined", name: "test.txt", isModified: false},
                     {
-                        name: "src",
-                        children: [{ name: "fileSha0000.js" },{ name: "fileSha0001.js" }],
+                        name: "js",
+                        children: [
+                            { sha: "fileSha0000", name: "AppServer.js", isModified: true},
+                            { sha: "fileSha0001", name: "SideComments.js", isModified: false},
+                        ],
                     },
                 ],
             },
