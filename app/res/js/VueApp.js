@@ -2,6 +2,7 @@
 // import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.esm.browser.js";
 import CodeEditorComponent from "./components/code-editor.js";
 import CommentsDisplayComponent from "./components/comments-display.js";
+import TreeViewComponent from "./components/tree-view.js";
 import store from "./data/store.js";
 
 Vue.use(VueCodemirror);
@@ -12,9 +13,7 @@ const vue = new Vue({
     components: {
         "code-editor": CodeEditorComponent,
         "comments-display": CommentsDisplayComponent,
-    },
-    data: {
-        header: "Please, enjoy the vue!",
+        "tree-view": TreeViewComponent,
     },
     methods: {
         toSha(fileSha) {

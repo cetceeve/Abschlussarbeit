@@ -12,7 +12,7 @@ import store from "../data/store.js";
 * Namespace for tree item component
 * @namespace
 */
-var TreeItemComponent = {
+Vue.component("tree-item", {
     /** Css-selector for component template.
     * @type {String}
     */
@@ -54,13 +54,13 @@ var TreeItemComponent = {
             }
         },
     },
-},
+});
 
 /**
 * Namespace for tree view component
 * @namespace
 */
-TreeViewComponent = {
+let TreeViewComponent = {
     /** Css-selector for component template.
     * @type {String}
     */
@@ -70,7 +70,7 @@ TreeViewComponent = {
     * @property {Component} tree-item - Component representing one item inside the tree.
     */
     components: {
-        "tree-item": TreeItemComponent,
+        // "tree-item": TreeItemComponent,
     },
     /** Hold reactive data for the component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
@@ -79,7 +79,7 @@ TreeViewComponent = {
     */
     data() {
         return {
-            sharedState: store.state,
+            treeData: store.state.content.filetree,
         };
     },
     /**

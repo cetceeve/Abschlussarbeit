@@ -68,7 +68,7 @@
 }
 
 .side-comment .comments-wrapper {
-  top: -22px;
+  top: 0px;
   width: 200px;
   padding-bottom: 120px;
 }
@@ -78,9 +78,9 @@
   animation: fadein 0.2s;
 }
 
-.side-comment.has-comments .comments-wrapper {
+/* .side-comment.has-comments .comments-wrapper {
   top: -22px;
-}
+} */
 
 .side-comment ul.comments li,
 .side-comment .comment-form {
