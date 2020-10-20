@@ -31,6 +31,7 @@ Vue.component("tree-item", {
     */
     data: function() {
         return {
+            sharedState: store.state,
             isOpen: false,
         };
     },
@@ -49,7 +50,21 @@ Vue.component("tree-item", {
                 } 
                 return "folder";
             }
-            return "file code";
+            switch (this.item.name.split(".")[1]) {
+                case "js":
+                    return "js";
+                case "html":
+                    return "html5";
+                case "htm":
+                    return "html5";
+                case "css":
+                    return "css3";
+                default:
+                    return "file";
+            }
+        },
+        isSelected: function() {
+            return this.item.name.split(".")[0] === this.sharedState.content.currentFile;
         },
     },
     /**
@@ -60,6 +75,8 @@ Vue.component("tree-item", {
         toggle: function() {
             if (this.isFolder) {
                 this.isOpen = !this.isOpen;
+            } else {
+                store.setCurrentFile(this.item.name.split(".")[0]);
             }
         },
     },

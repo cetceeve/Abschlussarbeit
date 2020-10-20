@@ -54,3 +54,7 @@ p {
 .tree-view .item {
     cursor: pointer;
 }
+
+.tree-view .selected {
+    color: #4FAF62 !important;
+}

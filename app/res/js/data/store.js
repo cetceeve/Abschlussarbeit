@@ -244,24 +244,14 @@ var store = {
                 },
             },
             filetree: {
-                name: "My Tree",
+                name: "src",
                 children: [
-                    { name: "hello" },
-                    { name: "wat" },
+                    { name: "test.html" },
+                    { name: "test.htm" },
+                    { name: "test.css" },
                     {
-                        name: "child folder",
-                        children: [
-                            {
-                                name: "child folder",
-                                children: [{ name: "hello" }, { name: "wat" }],
-                            },
-                            { name: "hello" },
-                            { name: "wat" },
-                            {
-                                name: "child folder",
-                                children: [{ name: "hello" }, { name: "wat" }],
-                            },
-                        ],
+                        name: "src",
+                        children: [{ name: "fileSha0000.js" },{ name: "fileSha0001.js" }],
                     },
                 ],
             },
