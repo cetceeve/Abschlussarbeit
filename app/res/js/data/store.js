@@ -26,13 +26,13 @@
 * @property {Object} content.filetree - File tree for the repository.
 */
 /**
- * @typedef File
- * @type {Object}
- * @property {String} sha - Unique identifier for file.
- * @property {String} text - Text content stored inside that file.
- * @property {String} activeCommentSection - Currently active Comment section. 'null' if no section is active.
- * @property {module:data/store~Comment[]} comments - Array of comment objects.
- */
+* @typedef File
+* @type {Object}
+* @property {String} sha - Unique identifier for file.
+* @property {String} text - Text content stored inside that file.
+* @property {String} activeCommentSection - Currently active Comment section. 'null' if no section is active.
+* @property {module:data/store~Comment[]} comments - Array of comment objects.
+*/
 /**
 * Data object for side-comments. Origin see below.
 * @typedef Comment
@@ -244,8 +244,26 @@ var store = {
                 },
             },
             filetree: {
-                name: "undefined",
-                children: [],
+                name: "My Tree",
+                children: [
+                    { name: "hello" },
+                    { name: "wat" },
+                    {
+                        name: "child folder",
+                        children: [
+                            {
+                                name: "child folder",
+                                children: [{ name: "hello" }, { name: "wat" }],
+                            },
+                            { name: "hello" },
+                            { name: "wat" },
+                            {
+                                name: "child folder",
+                                children: [{ name: "hello" }, { name: "wat" }],
+                            },
+                        ],
+                    },
+                ],
             },
         },
     },
@@ -258,12 +276,12 @@ var store = {
         this.state.content.files[fileSha].comments.push(comment);
         this.log();
     },
-
+    
     /**
-     * Delete one comment
-     * @param {String} fileSha
-     * @param {String} commentID - Id of comment to be deleted.
-     */
+    * Delete one comment
+    * @param {String} fileSha
+    * @param {String} commentID - Id of comment to be deleted.
+    */
     deleteComment(fileSha, commentId) {
         let index = this.state.content.files[fileSha].comments.findIndex((comment) => {
             return comment.id === commentId;
