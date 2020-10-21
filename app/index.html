@@ -34,6 +34,8 @@
     
 </body>
 <div id="app">
+    <sui-button floated="left">FAQ</sui-button>
+    <sui-button floated="right">Checkliste</sui-button>
     <div style="display: flex; height: 100%;">
         <tree-view></tree-view>
         <code-editor></code-editor>
@@ -41,6 +43,17 @@
     </div>
     <sui-button size="tiny" primary @click="addComment">addComment</sui-button>
     <sui-button size="tiny" basic negative icon="trash" @click="deleteFatamorgana">deleteNonExistantComment</sui-button>
+    <sui-segments raised style="position: absolute; top: 100px;; z-index: 9999;">
+        <sui-segment>
+          <p>Top</p>
+        </sui-segment>
+        <sui-segment>
+          <p>Middle</p>
+        </sui-segment>
+        <sui-segment>
+          <p>Bottom</p>
+        </sui-segment>
+      </sui-segments>
 </div>
 
 <script type="text/x-template" id="code-editor-component-template">
