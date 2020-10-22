@@ -27,9 +27,9 @@ const vue = new Vue({
         addComment() {
             store.addComment("fileSha0000", {
                 sectionId: "2",
-                authorAvatarUrl: "https://i.pinimg.com/originals/fe/62/e3/fe62e3a5963a4ab3310f5f95d3c72b4e.jpg",
-                authorName: "Bae",
-                comment: "Whats up with you?",
+                authorAvatarUrl: "https://media.vanityfair.com/photos/5c2fdb09ef10e32ca1332862/1:1/w_1420,h_1420,c_limit/trumpshutdownraises.jpg",
+                authorName: "Trump",
+                comment: "This app is wining bigly!",
             });
         },
         deleteFatamorgana() {

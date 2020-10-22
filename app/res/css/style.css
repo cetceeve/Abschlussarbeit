@@ -81,7 +81,7 @@
     color: #4FAF62 !important;
 }
 
-.checklist {
+.checklist-container {
     display: block;
     position: absolute !important;
     bottom: 2em;
@@ -89,6 +89,9 @@
     margin-right: 10px !important; */
     max-height: 300px;
     z-index: 100;
+}
+
+.checklist {
     overflow: auto;
     -webkit-animation: fadein 0.2s;
     animation: fadein 0.2s;

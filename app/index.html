@@ -55,7 +55,7 @@
             <sui-grid-row>
                 <sui-grid-column :width="3" class="dark-background">
                     <tree-view></tree-view>
-                    <checklist v-show="checklistVisible"></checklist>
+                    <checklist v-show="checklistVisible" class="checklist-container"></checklist>
                     <sui-button class="checklist-button" fluid attached="top" content="Checkliste" @click="toggleChecklist" :class="{active: checklistVisible}"></sui-button>
                 </sui-grid-column>
                 <sui-grid-column :width="10" class="remove-padding">
