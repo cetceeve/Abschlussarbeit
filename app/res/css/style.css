@@ -2,23 +2,7 @@ body {
     margin: 0;
 }
 
-main {
-    margin: 1em;
-}
-
-header {
-    background-color: antiquewhite;
-}
-
-p {
-    margin-left: 220px;
-    margin-right: 10vw;
-}
-
 .CodeMirror {
-    /* border: 1px solid #eee;
-    height: auto; */
-    width: 800px;
     line-height: 20px;
 }
 
@@ -47,8 +31,20 @@ p {
     color: red;
 }
 
-.tree-view {
-    width: 200px;
+.dark-background {
+    background-color: #363636;
+}
+
+.light-dark-background {
+    background-color: #f8f8f8;
+}
+
+.remove-padding {
+    padding: 0 !important;
+}
+
+.remove-padding-right {
+    padding-right: 0 !important
 }
 
 .tree-view .item {
@@ -58,7 +54,7 @@ p {
 }
 
 .tree-view .modified {
-    color: #3f51ad !important;
+    color: #667be9 !important;
 }
 
 .tree-view .selected {

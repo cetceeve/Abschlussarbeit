@@ -41,7 +41,8 @@ var CodeEditorComponent = {
                 lineNumbers: true,
                 scrollbarStyle: "simple",
                 foldGutter: true,
-                scrollPastEnd: true,
+                scrollPastEnd: false,
+                lineWrapping: true,
                 styleSelectedText: true,
                 highlightSelectionMatches: {showToken: /\w/, annotateScrollbar: true},
                 matchBrackets: true,
@@ -122,6 +123,7 @@ var CodeEditorComponent = {
             element.setAttribute("style", "padding-right: " + this.linePaddingRight);
         });
 
+        this.codemirror.setSize(null, "90vh");
         initOnce();
     },
 };

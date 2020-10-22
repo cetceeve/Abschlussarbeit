@@ -34,37 +34,30 @@
     
 </body>
 <div id="app">
-    <sui-button floated="left">FAQ</sui-button>
-    <sui-button floated="right">Checkliste</sui-button>
-    <div style="display: flex; height: 100%;">
-        <tree-view></tree-view>
-        <code-editor></code-editor>
-        <comments-display></comments-display>
-    </div>
+    <sui-grid :columns="3">
+        <sui-grid-row>
+            <sui-grid-column :width="3" class="dark-background remove-padding-right">
+                <tree-view></tree-view>
+            </sui-grid-column>
+            <sui-grid-column :width="10" class="remove-padding">
+                <code-editor></code-editor>
+            </sui-grid-column>
+            <sui-grid-column :width="3" class="light-dark-background">
+                <comments-display></comments-display>
+            </sui-grid-column>
+        </sui-grid-row>
+    </sui-grid>
     <sui-button size="tiny" primary @click="addComment">addComment</sui-button>
     <sui-button size="tiny" basic negative icon="trash" @click="deleteFatamorgana">deleteNonExistantComment</sui-button>
-    <sui-segments raised style="position: absolute; top: 100px;; z-index: 9999;">
-        <sui-segment>
-          <p>Top</p>
-        </sui-segment>
-        <sui-segment>
-          <p>Middle</p>
-        </sui-segment>
-        <sui-segment>
-          <p>Bottom</p>
-        </sui-segment>
-      </sui-segments>
 </div>
 
 <script type="text/x-template" id="code-editor-component-template">
-    <div>
-        <codemirror ref="cmEditor" v-model="code" :options="cmOption"></codemirror>
-    </div>
+    <codemirror ref="cmEditor" v-model="code" :options="cmOption"></codemirror>
 </script>
 
 <script type="text/x-template" id="comments-marker-component-template">
     <div class="commentable-section" style="bottom: 20px">
-        <div class="side-comment" :class="{active: isActive, 'has-comments': hasComments}">
+        <div class="side-comment sidebar" :class="{active: isActive, 'has-comments': hasComments}">
             <a href="#" class="marker" @click.stop="markerClick">
                 <span>{{ amountOfComments }}</span>
             </a>
@@ -73,8 +66,8 @@
 </script>
 
 <script type="text/x-template" id="comments-display-component-template">
-    <div style="position: relative;">
-        <div class="side-comment" :class="{active: isActive, 'has-comments': hasComments}">
+    <div>
+        <div class="side-comment" :class="{active: isActive, 'has-comments': hasComments}" style="left: 0">
             <div class="comments-wrapper">
                 <ul class="comments">
                     <li v-for="comment in comments" :key="comment.id">
@@ -105,14 +98,14 @@
 </script>
 
 <script type="text/x-template" id="tree-view-component-template">
-    <sui-list class="tree-view">
+    <sui-list inverted class="tree-view">
         <tree-item class="item" :item="treeData"></tree-item>
     </sui-list>
 </script>
 
 <script type="text/x-template" id="tree-item-component-template">
     <sui-list-item>
-        <sui-list-icon :class="{selected: isSelected, modified: item.isModified}" :name="iconName" @click="toggle"/>
+        <sui-list-icon inverted :class="{selected: isSelected, modified: item.isModified}" :name="iconName" @click="toggle"/>
         <sui-list-content>
             <sui-list-header :class="{selected: isSelected, modified: item.isModified}" @click="toggle">{{ item.name }}</sui-list-header>
             <sui-list-list v-show="isOpen" v-if="isFolder">
