@@ -39,8 +39,12 @@
     background-color: green
 }
 
-.background-modifier {
-    background-color: red;
+.highlight-gutter {
+    background-color: #4FAF62;
+}
+
+.highlight-line {
+    background-color: #4faf6233;
 }
 
 .CodeMirror-matchingbracket {

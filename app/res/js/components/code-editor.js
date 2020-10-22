@@ -75,6 +75,7 @@ var CodeEditorComponent = {
         Since the Components themselfes are complete reactive, they will change there content according to the application state automatically.
         */
         const dynamicMarkerComponentList = {
+            // eslint-disable-next-line no-undef
             componentClass: Vue.extend(CommentsMarkerComponent),
             items: [],
             createComponentElement(sectionId) {
@@ -120,6 +121,14 @@ var CodeEditorComponent = {
         // Necessary to avoid drawing the button on top of code. Additionally avoids click trough onto code.
         this.codemirror.on("renderLine", (instance, lineHandle, element) => {
             element.setAttribute("style", "padding-right: " + this.linePaddingRight);
+            element.addEventListener("mouseover", () => {
+                this.codemirror.addLineClass(lineHandle, "wrap", "highlight-line");
+                this.codemirror.addLineClass(lineHandle, "gutter", "highlight-gutter");
+            });
+            element.addEventListener("mouseout", () => {
+                this.codemirror.removeLineClass(lineHandle, "wrap", "highlight-line");
+                this.codemirror.removeLineClass(lineHandle, "gutter", "highlight-gutter");
+            });
         });
 
         this.codemirror.setSize(null, "90vh");
