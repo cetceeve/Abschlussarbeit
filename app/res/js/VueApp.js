@@ -17,6 +17,9 @@ const vue = new Vue({
         "tree-view": TreeViewComponent,
         "checklist": Checklist,
     },
+    data: {
+        checklistVisible: true,
+    },
     methods: {
         toSha(fileSha) {
             store.setCurrentFile(fileSha);
@@ -31,6 +34,9 @@ const vue = new Vue({
         },
         deleteFatamorgana() {
             store.deleteComment(store.state.content.currentFile, "99999999");
+        },
+        toggleChecklist() {
+            this.checklistVisible = !this.checklistVisible;
         },
     },
 });
