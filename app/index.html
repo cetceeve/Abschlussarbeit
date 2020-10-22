@@ -130,11 +130,20 @@
     <script type="text/x-template" id="checklist-component-template">
         <sui-segment raised class="checklist">
             <sui-segments>
-                <sui-segment>
-                    <sui-checkbox label="checkbox" />
+                <sui-segment v-for="(checkboxes, categoryName, index) in checklistData"  :key="index">
+                    <sui-header sub>{{ categoryName }}</sui-header>
+                    <sui-list>
+                        <costum-checkbox v-for="(item, index) in checkboxes" :key=item.id :data="item" :category="categoryName"/>
+                    </sui-list>
                 </sui-segment>
             </sui-segments>
         </sui-segment>
+    </script>
+
+    <script type="text/x-template" id="semantic-checkbox-component-template">
+        <sui-list-item>
+            <sui-checkbox :label="data.label" :inputValue="data.checked" @click.prevent="toggle"/>
+        </sui-list-item>
     </script>
     
     <!-- Vue -->

@@ -77,7 +77,59 @@ var store = {
         faq: {
             url: "undefined",
         },
-        checklist: [],
+        checklist: {
+            "Vorbereitung": [
+                {
+                    id: "11",
+                    label: "Aufgabenstellung ausführlich durchlesen",
+                    checked: false,
+                },
+                {
+                    id: "12",
+                    label: "Should be checked",
+                    checked: true,
+                },
+                {
+                    id: "13",
+                    label: "Very very long label to see how the system responds to such kind of nonsensical usage.",
+                    checked: false,
+                },
+            ],
+            "Überblick": [
+                {
+                    id: "21",
+                    label: "Aufgabenstellung ausführlich durchlesen",
+                    checked: false,
+                },
+                {
+                    id: "22",
+                    label: "Should be checked",
+                    checked: true,
+                },
+                {
+                    id: "23",
+                    label: "Very very long label to see how the system responds to such kind of nonsensical usage.",
+                    checked: false,
+                },
+            ],
+            "Feedback": [
+                {
+                    id: "31",
+                    label: "Aufgabenstellung ausführlich durchlesen",
+                    checked: false,
+                },
+                {
+                    id: "32",
+                    label: "Should be checked",
+                    checked: true,
+                },
+                {
+                    id: "33",
+                    label: "Very very long label to see how the system responds to such kind of nonsensical usage.",
+                    checked: false,
+                },
+            ],
+        },
         database: {
             repositoryUrl: "undefined",
             revisionId: "undefined",
@@ -324,6 +376,21 @@ var store = {
             if (this.debug) { console.log("new active comment section selected: " + this.state.content.files[fileSha].activeCommentSection); }
         }
         this.log();
+    },
+
+    /**
+     * Toggle checkbox item in checklist.
+     * @param {String} category - category the item belongs too.
+     * @param {String} id - checkbox id of the system.
+     */
+    toggleCheckbox(category, id) {
+        if (Object.keys(this.state.checklist).includes(category)) {
+            let result = this.state.checklist[category].find(item => item.id === id);
+            if (result !== undefined) {
+                result.checked = !result.checked;
+                this.log();
+            }
+        }
     },
     
     /**
