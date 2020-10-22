@@ -41,11 +41,15 @@
                     </sui-button-group>
                 </sui-grid-column>
                 <sui-grid-column :width=10>
-                    <sui-button size="tiny" primary @click="addComment">addComment</sui-button>
-                    <sui-button size="tiny" basic negative icon="trash" @click="deleteFatamorgana">deleteNonExistantComment</sui-button>
+                    <sui-step-group step-number="four">
+                        <sui-step>Vorbereitung</sui-step>
+                        <sui-step>Überblick</sui-step>
+                        <sui-step>Feedback</sui-step>
+                        <sui-step>Abschluss</sui-step>
+                    </sui-step-group>
                 </sui-grid-column>
                 <sui-grid-column :width="3">
-                    
+                    <sui-button primary @click="addComment">addComment</sui-button>
                 </sui-grid-column>
             </sui-grid-row>
             <sui-grid-row>

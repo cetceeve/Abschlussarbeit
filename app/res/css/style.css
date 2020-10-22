@@ -40,11 +40,11 @@
 }
 
 .highlight-gutter {
-    background-color: #4FAF62;
+    background-color: #DEDEDC;
 }
 
 .highlight-line {
-    background-color: #4faf6233;
+    background-color: #f8f8f8;
 }
 
 .CodeMirror-matchingbracket {

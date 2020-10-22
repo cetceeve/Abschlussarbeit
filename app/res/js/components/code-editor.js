@@ -117,17 +117,29 @@ var CodeEditorComponent = {
             }
         });
         
-        // Add padding for the side-comments button on every codemirror line.
-        // Necessary to avoid drawing the button on top of code. Additionally avoids click trough onto code.
+        // triggered on every render and re-render of one line
         this.codemirror.on("renderLine", (instance, lineHandle, element) => {
+            // Add padding for the side-comments button on every codemirror line.
+            // Necessary to avoid drawing the button on top of code. Additionally avoids click trough onto code.
             element.setAttribute("style", "padding-right: " + this.linePaddingRight);
+            let currentLineMarkerComponent = dynamicMarkerComponentList.items[this.codemirror.getLineNumber(lineHandle)];
+
+            // Add hover effects higlighting gutter, linebackground and the marker
             element.addEventListener("mouseover", () => {
-                this.codemirror.addLineClass(lineHandle, "wrap", "highlight-line");
+                this.codemirror.addLineClass(lineHandle, "background", "highlight-line");
                 this.codemirror.addLineClass(lineHandle, "gutter", "highlight-gutter");
+                if (currentLineMarkerComponent !== undefined) {
+                    currentLineMarkerComponent.querySelector(".marker").setAttribute("style", "display: block");
+                }
             });
+
+            // Remove hover effects from gutter, linebackground and the marker
             element.addEventListener("mouseout", () => {
-                this.codemirror.removeLineClass(lineHandle, "wrap", "highlight-line");
+                this.codemirror.removeLineClass(lineHandle, "background", "highlight-line");
                 this.codemirror.removeLineClass(lineHandle, "gutter", "highlight-gutter");
+                if (currentLineMarkerComponent !== undefined) {
+                    currentLineMarkerComponent.querySelector(".marker").setAttribute("style", "display: hidden");
+                }
             });
         });
 
