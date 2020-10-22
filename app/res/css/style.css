@@ -43,8 +43,8 @@ body {
     padding: 0 !important;
 }
 
-.remove-padding-right {
-    padding-right: 0 !important
+.tree-view {
+    padding: 10px !important;
 }
 
 .tree-view .item {
