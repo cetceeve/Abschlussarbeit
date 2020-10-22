@@ -60,3 +60,14 @@ body {
 .tree-view .selected {
     color: #4FAF62 !important;
 }
+
+.checklist {
+    display: block;
+    position: absolute !important;
+    left: 40vw;
+    top: 0;
+    width: 200px;
+    max-height: 400px;
+    z-index: 100;
+    overflow: auto;
+}
