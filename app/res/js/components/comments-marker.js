@@ -17,7 +17,6 @@ import store from "../data/store.js";
  var CommentsMarkerComponent = {
     /**
      * Attributes that are exposed to accept data from the parent component.
-     * @type {Object}
      * @property {String} section - The section this marker is connected to.
     */
     props: {

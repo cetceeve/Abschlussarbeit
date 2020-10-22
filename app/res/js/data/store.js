@@ -20,6 +20,8 @@
 * @property {String} user.avatarUrl - Link to the avatar picture of the user. Should be 1:1 and not too large.
 * @property {String} [user.url] - Url for the page/profile of the author.
 * 
+* @property {Object.<String, module:data/store~Checkbox>} checklist - Dictionary for checklist displayed on the bottom left. Key: category string. Value: checkbox object.
+* 
 * @property {Object} content
 * @property {String} content.currentFile - Sha for the currently displayed file.
 * @property {Object.<String, module:data/store~File>} content.files - Dictonary of files. Key: file sha. Value: file object.
@@ -54,6 +56,14 @@
  * @property {module:data/store~TreeItem[]} [children] - Array if tree items. Having children makes a tree item a folder.
  * @property {String} [sha] - Sha for the file represeted by this tree item.
  * @property {Boolean} [isModified] - Indicates if the file was modified by the review author.
+ */
+/**
+ * Data object for checkboxes
+ * @typedef Checkbox
+ * @type {Object}
+ * @property {String} id - Unique identifier for this checkbox.
+ * @property {String} label - Text to be dispayed with the checkbox.
+ * @property {Boolean} checked - True if checkbox should be checked.
  */
 
 /**
