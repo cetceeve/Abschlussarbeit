@@ -442,6 +442,14 @@ var store = {
         this.state.checklist.isVisible = !this.state.checklist.isVisible;
         this.log();
     },
+
+    /**
+    * Toggles the visibility state of the faq
+    */
+   toggleFaqVisibility() {
+    this.state.faq.isVisible = !this.state.faq.isVisible;
+    this.log();
+},
     
     /**
     * if enabled in state, outputs current state to console

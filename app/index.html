@@ -37,7 +37,7 @@
                 <sui-grid-column :width="3">
                     <sui-button-group>
                         <sui-button>Task</sui-button>
-                        <sui-button>Faq</sui-button>
+                        <sui-button @click="showFaq" :class="{active: sharedState.faq.isVisible}">Faq</sui-button>
                     </sui-button-group>
                 </sui-grid-column>
                 <sui-grid-column :width=10>
@@ -66,6 +66,7 @@
                 </sui-grid-column>
             </sui-grid-row>
         </sui-grid>
+        <faq></faq>
     </div>
     
     <script type="text/x-template" id="code-editor-component-template">
@@ -149,6 +150,19 @@
         <sui-list-item>
             <sui-checkbox :label="data.label" :inputValue="data.checked" @click.prevent="toggle"/>
         </sui-list-item>
+    </script>
+
+    <script type="text/x-template" id="faq-component-template">
+        <sui-modal :open="faqData.isVisible">
+            <sui-modal-header>Select a Photo</sui-modal-header>
+            <sui-modal-content scrolling>
+            </sui-modal-content>
+            <sui-modal-actions>
+                <sui-button positive @click.native="toggle">
+                  OK
+                </sui-button>
+              </sui-modal-actions>
+        </sui-modal>
     </script>
     
     <!-- Vue -->

@@ -3,6 +3,7 @@
 import ChecklistComponent from "./components/checklist.js";
 import CodeEditorComponent from "./components/code-editor.js";
 import CommentsDisplayComponent from "./components/comments-display.js";
+import FaqComponent from "./components/faq.js";
 import TreeViewComponent from "./components/tree-view.js";
 import store from "./data/store.js";
 
@@ -16,6 +17,7 @@ const vue = new Vue({
         "comments-display": CommentsDisplayComponent,
         "tree-view": TreeViewComponent,
         "checklist": ChecklistComponent,
+        "faq": FaqComponent,
     },
     data: {
         sharedState: store.state,
@@ -37,6 +39,9 @@ const vue = new Vue({
         },
         toggleChecklist() {
             store.toggleChecklistVisibility();
+        },
+        showFaq() {
+            store.toggleFaqVisibility();
         },
     },
 });

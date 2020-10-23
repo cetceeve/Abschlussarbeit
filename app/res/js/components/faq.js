@@ -27,6 +27,15 @@ var FaqComponent = {
             faqData: store.state.faq,
         };
     },
+    /**
+     * Hold methods for this component.
+     * @property {Function} toggle - Toggles modal via application state.
+     */
+    methods: {
+        toggle() {
+            store.toggleFaqVisibility();
+        },
+    },
 };
 
 export default FaqComponent;
