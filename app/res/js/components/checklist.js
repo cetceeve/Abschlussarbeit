@@ -77,7 +77,7 @@ var CostumCheckboxComponent = {
     * Hold reactive data for the component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
     * @see https://vuejs.org/v2/guide/reactivity.html
-    * @property {Object} checklistData - Dictionary for checklist data. Key: category string. Value: checkbox object.
+    * @property {Object} checklistData - Data object for checklist, see store.state
     */
     data() {
         return {

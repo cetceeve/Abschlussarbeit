@@ -49,8 +49,8 @@
 * @property {String} [user.url] - Url for the page/profile of the author.
 * 
 * @property {Object} faq - Data for a simple faq to be displayed.
-* @property {module:data/store~FaqItem[]} faq.data - Array holding data object for the faq.
 * @property {Boolean} faq.isVisible - Sentinel guarding the visibility state of the faq modal.
+* @property {module:data/store~FaqItem[]} faq.data - Array holding data object for the faq.
 * 
 * @property {Object} checklist - Data for the checklist.
 * @property {Boolean} checklist.isVisible - Sentinel guarding the visibility state of the checklist.
@@ -141,6 +141,11 @@ var store = {
                     answer: "Many major historical figures in philosophy have provided an answer to the question of what, if anything, makes life meaningful, although they typically have not put it in these terms. Consider, for instance, Aristotle on the human function, Aquinas on the beatific vision, and Kant on the highest good. While these concepts have some bearing on happiness and morality, they are straightforwardly construed as accounts of which final ends a person ought to realize in order to have a life that matters. Despite the venerable pedigree, it is only in the last 50 years or so that something approaching a distinct field on the meaning of life has been established in Anglo-American philosophy, and it is only in the last 30 years that debate with real depth has appeared. Concomitant with the demise of positivism and of utilitarianism in the post-war era has been the rise of analytical enquiry into non-hedonistic conceptions of value, including conceptions of meaning in life, grounded on relatively uncontroversial (but not certain or universally shared) judgments of cases, often called “intuitions.” English-speaking philosophers can be expected to continue to find life's meaning of interest as they increasingly realize that it is a distinct topic that admits of rational enquiry to no less a degree than more familiar ethical categories such as well-being, virtuous character, and right action." + 
                     "This survey critically discusses approaches to meaning in life that are prominent in contemporary Anglo-American philosophical literature. To provide context, sometimes it mentions other texts, e.g., in Continental philosophy or from before the 20th century. However, the central aim is to acquaint the reader with recent analytic work on life's meaning and to pose questions about it that are currently worthy of consideration." + 
                     "When the topic of the meaning of life comes up, people often pose one of two questions: 'So, what is the meaning of life?' and 'What are you talking about?' The literature can be divided in terms of which question it seeks to answer. This discussion starts off with works that address the latter, abstract question regarding the sense of talk of 'life's meaning,' i.e., that aim to clarify what we are asking when we pose the question of what, if anything, makes life meaningful. Afterward, it considers texts that provide answers to the more substantive question about the nature of meaning as a property. Some accounts of what make life meaningful provide particular ways to do so, e.g., by making certain achievements (James 2005), developing moral character (Thomas 2005), or learning from relationships with family members (Velleman 2005). However, most recent discussions of meaning in life are attempts to capture in a single principle all the variegated conditions that can confer meaning on life. This survey focuses heavily on the articulation and evaluation of these theories of what would make life meaningful. It concludes by examining nihilist views that the conditions necessary for meaning in life do not obtain for any of us, i.e., that all our lives are meaningless.",
+                },
+                {
+                    question: "Do you have some more philosophy?",
+                    answer: "The term “free will” has emerged over the past two millennia as the canonical designator for a significant kind of control over one’s actions. Questions concerning the nature and existence of this kind of control (e.g., does it require and do we have the freedom to do otherwise or the power of self-determination?), and what its true significance is (is it necessary for moral responsibility or human dignity?) have been taken up in every period of Western philosophy and by many of the most important philosophical figures, such as Plato, Aristotle, Augustine, Aquinas, Descartes, and Kant. (We cannot undertake here a review of related discussions in other philosophical traditions. For a start, the reader may consult Marchal and Wenzel 2017 and Chakrabarti 2017 for overviews of thought on free will, broadly construed, in Chinese and Indian philosophical traditions, respectively.) In this way, it should be clear that disputes about free will ineluctably involve disputes about metaphysics and ethics. In ferreting out the kind of control involved in free will, we are forced to consider questions about (among others) causation, laws of nature, time, substance, ontological reduction vs emergence, the relationship of causal and reasons-based explanations, the nature of motivation and more generally of human persons. In assessing the significance of free will, we are forced to consider questions about (among others) rightness and wrongness, good and evil, virtue and vice, blame and praise, reward and punishment, and desert. The topic of free will also gives rise to purely empirical questions that are beginning to be explored in the human sciences: do we have it, and to what degree?" + 
+                            "Here is an overview of what follows. In Section 1, we acquaint the reader with some central historical contributions to our understanding of free will. (As nearly every major and minor figure had something to say about it, we cannot begin to cover them all.) As with contributions to many other foundational topics, these ideas are not of ‘merely historical interest’: present-day philosophers continue to find themselves drawn back to certain thinkers as they freshly engage their contemporaries. In Section 2, we map the complex architecture of the contemporary discussion of the nature of free will by dividing it into five subtopics: its relation to moral responsibility; the proper analysis of the freedom to do otherwise; a powerful, recent argument that the freedom to do otherwise (at least in one important sense) is not necessary for moral responsibility; ‘compatibilist’ accounts of sourcehood or self-determination; and ‘incompatibilist’ or ‘libertarian’ accounts of source and self-determination. In Section 3, we consider arguments from experience, a priori reflection, and various scientific findings and theories for and against the thesis that human beings have free will, along with the related question of whether it is reasonable to believe that we have it. Finally, in Section 4, we survey the long-debated questions involving free will that arise in classical theistic metaphysics.",
                 },
             ],
         },
@@ -470,6 +475,14 @@ var store = {
         this.state.checklist.isVisible = !this.state.checklist.isVisible;
         this.log();
     },
+
+    /**
+    * Toggles the visibility state of the faq
+    */
+   toggleFaqVisibility() {
+    this.state.faq.isVisible = !this.state.faq.isVisible;
+    this.log();
+},
     
     /**
     * if enabled in state, outputs current state to console
@@ -515,7 +528,7 @@ export default store;</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Oct 23 2020 14:12:01 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Oct 23 2020 14:41:58 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>

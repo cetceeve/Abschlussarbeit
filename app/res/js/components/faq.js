@@ -20,7 +20,7 @@ var FaqComponent = {
     * Hold reactive data for the component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
     * @see https://vuejs.org/v2/guide/reactivity.html
-    * @property {Object} faqData - 
+    * @property {Object} faqData - Data object for faq, see store.state
     */
     data() {
         return {
