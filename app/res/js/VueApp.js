@@ -1,6 +1,6 @@
 /* global Vue VueCodemirror SemanticUIVue*/
 // import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.esm.browser.js";
-import Checklist from "./components/checklist.js";
+import ChecklistComponent from "./components/checklist.js";
 import CodeEditorComponent from "./components/code-editor.js";
 import CommentsDisplayComponent from "./components/comments-display.js";
 import TreeViewComponent from "./components/tree-view.js";
@@ -15,7 +15,7 @@ const vue = new Vue({
         "code-editor": CodeEditorComponent,
         "comments-display": CommentsDisplayComponent,
         "tree-view": TreeViewComponent,
-        "checklist": Checklist,
+        "checklist": ChecklistComponent,
     },
     data: {
         sharedState: store.state,

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: TreeItemComponent</title>
+    <title>JSDoc: Namespace: CostumCheckboxComponent</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: TreeItemComponent</h1>
+    <h1 class="page-title">Namespace: CostumCheckboxComponent</h1>
 
     
 
@@ -28,7 +28,8 @@
 
 <header>
     
-        <h2>TreeItemComponent</h2>
+        <h2>
+            <span class="ancestors"><a href="module-components_ChecklistComponent.html">components/ChecklistComponent</a>~</span>CostumCheckboxComponent</h2>
         
     
 </header>
@@ -37,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Namespace for tree item component.Component is globaly registered to allow for recursion.Originally from an example on the Vue website, see below.</div>
+            <div class="description">Namespace for Costum Checkbox wrapping the semantic ui checkbox component.Costum build to work correctly with my atore pattern compliant application state data model.The original component would have corrupted my stricly one way data flow by a v-model binding.</div>
         
 
         
@@ -62,13 +63,6 @@
     
 
     
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li>Fabian Zeiher</li>
-        </ul>
-    </dd>
-    
 
     
 
@@ -79,19 +73,12 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_tree-view.js.html">components/tree-view.js</a>, <a href="components_tree-view.js.html#line33">line 33</a>
+        <a href="components_checklist.js.html">components/checklist.js</a>, <a href="components_checklist.js.html#line16">line 16</a>
     </li></ul></dd>
     
 
     
 
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://vuejs.org/v2/examples/tree-view.html">https://vuejs.org/v2/examples/tree-view.html</a></li>
-        </ul>
-    </dd>
     
 
     
@@ -105,12 +92,6 @@
     
 
     
-        <h3 class="subsection-title">Requires</h3>
-
-        <ul>
-            <li><a href="module-data_store.html">module:data/store</a></li>
-        </ul>
-    
 
     
 
@@ -122,166 +103,6 @@
 
     
         <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id=".computed"><span class="type-signature">(static) </span>computed<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Hold computed properties for the component.
-</div>
-
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>isFolder</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Determines if the item should be considered a 'folder'.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>isSelected</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Checks if this file is the current file in application state.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>iconName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Conditional logic to figure out which icon should be displayed.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_tree-view.js.html">components/tree-view.js</a>, <a href="components_tree-view.js.html#line77">line 77</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
 
         
             
@@ -342,7 +163,7 @@
 
             
 
-            <td class="description last">Toggles isOpen on folder clicks. Sets new current file for file clicks.</td>
+            <td class="description last">Toggles checkbox via application state.</td>
         </tr>
 
     
@@ -381,7 +202,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_tree-view.js.html">components/tree-view.js</a>, <a href="components_tree-view.js.html#line110">line 110</a>
+        <a href="components_checklist.js.html">components/checklist.js</a>, <a href="components_checklist.js.html#line44">line 44</a>
     </li></ul></dd>
     
 
@@ -440,13 +261,13 @@
 
         <tr>
             
-                <td class="name"><code>item</code></td>
+                <td class="name"><code>category</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="module-data_store.html#~TreeItem">module:data/store~TreeItem</a></span>
+<span class="param-type">String</span>
 
 
             
@@ -456,7 +277,30 @@
 
             
 
-            <td class="description last">Data item for this node.</td>
+            <td class="description last">The category this checkbox belongs to.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-data_store.html#~Checkbox">module:data/store~Checkbox</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Data object for the checkbox.</td>
         </tr>
 
     
@@ -495,7 +339,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_tree-view.js.html">components/tree-view.js</a>, <a href="components_tree-view.js.html#line54">line 54</a>
+        <a href="components_checklist.js.html">components/checklist.js</a>, <a href="components_checklist.js.html#line26">line 26</a>
     </li></ul></dd>
     
 
@@ -567,7 +411,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_tree-view.js.html">components/tree-view.js</a>, <a href="components_tree-view.js.html#line48">line 48</a>
+        <a href="components_checklist.js.html">components/checklist.js</a>, <a href="components_checklist.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -601,10 +445,6 @@
     
 
 
-
-<div class="description">
-    Hold reactive data for the component.Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
-</div>
 
 
 
@@ -644,30 +484,7 @@
 
         <tr>
             
-                <td class="name"><code>sharedState</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-data_store.html#~State">module:data/store~State</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Reference to the state object in order to utilize Vues built in reactivity for automatic re-render.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>isOpen</code></td>
+                <td class="name"><code>blockClick</code></td>
             
 
             <td class="type">
@@ -683,7 +500,7 @@
 
             
 
-            <td class="description last">Sentinel indicating if the items children are visible.</td>
+            <td class="description last">Switched used for bug not fixed in semantic ui for Vue.js, see below</td>
         </tr>
 
     
@@ -722,7 +539,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_tree-view.js.html">components/tree-view.js</a>, <a href="components_tree-view.js.html#line64">line 64</a>
+        <a href="components_checklist.js.html">components/checklist.js</a>, <a href="components_checklist.js.html#line35">line 35</a>
     </li></ul></dd>
     
 
@@ -733,6 +550,8 @@
     <dd class="tag-see">
         <ul>
             <li><a href="https://vuejs.org/v2/guide/reactivity.html">https://vuejs.org/v2/guide/reactivity.html</a></li>
+        
+            <li><a href="https://github.com/Semantic-Org/Semantic-UI-React/issues/3433">https://github.com/Semantic-Org/Semantic-UI-React/issues/3433</a></li>
         </ul>
     </dd>
     

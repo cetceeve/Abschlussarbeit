@@ -2,7 +2,7 @@ import store from "../data/store.js";
 
 /**
 * Display a checklist, responsive of the review state
-* @module components/Checklist
+* @module components/ChecklistComponent
 * @requires module:data/store
 * @author Fabian Zeiher
 */
@@ -13,7 +13,7 @@ import store from "../data/store.js";
 * The original component would have corrupted my stricly one way data flow by a v-model binding.
 * @namespace
 */
-var CostumCheckbox = {
+var CostumCheckboxComponent = {
     /** Css-selector for component template.
     * @type {String}
     */
@@ -61,7 +61,7 @@ var CostumCheckbox = {
 * Namespace for Checklist component
 * @namespace
 */
- Checklist = {
+ ChecklistComponent = {
     /** Css-selector for component template.
     * @type {String}
     */
@@ -71,7 +71,7 @@ var CostumCheckbox = {
      * @property {module:components/Checklist~CostumCheckbox} costum-checkbox - Costum checkbox component wrapping semantic uis checkbox.
      */
     components: {
-        "costum-checkbox": CostumCheckbox,
+        "costum-checkbox": CostumCheckboxComponent,
     },
     /**
     * Hold reactive data for the component.
@@ -86,4 +86,4 @@ var CostumCheckbox = {
     },
 };
 
-export default Checklist;
+export default ChecklistComponent;
