@@ -156,6 +156,15 @@
         <sui-modal :open="faqData.isVisible">
             <sui-modal-header>Select a Photo</sui-modal-header>
             <sui-modal-content scrolling>
+                <sui-accordion exclusive v-for="(item, index) in faqData.data" :key="index">
+                    <sui-accordion-title>
+                        <sui-icon name="dropdown" />
+                        {{ item.question }}
+                    </sui-accordion-title>
+                    <sui-accordion-content>
+                        <p>{{ item.answer }}</p>
+                      </sui-accordion-content>
+                </sui-accordion>
             </sui-modal-content>
             <sui-modal-actions>
                 <sui-button positive @click.native="toggle">
