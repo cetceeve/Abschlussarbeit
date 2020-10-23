@@ -63,6 +63,11 @@ var CodeEditorComponent = {
             return this.sharedState.content.files[this.sharedState.content.currentFile].text;
         },
     },
+    /**
+    * Hold methods for this component.
+    * @property {Function} showSearch - Start search function of codemirror.
+    * @property {Function} setActiveTheme - Sets active theme in application state.
+    */
     methods: {
         showSearch() {
             this.codemirror.execCommand("find");
@@ -71,10 +76,15 @@ var CodeEditorComponent = {
             store.setActiveTheme(theme);
         },
     },
+    /**
+     * Triggered before Vue updates the Dom
+     * Used to bring reactive behaviour into codemirror.
+     * @see https://vuejs.org/v2/guide/reactivity.html
+     */
     beforeUpdate() {
+        // Catch a theme change in the application state
         if (this.codemirror.options.theme !== this.sharedState.editor.activeTheme) {
             this.codemirror.setOption("theme", this.sharedState.editor.activeTheme);
-            console.log("triggered");
         }
     },
     /**

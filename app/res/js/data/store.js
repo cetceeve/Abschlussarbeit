@@ -32,6 +32,10 @@
 * @property {String} content.currentFile - Sha for the currently displayed file.
 * @property {Object.<String, module:data/store~File>} content.files - Dictonary of files. Key: file sha. Value: file object.
 * @property {module:data/store~TreeItem} content.filetree - File tree for the repository. Root item of the file tree.
+*
+* @property {Object} editor - Data object for look and behaviour of the editor.
+* @property {String} editor.activeTheme - Active code highlighting theme for the editor.
+* @property {String[]} editor.themes - List of themes for the editor.
 */
 /**
 * @typedef File
@@ -431,6 +435,10 @@ var store = {
         this.log();
     },
 
+    /**
+     * Set active code editor theme.
+     * @param {String} theme - Name for each theme originates from codemirrors implementation.
+     */
     setActiveTheme(theme) {
         if (this.state.editor.themes.includes(theme)) {
             this.state.editor.activeTheme = theme;
