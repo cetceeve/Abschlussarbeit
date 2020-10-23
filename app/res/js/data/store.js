@@ -368,6 +368,12 @@ var store = {
                 ],
             },
         },
+        editor: {
+            activeTheme: "monokai",
+            themes: [
+                "default","gruvbox-dark","monokai","seti","idea","the-matrix",
+            ],
+        },
     },
     /**
     * Add one comment for one code file
@@ -423,6 +429,13 @@ var store = {
             if (this.debug) { console.log("new active comment section selected: " + this.state.content.files[fileSha].activeCommentSection); }
         }
         this.log();
+    },
+
+    setActiveTheme(theme) {
+        if (this.state.editor.themes.includes(theme)) {
+            this.state.editor.activeTheme = theme;
+            this.log();
+        }
     },
     
     /**

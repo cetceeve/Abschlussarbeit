@@ -36,6 +36,7 @@ var CodeEditorComponent = {
             cmOption: {
                 placeholder: "nothing here :(",
                 mode: "javascript",
+                theme: store.state.editor.activeTheme,
                 readOnly: true,
                 lineNumbers: true,
                 scrollbarStyle: "simple",
@@ -48,7 +49,6 @@ var CodeEditorComponent = {
                 // viewportMargin: Infinity,
             },
             linePaddingRight: "22px",
-            current: "fancy pooh",
         };
     },
     /** Hold computed properties for the component.
@@ -67,9 +67,15 @@ var CodeEditorComponent = {
         showSearch() {
             this.codemirror.execCommand("find");
         },
-        clickE(event) {
-            console.log(event);
+        setActiveTheme(theme) {
+            store.setActiveTheme(theme);
         },
+    },
+    beforeUpdate() {
+        if (this.codemirror.options.theme !== this.sharedState.editor.activeTheme) {
+            this.codemirror.setOption("theme", this.sharedState.editor.activeTheme);
+            console.log("triggered");
+        }
     },
     /**
     * Code to execute when component is mounted, reference Vue Lifecycle below.

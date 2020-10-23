@@ -32,19 +32,19 @@
 }
 
 .cm-matchhighlight {
-    background-color: lightgreen
+    background-color: #7aa4ff81
 }
 
 .CodeMirror-selection-highlight-scrollbar {
-    background-color: green
+    background-color: blue
 }
 
 .highlight-gutter {
-    background-color: #DEDEDC;
+    background-color: #aaaaaa7c;
 }
 
 .highlight-line {
-    background-color: #f8f8f8;
+    background-color: #ebebeb23;
 }
 
 .CodeMirror-matchingbracket {
@@ -115,5 +115,6 @@
     bottom: 0;
     left: 50%;
     transform: translate(-50%, 0);
+    color: #777777;
     z-index: 99;
 }

@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/theme/material.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/theme/monokai.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/theme/seti.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/theme/yeti.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/theme/the-matrix.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/theme/idea.min.css">
     <!-- codemirror addon themes -->
@@ -72,11 +71,9 @@
     <script type="text/x-template" id="code-editor-component-template">
         <div>
             <codemirror ref="cmEditor" v-model="code" :options="cmOption"></codemirror>
-            <sui-dropdown class="code-editor-theme-dropdown":text="current">
+            <sui-dropdown class="code-editor-theme-dropdown":text="sharedState.editor.activeTheme">
                 <sui-dropdown-menu>
-                    <sui-dropdown-item>Elon</sui-dropdown-item>
-                    <sui-dropdown-item>Trump</sui-dropdown-item>
-                    <sui-dropdown-item>Kelvin Kleins super long and anoying name</sui-dropdown-item>
+                    <sui-dropdown-item v-for="(value, index) in sharedState.editor.themes" :key="index" @click="setActiveTheme(value)">{{ value }}</sui-dropdown-item>
                 </sui-dropdown-menu>
             </sui-dropdown>
             <sui-button circular @click="showSearch" icon="search" class="code-editor-search-fab" size="massive"></sui-button>
