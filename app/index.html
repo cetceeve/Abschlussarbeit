@@ -70,7 +70,10 @@
     </div>
     
     <script type="text/x-template" id="code-editor-component-template">
-        <codemirror ref="cmEditor" v-model="code" :options="cmOption"></codemirror>
+        <div>
+            <codemirror ref="cmEditor" v-model="code" :options="cmOption"></codemirror>
+            <sui-button circular @click="showSearch" icon="search" class="search-fab" size="massive"></sui-button>
+        </div>
     </script>
     
     <script type="text/x-template" id="comments-marker-component-template">

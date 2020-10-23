@@ -62,6 +62,11 @@ var CodeEditorComponent = {
            return this.sharedState.content.files[this.sharedState.content.currentFile].text;
         },
     },
+    methods: {
+        showSearch() {
+            this.codemirror.execCommand("find");
+        },
+    },
     /**
      * Code to execute when component is mounted, reference Vue Lifecycle below.
      * Add Comment Marker Components as LineWidgets. Listen for events from codemirror to handle rerender and content changes.
