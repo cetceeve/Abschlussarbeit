@@ -55,8 +55,8 @@
             <sui-grid-row>
                 <sui-grid-column :width="3" class="dark-background">
                     <tree-view></tree-view>
-                    <checklist v-show="checklistVisible" class="checklist-container"></checklist>
-                    <sui-button class="checklist-button" fluid attached="top" content="Checkliste" @click="toggleChecklist" :class="{active: checklistVisible}"></sui-button>
+                    <checklist class="checklist-container"></checklist>
+                    <sui-button class="checklist-button" fluid attached="top" content="Checkliste" @click="toggleChecklist" :class="{active: sharedState.checklist.isVisible}"></sui-button>
                 </sui-grid-column>
                 <sui-grid-column :width="10" class="remove-padding">
                     <code-editor></code-editor>
@@ -133,9 +133,9 @@
     </script>
     
     <script type="text/x-template" id="checklist-component-template">
-        <sui-segment raised class="checklist">
+        <sui-segment v-show="checklistData.isVisible" raised class="checklist">
             <sui-segments>
-                <sui-segment v-for="(checkboxes, categoryName, index) in checklistData"  :key="index">
+                <sui-segment v-for="(checkboxes, categoryName, index) in checklistData.categories"  :key="index">
                     <sui-header sub>{{ categoryName }}</sui-header>
                     <sui-list>
                         <costum-checkbox v-for="(item, index) in checkboxes" :key=item.id :data="item" :category="categoryName"/>

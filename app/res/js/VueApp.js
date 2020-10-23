@@ -18,7 +18,7 @@ const vue = new Vue({
         "checklist": Checklist,
     },
     data: {
-        checklistVisible: true,
+        sharedState: store.state,
     },
     methods: {
         toSha(fileSha) {
@@ -36,7 +36,7 @@ const vue = new Vue({
             store.deleteComment(store.state.content.currentFile, "99999999");
         },
         toggleChecklist() {
-            this.checklistVisible = !this.checklistVisible;
+            store.toggleChecklistVisibility();
         },
     },
 });

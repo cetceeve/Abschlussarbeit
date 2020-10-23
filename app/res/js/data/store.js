@@ -20,7 +20,9 @@
 * @property {String} user.avatarUrl - Link to the avatar picture of the user. Should be 1:1 and not too large.
 * @property {String} [user.url] - Url for the page/profile of the author.
 * 
-* @property {Object.<String, module:data/store~Checkbox>} checklist - Dictionary for checklist displayed on the bottom left. Key: category string. Value: checkbox object.
+* @property {Object} checklist - Data for the checklist.
+* @property {Boolean} isVisible - Sentinel guarding the visibility state of the checklist.
+* @property {Object.<String, module:data/store~Checkbox>} checklist.categories - Dictionary for checklist displayed on the bottom left. Key: category string. Value: checkbox object.
 * 
 * @property {Object} content
 * @property {String} content.currentFile - Sha for the currently displayed file.
@@ -49,22 +51,22 @@
 * @see http://aroc.github.io/side-comments-demo/
 */
 /**
- * Object to be recursivly used in file tree. Can represent a folder or a file.
- * @typedef TreeItem
- * @type {Object}
- * @property {String} name - Display name of the item.
- * @property {module:data/store~TreeItem[]} [children] - Array if tree items. Having children makes a tree item a folder.
- * @property {String} [sha] - Sha for the file represeted by this tree item.
- * @property {Boolean} [isModified] - Indicates if the file was modified by the review author.
- */
+* Object to be recursivly used in file tree. Can represent a folder or a file.
+* @typedef TreeItem
+* @type {Object}
+* @property {String} name - Display name of the item.
+* @property {module:data/store~TreeItem[]} [children] - Array if tree items. Having children makes a tree item a folder.
+* @property {String} [sha] - Sha for the file represeted by this tree item.
+* @property {Boolean} [isModified] - Indicates if the file was modified by the review author.
+*/
 /**
- * Data object for checkboxes
- * @typedef Checkbox
- * @type {Object}
- * @property {String} id - Unique identifier for this checkbox.
- * @property {String} label - Text to be dispayed with the checkbox.
- * @property {Boolean} checked - True if checkbox should be checked.
- */
+* Data object for checkboxes
+* @typedef Checkbox
+* @type {Object}
+* @property {String} id - Unique identifier for this checkbox.
+* @property {String} label - Text to be dispayed with the checkbox.
+* @property {Boolean} checked - True if checkbox should be checked.
+*/
 
 /**
 * Namespace object for store module.
@@ -88,57 +90,60 @@ var store = {
             url: "undefined",
         },
         checklist: {
-            "Vorbereitung": [
-                {
-                    id: "11",
-                    label: "Aufgabenstellung ausführlich durchlesen",
-                    checked: false,
-                },
-                {
-                    id: "12",
-                    label: "Should be checked",
-                    checked: true,
-                },
-                {
-                    id: "13",
-                    label: "Very very long label to see how the system responds to such kind of nonsensical usage.",
-                    checked: false,
-                },
-            ],
-            "Überblick": [
-                {
-                    id: "21",
-                    label: "Aufgabenstellung ausführlich durchlesen",
-                    checked: false,
-                },
-                {
-                    id: "22",
-                    label: "Should be checked",
-                    checked: true,
-                },
-                {
-                    id: "23",
-                    label: "Very very long label to see how the system responds to such kind of nonsensical usage.",
-                    checked: false,
-                },
-            ],
-            "Feedback": [
-                {
-                    id: "31",
-                    label: "Aufgabenstellung ausführlich durchlesen",
-                    checked: false,
-                },
-                {
-                    id: "32",
-                    label: "Should be checked",
-                    checked: true,
-                },
-                {
-                    id: "33",
-                    label: "Very very long label to see how the system responds to such kind of nonsensical usage.",
-                    checked: false,
-                },
-            ],
+            isVisible: true,
+            categories: {
+                "Vorbereitung": [
+                    {
+                        id: "11",
+                        label: "Aufgabenstellung ausführlich durchlesen",
+                        checked: false,
+                    },
+                    {
+                        id: "12",
+                        label: "Should be checked",
+                        checked: true,
+                    },
+                    {
+                        id: "13",
+                        label: "Very very long label to see how the system responds to such kind of nonsensical usage.",
+                        checked: false,
+                    },
+                ],
+                "Überblick": [
+                    {
+                        id: "21",
+                        label: "Aufgabenstellung ausführlich durchlesen",
+                        checked: false,
+                    },
+                    {
+                        id: "22",
+                        label: "Should be checked",
+                        checked: true,
+                    },
+                    {
+                        id: "23",
+                        label: "Very very long label to see how the system responds to such kind of nonsensical usage.",
+                        checked: false,
+                    },
+                ],
+                "Feedback": [
+                    {
+                        id: "31",
+                        label: "Aufgabenstellung ausführlich durchlesen",
+                        checked: false,
+                    },
+                    {
+                        id: "32",
+                        label: "Should be checked",
+                        checked: true,
+                    },
+                    {
+                        id: "33",
+                        label: "Very very long label to see how the system responds to such kind of nonsensical usage.",
+                        checked: false,
+                    },
+                ],
+            },
         },
         database: {
             repositoryUrl: "undefined",
@@ -387,20 +392,27 @@ var store = {
         }
         this.log();
     },
-
+    
     /**
-     * Toggle checkbox item in checklist.
-     * @param {String} category - category the item belongs too.
-     * @param {String} id - checkbox id of the system.
-     */
+    * Toggle checkbox item in checklist.
+    * @param {String} category - category the item belongs too.
+    * @param {String} id - checkbox id of the system.
+    */
     toggleCheckbox(category, id) {
-        if (Object.keys(this.state.checklist).includes(category)) {
-            let result = this.state.checklist[category].find(item => item.id === id);
+        if (Object.keys(this.state.checklist.categories).includes(category)) {
+            let result = this.state.checklist.categories[category].find(item => item.id === id);
             if (result !== undefined) {
                 result.checked = !result.checked;
                 this.log();
             }
         }
+    },
+    
+    /**
+    * Toggles the visibility state of the checklist
+    */
+    toggleChecklistVisibility() {
+        this.state.checklist.isVisible = !this.state.checklist.isVisible;
     },
     
     /**
