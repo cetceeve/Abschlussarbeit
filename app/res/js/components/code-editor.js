@@ -2,34 +2,34 @@ import store from "../data/store.js";
 import CommentsMarkerComponent from "./comments-marker.js";
 
 /**
- * Vue-Component to display the code and comments together.
- * Depends on vue-codemirror, codemirror and side-comments.
- *
- * Adds Hooks for side-comments to codemirror.
- * Handles display and interaction of and with the comments.
- * Handles display of the code.
- * Holds the configuration for codemirror.
- * 
- * @module components/CodeEditorComponent
- * @author Fabian Zeiher <fzeiher@gmail.com>
- * @requires module:data/store
- */
+* Vue-Component to display the code and comments together.
+* Depends on vue-codemirror, codemirror and side-comments.
+*
+* Adds Hooks for side-comments to codemirror.
+* Handles display and interaction of and with the comments.
+* Handles display of the code.
+* Holds the configuration for codemirror.
+* 
+* @module components/CodeEditorComponent
+* @author Fabian Zeiher <fzeiher@gmail.com>
+* @requires module:data/store
+*/
 /**
- * Namespace Object for Code Editor Component.
- * @namespace
- */
+* Namespace Object for Code Editor Component.
+* @namespace
+*/
 var CodeEditorComponent = {
     /** Css-selector for component template.
-     * @type {String}
-     */
+    * @type {String}
+    */
     template: "#code-editor-component-template",
     /** Hold reactive data for the component.
-     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
-     * @property {module:data/store~State} sharedState - Reference to the state object in order to utilize Vues built in reactivity for automatic re-render.
-     * @property {Object} cmOption - Codemirror configuration object.
-     * @property {String} linePaddingRight - Right padding for codemirror lines in css terminology (e.g. "20px").
-     * @see https://vuejs.org/v2/guide/reactivity.html
-     */
+    * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
+    * @property {module:data/store~State} sharedState - Reference to the state object in order to utilize Vues built in reactivity for automatic re-render.
+    * @property {Object} cmOption - Codemirror configuration object.
+    * @property {String} linePaddingRight - Right padding for codemirror lines in css terminology (e.g. "20px").
+    * @see https://vuejs.org/v2/guide/reactivity.html
+    */
     data() {
         return {
             sharedState: store.state,
@@ -48,30 +48,34 @@ var CodeEditorComponent = {
                 // viewportMargin: Infinity,
             },
             linePaddingRight: "22px",
+            current: "fancy pooh",
         };
     },
     /** Hold computed properties for the component.
-     * @property {Object} codemirror - The current codemirror instance.
-     * @property {String} code - Get current code string from shared state.
-     */
+    * @property {Object} codemirror - The current codemirror instance.
+    * @property {String} code - Get current code string from shared state.
+    */
     computed: {
         codemirror() {
-          return this.$refs.cmEditor.codemirror;
+            return this.$refs.cmEditor.codemirror;
         },
         code() {
-           return this.sharedState.content.files[this.sharedState.content.currentFile].text;
+            return this.sharedState.content.files[this.sharedState.content.currentFile].text;
         },
     },
     methods: {
         showSearch() {
             this.codemirror.execCommand("find");
         },
+        clickE(event) {
+            console.log(event);
+        },
     },
     /**
-     * Code to execute when component is mounted, reference Vue Lifecycle below.
-     * Add Comment Marker Components as LineWidgets. Listen for events from codemirror to handle rerender and content changes.
-     * @see https://vuejs.org/v2/guide/instance.html
-     */
+    * Code to execute when component is mounted, reference Vue Lifecycle below.
+    * Add Comment Marker Components as LineWidgets. Listen for events from codemirror to handle rerender and content changes.
+    * @see https://vuejs.org/v2/guide/instance.html
+    */
     mounted() {
         /*
         Object to store a flexible amount of reusable Marker Components.
@@ -98,7 +102,7 @@ var CodeEditorComponent = {
                     for (let i = this.items.length; i <= length; i++) {
                         this.items.push(this.createComponentElement(i.toString()));
                     }
-                // remove components if there are a lot to many
+                    // remove components if there are a lot to many
                 } else if (this.items.length > length + 100) {
                     this.items.splice(length);
                 }
@@ -112,7 +116,7 @@ var CodeEditorComponent = {
                 this.codemirror.addLineWidget(i, dynamicMarkerComponentList.items[i], { handleMouseEvents: true});
             }
         };
-
+        
         // Re-add comment marker elements to codemirror when the editors content changes.
         // Marker elements get reused for performance reasons.
         this.codemirror.on("change", () => {
@@ -128,7 +132,7 @@ var CodeEditorComponent = {
             // Necessary to avoid drawing the button on top of code. Additionally avoids click trough onto code.
             element.setAttribute("style", "padding-right: " + this.linePaddingRight);
             let currentLineMarkerComponent = dynamicMarkerComponentList.items[this.codemirror.getLineNumber(lineHandle)];
-
+            
             // Add hover effects higlighting gutter, linebackground and the marker
             element.addEventListener("mouseover", () => {
                 this.codemirror.addLineClass(lineHandle, "background", "highlight-line");
@@ -137,7 +141,7 @@ var CodeEditorComponent = {
                     currentLineMarkerComponent.querySelector(".marker").setAttribute("style", "display: block");
                 }
             });
-
+            
             // Remove hover effects from gutter, linebackground and the marker
             element.addEventListener("mouseout", () => {
                 this.codemirror.removeLineClass(lineHandle, "background", "highlight-line");
@@ -147,7 +151,7 @@ var CodeEditorComponent = {
                 }
             });
         });
-
+        
         this.codemirror.setSize(null, "90vh");
         initOnce();
     },

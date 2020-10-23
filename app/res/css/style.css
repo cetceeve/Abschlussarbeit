@@ -103,9 +103,17 @@
     left: 0;
 }
 
-.search-fab {
+.code-editor-search-fab {
     position: absolute;
     right: 1em;
     bottom: 1em;
+    z-index: 99;
+}
+
+.code-editor-theme-dropdown {
+    position: absolute !important;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
     z-index: 99;
 }

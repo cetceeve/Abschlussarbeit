@@ -72,7 +72,14 @@
     <script type="text/x-template" id="code-editor-component-template">
         <div>
             <codemirror ref="cmEditor" v-model="code" :options="cmOption"></codemirror>
-            <sui-button circular @click="showSearch" icon="search" class="search-fab" size="massive"></sui-button>
+            <sui-dropdown class="code-editor-theme-dropdown":text="current">
+                <sui-dropdown-menu>
+                    <sui-dropdown-item>Elon</sui-dropdown-item>
+                    <sui-dropdown-item>Trump</sui-dropdown-item>
+                    <sui-dropdown-item>Kelvin Kleins super long and anoying name</sui-dropdown-item>
+                </sui-dropdown-menu>
+            </sui-dropdown>
+            <sui-button circular @click="showSearch" icon="search" class="code-editor-search-fab" size="massive"></sui-button>
         </div>
     </script>
     
@@ -148,13 +155,13 @@
             </sui-segments>
         </sui-segment>
     </script>
-
+    
     <script type="text/x-template" id="semantic-checkbox-component-template">
         <sui-list-item>
             <sui-checkbox :label="data.label" :inputValue="data.checked" @click.prevent="toggle"/>
         </sui-list-item>
     </script>
-
+    
     <script type="text/x-template" id="faq-component-template">
         <sui-modal :open="faqData.isVisible">
             <sui-modal-header>Select a Photo</sui-modal-header>
@@ -166,14 +173,14 @@
                     </sui-accordion-title>
                     <sui-accordion-content>
                         <p>{{ item.answer }}</p>
-                      </sui-accordion-content>
+                    </sui-accordion-content>
                 </sui-accordion>
             </sui-modal-content>
             <sui-modal-actions>
                 <sui-button positive @click.native="toggle">
-                  OK
+                    OK
                 </sui-button>
-              </sui-modal-actions>
+            </sui-modal-actions>
         </sui-modal>
     </script>
     
