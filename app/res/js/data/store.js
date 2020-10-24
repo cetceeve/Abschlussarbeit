@@ -506,6 +506,7 @@ var store = {
     /**
      * Search for any item in file tree.
      * @param {Object} searchOptions - Object must have one key and one value, from the filetree item that is searched for. If the combination is not unique the fist result will be returned.
+     * @returns {module:data/store~TreeItem}
      */
     searchFileTree(searchOptions) {
         // general tree search function
@@ -567,7 +568,7 @@ var store = {
     },
     
     /**
-    * if enabled in state, outputs current state to console
+    * if debug is enabled in state, outputs current state to console
     */
     log() {
         if (this.debug) {
