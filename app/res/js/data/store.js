@@ -64,6 +64,7 @@
 * @type {Object}
 * @property {String} name - Display name of the item.
 * @property {module:data/store~TreeItem[]} [children] - Array if tree items. Having children makes a tree item a folder.
+* @property {Boolean} [isOpen] - Sentinel indicating if the items children are visible.
 * @property {String} [sha] - Sha for the file represeted by this tree item.
 * @property {Boolean} [isModified] - Indicates if the file was modified by the review author.
 */
@@ -76,12 +77,12 @@
 * @property {Boolean} checked - True if checkbox should be checked.
 */
 /**
- * Data object for one faq item.
- * @typedef FaqItem
- * @type {Object}
- * @property {String} question - A reasonable question.
- * @property {String} answer - A formidable answer to the question.
- */
+* Data object for one faq item.
+* @typedef FaqItem
+* @type {Object}
+* @property {String} question - A reasonable question.
+* @property {String} answer - A formidable answer to the question.
+*/
 
 /**
 * Namespace object for store module.
@@ -121,7 +122,7 @@ var store = {
                 {
                     question: "Do you have some more philosophy?",
                     answer: "The term “free will” has emerged over the past two millennia as the canonical designator for a significant kind of control over one’s actions. Questions concerning the nature and existence of this kind of control (e.g., does it require and do we have the freedom to do otherwise or the power of self-determination?), and what its true significance is (is it necessary for moral responsibility or human dignity?) have been taken up in every period of Western philosophy and by many of the most important philosophical figures, such as Plato, Aristotle, Augustine, Aquinas, Descartes, and Kant. (We cannot undertake here a review of related discussions in other philosophical traditions. For a start, the reader may consult Marchal and Wenzel 2017 and Chakrabarti 2017 for overviews of thought on free will, broadly construed, in Chinese and Indian philosophical traditions, respectively.) In this way, it should be clear that disputes about free will ineluctably involve disputes about metaphysics and ethics. In ferreting out the kind of control involved in free will, we are forced to consider questions about (among others) causation, laws of nature, time, substance, ontological reduction vs emergence, the relationship of causal and reasons-based explanations, the nature of motivation and more generally of human persons. In assessing the significance of free will, we are forced to consider questions about (among others) rightness and wrongness, good and evil, virtue and vice, blame and praise, reward and punishment, and desert. The topic of free will also gives rise to purely empirical questions that are beginning to be explored in the human sciences: do we have it, and to what degree?" + 
-                            "Here is an overview of what follows. In Section 1, we acquaint the reader with some central historical contributions to our understanding of free will. (As nearly every major and minor figure had something to say about it, we cannot begin to cover them all.) As with contributions to many other foundational topics, these ideas are not of ‘merely historical interest’: present-day philosophers continue to find themselves drawn back to certain thinkers as they freshly engage their contemporaries. In Section 2, we map the complex architecture of the contemporary discussion of the nature of free will by dividing it into five subtopics: its relation to moral responsibility; the proper analysis of the freedom to do otherwise; a powerful, recent argument that the freedom to do otherwise (at least in one important sense) is not necessary for moral responsibility; ‘compatibilist’ accounts of sourcehood or self-determination; and ‘incompatibilist’ or ‘libertarian’ accounts of source and self-determination. In Section 3, we consider arguments from experience, a priori reflection, and various scientific findings and theories for and against the thesis that human beings have free will, along with the related question of whether it is reasonable to believe that we have it. Finally, in Section 4, we survey the long-debated questions involving free will that arise in classical theistic metaphysics.",
+                    "Here is an overview of what follows. In Section 1, we acquaint the reader with some central historical contributions to our understanding of free will. (As nearly every major and minor figure had something to say about it, we cannot begin to cover them all.) As with contributions to many other foundational topics, these ideas are not of ‘merely historical interest’: present-day philosophers continue to find themselves drawn back to certain thinkers as they freshly engage their contemporaries. In Section 2, we map the complex architecture of the contemporary discussion of the nature of free will by dividing it into five subtopics: its relation to moral responsibility; the proper analysis of the freedom to do otherwise; a powerful, recent argument that the freedom to do otherwise (at least in one important sense) is not necessary for moral responsibility; ‘compatibilist’ accounts of sourcehood or self-determination; and ‘incompatibilist’ or ‘libertarian’ accounts of source and self-determination. In Section 3, we consider arguments from experience, a priori reflection, and various scientific findings and theories for and against the thesis that human beings have free will, along with the related question of whether it is reasonable to believe that we have it. Finally, in Section 4, we survey the long-debated questions involving free will that arise in classical theistic metaphysics.",
                 },
             ],
         },
@@ -357,6 +358,7 @@ var store = {
             },
             filetree: {
                 name: "src",
+                isOpen: true,
                 children: [
                     { sha: "undefined", name: "test.html", isModified: false},
                     { sha: "undefined", name: "test.htm", isModified: true},
@@ -364,9 +366,21 @@ var store = {
                     { sha: "undefined", name: "test.txt", isModified: false},
                     {
                         name: "js",
+                        isOpen: false,
                         children: [
                             { sha: "fileSha0000", name: "AppServer.js", isModified: true},
                             { sha: "fileSha0001", name: "SideComments.js", isModified: false},
+                        ],
+                    },
+                    {
+                        name: "test",
+                        isOpen: false,
+                        children: [
+                            { sha: "undefined", name: "test.js", isModified: true},
+                            { sha: "testfile0000", name: "testfile.js", isModified: false},
+                            {
+                                name: "emptyFolder", isOpen: false, children: [],
+                            },
                         ],
                     },
                 ],
@@ -434,11 +448,11 @@ var store = {
         }
         this.log();
     },
-
+    
     /**
-     * Set active code editor theme.
-     * @param {String} theme - Name for each theme originates from codemirrors implementation.
-     */
+    * Set active code editor theme.
+    * @param {String} theme - Name for each theme originates from codemirrors implementation.
+    */
     setActiveTheme(theme) {
         if (this.state.editor.themes.includes(theme)) {
             this.state.editor.activeTheme = theme;
@@ -468,14 +482,58 @@ var store = {
         this.state.checklist.isVisible = !this.state.checklist.isVisible;
         this.log();
     },
-
+    
     /**
-    * Toggles the visibility state of the faq
+    * Toggle the visibility state of the faq
     */
-   toggleFaqVisibility() {
-    this.state.faq.isVisible = !this.state.faq.isVisible;
-    this.log();
-},
+    toggleFaqVisibility() {
+        this.state.faq.isVisible = !this.state.faq.isVisible;
+        this.log();
+    },
+    
+    /**
+     * Toggle isOpen property of a folder.
+     * @param {String} folderName 
+     */
+    toggleFolderOpen(folderName) {
+        let folder = this.searchFileTree({name: folderName});
+        if (folder !== null) {
+            folder.isOpen = !folder.isOpen;
+            this.log();
+        }
+    },
+    
+    /**
+     * Search for any item in file tree.
+     * @param {Object} searchOptions - Object must have one key and one value, from the filetree item that is searched for. If the combination is not unique the fist result will be returned.
+     */
+    searchFileTree(searchOptions) {
+        // general tree search function
+        // with kind help by stackoverflow (https://stackoverflow.com/questions/9133500/how-to-find-a-node-in-a-tree-with-javascript)
+        function recursiveSearch(node, key, value) {
+            if (node[key] === value) {
+                return node;
+            } else if (node.children !== undefined) {
+                let result = null;
+                for (let child of node.children) {
+                    result = recursiveSearch(child, key, value);
+                    if (result !== null) { break; }
+                }
+                return result;
+            }
+            return null;
+        }
+        
+        if (Object.keys(searchOptions).length === 1) {
+            let searchKey = Object.keys(searchOptions)[0],
+            searchValue = searchOptions[searchKey];
+            
+            // checks on searchKey are omited, because code should fail if key is not part of fileItem object.
+            return recursiveSearch(this.state.content.filetree, searchKey, searchValue);
+
+        }
+        return null;
+    },
     
     /**
     * if enabled in state, outputs current state to console

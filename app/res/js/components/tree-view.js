@@ -58,13 +58,11 @@ Vue.component("tree-item", {
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
     * @see https://vuejs.org/v2/guide/reactivity.html
     * @property {module:data/store~State} sharedState - Reference to the state object in order to utilize Vues built in reactivity for automatic re-render.
-    * @property {Boolean} isOpen - Sentinel indicating if the items children are visible.
     * @memberof TreeItemComponent
     */
     data: function() {
         return {
             sharedState: store.state,
-            isOpen: false,
         };
     },
     /**
@@ -83,7 +81,7 @@ Vue.component("tree-item", {
         },
         iconName: function() {
             if (this.isFolder) {
-                if (this.isOpen) {
+                if (this.item.isOpen) {
                     return "folder open";
                 } 
                 return "folder";
@@ -110,7 +108,7 @@ Vue.component("tree-item", {
     methods: {
         toggle: function() {
             if (this.isFolder) {
-                this.isOpen = !this.isOpen;
+                store.toggleFolderOpen(this.item.name);
             } else {
                 store.setCurrentFile(this.item.sha);
             }

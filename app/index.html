@@ -133,7 +133,7 @@
             <sui-list-icon inverted :class="{selected: isSelected, modified: item.isModified}" :name="iconName" @click="toggle"/>
             <sui-list-content>
                 <sui-list-header :class="{selected: isSelected, modified: item.isModified}" @click="toggle">{{ item.name }}</sui-list-header>
-                <sui-list-list v-show="isOpen" v-if="isFolder">
+                <sui-list-list v-show="item.isOpen" v-if="isFolder">
                     <tree-item class="item" v-for="(child, index) in item.children" key="index" :item="child"></tree-item>
                 </sui-list-list>
             </sui-list-content>
