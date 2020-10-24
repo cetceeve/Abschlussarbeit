@@ -528,11 +528,42 @@ var store = {
             let searchKey = Object.keys(searchOptions)[0],
             searchValue = searchOptions[searchKey];
             
-            // checks on searchKey are omited, because code should fail if key is not part of fileItem object.
             return recursiveSearch(this.state.content.filetree, searchKey, searchValue);
-
         }
         return null;
+    },
+
+    /**
+     * Open all folders of file tree.
+     */
+    openFileTree() {
+        this.changeFileTreeRecusive(this.state.content.filetree, "isOpen", true);
+        this.log();
+    },
+
+    /**
+     * Close all folders of filetree.
+     */
+    collapseFileTree() {
+        this.changeFileTreeRecusive(this.state.content.filetree, "isOpen", false);
+        this.log();
+    },
+
+    /**
+     * Change one parameter in all items of the file tree
+     * @param {module:data/store~TreeItem} node 
+     * @param {String} key 
+     * @param {*} value 
+     */
+    changeFileTreeRecusive(node, key, value) {
+        if (node[key] !== undefined) {
+            node[key] = value;
+        } 
+        if (node.children !== undefined) {
+            for (let child of node.children) {
+                this.changeFileTreeRecusive(child, key, value);
+            }
+        }
     },
     
     /**
@@ -540,9 +571,8 @@ var store = {
     */
     log() {
         if (this.debug) {
-            console.log("--------  State changed  ----------");
+            console.log("State changed:");
             console.log(this.state);
-            console.log("-----------------------------------");
         }
     },
     

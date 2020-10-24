@@ -43,5 +43,11 @@ const vue = new Vue({
         showFaq() {
             store.toggleFaqVisibility();
         },
+        openFileTree() {
+            store.openFileTree();
+        },
+        collapseFileTree() {
+            store.collapseFileTree();
+        },
     },
 });

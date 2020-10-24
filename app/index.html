@@ -53,6 +53,10 @@
             </sui-grid-row>
             <sui-grid-row>
                 <sui-grid-column :width="3" class="dark-background">
+                    <sui-button-group size="mini" class="treeview-buttons">
+                        <sui-button @click="openFileTree">open all</sui-button>
+                        <sui-button @click="collapseFileTree">collapse all</sui-button>
+                    </sui-button-group>
                     <tree-view></tree-view>
                     <checklist class="checklist-container"></checklist>
                     <sui-button class="checklist-button" fluid attached="top" content="Checkliste" @click="toggleChecklist" :class="{active: sharedState.checklist.isVisible}"></sui-button>

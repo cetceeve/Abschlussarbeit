@@ -64,7 +64,7 @@
 }
 
 .tree-view {
-    padding: 10px !important;
+    margin: 1em 1em !important;
 }
 
 .tree-view .item {
@@ -79,6 +79,12 @@
 
 .tree-view .selected {
     color: #4FAF62 !important;
+}
+
+.treeview-buttons {
+    position: relative !important;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
 .checklist-container {
