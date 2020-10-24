@@ -41,6 +41,7 @@ var CodeEditorComponent = {
                 lineNumbers: true,
                 scrollbarStyle: "simple",
                 foldGutter: true,
+                gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
                 scrollPastEnd: false,
                 lineWrapping: true,
                 styleSelectedText: true,
