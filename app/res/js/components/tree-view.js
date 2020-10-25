@@ -28,6 +28,19 @@ var TreeViewComponent = {
             treeData: store.state.content.filetree,
         };
     },
+    /**
+    * Hold methods for this component.
+    * @property {Function} openFileTree - Open all folders in the file tree.
+    * @property {Function} collapseFileTree - Collapse all folders in the file tree.
+    */
+    methods: {
+        openFileTree() {
+            store.openFileTree();
+        },
+        collapseFileTree() {
+            store.collapseFileTree();
+        },
+    },
 };
 
 /**
