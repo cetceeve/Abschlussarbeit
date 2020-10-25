@@ -311,7 +311,7 @@ var store = {
                     " * Utilises side-comments insertCommit() function internaly.\r\n" +
                     " * @param {Object} sideComments - A side-comments instance.\r\n" +
                     " */\r\n" +
-                    "insertStoredComments = (sideComments) => {\r\n" +
+                    "insertStoredComments = () => {\r\n" +
                     "    for (let comment of storage.state.comments[storage.state.code.currentFile]) {\r\n" +
                     "        sideComments.insertComment(comment);\r\n" +
                     "    }\r\n" +
@@ -322,9 +322,9 @@ var store = {
                     " * @param {Object} sideComments - A side-comments instance.\r\n" +
                     " */\r\n" +
                     "registerSideCommentsListeners = (sideComments) => {\r\n" +
-                    "    sideComments.on(\"commentPosted\", comment => {\r\n" +
-                    "        sideComments.insertComment(comment);\r\n" +
-                    "        storage.setComment(storage.state.code.currentFile, comment);\r\n" +
+                    "    sidecomments.on(\"commentPosted\", comment => {\r\n" +
+                    "        sidecomments.insertComment(comment);\r\n" +
+                    "        storage.setComment(storage.state.code.currentFile, comment)\r\n" +
                     "    });\r\n" +
                     "};",
                     activeCommentSection: "2",
