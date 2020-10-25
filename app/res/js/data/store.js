@@ -34,8 +34,8 @@
 * @property {module:data/store~TreeItem} content.filetree - File tree for the repository. Root item of the file tree.
 *
 * @property {Object} editor - Data object for look and behaviour of the editor.
-* @property {String} editor.activeTheme - Active code highlighting theme for the editor.
 * @property {String[]} editor.themes - List of themes for the editor.
+* @property {Object} editor.options - Large object defining all options for codemirror.
 */
 /**
 * @typedef File
@@ -198,6 +198,7 @@ var store = {
             files: {
                 "fileSha0000": {
                     sha: "fileSha000",
+                    path: "src/js/Appserver.js",
                     text: "/* eslint-env node */\r\n" +
                     "\r\n" +
                     "const path = require(\"path\"),\r\n" +
@@ -295,6 +296,7 @@ var store = {
                 },
                 "fileSha0001": {
                     sha: "fileSha0001",
+                    path: "src/js/SideComments.js",
                     text: "/**\r\n" +
                     " * Iniate a side-comments instance with a user object.\r\n" +
                     " * @param {Object} wrapperElement - The element which contains all the .commentable-section elements.\r\n" +
@@ -355,14 +357,34 @@ var store = {
                         },
                     ],
                 },
+                "fileSha0002": {
+                    sha: "fileSha0002",
+                    path: "src/test.htm",
+                    text: "<!DOCTYPE HTML>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>HTMLHint</title>\n</head>\n<body>\n    <div>HTMLHint: help your html code better\n</body>\n</html>",
+                    activeCommentSection: null,
+                    comments: [],
+                },
+                "fileSha0003": {
+                    sha: "fileSha0003",
+                    path: "src/test.css",
+                    text: ".checklist-button {\n" + 
+                    "    position: absolute !important;\n}\n\n" +
+                    ".code-editor-search-fab {\n" + 
+                    "    position: absolute;\n" +
+                    "    right: 1em;\n" +
+                    "    bottom: 1em\n" +
+                    "    z-index: 99;\n}",
+                    activeCommentSection: null,
+                    comments: [],
+                },
             },
             filetree: {
                 name: "src",
                 isOpen: true,
                 children: [
                     { sha: "undefined", name: "test.html", isModified: false},
-                    { sha: "undefined", name: "test.htm", isModified: true},
-                    { sha: "undefined", name: "test.css", isModified: false},
+                    { sha: "fileSha0002", name: "test.htm", isModified: true},
+                    { sha: "fileSha0003", name: "test.css", isModified: true},
                     { sha: "undefined", name: "test.txt", isModified: false},
                     {
                         name: "js",
@@ -376,7 +398,7 @@ var store = {
                         name: "test",
                         isOpen: false,
                         children: [
-                            { sha: "undefined", name: "test.js", isModified: true},
+                            { sha: "undefined", name: "test.js", isModified: false},
                             { sha: "testfile0000", name: "testfile.js", isModified: false},
                             {
                                 name: "emptyFolder", isOpen: false, children: [],
@@ -387,10 +409,37 @@ var store = {
             },
         },
         editor: {
-            activeTheme: "monokai",
             themes: [
                 "default","gruvbox-dark","monokai","seti","idea","the-matrix",
             ],
+            options: {
+                placeholder: "nothing here :(",
+                mode: "",
+                theme: "monokai",
+                readOnly: true,
+                lineNumbers: true,
+                scrollbarStyle: "simple",
+                foldGutter: true,
+                gutters: ["CodeMirror-lint-markers", "CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+                scrollPastEnd: false,
+                lineWrapping: true,
+                styleSelectedText: true,
+                highlightSelectionMatches: {showToken: /\w/, annotateScrollbar: true},
+                matchBrackets: true,
+                lint: {
+                    options: {
+                        esversion: 8,
+                        undef: true,
+                        unused: true,
+                        freeze: true,
+                        latedef: "nofunc",
+                        nonbsp: true,
+                        trailingcomma: true,
+                        browser: true,
+                        node: true,
+                    },
+                },
+            },
         },
     },
     /**
@@ -455,7 +504,20 @@ var store = {
     */
     setActiveTheme(theme) {
         if (this.state.editor.themes.includes(theme)) {
-            this.state.editor.activeTheme = theme;
+            if (this.state.editor.options.theme !== theme) {
+                this.state.editor.options.theme = theme;
+                this.log();
+            }
+        }
+    },
+
+    /**
+     * Set mode for codemirror. This is essentially the programming language.
+     * @param {String} mode - Mode name for codemirror. Is not checked for correctness here, because this must be done by a codemirror instance
+     */
+    setCodemirrorMode(mode) {
+        if (mode !== null && mode !== undefined && mode !== "") {
+            this.state.editor.options.mode = mode;
             this.log();
         }
     },

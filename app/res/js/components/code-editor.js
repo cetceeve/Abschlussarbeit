@@ -1,3 +1,4 @@
+/* global CodeMirror */
 import store from "../data/store.js";
 import CommentsMarkerComponent from "./comments-marker.js";
 
@@ -33,32 +34,7 @@ var CodeEditorComponent = {
     data() {
         return {
             sharedState: store.state,
-            cmOption: {
-                placeholder: "nothing here :(",
-                mode: "javascript",
-                theme: store.state.editor.activeTheme,
-                readOnly: true,
-                lineNumbers: true,
-                scrollbarStyle: "simple",
-                foldGutter: true,
-                gutters: ["CodeMirror-lint-markers", "CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-                scrollPastEnd: false,
-                lineWrapping: true,
-                styleSelectedText: true,
-                highlightSelectionMatches: {showToken: /\w/, annotateScrollbar: true},
-                matchBrackets: true,
-                lint: {
-                    options: {
-                        esversion: 8,
-                        undef: true,
-                        unused: true,
-                        freeze: true,
-                        latedef: "nofunc",
-                        nonbsp: true,
-                        trailingcomma: true,
-                    },
-                },
-            },
+            cmOption: store.state.editor.options,
             linePaddingRight: "22px",
         };
     },
@@ -100,17 +76,6 @@ var CodeEditorComponent = {
         },
     },
     /**
-     * Triggered before Vue updates the Dom
-     * Used to bring reactive behaviour into codemirror.
-     * @see https://vuejs.org/v2/guide/reactivity.html
-     */
-    beforeUpdate() {
-        // Catch a theme change in the application state
-        if (this.codemirror.options.theme !== this.sharedState.editor.activeTheme) {
-            this.codemirror.setOption("theme", this.sharedState.editor.activeTheme);
-        }
-    },
-    /**
     * Code to execute when component is mounted, reference Vue Lifecycle below.
     * Add Comment Marker Components as LineWidgets. Listen for events from codemirror to handle rerender and content changes.
     * @see https://vuejs.org/v2/guide/instance.html
@@ -148,17 +113,28 @@ var CodeEditorComponent = {
                 console.log("Current amount of stored marker-components: " + this.items.length);
             },
         },
+        // Change codemirror mode for current file.
+        loadMode = () => {
+            let info = CodeMirror.findModeByFileName(this.sharedState.content.files[this.sharedState.content.currentFile].path);
+            if (info.mode !== this.sharedState.editor.options.mode) {
+                store.setCodemirrorMode(info.mode);
+                CodeMirror.autoLoadMode(this.codemirror, info.mode);
+            }
+        },
         // Manually adds marker components to codemirror once, because codemirror.on("change") is not called when the editor ist started.
         initOnce = () => {
+            loadMode();
             dynamicMarkerComponentList.setLength(this.codemirror.lineCount());
             for (let i = 0; i < this.codemirror.lineCount(); i++) {
                 this.codemirror.addLineWidget(i, dynamicMarkerComponentList.items[i], { handleMouseEvents: true});
             }
         };
         
-        // Re-add comment marker elements to codemirror when the editors content changes.
-        // Marker elements get reused for performance reasons.
+        // Callback runs whenever text in the editor changes.
         this.codemirror.on("change", () => {
+            loadMode();
+            // Re-add comment marker elements to codemirror when the editors content changes.
+            // Marker elements get reused for performance reasons.
             dynamicMarkerComponentList.setLength(this.codemirror.lineCount());
             for (let i = 0; i < this.codemirror.lineCount(); i++) {
                 this.codemirror.addLineWidget(i, dynamicMarkerComponentList.items[i], { handleMouseEvents: true});
