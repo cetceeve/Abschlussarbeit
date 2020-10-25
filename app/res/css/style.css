@@ -116,11 +116,25 @@
     z-index: 99;
 }
 
+.code-editor-clear-fab {
+    position: absolute;
+    right: 8.5em;
+    bottom: 3.7em;
+    z-index: 99;
+}
+
 .code-editor-theme-dropdown {
     position: absolute !important;
     bottom: 0;
     left: 50%;
     transform: translate(-50%, 0);
     color: #777777;
+    z-index: 99;
+}
+
+.code-editor-fold-buttons {
+    position: absolute !important;
+    left: 50%;
+    transform: translate(-50%, 0);
     z-index: 99;
 }

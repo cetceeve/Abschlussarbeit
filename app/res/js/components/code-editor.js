@@ -67,11 +67,23 @@ var CodeEditorComponent = {
     /**
     * Hold methods for this component.
     * @property {Function} showSearch - Start search function of codemirror.
+    * @property {Function} clearSearch - Clear search overlay.
+    * @property {Function} foldAll - Use codefold too fold all foldable code sections.
+    * @property {Function} unfoldAll - Use codefold too open all folded code sections.
     * @property {Function} setActiveTheme - Sets active theme in application state.
     */
     methods: {
         showSearch() {
             this.codemirror.execCommand("find");
+        },
+        clearSearch() {
+            this.codemirror.execCommand("clearSearch");
+        },
+        foldAll() {
+            this.codemirror.execCommand("foldAll");
+        },
+        unfoldAll() {
+            this.codemirror.execCommand("unfoldAll");
         },
         setActiveTheme(theme) {
             store.setActiveTheme(theme);
