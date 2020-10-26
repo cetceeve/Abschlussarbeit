@@ -26,7 +26,8 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import store from "../data/store.js";
+            <pre class="prettyprint source linenums"><code>/* global CodeMirror */
+import store from "../data/store.js";
 import CommentsMarkerComponent from "./comments-marker.js";
 
 /**
@@ -61,22 +62,7 @@ var CodeEditorComponent = {
     data() {
         return {
             sharedState: store.state,
-            cmOption: {
-                placeholder: "nothing here :(",
-                mode: "javascript",
-                theme: store.state.editor.activeTheme,
-                readOnly: true,
-                lineNumbers: true,
-                scrollbarStyle: "simple",
-                foldGutter: true,
-                gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-                scrollPastEnd: false,
-                lineWrapping: true,
-                styleSelectedText: true,
-                highlightSelectionMatches: {showToken: /\w/, annotateScrollbar: true},
-                matchBrackets: true,
-                // viewportMargin: Infinity,
-            },
+            cmOption: store.state.editor.options,
             linePaddingRight: "22px",
         };
     },
@@ -95,26 +81,27 @@ var CodeEditorComponent = {
     /**
     * Hold methods for this component.
     * @property {Function} showSearch - Start search function of codemirror.
+    * @property {Function} clearSearch - Clear search overlay.
+    * @property {Function} foldAll - Use codefold to fold all foldable code sections.
+    * @property {Function} unfoldAll - Use codefold to open all folded code sections.
     * @property {Function} setActiveTheme - Sets active theme in application state.
     */
     methods: {
         showSearch() {
             this.codemirror.execCommand("find");
         },
+        clearSearch() {
+            this.codemirror.execCommand("clearSearch");
+        },
+        foldAll() {
+            this.codemirror.execCommand("foldAll");
+        },
+        unfoldAll() {
+            this.codemirror.execCommand("unfoldAll");
+        },
         setActiveTheme(theme) {
             store.setActiveTheme(theme);
         },
-    },
-    /**
-     * Triggered before Vue updates the Dom
-     * Used to bring reactive behaviour into codemirror.
-     * @see https://vuejs.org/v2/guide/reactivity.html
-     */
-    beforeUpdate() {
-        // Catch a theme change in the application state
-        if (this.codemirror.options.theme !== this.sharedState.editor.activeTheme) {
-            this.codemirror.setOption("theme", this.sharedState.editor.activeTheme);
-        }
     },
     /**
     * Code to execute when component is mounted, reference Vue Lifecycle below.
@@ -154,17 +141,28 @@ var CodeEditorComponent = {
                 console.log("Current amount of stored marker-components: " + this.items.length);
             },
         },
+        // Change codemirror mode for current file.
+        loadMode = () => {
+            let info = CodeMirror.findModeByFileName(this.sharedState.content.files[this.sharedState.content.currentFile].path);
+            if (info.mode !== this.sharedState.editor.options.mode) {
+                store.setCodemirrorMode(info.mode);
+                CodeMirror.autoLoadMode(this.codemirror, info.mode);
+            }
+        },
         // Manually adds marker components to codemirror once, because codemirror.on("change") is not called when the editor ist started.
         initOnce = () => {
+            loadMode();
             dynamicMarkerComponentList.setLength(this.codemirror.lineCount());
             for (let i = 0; i &lt; this.codemirror.lineCount(); i++) {
                 this.codemirror.addLineWidget(i, dynamicMarkerComponentList.items[i], { handleMouseEvents: true});
             }
         };
         
-        // Re-add comment marker elements to codemirror when the editors content changes.
-        // Marker elements get reused for performance reasons.
+        // Callback runs whenever text in the editor changes.
         this.codemirror.on("change", () => {
+            loadMode();
+            // Re-add comment marker elements to codemirror when the editors content changes.
+            // Marker elements get reused for performance reasons.
             dynamicMarkerComponentList.setLength(this.codemirror.lineCount());
             for (let i = 0; i &lt; this.codemirror.lineCount(); i++) {
                 this.codemirror.addLineWidget(i, dynamicMarkerComponentList.items[i], { handleMouseEvents: true});
@@ -180,8 +178,8 @@ var CodeEditorComponent = {
             
             // Add hover effects higlighting gutter, linebackground and the marker
             element.addEventListener("mouseover", () => {
-                this.codemirror.addLineClass(lineHandle, "background", "highlight-line");
-                this.codemirror.addLineClass(lineHandle, "gutter", "highlight-gutter");
+                // this.codemirror.addLineClass(lineHandle, "background", "highlight-line");
+                // this.codemirror.addLineClass(lineHandle, "gutter", "highlight-gutter");
                 if (currentLineMarkerComponent !== undefined) {
                     currentLineMarkerComponent.querySelector(".marker").setAttribute("style", "display: block");
                 }
@@ -189,8 +187,8 @@ var CodeEditorComponent = {
             
             // Remove hover effects from gutter, linebackground and the marker
             element.addEventListener("mouseout", () => {
-                this.codemirror.removeLineClass(lineHandle, "background", "highlight-line");
-                this.codemirror.removeLineClass(lineHandle, "gutter", "highlight-gutter");
+                // this.codemirror.removeLineClass(lineHandle, "background", "highlight-line");
+                // this.codemirror.removeLineClass(lineHandle, "gutter", "highlight-gutter");
                 if (currentLineMarkerComponent !== undefined) {
                     currentLineMarkerComponent.querySelector(".marker").setAttribute("style", "display: hidden");
                 }
@@ -218,7 +216,7 @@ export default CodeEditorComponent;</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sat Oct 24 2020 16:40:46 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Oct 26 2020 08:01:21 GMT+0100 (GMT+01:00)
 </footer>
 
 <script> prettyPrint(); </script>

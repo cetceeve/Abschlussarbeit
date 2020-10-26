@@ -54,8 +54,8 @@ var CodeEditorComponent = {
     * Hold methods for this component.
     * @property {Function} showSearch - Start search function of codemirror.
     * @property {Function} clearSearch - Clear search overlay.
-    * @property {Function} foldAll - Use codefold too fold all foldable code sections.
-    * @property {Function} unfoldAll - Use codefold too open all folded code sections.
+    * @property {Function} foldAll - Use codefold to fold all foldable code sections.
+    * @property {Function} unfoldAll - Use codefold to open all folded code sections.
     * @property {Function} setActiveTheme - Sets active theme in application state.
     */
     methods: {
@@ -150,8 +150,8 @@ var CodeEditorComponent = {
             
             // Add hover effects higlighting gutter, linebackground and the marker
             element.addEventListener("mouseover", () => {
-                this.codemirror.addLineClass(lineHandle, "background", "highlight-line");
-                this.codemirror.addLineClass(lineHandle, "gutter", "highlight-gutter");
+                // this.codemirror.addLineClass(lineHandle, "background", "highlight-line");
+                // this.codemirror.addLineClass(lineHandle, "gutter", "highlight-gutter");
                 if (currentLineMarkerComponent !== undefined) {
                     currentLineMarkerComponent.querySelector(".marker").setAttribute("style", "display: block");
                 }
@@ -159,8 +159,8 @@ var CodeEditorComponent = {
             
             // Remove hover effects from gutter, linebackground and the marker
             element.addEventListener("mouseout", () => {
-                this.codemirror.removeLineClass(lineHandle, "background", "highlight-line");
-                this.codemirror.removeLineClass(lineHandle, "gutter", "highlight-gutter");
+                // this.codemirror.removeLineClass(lineHandle, "background", "highlight-line");
+                // this.codemirror.removeLineClass(lineHandle, "gutter", "highlight-gutter");
                 if (currentLineMarkerComponent !== undefined) {
                     currentLineMarkerComponent.querySelector(".marker").setAttribute("style", "display: hidden");
                 }
