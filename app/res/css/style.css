@@ -138,3 +138,17 @@
     transform: translate(-50%, 0);
     z-index: 99;
 }
+
+.code-editor-bottom-controls {
+    position: absolute !important;
+    bottom: 0.5em;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: #777777 !important;
+    z-index: 99;
+}
+
+.code-editor-bottom-controls .fold-buttons {
+    margin: 0 2em;
+    cursor: pointer;
+}
