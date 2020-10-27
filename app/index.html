@@ -74,7 +74,7 @@
                 <sui-button @click="foldAll">fold all</sui-button>
             </sui-button-group>
             <codemirror ref="cmEditor" v-model="code" :options="cmOption"></codemirror>
-            <sui-dropdown class="code-editor-theme-dropdown":text="sharedState.editor.options.theme">
+            <sui-dropdown class="code-editor-theme-dropdown":text="sharedState.editor.activeTheme">
                 <sui-dropdown-menu>
                     <sui-dropdown-item v-for="(value, index) in sharedState.editor.themes" :key="index" @click="setActiveTheme(value)">{{ value }}</sui-dropdown-item>
                 </sui-dropdown-menu>

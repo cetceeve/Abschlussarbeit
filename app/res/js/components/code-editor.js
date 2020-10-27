@@ -34,7 +34,34 @@ var CodeEditorComponent = {
     data() {
         return {
             sharedState: store.state,
-            cmOption: store.state.editor.options,
+            cmOption: {
+                placeholder: "nothing here :(",
+                mode: "mixedhtml",
+                theme: store.state.editor.activeTheme,
+                readOnly: true,
+                lineNumbers: true,
+                scrollbarStyle: "simple",
+                foldGutter: true,
+                gutters: ["CodeMirror-lint-markers", "CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+                scrollPastEnd: false,
+                lineWrapping: true,
+                styleSelectedText: true,
+                highlightSelectionMatches: {showToken: /\w/, annotateScrollbar: true},
+                matchBrackets: true,
+                lint: {
+                    options: {
+                        esversion: 8,
+                        undef: true,
+                        unused: true,
+                        freeze: true,
+                        latedef: "nofunc",
+                        nonbsp: true,
+                        trailingcomma: true,
+                        browser: true,
+                        node: true,
+                    },
+                },
+            },
             linePaddingRight: "22px",
         };
     },
@@ -74,6 +101,17 @@ var CodeEditorComponent = {
         setActiveTheme(theme) {
             store.setActiveTheme(theme);
         },
+    },
+    /**
+     * Triggered before Vue updates the Dom
+     * Used to bring reactive behaviour into codemirror.
+     * @see https://vuejs.org/v2/guide/reactivity.html
+     */
+    beforeUpdate() {
+        // Catch a theme change in the application state
+        if (this.sharedState.editor.activeTheme !== this.codemirror.options.theme) {
+            this.codemirror.setOption("theme", this.sharedState.editor.activeTheme);
+        }
     },
     /**
     * Code to execute when component is mounted, reference Vue Lifecycle below.
@@ -116,13 +154,14 @@ var CodeEditorComponent = {
         // Change codemirror mode for current file.
         loadMode = () => {
             let info = CodeMirror.findModeByFileName(this.sharedState.content.files[this.sharedState.content.currentFile].path);
-            if (info.mode !== this.sharedState.editor.options.mode) {
-                store.setCodemirrorMode(info.mode);
+            if (info.mode !== this.codemirror.options.mode) {
+                this.codemirror.setOption("mode", info.mode);
                 CodeMirror.autoLoadMode(this.codemirror, info.mode);
             }
         },
-        // Manually adds marker components to codemirror once, because codemirror.on("change") is not called when the editor ist started.
+        // Stuff that needs to be done after startup
         initOnce = () => {
+            // set the correct mode
             loadMode();
             dynamicMarkerComponentList.setLength(this.codemirror.lineCount());
             for (let i = 0; i < this.codemirror.lineCount(); i++) {

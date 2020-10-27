@@ -1,3 +1,5 @@
+import Autosave from "./autosave.js";
+
 /**
 * Module to store the current state and all state operations.
 * The state object must not be manipulated directly.
@@ -34,8 +36,8 @@
 * @property {module:data/store~TreeItem} content.filetree - File tree for the repository. Root item of the file tree.
 *
 * @property {Object} editor - Data object for look and behaviour of the editor.
+* @property {String} editor.activeTheme - Active code highlighting theme for the editor.
 * @property {String[]} editor.themes - List of themes for the editor.
-* @property {Object} editor.options - Large object defining all options for codemirror.
 */
 /**
 * @typedef File
@@ -409,37 +411,10 @@ var store = {
             },
         },
         editor: {
+            activeTheme: "monokai",
             themes: [
                 "default","gruvbox-dark","monokai","seti","idea","the-matrix",
             ],
-            options: {
-                placeholder: "nothing here :(",
-                mode: "",
-                theme: "monokai",
-                readOnly: true,
-                lineNumbers: true,
-                scrollbarStyle: "simple",
-                foldGutter: true,
-                gutters: ["CodeMirror-lint-markers", "CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-                scrollPastEnd: false,
-                lineWrapping: true,
-                styleSelectedText: true,
-                highlightSelectionMatches: {showToken: /\w/, annotateScrollbar: true},
-                matchBrackets: true,
-                lint: {
-                    options: {
-                        esversion: 8,
-                        undef: true,
-                        unused: true,
-                        freeze: true,
-                        latedef: "nofunc",
-                        nonbsp: true,
-                        trailingcomma: true,
-                        browser: true,
-                        node: true,
-                    },
-                },
-            },
         },
     },
     /**
@@ -504,21 +479,10 @@ var store = {
     */
     setActiveTheme(theme) {
         if (this.state.editor.themes.includes(theme)) {
-            if (this.state.editor.options.theme !== theme) {
-                this.state.editor.options.theme = theme;
+            if (this.state.editor.activeTheme !== theme) {
+                this.state.editor.activeTheme = theme;
                 this.log();
             }
-        }
-    },
-
-    /**
-     * Set mode for codemirror. This is essentially the programming language.
-     * @param {String} mode - Mode name for codemirror. Is not checked for correctness here, because this must be done by a codemirror instance
-     */
-    setCodemirrorMode(mode) {
-        if (mode !== null && mode !== undefined && mode !== "") {
-            this.state.editor.options.mode = mode;
-            this.log();
         }
     },
     
@@ -554,9 +518,9 @@ var store = {
     },
     
     /**
-     * Toggle isOpen property of a folder.
-     * @param {String} folderName 
-     */
+    * Toggle isOpen property of a folder.
+    * @param {String} folderName 
+    */
     toggleFolderOpen(folderName) {
         let folder = this.searchFileTree({name: folderName});
         if (folder !== null) {
@@ -566,10 +530,10 @@ var store = {
     },
     
     /**
-     * Search for any item in file tree.
-     * @param {Object} searchOptions - Object must have one key and one value, from the filetree item that is searched for. If the combination is not unique the fist result will be returned.
-     * @returns {module:data/store~TreeItem}
-     */
+    * Search for any item in file tree.
+    * @param {Object} searchOptions - Object must have one key and one value, from the filetree item that is searched for. If the combination is not unique the fist result will be returned.
+    * @returns {module:data/store~TreeItem}
+    */
     searchFileTree(searchOptions) {
         // general tree search function
         // with kind help by stackoverflow (https://stackoverflow.com/questions/9133500/how-to-find-a-node-in-a-tree-with-javascript)
@@ -595,29 +559,29 @@ var store = {
         }
         return null;
     },
-
+    
     /**
-     * Open all folders of file tree.
-     */
+    * Open all folders of file tree.
+    */
     openFileTree() {
         this.changeFileTreeRecusive(this.state.content.filetree, "isOpen", true);
         this.log();
     },
-
+    
     /**
-     * Close all folders of filetree.
-     */
+    * Close all folders of filetree.
+    */
     collapseFileTree() {
         this.changeFileTreeRecusive(this.state.content.filetree, "isOpen", false);
         this.log();
     },
-
+    
     /**
-     * Change one parameter in all items of the file tree
-     * @param {module:data/store~TreeItem} node 
-     * @param {String} key 
-     * @param {*} value 
-     */
+    * Change one parameter in all items of the file tree
+    * @param {module:data/store~TreeItem} node 
+    * @param {String} key 
+    * @param {*} value 
+    */
     changeFileTreeRecusive(node, key, value) {
         if (node[key] !== undefined) {
             node[key] = value;
@@ -629,13 +593,11 @@ var store = {
         }
     },
     
-    /**
-    * if debug is enabled in state, outputs current state to console
-    */
-    log() {
-        if (this.debug) {
-            console.log("State changed:");
-            console.log(this.state);
+    setState(stateString) {
+        if (stateString !== null) {
+            this.state = JSON.parse(stateString);
+            console.log("state recovered");
+            this.log();
         }
     },
     
@@ -654,6 +616,21 @@ var store = {
     getStateCopy() {
         return JSON.parse(this.getStateString());
     },
+    
+    /**
+    * if debug is enabled in state, outputs current state to console
+    */
+    log() {
+        if (this.debug) {
+            console.log("State changed:");
+            console.log(this.state);
+        }
+    },
 };
+
+RegExp.prototype.toJSON = RegExp.prototype.toString;
+let autosave = new Autosave(store);
+store.setState(autosave.latestSave);
+autosave.enableAutosave();
 
 export default store;
