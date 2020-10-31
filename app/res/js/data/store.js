@@ -43,7 +43,9 @@ import Autosave from "./autosave.js";
 * @typedef File
 * @type {Object}
 * @property {String} sha - Unique identifier for file.
+* @property {String} path - Relative path of the file in the project. Extention is used to determine codemirror mode.
 * @property {String} text - Text content stored inside that file.
+* @property {module:data/store~LinePresentationModifier[]} linePresentationModifiers - Array of objects that are used to change the presentation of a codemirror line.
 * @property {String} activeCommentSection - Currently active Comment section. 'null' if no section is active.
 * @property {module:data/store~Comment[]} comments - Array of comment objects.
 */
@@ -85,6 +87,14 @@ import Autosave from "./autosave.js";
 * @property {String} question - A reasonable question.
 * @property {String} answer - A formidable answer to the question.
 */
+/**
+ * Object changing the presentation of one line in codemirror using addLineClass on "wrap", see below.
+ * @typedef LinePresentationModifier
+ * @typedef {Object}
+ * @property {String} class - Name for the css class to be applied.
+ * @property {Number[]} lines - Array of lines that the class should be applied to.
+ * @see https://codemirror.net/doc/manual.html#addLineClass
+ */
 
 /**
 * Namespace object for store module.
