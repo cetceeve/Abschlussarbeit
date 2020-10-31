@@ -159,25 +159,40 @@ var CodeEditorComponent = {
                 CodeMirror.autoLoadMode(this.codemirror, info.mode);
             }
         },
+        // Apply a certain css class to all the lines specified
+        applyLinePresentationModifiers = () => {
+            // first and last line do not get rendered, so we need to clean them manually
+            this.codemirror.removeLineClass(0, "wrap");
+            this.codemirror.removeLineClass(this.codemirror.lineCount(), "wrap");
+            
+            let modifierArray = this.sharedState.content.files[this.sharedState.content.currentFile].linePresentationModifiers;
+            modifierArray.map(modifier => {
+                modifier.lines.map(lineNum => this.codemirror.addLineClass(lineNum, "wrap", modifier.class));
+            });
+        },
+        // Add Comment Markers to each code mirror line.
+        // Marker elements get reused for performance reasons.
+        addCommentMarkers = () => {
+            dynamicMarkerComponentList.setLength(this.codemirror.lineCount());
+            for (let i = 0; i < this.codemirror.lineCount(); i++) {
+                this.codemirror.addLineWidget(i, dynamicMarkerComponentList.items[i], { handleMouseEvents: true});
+            }
+        },
         // Stuff that needs to be done after startup
         initOnce = () => {
-            // set the correct mode
             loadMode();
-            dynamicMarkerComponentList.setLength(this.codemirror.lineCount());
-            for (let i = 0; i < this.codemirror.lineCount(); i++) {
-                this.codemirror.addLineWidget(i, dynamicMarkerComponentList.items[i], { handleMouseEvents: true});
-            }
+            applyLinePresentationModifiers();
+            addCommentMarkers();
         };
         
-        // Callback runs whenever text in the editor changes.
+        // Callback runs whenever text in the editor changes (file changes).
         this.codemirror.on("change", () => {
+            // set the correct mode for new file
             loadMode();
+            // Apply the line presentation modfiers for new file
+            applyLinePresentationModifiers();
             // Re-add comment marker elements to codemirror when the editors content changes.
-            // Marker elements get reused for performance reasons.
-            dynamicMarkerComponentList.setLength(this.codemirror.lineCount());
-            for (let i = 0; i < this.codemirror.lineCount(); i++) {
-                this.codemirror.addLineWidget(i, dynamicMarkerComponentList.items[i], { handleMouseEvents: true});
-            }
+            addCommentMarkers();
         });
         
         // triggered on every render and re-render of one line
@@ -190,7 +205,7 @@ var CodeEditorComponent = {
             // Add hover effects higlighting gutter, linebackground and the marker
             element.addEventListener("mouseover", () => {
                 // this.codemirror.addLineClass(lineHandle, "background", "highlight-line");
-                // this.codemirror.addLineClass(lineHandle, "gutter", "highlight-gutter");
+                this.codemirror.addLineClass(lineHandle, "gutter", "highlight-gutter");
                 if (currentLineMarkerComponent !== undefined) {
                     currentLineMarkerComponent.querySelector(".marker").setAttribute("style", "display: block");
                 }
@@ -199,7 +214,7 @@ var CodeEditorComponent = {
             // Remove hover effects from gutter, linebackground and the marker
             element.addEventListener("mouseout", () => {
                 // this.codemirror.removeLineClass(lineHandle, "background", "highlight-line");
-                // this.codemirror.removeLineClass(lineHandle, "gutter", "highlight-gutter");
+                this.codemirror.removeLineClass(lineHandle, "gutter", "highlight-gutter");
                 if (currentLineMarkerComponent !== undefined) {
                     currentLineMarkerComponent.querySelector(".marker").setAttribute("style", "display: hidden");
                 }

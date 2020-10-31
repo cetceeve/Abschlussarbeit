@@ -257,6 +257,12 @@ var store = {
                     "}\r\n" +
                     "\r\n" +
                     "module.exports = AppServer;",
+                    linePresentationModifiers: [
+                        {
+                            class: "unchanged_line",
+                            lines: [0,1,2,3,55],
+                        },
+                    ],
                     activeCommentSection: null, 
                     comments: 
                     [
@@ -331,6 +337,16 @@ var store = {
                     "        storage.setComment(storage.state.code.currentFile, comment)\r\n" +
                     "    });\r\n" +
                     "};",
+                    linePresentationModifiers: [
+                        {
+                            class: "unchanged_line",
+                            lines: [0,1,2,3,4,5,6,7,8,9,10],
+                        },
+                        {
+                            class: "halloween_line",
+                            lines: [0,6,7,8,9,10,11,12,13,14],
+                        },
+                    ],
                     activeCommentSection: "2",
                     comments: [
                         {
@@ -363,6 +379,7 @@ var store = {
                     sha: "fileSha0002",
                     path: "src/test.htm",
                     text: "<!DOCTYPE HTML>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>HTMLHint</title>\n</head>\n<body>\n    <div>HTMLHint: help your html code better\n</body>\n</html>",
+                    linePresentationModifiers: [],
                     activeCommentSection: null,
                     comments: [],
                 },
@@ -376,6 +393,7 @@ var store = {
                     "    right: 1em;\n" +
                     "    bottom: 1em\n" +
                     "    z-index: 99;\n}",
+                    linePresentationModifiers: [],
                     activeCommentSection: null,
                     comments: [],
                 },
@@ -628,7 +646,6 @@ var store = {
     },
 };
 
-RegExp.prototype.toJSON = RegExp.prototype.toString;
 let autosave = new Autosave(store);
 store.setState(autosave.latestSave);
 autosave.enableAutosave();
