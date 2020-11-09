@@ -5,6 +5,7 @@ import CommentsDisplayComponent from "./components/comments-display.js";
 import FaqComponent from "./components/faq.js";
 import TreeViewComponent from "./components/tree-view.js";
 import store from "./data/store.js";
+import snarkdown from "../../vendors/snarkdown/snarkdown.es.js";
 
 Vue.use(VueCodemirror);
 Vue.use(SemanticUIVue);
@@ -29,5 +30,10 @@ new Vue({
         showFaq() {
             store.toggleFaqVisibility();
         },
+    },
+    mounted() {
+        let md = "_this_ is **easy** to `use`.",
+         html = snarkdown(md);
+        console.log(html);
     },
 });
