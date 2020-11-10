@@ -176,10 +176,11 @@ br {
 }
 
 code {
-    padding: 0 3px;
+    /* padding: 0 3px;
     border: 1px solid #CCC;
     border-radius: 2px;
-    background: #FFF;
+    background: #FFF; */
+    color: peru;
 }
 
 pre.code {

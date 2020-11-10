@@ -51,16 +51,12 @@ var CommentsDisplayComponent = {
     },
     /**
     * Hold methods for this component.
-    * @property {Function} cancelCommentInput - Cancel the comment input.
+    * @property {Function} clearCommentInput - Clear the comment input.
     * @property {Function} postNewComment - Take newComment and insert it into the state.
     * @property {Function} deleteComment - Delete comment from the state by commentId.
     */
     methods: {
-        // Restore the display to before opening the input field.
-        cancelCommentInput() {
-            if (!this.hasComments) {
-                store.setActiveSection(this.sharedState.content.currentFile, null);
-            }
+        clearCommentInput() {
             this.newComment = "";
         },
         // Create the new comment and trigger addition to the state.
@@ -75,7 +71,7 @@ var CommentsDisplayComponent = {
                 authorUrl: this.currentUser.url,
                 comment: commentHtmlString,
             });
-            this.newComment = "";
+            this.clearCommentInput();
         },
         // Trigger deletion of comment by commentId from the state.
         deleteComment(commentId) {
