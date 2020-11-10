@@ -127,6 +127,24 @@
                     </div>
                 </div>
             </div>
+            <div v-show="isActive && commentInputFormIsVisible">
+                <sui-form>
+                    <sui-form-field>
+                        <label>{{ currentUser.name }}</label>
+                        <div is="sui-button-group" attached="top" size="mini">
+                            <sui-button icon="bold" />
+                            <sui-button icon="underline" />
+                            <sui-button icon="text width" />
+                        </div>
+                        <textarea ref="input" v-model.trim="newComment" placeholder="Leave a comment..." @keyup.esc="cancelCommentInput" @keyup.enter="postNewComment" ></textarea>
+                        <div is="sui-button-group" attached="bottom">
+                            <sui-button @click="cancelCommentInput">Cancel</sui-button>
+                            <sui-button-or />
+                            <sui-button positive @click="postNewComment">Save</sui-button>
+                          </div>
+                    </sui-form-field>
+                </sui-form>
+            </div>
         </div>
     </script>
     
