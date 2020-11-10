@@ -56,10 +56,10 @@
                     <checklist class="checklist-container"></checklist>
                     <sui-button class="checklist-button" fluid attached="top" content="Checkliste" @click="toggleChecklist" :class="{active: sharedState.checklist.isVisible}"></sui-button>
                 </sui-grid-column>
-                <sui-grid-column :width="10" class="remove-padding">
+                <sui-grid-column :width="9" class="remove-padding">
                     <code-editor></code-editor>
                 </sui-grid-column>
-                <sui-grid-column :width="3" class="light-dark-background">
+                <sui-grid-column :width="4" class="light-dark-background">
                     <comments-display></comments-display>
                 </sui-grid-column>
             </sui-grid-row>
@@ -100,7 +100,7 @@
     
     <script type="text/x-template" id="comments-display-component-template">
         <div>
-            <div class="side-comment" :class="{active: isActive, 'has-comments': hasComments}" style="left: 0">
+            <!-- <div class="side-comment" :class="{active: isActive, 'has-comments': hasComments}" style="left: 0">
                 <div class="comments-wrapper">
                     <ul class="comments">
                         <li v-for="comment in comments" :key="comment.id">
@@ -126,24 +126,43 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div v-show="isActive && commentInputFormIsVisible">
-                <sui-form>
-                    <sui-form-field>
-                        <label>{{ currentUser.name }}</label>
-                        <div is="sui-button-group" attached="top" size="mini">
-                            <sui-button icon="bold" />
-                            <sui-button icon="underline" />
-                            <sui-button icon="text width" />
-                        </div>
-                        <textarea ref="input" v-model.trim="newComment" placeholder="Leave a comment..." @keyup.esc="cancelCommentInput" @keyup.enter="postNewComment" ></textarea>
-                        <div is="sui-button-group" attached="bottom">
-                            <sui-button @click="cancelCommentInput">Cancel</sui-button>
-                            <sui-button-or />
-                            <sui-button positive @click="postNewComment">Save</sui-button>
-                          </div>
-                    </sui-form-field>
-                </sui-form>
+            </div> -->
+            <div class="comment-display">
+                <div v-show="isActive">
+                    <sui-card v-for="comment in comments" :key="comment.id" class="fluid">
+                        <sui-card-content>
+                            <sui-card-description>
+                                {{ comment.comment }}
+                                <!-- <em>This</em> is the <strong>future</strong> of my <code>code</code> review editor <a href="https://www.google.de/" target="_blank">comment display</a>. -->
+                            </sui-card-description>
+                        </sui-card-content>
+                        <sui-card-content extra>
+                            <div v-if="comment.authorId === currentUser.id" is="sui-button-group" basic size="mini">
+                                <sui-button compact disabled icon="edit" />
+                                <sui-button @click="deleteComment(comment.id)" compact icon="trash" />
+                            </div>
+                            <span slot="right">
+                                {{ comment.authorName }}
+                            </span>
+                        </sui-card-content>
+                    </sui-card>
+                    <sui-divider v-show="hasComments" />
+                    <sui-form>
+                        <sui-form-field>
+                            <!-- <div is="sui-button-group" attached="top" size="mini">
+                                <sui-button icon="bold" />
+                                <sui-button icon="underline" />
+                                <sui-button icon="text width" />
+                            </div> -->
+                            <textarea ref="input" v-model.trim="newComment" placeholder="Leave a comment..." @keyup.esc="cancelCommentInput" @keyup.enter="postNewComment" ></textarea>
+                            <div is="sui-button-group" attached="bottom">
+                                <sui-button @click="cancelCommentInput">Cancel</sui-button>
+                                <sui-button-or />
+                                <sui-button positive @click="postNewComment">Save</sui-button>
+                            </div>
+                        </sui-form-field>
+                    </sui-form>
+                </div>
             </div>
         </div>
     </script>
