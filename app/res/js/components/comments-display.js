@@ -1,5 +1,6 @@
 import store from "../data/store.js";
 import _uniqueId from "../../../vendors/lodash/modularize/uniqueId.js";
+import snarkdown from "../../../vendors/snarkdown/snarkdown.es.js";
 
 /**
 * Display the currently selected visible section of comments
@@ -64,6 +65,7 @@ var CommentsDisplayComponent = {
         },
         // Create the new comment and trigger addition to the state.
         postNewComment() {
+            let commentHtmlString = snarkdown(this.newComment);
             store.addComment(this.sharedState.content.currentFile, {
                 id: _uniqueId("comment_"),
                 sectionId: this.sharedState.content.files[this.sharedState.content.currentFile].activeCommentSection,
@@ -71,7 +73,7 @@ var CommentsDisplayComponent = {
                 authorAvatarUrl: this.currentUser.avatarUrl,
                 authorName: this.currentUser.name,
                 authorUrl: this.currentUser.url,
-                comment: this.newComment,
+                comment: commentHtmlString,
             });
             this.newComment = "";
         },

@@ -132,8 +132,7 @@
                     <sui-card v-for="comment in comments" :key="comment.id" class="fluid">
                         <sui-card-content>
                             <sui-card-description>
-                                {{ comment.comment }}
-                                <!-- <em>This</em> is the <strong>future</strong> of my <code>code</code> review editor <a href="https://www.google.de/" target="_blank">comment display</a>. -->
+                                <p v-html="comment.comment"></p>
                             </sui-card-description>
                         </sui-card-content>
                         <sui-card-content extra>
@@ -154,7 +153,7 @@
                                 <sui-button icon="underline" />
                                 <sui-button icon="text width" />
                             </div> -->
-                            <textarea ref="input" v-model.trim="newComment" placeholder="Leave a comment..." @keyup.esc="cancelCommentInput" @keyup.enter="postNewComment" ></textarea>
+                            <textarea ref="input" v-model.trim="newComment" placeholder="Leave a comment..." @keyup.esc="cancelCommentInput" ></textarea>
                             <div is="sui-button-group" attached="bottom">
                                 <sui-button @click.prevent="cancelCommentInput">Cancel</sui-button>
                                 <sui-button-or />
