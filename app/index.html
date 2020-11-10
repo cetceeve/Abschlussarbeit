@@ -156,9 +156,9 @@
                             </div> -->
                             <textarea ref="input" v-model.trim="newComment" placeholder="Leave a comment..." @keyup.esc="cancelCommentInput" @keyup.enter="postNewComment" ></textarea>
                             <div is="sui-button-group" attached="bottom">
-                                <sui-button @click="cancelCommentInput">Cancel</sui-button>
+                                <sui-button @click.prevent="cancelCommentInput">Cancel</sui-button>
                                 <sui-button-or />
-                                <sui-button positive @click="postNewComment">Save</sui-button>
+                                <sui-button positive @click.prevent="postNewComment">Save</sui-button>
                             </div>
                         </sui-form-field>
                     </sui-form>

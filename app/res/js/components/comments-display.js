@@ -21,14 +21,12 @@ var CommentsDisplayComponent = {
     * @see https://vuejs.org/v2/guide/reactivity.html
     * @property {module:data/store~State} sharedState - Reference to the state object in order to utilize Vues built in reactivity for automatic re-render.
     * @property {Object} currentUser - Points to the user area of store.
-    * @property {Boolean} commentInputFormIsVisible - Sentenial for controlling if the comment input form should be visible or not.
     * @property {String} newComment - Input text of the comment input box. Bound by v-model.
     */
     data() {
         return {
             sharedState: store.state,
             currentUser: store.state.user,
-            commentInputFormIsVisible: true,
             newComment: "",
         };
     },
@@ -44,7 +42,6 @@ var CommentsDisplayComponent = {
             });
         },
         hasComments() {
-            this.updateCommentInputForm();
             return this.comments.length > 0;
         },
         isActive() {
@@ -53,33 +50,14 @@ var CommentsDisplayComponent = {
     },
     /**
     * Hold methods for this component.
-    * @property {Function} updateCommentInputForm - Some conditional logic to determine the behaviour of the comment input form.
-    * @property {Function} showCommentForm - Trigger displaying of the comment input form.
     * @property {Function} cancelCommentInput - Cancel the comment input.
     * @property {Function} postNewComment - Take newComment and insert it into the state.
     * @property {Function} deleteComment - Delete comment from the state by commentId.
     */
     methods: {
-        // Determine if the comment input form should be displayed.
-        // Called when the array of comments to be displayed changes.
-        // Clears the comment input form, therefore not bound directly to the vue instance update loop.
-        updateCommentInputForm() {
-            this.newComment = "";
-            if (this.comments.length > 0) {
-                this.commentInputFormIsVisible = false;
-            } else {
-                this.commentInputFormIsVisible = true;
-            }
-        },
-        // Set the Sentanial for displaying the comment input form to true.
-        showCommentForm() {
-            this.commentInputFormIsVisible = true;
-        },
         // Restore the display to before opening the input field.
         cancelCommentInput() {
-            if (this.hasComments) {
-                this.commentInputFormIsVisible = false;
-            } else {
+            if (!this.hasComments) {
                 store.setActiveSection(this.sharedState.content.currentFile, null);
             }
             this.newComment = "";
@@ -108,7 +86,7 @@ var CommentsDisplayComponent = {
      */
     updated() {
         // Set focus on the comment input box.
-        if (this.commentInputFormIsVisible) {
+        if (this.isActive) {
             this.$refs.input.focus();
         }
     },
