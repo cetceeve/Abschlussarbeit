@@ -36,11 +36,15 @@ let CommentComponent = {
         },
     },
     /** Hold computed properties for the component.
-    * @property {Boolean} isFromCurrentUser - checks if this comment is from the current user
+    * @property {Boolean} isFromCurrentUser - Checks if this comment is from the current user
+    * @property {String} renderComment - Transforms markdown into html string.
     */
     computed: {
         isFromCurrentUser() {
             return this.comment.authorId === store.state.user.id;
+        },
+        commentRender() {
+            return snarkdown(this.comment.comment);
         },
     },
 },
@@ -95,7 +99,6 @@ CommentsDisplayComponent = {
     * Hold methods for this component.
     * @property {Function} clearCommentInput - Clear the comment input.
     * @property {Function} postNewComment - Take newComment and insert it into the state.
-    * @property {Function} deleteComment - Delete comment from the state by commentId.
     */
     methods: {
         clearCommentInput() {
@@ -103,7 +106,6 @@ CommentsDisplayComponent = {
         },
         // Create the new comment and trigger addition to the state.
         postNewComment() {
-            let commentHtmlString = snarkdown(this.newComment);
             store.addComment(store.currentFileSha, {
                 id: _uniqueId("comment_"),
                 sectionId: store.currentFile.activeCommentSection,
@@ -111,13 +113,9 @@ CommentsDisplayComponent = {
                 authorAvatarUrl: this.currentUser.avatarUrl,
                 authorName: this.currentUser.name,
                 authorUrl: this.currentUser.url,
-                comment: commentHtmlString,
+                comment: this.newComment,
             });
             this.clearCommentInput();
-        },
-        // Trigger deletion of comment by commentId from the state.
-        deleteComment(commentId) {
-            store.deleteComment(store.currentFileSha, commentId);
         },
     },
     /**

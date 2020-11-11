@@ -291,7 +291,7 @@ var store = {
                             authorId: "12",
                             authorAvatarUrl: "https://www.kindpng.com/picc/m/28-287073_elonlol-discord-emoji-elon-musk-laughing-deer-hd.png",
                             authorName: "Elon",
-                            comment: "I am gonna write a super long and not at all helpful comment because i am a dick and i want to destroy this holes tool career.",
+                            comment: "I am gonna write a **super long** and not at all helpful comment because i am a ~~dick~~ and i want to destroy this `holes tool` career.",
                         },
                         {
                             id: "10003",
