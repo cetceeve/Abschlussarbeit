@@ -18,13 +18,12 @@ let CommentComponent = {
     * @type {String}
     */
     template: "#comment-component-template",
-    /**
-    * Attributes that are exposed to accept data from the parent component.
-    * @property {module:data/store~Comment} data - Data object for the checkbox.
-    */
     /** Hold reactive data for the component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
     * @property {String} rawMarkdown - Text that can be edited by the user. Bound by v-model.
+    * @property {Boolean} isEditMode - Sentinel checking if the user interface is in editing mode.
+    * @property {module:data/store~CommentCategory[]} commentCategories - Array of possible categories for comments.
+    * @property {String} currentCategory - Currently selected comment category id.
     * @see https://vuejs.org/v2/guide/reactivity.html
     */
     data() {
@@ -35,12 +34,19 @@ let CommentComponent = {
             currentCategory: this.comment.categoryId,
         };
     },
+    /**
+     * Attributes that are exposed to accept data from the parent component.
+     * @property {module:data/store~Comment} comment - Data object for a single comment.
+    */
     props: {
         comment: Object,
     },
     /**
     * Hold methods for this component.
     * @property {Function} deleteComment - Delete comment from the state by commentId.
+    * @property {Function} startEditMode - Change user interface to the editing mode.
+    * @property {Function} cancelCommentEdit - Cancel editing the comment. Reset all changes.
+    * @property {Function} postUpdatedComment - Set updated comment contents in application state.
     */
     methods: {
         // Trigger deletion of comment by commentId from the state.
@@ -66,7 +72,9 @@ let CommentComponent = {
     },
     /** Hold computed properties for the component.
     * @property {Boolean} isFromCurrentUser - Checks if this comment is from the current user
-    * @property {String} renderComment - Transforms markdown into html string.
+    * @property {String} renderComment - Transformed markdown html string.
+    * @property {String} categoryColor - Color for category, can be any css color.
+    * @property {String} categoryName - Name for category.
     */
     computed: {
         isFromCurrentUser() {
@@ -91,6 +99,7 @@ let CommentComponent = {
      */
     updated() {
         if (this.isEditMode) {
+            // Automatically resize the textarea to fit its content
             // adapted from: https://stackoverflow.com/questions/454202/creating-a-textarea-with-auto-resize
             const resizeTextarea = function() {
                 this.style.height = "auto";
@@ -123,6 +132,8 @@ CommentsDisplayComponent = {
     * @see https://vuejs.org/v2/guide/reactivity.html
     * @property {Object} currentUser - Points to the user area of store.
     * @property {String} newComment - Input text of the comment input box. Bound by v-model.
+    * @property {module:data/store~CommentCategory[]} commentCategories - Array of possible categories for comments.
+    * @property {String} currentCategory - Currently selected comment category id. Current default is 3
     */
     data() {
         return {

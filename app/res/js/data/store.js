@@ -30,6 +30,7 @@
 * 
 * @property {Object} content
 * @property {String} content.currentFile - Sha for the currently displayed file.
+* @property {module:data/store~CommentCategory[]} content.commentCategories - Array of possible categories for comments
 * @property {Object.<String, module:data/store~File>} content.files - Dictonary of files. Key: file sha. Value: file object.
 * @property {module:data/store~TreeItem} content.filetree - File tree for the repository. Root item of the file tree.
 *
@@ -61,6 +62,14 @@
 * @property {String} categoryId - Id of the category this comment belongs to.
 * @see http://aroc.github.io/side-comments-demo/
 */
+/**
+ * @typedef CommentCategory
+ * @type {Object}
+ * @property {Sting} value - Serves as an ID for the category, named value because of semantic-vue selection dropdown behaviour, see below
+ * @property {String} text - Named text because of semantic-vue selection dropdown behaviour, see below
+ * @property {String} color - Color for this category, can be any css color
+ * @see https://semantic-ui-vue.github.io/#/modules/dropdown
+ */
 /**
 * Object to be recursivly used in file tree. Can represent a folder or a file.
 * @typedef TreeItem
@@ -474,11 +483,12 @@ let store = {
         },
     },
     /**
-    * Add or update one comment for one code file
+    * Add or update one comment for one code file, enriches user inputed data with the user data
     * @param {String} fileSha
-    * @param {String} id
-    * @param {String} content
-    * @param {String} categoryId
+    * @param {String} sectionId - Id of the comment section this comment belongs to.
+    * @param {String} id - Id of comment to be added or updated.
+    * @param {String} content - Should be a markdown string.
+    * @param {String} categoryId - Id of the category this comment is from.
     */
     postComment(fileSha, sectonId, id, content, categoryId) {
         let existingComment = this.state.content.files[fileSha].comments.find((comment) => {
@@ -700,6 +710,7 @@ let store = {
         return this.state.content.files[this.state.content.currentFile];
     },
 
+    // Save current state to the nrowsers local storage
     save() {
         localStorage.setItem("autosave_state", this.getStateString());
         if (this.debug) {
