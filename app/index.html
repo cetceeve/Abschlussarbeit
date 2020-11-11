@@ -112,12 +112,12 @@
                                 <sui-button icon="text width" />
                             </div> -->
                             <textarea ref="inputComment" v-model="newComment" placeholder="Markdown wird unterstützt. Hinterlasse einen Kommentar..." @keyup.esc="clearCommentInput" ></textarea>
-                            <div is="sui-button-group" attached="bottom">
-                                <sui-button @click.prevent="clearCommentInput">Löschen</sui-button>
-                                <sui-button @click.prevent="postNewComment" positive>Speichern</sui-button>
-                            </div>
                         </sui-form-field>
                     </sui-form>
+                    <div>
+                        <sui-dropdown selection :options="commentCategories" v-model="currentCategory" />
+                        <sui-button @click.prevent="postNewComment" positive floated="right">Speichern</sui-button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -145,6 +145,7 @@
                     <sui-button @click="startEditMode" compact icon="edit" />
                     <sui-button @click="deleteComment" compact icon="trash" />
                 </div>
+                <span :style="{color: categoryColor}">{{ categoryName }}</span>
                 <span slot="right">
                     {{ comment.authorName }}
                 </span>

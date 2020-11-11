@@ -31,6 +31,8 @@ let CommentComponent = {
         return {
             rawMarkdown: this.comment.content,
             isEditMode: false,
+            commentCategories: store.state.content.commentCategories,
+            currentCategory: this.comment.categoryID,
         };
     },
     props: {
@@ -70,6 +72,12 @@ let CommentComponent = {
                 return snarkdown(this.rawMarkdown);
             }
             return snarkdown(this.comment.content);
+        },
+        categoryColor() {
+            return this.commentCategories.find(item => item.value === this.comment.categoryID).color;
+        },
+        categoryName() {
+            return this.commentCategories.find(item => item.value === this.comment.categoryID).text;
         },
     },
     updated() {
@@ -112,6 +120,8 @@ CommentsDisplayComponent = {
         return {
             currentUser: store.state.user,
             newComment: "",
+            commentCategories: store.state.content.commentCategories,
+            currentCategory: "1",
         };
     },
     /** Hold computed properties for the component.
@@ -143,19 +153,9 @@ CommentsDisplayComponent = {
         },
         // Create the new comment and trigger addition to the state.
         postNewComment() {
-            store.postComment(store.currentFileSha, store.currentFile.activeCommentSection , _uniqueId("comment_"), this.newComment);
+            store.postComment(store.currentFileSha, store.currentFile.activeCommentSection , _uniqueId("comment_"), this.newComment, this.currentCategory);
             this.clearCommentInput();
         },
-    },
-    /**
-    * Triggered when Vue has re-rendered the component, reference Vue Life Cycle below.
-    * @see https://vuejs.org/v2/guide/instance.html
-    */
-    updated() {
-        // Set focus on the comment input box.
-        if (this.isActive) {
-            this.$refs.inputComment.focus();
-        }
     },
 };
 
