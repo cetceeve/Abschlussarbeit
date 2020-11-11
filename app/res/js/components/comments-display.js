@@ -8,15 +8,59 @@ import snarkdown from "../../../vendors/snarkdown/snarkdown.es.js";
 * @author Fabian Zeiher <fzeiher@gmail.com>
 * @requires module:data/store
 */
+
 /**
-* Namespace Object for Comments Display Component
+* NamespaceObject for single somment component
 * @namespace
 */
-var CommentsDisplayComponent = {
+let CommentComponent = {
+    /** Css-selector for component template.
+    * @type {String}
+    */
+    template: "#comment-component-template",
+    /**
+    * Attributes that are exposed to accept data from the parent component.
+    * @property {module:data/store~Comment} data - Data object for the checkbox.
+    */
+    props: {
+        comment: Object,
+    },
+    /**
+    * Hold methods for this component.
+    * @property {Function} deleteComment - Delete comment from the state by commentId.
+    */
+    methods: {
+        // Trigger deletion of comment by commentId from the state.
+        deleteComment() {
+            store.deleteComment(store.currentFileSha, this.comment.id);
+        },
+    },
+    /** Hold computed properties for the component.
+    * @property {Boolean} isFromCurrentUser - checks if this comment is from the current user
+    */
+    computed: {
+        isFromCurrentUser() {
+            return this.comment.authorId === store.state.user.id;
+        },
+    },
+},
+
+/**
+* Namespace Object for comments display component
+* @namespace
+*/
+CommentsDisplayComponent = {
     /** Css-selector for component template.
     * @type {String}
     */
     template: "#comments-display-component-template",
+    /**
+    * Register Subcomponents locally.
+    * @property {module:components/CommentsDisplayComponent~CommentComponent} comment - Comment component displaying single comment.
+    */
+    components: {
+        "single-comment": CommentComponent,
+    },
     /** Hold reactive data for the component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
     * @see https://vuejs.org/v2/guide/reactivity.html
@@ -77,9 +121,9 @@ var CommentsDisplayComponent = {
         },
     },
     /**
-     * Triggered when Vue has re-rendered the component, reference Vue Life Cycle below.
-     * @see https://vuejs.org/v2/guide/instance.html
-     */
+    * Triggered when Vue has re-rendered the component, reference Vue Life Cycle below.
+    * @see https://vuejs.org/v2/guide/instance.html
+    */
     updated() {
         // Set focus on the comment input box.
         if (this.isActive) {

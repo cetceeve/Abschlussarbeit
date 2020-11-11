@@ -100,51 +100,9 @@
     
     <script type="text/x-template" id="comments-display-component-template">
         <div>
-            <!-- <div class="side-comment" :class="{active: isActive, 'has-comments': hasComments}" style="left: 0">
-                <div class="comments-wrapper">
-                    <ul class="comments">
-                        <li v-for="comment in comments" :key="comment.id">
-                            <div class="author-avatar">
-                                <img :src="comment.authorAvatarUrl">
-                            </div>
-                            <a v-if="comment.authorUrl" class="author-name right-of-avatar" :href="comment.authorUrl">{{ comment.authorName }}</a>
-                            <p v-else class="author-name right-of-avatar">{{ comment.authorName }}</p>
-                            <p class="comment right-of-avatar">{{ comment.comment }}</p>
-                            <a v-if="comment.authorId === currentUser.id" @click="deleteComment(comment.id)" href="#" class="action-link delete">Delete</a>
-                        </li>
-                    </ul>
-                    <a v-show="!commentInputFormIsVisible" @click="showCommentForm" href="#" class="add-comment">Leave a comment</a>
-                    <div v-show="commentInputFormIsVisible" class="comment-form" :class="{active: commentInputFormIsVisible}">
-                        <div class="author-avatar">
-                            <img :src="currentUser.avatarUrl">
-                        </div>
-                        <p class="author-name">{{ currentUser.name }}</p>
-                        <input @keyup.esc="cancelCommentInput" @keyup.enter="postNewComment" ref="input" v-model.trim="newComment" type="text" class="comment-box right-of-avatar" placeholder="Leave a comment...">
-                        <div class="actions right-of-avatar">
-                            <a @click="postNewComment" href="#" class="action-link post">Post</a>
-                            <a @click="cancelCommentInput" href="#" class="action-link cancel">Cancel</a>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
             <div class="comment-display">
                 <div v-show="isActive">
-                    <sui-card v-for="comment in comments" :key="comment.id" class="fluid">
-                        <sui-card-content>
-                            <sui-card-description>
-                                <p v-html="comment.comment"></p>
-                            </sui-card-description>
-                        </sui-card-content>
-                        <sui-card-content extra>
-                            <div v-if="comment.authorId === currentUser.id" is="sui-button-group" basic size="mini">
-                                <sui-button compact disabled icon="edit" />
-                                <sui-button @click="deleteComment(comment.id)" compact icon="trash" />
-                            </div>
-                            <span slot="right">
-                                {{ comment.authorName }}
-                            </span>
-                        </sui-card-content>
-                    </sui-card>
+                    <single-comment v-for="comment in comments" :key="comment.id" :comment="comment"></single-comment>
                     <sui-divider v-show="hasComments" />
                     <sui-form>
                         <sui-form-field>
@@ -164,6 +122,25 @@
                 </div>
             </div>
         </div>
+    </script>
+    
+    <script type="text/x-template" id="comment-component-template">
+        <sui-card class="fluid">
+            <sui-card-content>
+                <sui-card-description>
+                    <p v-html="comment.comment"></p>
+                </sui-card-description>
+            </sui-card-content>
+            <sui-card-content extra>
+                <div v-if="isFromCurrentUser" is="sui-button-group" basic size="mini">
+                    <sui-button compact disabled icon="edit" />
+                    <sui-button @click="deleteComment" compact icon="trash" />
+                </div>
+                <span slot="right">
+                    {{ comment.authorName }}
+                </span>
+            </sui-card-content>
+        </sui-card>
     </script>
     
     <script type="text/x-template" id="tree-view-component-template">
