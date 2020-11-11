@@ -20,13 +20,11 @@ var CommentsDisplayComponent = {
     /** Hold reactive data for the component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
     * @see https://vuejs.org/v2/guide/reactivity.html
-    * @property {module:data/store~State} sharedState - Reference to the state object in order to utilize Vues built in reactivity for automatic re-render.
     * @property {Object} currentUser - Points to the user area of store.
     * @property {String} newComment - Input text of the comment input box. Bound by v-model.
     */
     data() {
         return {
-            sharedState: store.state,
             currentUser: store.state.user,
             newComment: "",
         };

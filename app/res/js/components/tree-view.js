@@ -61,22 +61,13 @@ Vue.component("tree-item", {
     template: "#tree-item-component-template",
     /**
     * Attributes that are exposed to accept data from the parent component.
+    * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
     * @property {module:data/store~TreeItem} item - Data item for this node.
     * @memberof TreeItemComponent
+    * @see https://vuejs.org/v2/guide/reactivity.html
     */
     props: {
         item: Object,
-    },
-    /** Hold reactive data for the component.
-    * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
-    * @see https://vuejs.org/v2/guide/reactivity.html
-    * @property {module:data/store~State} sharedState - Reference to the state object in order to utilize Vues built in reactivity for automatic re-render.
-    * @memberof TreeItemComponent
-    */
-    data: function() {
-        return {
-            sharedState: store.state,
-        };
     },
     /**
     * Hold computed properties for the component.

@@ -27,22 +27,12 @@ import store from "../data/store.js";
      * @type {String}
      */
     template: "#comments-marker-component-template",
-    /** 
-     * Hold reactive data for the component.
-     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
-     * @type {Object}
-     * @property {module:data/store~State} sharedState - Reference to the state object in order to utilize Vues built in reactivity for automatic re-render.
-     * @see https://vuejs.org/v2/guide/reactivity.html
-     */
-    data() {
-        return {
-            sharedState: store.state,
-        };
-    },
-    /** Hold computed properties for the component.
+    /** Hold computed properties for the component
+     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below..
      * @type {Object}
      * @property {Number} amountOfComments - The amount of comments for this section.
      * @property {Boolean} hasComments - Uses amountOfComments to evaluate if there are comments.
+     * @see https://vuejs.org/v2/guide/reactivity.html
      */
     computed: {
         amountOfComments() {
