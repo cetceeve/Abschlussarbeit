@@ -22,6 +22,17 @@ let CommentComponent = {
     * Attributes that are exposed to accept data from the parent component.
     * @property {module:data/store~Comment} data - Data object for the checkbox.
     */
+    /** Hold reactive data for the component.
+    * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
+    * @property {String} rawMarkdown - Text that can be edited by the user. Bound by v-model.
+    * @see https://vuejs.org/v2/guide/reactivity.html
+    */
+    data() {
+        return {
+            rawMarkdown: this.comment.content,
+            isEditMode: false,
+        };
+    },
     props: {
         comment: Object,
     },
@@ -34,6 +45,17 @@ let CommentComponent = {
         deleteComment() {
             store.deleteComment(store.currentFileSha, this.comment.id);
         },
+        startEditMode() {
+            this.isEditMode = true;
+        },
+        cancelCommentEdit() {
+            this.isEditMode = false;
+            this.rawMarkdown = this.comment.content;
+        },
+        postUpdatedComment() {
+            this.isEditMode = false;
+            store.postComment(store.currentFileSha , this.comment.sectionId, this.comment.id, this.rawMarkdown);
+        },
     },
     /** Hold computed properties for the component.
     * @property {Boolean} isFromCurrentUser - Checks if this comment is from the current user
@@ -43,9 +65,24 @@ let CommentComponent = {
         isFromCurrentUser() {
             return this.comment.authorId === store.state.user.id;
         },
-        commentRender() {
-            return snarkdown(this.comment.comment);
+        renderedMarkdown() {
+            if (this.isEditMode) {
+                return snarkdown(this.rawMarkdown);
+            }
+            return snarkdown(this.comment.content);
         },
+    },
+    updated() {
+        if (this.isEditMode) {
+            // adapted from: https://stackoverflow.com/questions/454202/creating-a-textarea-with-auto-resize
+            const resizeTextarea = function() {
+                this.style.height = "auto";
+                this.style.height = (this.scrollHeight) + "px";
+            };
+            this.$refs.editTextarea.setAttribute("style", "height:" + (this.$refs.editTextarea.scrollHeight) + "px;overflow-y:hidden;");
+            this.$refs.editTextarea.addEventListener("input", resizeTextarea, false);
+            this.$refs.editTextarea.focus();
+        }
     },
 },
 
@@ -106,15 +143,7 @@ CommentsDisplayComponent = {
         },
         // Create the new comment and trigger addition to the state.
         postNewComment() {
-            store.addComment(store.currentFileSha, {
-                id: _uniqueId("comment_"),
-                sectionId: store.currentFile.activeCommentSection,
-                authorId: this.currentUser.id,
-                authorAvatarUrl: this.currentUser.avatarUrl,
-                authorName: this.currentUser.name,
-                authorUrl: this.currentUser.url,
-                comment: this.newComment,
-            });
+            store.postComment(store.currentFileSha, store.currentFile.activeCommentSection , _uniqueId("comment_"), this.newComment);
             this.clearCommentInput();
         },
     },
@@ -125,7 +154,7 @@ CommentsDisplayComponent = {
     updated() {
         // Set focus on the comment input box.
         if (this.isActive) {
-            this.$refs.input.focus();
+            this.$refs.inputComment.focus();
         }
     },
 };

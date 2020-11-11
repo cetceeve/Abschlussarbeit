@@ -111,11 +111,10 @@
                                 <sui-button icon="underline" />
                                 <sui-button icon="text width" />
                             </div> -->
-                            <textarea ref="input" v-model="newComment" placeholder="Markdown wird unterstützt. Hinterlasse einen Kommentar." @keyup.esc="clearCommentInput" ></textarea>
+                            <textarea ref="inputComment" v-model="newComment" placeholder="Markdown wird unterstützt. Hinterlasse einen Kommentar..." @keyup.esc="clearCommentInput" ></textarea>
                             <div is="sui-button-group" attached="bottom">
                                 <sui-button @click.prevent="clearCommentInput">Löschen</sui-button>
-                                <sui-button-or />
-                                <sui-button positive @click.prevent="postNewComment">Speichern</sui-button>
+                                <sui-button @click.prevent="postNewComment" positive>Speichern</sui-button>
                             </div>
                         </sui-form-field>
                     </sui-form>
@@ -127,13 +126,23 @@
     <script type="text/x-template" id="comment-component-template">
         <sui-card class="fluid">
             <sui-card-content>
+                <sui-form v-if="isEditMode">
+                    <sui-form-field>
+                        <textarea ref="editTextarea" v-model="rawMarkdown" @keyup.esc="cancelCommentEdit" rows="1"></textarea>
+                        <div is="sui-button-group" attached="bottom" size="mini">
+                            <sui-button @click.prevent="cancelCommentEdit">Abbrechen</sui-button>
+                            <sui-button @click.prevent="postUpdatedComment" positive>Speichern</sui-button>
+                        </div>
+                    </sui-form-field>
+                </sui-form>
+                <sui-divider v-show="isEditMode" />
                 <sui-card-description>
-                    <p v-html="commentRender"></p>
+                    <p v-html="renderedMarkdown"></p>
                 </sui-card-description>
             </sui-card-content>
             <sui-card-content extra>
                 <div v-if="isFromCurrentUser" is="sui-button-group" basic size="mini">
-                    <sui-button compact disabled icon="edit" />
+                    <sui-button @click="startEditMode" compact icon="edit" />
                     <sui-button @click="deleteComment" compact icon="trash" />
                 </div>
                 <span slot="right">
