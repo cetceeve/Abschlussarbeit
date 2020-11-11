@@ -32,7 +32,7 @@ let CommentComponent = {
             rawMarkdown: this.comment.content,
             isEditMode: false,
             commentCategories: store.state.content.commentCategories,
-            currentCategory: this.comment.categoryID,
+            currentCategory: this.comment.categoryId,
         };
     },
     props: {
@@ -48,15 +48,20 @@ let CommentComponent = {
             store.deleteComment(store.currentFileSha, this.comment.id);
         },
         startEditMode() {
-            this.isEditMode = true;
+            this.isEditMode = true;         
+            this.$nextTick(function () {
+                // DOM is now updated
+                this.$refs.editTextarea.focus();
+            });
         },
         cancelCommentEdit() {
             this.isEditMode = false;
             this.rawMarkdown = this.comment.content;
+            this.currentCategory = this.comment.categoryId;
         },
         postUpdatedComment() {
             this.isEditMode = false;
-            store.postComment(store.currentFileSha , this.comment.sectionId, this.comment.id, this.rawMarkdown);
+            store.postComment(store.currentFileSha , this.comment.sectionId, this.comment.id, this.rawMarkdown, this.currentCategory);
         },
     },
     /** Hold computed properties for the component.
@@ -74,12 +79,16 @@ let CommentComponent = {
             return snarkdown(this.comment.content);
         },
         categoryColor() {
-            return this.commentCategories.find(item => item.value === this.comment.categoryID).color;
+            return this.commentCategories.find(item => item.value === this.comment.categoryId).color;
         },
         categoryName() {
-            return this.commentCategories.find(item => item.value === this.comment.categoryID).text;
+            return this.commentCategories.find(item => item.value === this.comment.categoryId).text;
         },
     },
+    /**
+     * Triggered after Vue updated the Dom
+     * @see https://vuejs.org/v2/guide/reactivity.html
+     */
     updated() {
         if (this.isEditMode) {
             // adapted from: https://stackoverflow.com/questions/454202/creating-a-textarea-with-auto-resize
@@ -89,7 +98,6 @@ let CommentComponent = {
             };
             this.$refs.editTextarea.setAttribute("style", "height:" + (this.$refs.editTextarea.scrollHeight) + "px;overflow-y:hidden;");
             this.$refs.editTextarea.addEventListener("input", resizeTextarea, false);
-            this.$refs.editTextarea.focus();
         }
     },
 },
@@ -105,7 +113,7 @@ CommentsDisplayComponent = {
     template: "#comments-display-component-template",
     /**
     * Register Subcomponents locally.
-    * @property {module:components/CommentsDisplayComponent~CommentComponent} comment - Comment component displaying single comment.
+    * @property {module:components/CommentsDisplayComponent~CommentComponent} single-comment - Comment component displaying single comment.
     */
     components: {
         "single-comment": CommentComponent,
@@ -121,7 +129,7 @@ CommentsDisplayComponent = {
             currentUser: store.state.user,
             newComment: "",
             commentCategories: store.state.content.commentCategories,
-            currentCategory: "1",
+            currentCategory: "3",
         };
     },
     /** Hold computed properties for the component.
@@ -149,6 +157,7 @@ CommentsDisplayComponent = {
     */
     methods: {
         clearCommentInput() {
+            this.currentCategory = "3";
             this.newComment = "";
         },
         // Create the new comment and trigger addition to the state.
