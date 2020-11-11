@@ -90,7 +90,7 @@ Vue.component("tree-item", {
             return this.item.children && this.item.children.length;
         },
         isSelected: function() {
-            return this.item.sha === this.sharedState.content.currentFile;
+            return this.item.sha === store.currentFileSha;
         },
         iconName: function() {
             if (this.isFolder) {

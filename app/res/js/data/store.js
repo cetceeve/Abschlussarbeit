@@ -644,6 +644,14 @@ var store = {
     getStateCopy() {
         return JSON.parse(this.getStateString());
     },
+
+    get currentFileSha() {
+        return this.state.content.currentFile;
+    },
+
+    get currentFile() {
+        return this.state.content.files[this.currentFileSha];
+    },
     
     /**
     * if debug is enabled in state, outputs current state to console
@@ -656,8 +664,8 @@ var store = {
     },
 };
 
-let autosave = new Autosave(store);
-store.setState(autosave.latestSave);
-autosave.enableAutosave();
+// let autosave = new Autosave(store);
+// store.setState(autosave.latestSave);
+// autosave.enableAutosave();
 
 export default store;

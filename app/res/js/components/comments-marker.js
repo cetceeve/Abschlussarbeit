@@ -48,13 +48,13 @@ import store from "../data/store.js";
         amountOfComments() {
             // eslint-disable-next-line no-param-reassign
             let countCommentsBySectionId = (acc, comment) => comment.sectionId === this.section ? ++acc : acc;
-            return this.sharedState.content.files[this.sharedState.content.currentFile].comments.reduce(countCommentsBySectionId, 0);
+            return store.currentFile.comments.reduce(countCommentsBySectionId, 0);
         },
         hasComments() {
             return this.amountOfComments > 0;
         },
         isActive() {
-            return this.sharedState.content.files[this.sharedState.content.currentFile].activeCommentSection === this.section;
+            return store.currentFile.activeCommentSection === this.section;
         },
     },
     /**
@@ -64,7 +64,7 @@ import store from "../data/store.js";
     methods: {
         // Set activeMarkerSection in the state.
         markerClick() {
-            store.setActiveSection(this.sharedState.content.currentFile, this.section);
+            store.setActiveSection(store.currentFileSha, this.section);
         },
     },
  };

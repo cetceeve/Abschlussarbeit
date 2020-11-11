@@ -26,14 +26,14 @@ var CodeEditorComponent = {
     template: "#code-editor-component-template",
     /** Hold reactive data for the component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
-    * @property {module:data/store~State} sharedState - Reference to the state object in order to utilize Vues built in reactivity for automatic re-render.
+    * @property {Object} editorOptions - Reference to the state object in order to utilize Vues built in reactivity for automatic re-render.
     * @property {Object} cmOption - Codemirror configuration object.
     * @property {String} linePaddingRight - Right padding for codemirror lines in css terminology (e.g. "20px").
     * @see https://vuejs.org/v2/guide/reactivity.html
     */
     data() {
         return {
-            sharedState: store.state,
+            editorOptions: store.state.editor,
             cmOption: {
                 placeholder: "nothing here :(",
                 mode: "mixedhtml",
@@ -74,7 +74,7 @@ var CodeEditorComponent = {
             return this.$refs.cmEditor.codemirror;
         },
         code() {
-            return this.sharedState.content.files[this.sharedState.content.currentFile].text;
+            return store.currentFile.text;
         },
     },
     /**
@@ -109,8 +109,8 @@ var CodeEditorComponent = {
      */
     beforeUpdate() {
         // Catch a theme change in the application state
-        if (this.sharedState.editor.activeTheme !== this.codemirror.options.theme) {
-            this.codemirror.setOption("theme", this.sharedState.editor.activeTheme);
+        if (this.editorOptions.activeTheme !== this.codemirror.options.theme) {
+            this.codemirror.setOption("theme", this.editorOptions.activeTheme);
         }
     },
     /**
@@ -153,7 +153,7 @@ var CodeEditorComponent = {
         },
         // Change codemirror mode for current file.
         loadMode = () => {
-            let info = CodeMirror.findModeByFileName(this.sharedState.content.files[this.sharedState.content.currentFile].path);
+            let info = CodeMirror.findModeByFileName(store.currentFile.path);
             if (info.mode !== this.codemirror.options.mode) {
                 this.codemirror.setOption("mode", info.mode);
                 CodeMirror.autoLoadMode(this.codemirror, info.mode);
@@ -165,7 +165,7 @@ var CodeEditorComponent = {
             this.codemirror.removeLineClass(0, "wrap");
             this.codemirror.removeLineClass(this.codemirror.lineCount(), "wrap");
             
-            let modifierArray = this.sharedState.content.files[this.sharedState.content.currentFile].linePresentationModifiers;
+            let modifierArray = store.currentFile.linePresentationModifiers;
             modifierArray.map(modifier => {
                 modifier.lines.map(lineNum => this.codemirror.addLineClass(lineNum, "wrap", modifier.class));
             });

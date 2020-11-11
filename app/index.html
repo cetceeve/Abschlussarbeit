@@ -76,9 +76,9 @@
             <codemirror ref="cmEditor" v-model="code" :options="cmOption"></codemirror>
             <div class="code-editor-bottom-controls">
                 <span class="fold-buttons" @click="unfoldAll">unfold all</span>
-                <sui-dropdown :text="sharedState.editor.activeTheme">
+                <sui-dropdown :text="editorOptions.activeTheme">
                     <sui-dropdown-menu>
-                        <sui-dropdown-item v-for="(value, index) in sharedState.editor.themes" :key="index" @click="setActiveTheme(value)">{{ value }}</sui-dropdown-item>
+                        <sui-dropdown-item v-for="(value, index) in editorOptions.themes" :key="index" @click="setActiveTheme(value)">{{ value }}</sui-dropdown-item>
                     </sui-dropdown-menu>
                 </sui-dropdown>
                 <span class="fold-buttons" @click="foldAll">fold all</span>

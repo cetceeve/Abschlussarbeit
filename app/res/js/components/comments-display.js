@@ -38,15 +38,15 @@ var CommentsDisplayComponent = {
     */
     computed: {
         comments() {
-            return this.sharedState.content.files[this.sharedState.content.currentFile].comments.filter(comment => {
-                return comment.sectionId === this.sharedState.content.files[this.sharedState.content.currentFile].activeCommentSection;
+            return store.currentFile.comments.filter(comment => {
+                return comment.sectionId === store.currentFile.activeCommentSection;
             });
         },
         hasComments() {
             return this.comments.length > 0;
         },
         isActive() {
-            return this.sharedState.content.files[this.sharedState.content.currentFile].activeCommentSection !== null;
+            return store.currentFile.activeCommentSection !== null;
         },
     },
     /**
@@ -62,9 +62,9 @@ var CommentsDisplayComponent = {
         // Create the new comment and trigger addition to the state.
         postNewComment() {
             let commentHtmlString = snarkdown(this.newComment);
-            store.addComment(this.sharedState.content.currentFile, {
+            store.addComment(store.currentFileSha, {
                 id: _uniqueId("comment_"),
-                sectionId: this.sharedState.content.files[this.sharedState.content.currentFile].activeCommentSection,
+                sectionId: store.currentFile.activeCommentSection,
                 authorId: this.currentUser.id,
                 authorAvatarUrl: this.currentUser.avatarUrl,
                 authorName: this.currentUser.name,
@@ -75,7 +75,7 @@ var CommentsDisplayComponent = {
         },
         // Trigger deletion of comment by commentId from the state.
         deleteComment(commentId) {
-            store.deleteComment(this.sharedState.content.currentFile, commentId);
+            store.deleteComment(store.currentFileSha, commentId);
         },
     },
     /**
