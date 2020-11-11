@@ -1,5 +1,3 @@
-import Autosave from "./autosave.js";
-
 /**
 * Module to store the current state and all state operations.
 * The state object must not be manipulated directly.
@@ -101,7 +99,7 @@ import Autosave from "./autosave.js";
 * @namespace
 * @property {module:data/store~State} state - Represents the state of the Review-Editor, can be safed to external database.
 */
-var store = {
+let store = {
     debug: true,
     state: {
         meta: {
@@ -469,7 +467,7 @@ var store = {
             };
             this.state.content.files[fileSha].comments.push(comment);
         }
-        this.log();
+        this.save();
     },
     
     /**
@@ -483,7 +481,7 @@ var store = {
         });
         if (index !== -1) {
             this.state.content.files[fileSha].comments.splice(index, 1);
-            this.log();
+            this.save();
         }
     },
     
@@ -496,7 +494,7 @@ var store = {
             if (Object.keys(this.state.content.files).includes(fileSha)) {
                 this.state.content.currentFile = fileSha;
                 if (this.debug) { console.log("new current File: " + this.state.content.currentFile); }
-                this.log();
+                this.save();
             }
         }
     },
@@ -515,7 +513,7 @@ var store = {
             this.state.content.files[fileSha].activeCommentSection = sectionId;
             if (this.debug) { console.log("new active comment section selected: " + this.state.content.files[fileSha].activeCommentSection); }
         }
-        this.log();
+        this.save();
     },
     
     /**
@@ -526,7 +524,7 @@ var store = {
         if (this.state.editor.themes.includes(theme)) {
             if (this.state.editor.activeTheme !== theme) {
                 this.state.editor.activeTheme = theme;
-                this.log();
+                this.save();
             }
         }
     },
@@ -541,7 +539,7 @@ var store = {
             let result = this.state.checklist.categories[category].find(item => item.id === id);
             if (result !== undefined) {
                 result.checked = !result.checked;
-                this.log();
+                this.save();
             }
         }
     },
@@ -551,7 +549,7 @@ var store = {
     */
     toggleChecklistVisibility() {
         this.state.checklist.isVisible = !this.state.checklist.isVisible;
-        this.log();
+        this.save();
     },
     
     /**
@@ -559,7 +557,7 @@ var store = {
     */
     toggleFaqVisibility() {
         this.state.faq.isVisible = !this.state.faq.isVisible;
-        this.log();
+        this.save();
     },
     
     /**
@@ -570,7 +568,7 @@ var store = {
         let folder = this.searchFileTree({name: folderName});
         if (folder !== null) {
             folder.isOpen = !folder.isOpen;
-            this.log();
+            this.save();
         }
     },
     
@@ -610,7 +608,7 @@ var store = {
     */
     openFileTree() {
         this.changeFileTreeRecusive(this.state.content.filetree, "isOpen", true);
-        this.log();
+        this.save();
     },
     
     /**
@@ -618,7 +616,7 @@ var store = {
     */
     collapseFileTree() {
         this.changeFileTreeRecusive(this.state.content.filetree, "isOpen", false);
-        this.log();
+        this.save();
     },
     
     /**
@@ -642,7 +640,6 @@ var store = {
         if (stateString !== null) {
             this.state = JSON.parse(stateString);
             console.log("state recovered");
-            this.log();
         }
     },
     
@@ -669,20 +666,21 @@ var store = {
     get currentFile() {
         return this.state.content.files[this.state.content.currentFile];
     },
-    
-    /**
-    * if debug is enabled in state, outputs current state to console
-    */
-    log() {
+
+    save() {
+        localStorage.setItem("autosave_state", this.getStateString());
         if (this.debug) {
-            console.log("State changed:");
+            console.log("state saved");
             console.log(this.state);
         }
     },
 };
 
-let autosave = new Autosave(store);
-store.setState(autosave.latestSave);
-autosave.enableAutosave();
+store.setState((function() {
+    if (localStorage.getItem("autosave_state")) {
+        return localStorage.getItem("autosave_state");
+    }
+    return null;
+})());
 
 export default store;
