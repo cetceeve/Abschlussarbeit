@@ -32,14 +32,14 @@
 <body>
     <div id="app">
         <sui-grid :columns="3">
-            <sui-grid-row>
+            <!-- <sui-grid-row>
                 <sui-grid-column :width="3">
                     <sui-button-group>
                         <sui-button>Task</sui-button>
                         <sui-button @click="showFaq" :class="{active: sharedState.faq.isVisible}">Faq</sui-button>
                     </sui-button-group>
                 </sui-grid-column>
-                <sui-grid-column :width=10>
+                <sui-grid-column :width=9>
                     <sui-step-group step-number="four">
                         <sui-step>Vorbereitung</sui-step>
                         <sui-step>Überblick</sui-step>
@@ -47,14 +47,24 @@
                         <sui-step>Abschluss</sui-step>
                     </sui-step-group>
                 </sui-grid-column>
-                <sui-grid-column :width="3">
+                <sui-grid-column :width="4">
                 </sui-grid-column>
-            </sui-grid-row>
-            <sui-grid-row>
-                <sui-grid-column :width="3" class="dark-background">
+            </sui-grid-row> -->
+            <sui-grid-row class="remove-row-padding">
+                <sui-grid-column :width="3" class="dark-background left-row-padding">
+                    <sui-button-group :widths="2">
+                        <sui-button @click="showFaq" :class="{active: sharedState.faq.isVisible}">FAQ</sui-button>
+                        <sui-button primary>Aufgabe</sui-button>
+                    </sui-button-group>
+                    <div>
+                        <sui-divider />
+                    </div>
                     <tree-view></tree-view>
                     <checklist class="checklist-container"></checklist>
-                    <sui-button class="checklist-button" fluid attached="top" content="Checkliste" @click="toggleChecklist" :class="{active: sharedState.checklist.isVisible}"></sui-button>
+                    <div class="bottom">
+                        <sui-button content="Checkliste" @click="toggleChecklist" :class="{active: sharedState.checklist.isVisible}"></sui-button>
+                        <sui-button positive>Review beenden</sui-button>
+                    </div>
                 </sui-grid-column>
                 <sui-grid-column :width="9" class="remove-padding">
                     <code-editor></code-editor>
@@ -158,9 +168,9 @@
     
     <script type="text/x-template" id="tree-view-component-template">
         <div>
-            <sui-button-group size="mini" class="treeview-buttons">
-                <sui-button @click="openFileTree">open all</sui-button>
-                <sui-button @click="collapseFileTree">collapse all</sui-button>
+            <sui-button-group size="mini">
+                <sui-button basic color="grey" inverted @click="openFileTree">open all</sui-button>
+                <sui-button basic color="grey" inverted @click="collapseFileTree">collapse all</sui-button>
             </sui-button-group>
             <sui-list inverted class="tree-view">
                 <tree-item class="item" :item="treeData"></tree-item>
@@ -255,7 +265,6 @@
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/search/jump-to-line.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/foldcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/brace-fold.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/comment-fold.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/indent-fold.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/markdown-fold.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/xml-fold.min.js"></script>

@@ -129,6 +129,7 @@ var CodeEditorComponent = {
             // eslint-disable-next-line no-undef
             componentClass: Vue.extend(CommentsMarkerComponent),
             items: [],
+            markerReserve: 100,
             createComponentElement(sectionId) {
                 let instance = new this.componentClass({
                     propsData: {section: sectionId},
@@ -145,7 +146,7 @@ var CodeEditorComponent = {
                         this.items.push(this.createComponentElement(i.toString()));
                     }
                     // remove components if there are a lot to many
-                } else if (this.items.length > length + 100) {
+                } else if (this.items.length > length + this.markerReserve) {
                     this.items.splice(length);
                 }
                 console.log("Current amount of stored marker-components: " + this.items.length);
@@ -204,7 +205,7 @@ var CodeEditorComponent = {
             
             // Add hover effects higlighting gutter, linebackground and the marker
             element.addEventListener("mouseover", () => {
-                // this.codemirror.addLineClass(lineHandle, "background", "highlight-line");
+                // this.codemirror.addLineClass(lineHandle, "background", "highlight-line"); too performance intensive
                 this.codemirror.addLineClass(lineHandle, "gutter", "highlight-gutter");
                 if (currentLineMarkerComponent !== undefined) {
                     currentLineMarkerComponent.querySelector(".marker").setAttribute("style", "display: block");
@@ -213,7 +214,7 @@ var CodeEditorComponent = {
             
             // Remove hover effects from gutter, linebackground and the marker
             element.addEventListener("mouseout", () => {
-                // this.codemirror.removeLineClass(lineHandle, "background", "highlight-line");
+                // this.codemirror.removeLineClass(lineHandle, "background", "highlight-line"); too performance intensive
                 this.codemirror.removeLineClass(lineHandle, "gutter", "highlight-gutter");
                 if (currentLineMarkerComponent !== undefined) {
                     currentLineMarkerComponent.querySelector(".marker").setAttribute("style", "display: hidden");
@@ -221,7 +222,7 @@ var CodeEditorComponent = {
             });
         });
         
-        this.codemirror.setSize(null, "90vh");
+        this.codemirror.setSize(null, "100vh");
         initOnce();
     },
 };

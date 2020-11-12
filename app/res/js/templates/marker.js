@@ -1,1 +1,0 @@
-export default "<div class=\"side-comment <%= sectionClasses %>\">\n  <a href=\"#\" class=\"marker\">\n    <span><%= comments.length %></span>\n  </a>";

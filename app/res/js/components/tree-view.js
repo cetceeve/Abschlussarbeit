@@ -99,6 +99,8 @@ Vue.component("tree-item", {
                     return "html5";
                 case "css":
                     return "css3 alternate";
+                case "py":
+                    return "python";
                 default:
                     return "file";
             }

@@ -63,8 +63,18 @@
     padding: 0 !important;
 }
 
+.remove-row-padding {
+    padding-bottom: 0 !important;
+}
+
+.left-row-padding {
+    padding-left: 2rem !important;
+    padding-top: 1rem;
+}
+
 .tree-view {
-    margin: 1em 1em !important;
+    height: 78vh;
+    overflow: auto;
 }
 
 .tree-view .item {
@@ -81,19 +91,16 @@
     color: #4FAF62 !important;
 }
 
-.treeview-buttons {
-    position: relative !important;
-    left: 50%;
-    transform: translate(-50%, 0);
+.bottom {
+    position: absolute !important;
+    bottom: 1rem;
+    z-index: 99;
 }
 
 .checklist-container {
-    display: block;
     position: absolute !important;
-    bottom: 2em;
-    /* margin-left: 10px !important;
-    margin-right: 10px !important; */
-    max-height: 300px;
+    bottom: 3.5rem;
+    max-height: 45vh;
     z-index: 99;
 }
 
@@ -101,12 +108,6 @@
     overflow: auto;
     -webkit-animation: fadein 0.2s;
     animation: fadein 0.2s;
-}
-
-.checklist-button {
-    position: absolute !important;
-    bottom: 0;
-    left: 0;
 }
 
 .code-editor-search-fab {
@@ -162,7 +163,7 @@
 }
 
 .comment-display {
-    height: 90vh;
+    height: 100vh;
     overflow: auto;
     padding-top: 1em;
     padding-right: 1em;
