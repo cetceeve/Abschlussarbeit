@@ -30,7 +30,7 @@
 * 
 * @property {Object} task - Data for the Task modal
 * @property {Boolean} task.isVisible - Sentinel guarding the visibility state of the task modal.
-* @property {String} content - Content to be displayed. Should be Markdown.
+* @property {String} task.content - Content to be displayed. Should be Markdown.
 *
 * @property {Object} content
 * @property {String} content.currentFile - Sha for the currently displayed file.
