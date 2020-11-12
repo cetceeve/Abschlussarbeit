@@ -1,5 +1,5 @@
 import store from "../data/store.js";
-import _uniqueId from "../../../vendors/lodash/modularize/uniqueId.js";
+import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 import snarkdown from "../../../vendors/snarkdown/snarkdown.es.js";
 
 /**
@@ -173,7 +173,7 @@ CommentsDisplayComponent = {
         },
         // Create the new comment and trigger addition to the state.
         postNewComment() {
-            store.postComment(store.currentFileSha, store.currentFile.activeCommentSection , _uniqueId("comment_"), this.newComment, this.currentCategory);
+            store.postComment(store.currentFileSha, store.currentFile.activeCommentSection , uuidv4(), this.newComment, this.currentCategory);
             this.clearCommentInput();
         },
     },

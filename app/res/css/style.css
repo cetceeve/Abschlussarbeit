@@ -91,9 +91,16 @@
     color: #4FAF62 !important;
 }
 
-.bottom {
+.button-checklist {
     position: absolute !important;
     bottom: 1rem;
+    z-index: 99;
+}
+
+.button-end-review {
+    position: absolute !important;
+    bottom: 1rem;
+    right: 2rem;
     z-index: 99;
 }
 
@@ -163,7 +170,7 @@
 }
 
 .comment-display {
-    height: 100vh;
+    height: 93vh;
     overflow: auto;
     padding-top: 1em;
     padding-right: 1em;

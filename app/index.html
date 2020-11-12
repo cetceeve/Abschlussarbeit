@@ -61,16 +61,14 @@
                     </div>
                     <tree-view></tree-view>
                     <checklist class="checklist-container"></checklist>
-                    <div class="bottom">
-                        <sui-button content="Checkliste" @click="toggleChecklist" :class="{active: sharedState.checklist.isVisible}"></sui-button>
-                        <sui-button positive>Review beenden</sui-button>
-                    </div>
+                    <sui-button content="Checkliste" @click="toggleChecklist" class="button-checklist":class="{active: sharedState.checklist.isVisible}"></sui-button>
                 </sui-grid-column>
                 <sui-grid-column :width="9" class="remove-padding">
                     <code-editor></code-editor>
                 </sui-grid-column>
                 <sui-grid-column :width="4" class="light-dark-background">
                     <comments-display></comments-display>
+                    <sui-button positive class="button-end-review">Review beenden</sui-button>
                 </sui-grid-column>
             </sui-grid-row>
         </sui-grid>
