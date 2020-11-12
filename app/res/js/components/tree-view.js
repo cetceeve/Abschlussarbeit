@@ -13,7 +13,7 @@ import store from "../data/store.js";
 * Namespace for tree view component
 * @namespace
 */
-var TreeViewComponent = {
+let TreeViewComponent = {
     /** Css-selector for component template.
     * @type {String}
     */

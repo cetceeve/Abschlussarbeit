@@ -13,7 +13,7 @@ import store from "../data/store.js";
 * The original component would have corrupted my stricly one way data flow by a v-model binding.
 * @namespace
 */
-var CostumCheckboxComponent = {
+let CostumCheckboxComponent = {
     /** Css-selector for component template.
     * @type {String}
     */

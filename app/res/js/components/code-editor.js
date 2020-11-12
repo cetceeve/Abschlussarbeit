@@ -19,7 +19,7 @@ import CommentsMarkerComponent from "./comments-marker.js";
 * Namespace Object for Code Editor Component.
 * @namespace
 */
-var CodeEditorComponent = {
+let CodeEditorComponent = {
     /** Css-selector for component template.
     * @type {String}
     */

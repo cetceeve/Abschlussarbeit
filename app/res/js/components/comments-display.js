@@ -72,7 +72,7 @@ let CommentComponent = {
     },
     /** Hold computed properties for the component.
     * @property {Boolean} isFromCurrentUser - Checks if this comment is from the current user
-    * @property {String} renderComment - Transformed markdown html string.
+    * @property {String} renderedMarkdown - Transformed markdown html string.
     * @property {String} categoryColor - Color for category, can be any css color.
     * @property {String} categoryName - Name for category.
     */

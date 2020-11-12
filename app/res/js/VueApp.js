@@ -3,6 +3,7 @@ import ChecklistComponent from "./components/checklist.js";
 import CodeEditorComponent from "./components/code-editor.js";
 import CommentsDisplayComponent from "./components/comments-display.js";
 import FaqComponent from "./components/faq.js";
+import TaskComponent from "./components/task.js";
 import TreeViewComponent from "./components/tree-view.js";
 import store from "./data/store.js";
 
@@ -17,7 +18,8 @@ new Vue({
         "comments-display": CommentsDisplayComponent,
         "tree-view": TreeViewComponent,
         "checklist": ChecklistComponent,
-        "faq": FaqComponent,
+        "faq-modal": FaqComponent,
+        "task-modal": TaskComponent,
     },
     data: {
         sharedState: store.state,
@@ -28,6 +30,9 @@ new Vue({
         },
         showFaq() {
             store.toggleFaqVisibility();
+        },
+        showTask() {
+            store.toggleTaskVisibility();
         },
     },
 });

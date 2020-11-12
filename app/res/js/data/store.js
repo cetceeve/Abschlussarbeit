@@ -28,6 +28,10 @@
 * @property {Boolean} checklist.isVisible - Sentinel guarding the visibility state of the checklist.
 * @property {Object.<String, module:data/store~Checkbox>} checklist.categories - Dictionary for checklist displayed on the bottom left. Key: category string. Value: checkbox object.
 * 
+* @property {Object} task - Data for the Task modal
+* @property {Boolean} task.isVisible - Sentinel guarding the visibility state of the task modal.
+* @property {String} content - Content to be displayed. Should be Markdown.
+*
 * @property {Object} content
 * @property {String} content.currentFile - Sha for the currently displayed file.
 * @property {module:data/store~CommentCategory[]} content.commentCategories - Array of possible categories for comments
@@ -63,13 +67,13 @@
 * @see http://aroc.github.io/side-comments-demo/
 */
 /**
- * @typedef CommentCategory
- * @type {Object}
- * @property {Sting} value - Serves as an ID for the category, named value because of semantic-vue selection dropdown behaviour, see below
- * @property {String} text - Named text because of semantic-vue selection dropdown behaviour, see below
- * @property {String} color - Color for this category, can be any css color
- * @see https://semantic-ui-vue.github.io/#/modules/dropdown
- */
+* @typedef CommentCategory
+* @type {Object}
+* @property {Sting} value - Serves as an ID for the category, named value because of semantic-vue selection dropdown behaviour, see below
+* @property {String} text - Named text because of semantic-vue selection dropdown behaviour, see below
+* @property {String} color - Color for this category, can be any css color
+* @see https://semantic-ui-vue.github.io/#/modules/dropdown
+*/
 /**
 * Object to be recursivly used in file tree. Can represent a folder or a file.
 * @typedef TreeItem
@@ -209,9 +213,9 @@ let store = {
             saved: false,
         },
         task: {
-            title: "undefined",
-            description: "undefined",
-            owner: "undefined",
+            isVisible: false,
+            owner: "Fabian Zeiher",
+            content: "##Führe ein Code-Review durch\nby Fabi\n\n---\n\nlet's go!",           
         },
         content: {
             currentFile: "fileSha0000",
@@ -604,6 +608,14 @@ let store = {
     },
     
     /**
+    * Toggle the visibility state of the task
+    */
+    toggleTaskVisibility() {
+        this.state.task.isVisible = !this.state.task.isVisible;
+        this.save();
+    },
+    
+    /**
     * Toggle isOpen property of a folder.
     * @param {String} folderName 
     */
@@ -709,7 +721,7 @@ let store = {
     get currentFile() {
         return this.state.content.files[this.state.content.currentFile];
     },
-
+    
     // Save current state to the nrowsers local storage
     save() {
         localStorage.setItem("autosave_state", this.getStateString());

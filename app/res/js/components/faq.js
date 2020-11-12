@@ -11,7 +11,7 @@ import store from "../data/store.js";
 * Namespace for FAQ component
 * @namespace
 */
-var FaqComponent = {
+let FaqComponent = {
     /** Css-selector for component template.
     * @type {String}
     */

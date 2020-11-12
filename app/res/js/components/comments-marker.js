@@ -14,7 +14,7 @@ import store from "../data/store.js";
   * Namespace Object for Marker Component
   * @namespace
   */
- var CommentsMarkerComponent = {
+ let CommentsMarkerComponent = {
     /**
      * Attributes that are exposed to accept data from the parent component.
      * @property {String} section - The section this marker is connected to.
