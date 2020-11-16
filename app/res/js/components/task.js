@@ -1,3 +1,4 @@
+/* global HtmlSanitizer */
 import store from "../data/store.js";
 import snarkdown from "../../../vendors/snarkdown/snarkdown.es.js";
 
@@ -33,7 +34,8 @@ let TaskComponent = {
     */
     computed: {
         renderedMarkdown() {
-            return snarkdown(this.taskData.content);
+            // Sanitizing snarkdowns Html-output is very important to avoid XSS attacks
+            return HtmlSanitizer.SanitizeHtml(snarkdown(this.taskData.content));
         },
     },
     /**

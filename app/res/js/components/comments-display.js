@@ -1,6 +1,7 @@
+/* global HtmlSanitizer */
 import store from "../data/store.js";
-import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 import snarkdown from "../../../vendors/snarkdown/snarkdown.es.js";
+import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 
 /**
 * Display the currently selected visible section of comments
@@ -80,11 +81,12 @@ let CommentComponent = {
         isFromCurrentUser() {
             return this.comment.authorId === store.state.user.id;
         },
+        // Sanitizing snarkdowns Html-output is very important to avoid XSS attacks
         renderedMarkdown() {
             if (this.isEditMode) {
-                return snarkdown(this.rawMarkdown);
+                return HtmlSanitizer.SanitizeHtml(snarkdown(this.rawMarkdown));
             }
-            return snarkdown(this.comment.content);
+            return HtmlSanitizer.SanitizeHtml(snarkdown(this.comment.content));
         },
         categoryColor() {
             return this.commentCategories.find(item => item.value === this.comment.categoryId).color;
