@@ -192,7 +192,7 @@
             <sui-segments>
                 <sui-segment v-for="(checkboxes, categoryName, index) in checklistData.categories"  :key="index">
                     <sui-header sub>{{ categoryName }}</sui-header>
-                    <sui-list>
+                    <sui-list relaxed>
                         <costum-checkbox v-for="(item, index) in checkboxes" :key=item.id :data="item" :category="categoryName"/>
                     </sui-list>
                 </sui-segment>
@@ -202,7 +202,8 @@
     
     <script type="text/x-template" id="semantic-checkbox-component-template">
         <sui-list-item>
-            <sui-checkbox :label="data.label" :inputValue="data.checked" @click.prevent="toggle"/>
+            <sui-list-icon :name="iconName" @click="toggle" class="pointer"/>
+            <sui-list-content><span v-html="renderedMarkdown" @click="toggle" class="pointer"></span></sui-list-content>
         </sui-list-item>
     </script>
     

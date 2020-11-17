@@ -1,4 +1,6 @@
+/* global HtmlSanitizer */
 import store from "../data/store.js";
+import snarkdown from "../../../vendors/snarkdown/snarkdown.es.js";
 
 /**
 * Display a checklist, responsive of the review state
@@ -19,40 +21,37 @@ let CostumCheckboxComponent = {
     */
     template: "#semantic-checkbox-component-template",
     /**
-     * Attributes that are exposed to accept data from the parent component.
-     * @property {String} category - The category this checkbox belongs to.
-     * @property {module:data/store~Checkbox} data - Data object for the checkbox.
+    * Attributes that are exposed to accept data from the parent component.
+    * @property {String} category - The category this checkbox belongs to.
+    * @property {module:data/store~Checkbox} data - Data object for the checkbox.
     */
     props: {
         data: Object,
         category: String,
     },
-    /** 
-    * @property {Boolean} blockClick - Switched used for bug not fixed in semantic ui for Vue.js, see below
-    * @see https://vuejs.org/v2/guide/reactivity.html
-    * @see https://github.com/Semantic-Org/Semantic-UI-React/issues/3433
+    /** Hold computed properties for the component.
+    * @property {String} renderedMarkdown - Transformed markdown html string.
+    * @property {String} iconName - icon to be displayed next to the text
     */
-    data() {
-        return {
-            blockClick: true,
-        };
+    computed: {
+        iconName() {
+            if (this.data.checked) {
+                return "check square";
+            }
+            return "square outline";
+        },
+        renderedMarkdown() {
+            // Sanitizing snarkdowns Html-output is very important to avoid XSS attacks
+            return HtmlSanitizer.SanitizeHtml(snarkdown(this.data.label));
+        },
     },
     /**
-     * Hold methods for this component.
-     * @property {Function} toggle - Toggles checkbox via application state.
-     */
+    * Hold methods for this component.
+    * @property {Function} toggle - Toggles checkbox via application state.
+    */
     methods: {
         toggle() {
-            // vue-semantic-ui has a bug that the checkbox element fires all onClick events twice.
-            // The bug is known and fixed in Semantic Ui Base and Semantic Ui React but is still present in Semantic Ui Vue.
-            // https://github.com/Semantic-Org/Semantic-UI-React/issues/3433
-            // This simple conditional logic only lets the second click pass trough, making everything behave as expected.
-            if (this.blockClick) {
-                this.blockClick = !this.blockClick;
-            } else {
-                this.blockClick = !this.blockClick;
-                store.toggleCheckbox(this.category, this.data.id);
-            }
+            store.toggleCheckbox(this.category, this.data.id);
         },
     },
 },
@@ -61,15 +60,15 @@ let CostumCheckboxComponent = {
 * Namespace for Checklist component
 * @namespace
 */
- ChecklistComponent = {
+ChecklistComponent = {
     /** Css-selector for component template.
     * @type {String}
     */
     template: "#checklist-component-template",
     /**
-     * Register Subcomponents locally.
-     * @property {module:components/Checklist~CostumCheckbox} costum-checkbox - Costum checkbox component wrapping semantic uis checkbox.
-     */
+    * Register Subcomponents locally.
+    * @property {module:components/Checklist~CostumCheckbox} costum-checkbox - Costum checkbox component wrapping semantic uis checkbox.
+    */
     components: {
         "costum-checkbox": CostumCheckboxComponent,
     },

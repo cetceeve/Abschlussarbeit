@@ -188,20 +188,45 @@ let store = {
                         checked: false,
                     },
                 ],
-                "Feedback": [
+                "Bearbeitung": [
                     {
                         id: "31",
-                        label: "Aufgabenstellung ausführlich durchlesen",
+                        label: "Wurden bekannte *Coding Guidelines* eingehalten?",
                         checked: false,
                     },
                     {
                         id: "32",
-                        label: "Should be checked",
+                        label: "Wurden für Variablen und Methoden verständliche und treffend formulierte Bezeichner verwendet?",
                         checked: true,
                     },
                     {
                         id: "33",
-                        label: "Very very long label to see how the system responds to such kind of nonsensical usage.",
+                        label: "Folgt der Aufbau des Codes einem nachvollziehbaren und sinnvollen Konzept?",
+                        checked: false,
+                    },
+                    {
+                        id: "34",
+                        label: "Wurden die verschiedenen Aufgabenbereiche der Software sichtbar und sinnvoll voneinander getrennt?",
+                        checked: false,
+                    },
+                    {
+                        id: "35",
+                        label: "Wurde auf eine modularisierte Code-Strtuktur, z.B. durch gute *Decomposition* oder wiederverwendbare Methoden und Prototypen geachtet?",
+                        checked: false,
+                    },
+                    {
+                        id: "36",
+                        label: "Wurde das MVC-Konzept korrekt umgesetzt: Sind Model und UI klar voneinander getrennt?",
+                        checked: false,
+                    },
+                    {
+                        id: "37",
+                        label: "Wurden kritische oder komplexe Stellen im Code ausreichend kommentiert?",
+                        checked: false,
+                    },
+                    {
+                        id: "38",
+                        label: "Wurden alle nicht benötigten Teilbereiche des Codes entfernt? Wurden alle Debug-Ausgaben und -Methoden vor der Abgabe entfernt?",
                         checked: false,
                     },
                 ],
