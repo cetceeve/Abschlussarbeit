@@ -216,7 +216,7 @@ let store = {
                     },
                     {
                         id: "36",
-                        label: "Wurde das MVC-Konzept korrekt umgesetzt: Sind Model und UI klar voneinander getrennt?",
+                        label: "Wurde das [MVC-Konzept](https://de.wikipedia.org/wiki/Model_View_Controller) korrekt umgesetzt: Sind Model und UI klar voneinander getrennt?",
                         checked: false,
                     },
                     {

@@ -36,9 +36,9 @@ let CostumCheckboxComponent = {
     computed: {
         iconName() {
             if (this.data.checked) {
-                return "check square";
+                return "check";
             }
-            return "square outline";
+            return "outline circle";
         },
         renderedMarkdown() {
             // Sanitizing snarkdowns Html-output is very important to avoid XSS attacks
