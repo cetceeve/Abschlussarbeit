@@ -490,30 +490,20 @@ let store = {
     /**
     * Add or update one comment for one code file, enriches user inputed data with the user data
     * @param {String} fileSha
-    * @param {String} sectionId - Id of the comment section this comment belongs to.
-    * @param {String} id - Id of comment to be added or updated.
-    * @param {String} content - Should be a markdown string.
-    * @param {String} categoryId - Id of the category this comment is from.
+    * @param {module:data/store~Comment} newComment
     */
-    postComment(fileSha, sectonId, id, content, categoryId) {
+    postComment(fileSha, newComment) {
+        // search if that comment already exists in the database
         let existingComment = this.state.content.files[fileSha].comments.find((comment) => {
-            return comment.id === id;
+            return comment.id === newComment.id;
         });
+
+        // update exiting or create a new comment
         if (existingComment) {
-            existingComment.content = content;
-            existingComment.categoryId = categoryId;
+            existingComment.content = newComment.content;
+            existingComment.categoryId = newComment.categoryId;
         } else {
-            let comment = {
-                id: id,
-                sectionId: sectonId,
-                authorId: this.state.user.id,
-                authorAvatarUrl: this.state.user.avatarUrl,
-                authorName: this.state.user.name,
-                authorUrl: this.state.user.url,
-                content: content,
-                categoryId: categoryId,
-            };
-            this.state.content.files[fileSha].comments.push(comment);
+            this.state.content.files[fileSha].comments.push(newComment);
         }
         this.save();
     },

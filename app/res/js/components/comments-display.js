@@ -68,7 +68,12 @@ let CommentComponent = {
         },
         postUpdatedComment() {
             this.isEditMode = false;
-            store.postComment(store.currentFileSha , this.comment.sectionId, this.comment.id, this.rawMarkdown, this.currentCategory);
+            store.postComment(store.currentFileSha , 
+                {
+                    id: this.comment.id,
+                    content: this.rawMarkdown,
+                    categoryId: this.currentCategory,
+                });
         },
     },
     /** Hold computed properties for the component.
@@ -142,7 +147,7 @@ CommentsDisplayComponent = {
             currentUser: store.state.user,
             newComment: "",
             commentCategories: store.state.content.commentCategories,
-            currentCategory: "3",
+            currentCategory: null,
         };
     },
     /** Hold computed properties for the component.
@@ -170,13 +175,25 @@ CommentsDisplayComponent = {
     */
     methods: {
         clearCommentInput() {
-            this.currentCategory = "3";
+            this.currentCategory = null;
             this.newComment = "";
         },
         // Create the new comment and trigger addition to the state.
         postNewComment() {
-            store.postComment(store.currentFileSha, store.currentFile.activeCommentSection , uuidv4(), this.newComment, this.currentCategory);
-            this.clearCommentInput();
+            if (this.newComment.length > 0) {
+                let comment = {
+                    id: uuidv4(),
+                    sectionId: store.currentFile.activeCommentSection,
+                    authorId: this.currentUser.id,
+                    authorAvatarUrl: this.currentUser.avatarUrl,
+                    authorName: this.currentUser.name,
+                    authorUrl: this.currentUser.url,
+                    content: this.newComment,
+                    categoryId: this.currentCategory === null ? "3" : this.currentCategory,
+                };
+                store.postComment(store.currentFileSha, comment);
+                this.clearCommentInput();
+            }
         },
     },
 };
