@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Fabian Zeiher" />
+    <title>Vue Test Environment</title>
+    <!-- side-comments -->
+    <link rel="stylesheet" href="./vendors/side-comments/side-comments.css">
+    <link rel="stylesheet" href="./vendors/side-comments/themes/default-theme.css">
+    <!-- codemirror -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/lib/codemirror.min.css">
+    <!-- codemirror themes -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/theme/gruvbox-dark.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/theme/material.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/theme/monokai.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/theme/seti.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/theme/the-matrix.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/theme/idea.min.css">
+    <!-- codemirror addon themes -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/dialog/dialog.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/lint/lint.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/scroll/simplescrollbars.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/search/matchesonscrollbar.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/foldgutter.min.css">
+    <!-- semantic ui -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <!-- my style -->
+    <link rel="stylesheet" href="./res/css/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <sui-dimmer>
+            <sui-loader size="massive">Loading</sui-loader>
+        </sui-dimmer>
+        <sui-grid :columns="3">
+            <!-- <sui-grid-row>
+                <sui-grid-column :width="3">
+                    <sui-button-group>
+                        <sui-button>Task</sui-button>
+                        <sui-button @click="showFaq" :class="{active: sharedState.faq.isVisible}">Faq</sui-button>
+                    </sui-button-group>
+                </sui-grid-column>
+                <sui-grid-column :width=9>
+                    <sui-step-group step-number="four">
+                        <sui-step>Vorbereitung</sui-step>
+                        <sui-step>Überblick</sui-step>
+                        <sui-step>Feedback</sui-step>
+                        <sui-step>Abschluss</sui-step>
+                    </sui-step-group>
+                </sui-grid-column>
+                <sui-grid-column :width="4">
+                </sui-grid-column>
+            </sui-grid-row> -->
+            <sui-grid-row class="remove-row-padding">
+                <sui-grid-column :width="3" class="dark-background left-row-padding">
+                    <sui-button @click="showFaq" :class="{active: sharedState.faq.isVisible}" class="raised">FAQ</sui-button>
+                    <sui-button @click="showTask" :class="{active: sharedState.task.isVisible}" class="raised" primary>Aufgabe</sui-button>
+                    <div>
+                        <sui-divider />
+                    </div>
+                    <tree-view></tree-view>
+                    <checklist class="checklist-container"></checklist>
+                    <sui-button content="Checkliste" @click="toggleChecklist" class="button-checklist raised":class="{active: sharedState.checklist.isVisible}"></sui-button>
+                </sui-grid-column>
+                <sui-grid-column :width="9" class="remove-padding">
+                    <code-editor></code-editor>
+                </sui-grid-column>
+                <sui-grid-column :width="4" class="light-dark-background">
+                    <comments-display></comments-display>
+                    <sui-button positive class="button-end-review raised" @click="toggleExitConfirmation" >Review Beenden</sui-button>
+                </sui-grid-column>
+            </sui-grid-row>
+        </sui-grid>
+        <faq-modal></faq-modal>
+        <task-modal></task-modal>
+        <sui-modal size="tiny" :open="exitConfirmationIsVisible">
+            <sui-modal-header>
+                Verlassen
+            </sui-modal-header>
+            <sui-modal-content>
+                <p>Code-Review-Editor verlassen und Code-Review-Task abschließen?</p>
+            </sui-modal-content>
+            <sui-modal-actions>
+                <sui-button @click="toggleExitConfirmation">
+                    Abbrechen
+                </sui-button>
+                <sui-button primary content="Verlassen" @click="exit" icon="right arrow" label-position="right" />
+            </sui-modal-actions>
+        </sui-modal>
+    </div>
+    
+    <script type="text/x-template" id="code-editor-component-template">
+        <div>
+            <!-- <sui-button-group size="mini" class="code-editor-fold-buttons">
+                <sui-button @click="unfoldAll">unfold all</sui-button>
+                <sui-button @click="foldAll">fold all</sui-button>
+            </sui-button-group> -->
+            <codemirror ref="cmEditor" v-model="code" :options="cmOption"></codemirror>
+            <div class="code-editor-bottom-controls">
+                <span class="fold-buttons" @click="unfoldAll">unfold all</span>
+                <sui-dropdown :text="editorOptions.activeTheme">
+                    <sui-dropdown-menu>
+                        <sui-dropdown-item v-for="(value, index) in editorOptions.themes" :key="index" @click="setActiveTheme(value)">{{ value }}</sui-dropdown-item>
+                    </sui-dropdown-menu>
+                </sui-dropdown>
+                <span class="fold-buttons" @click="foldAll">fold all</span>
+            </div>
+            <sui-button circular @click="showSearch" icon="search" class="code-editor-search-fab" size="massive"></sui-button>
+            <sui-button circular @click="clearSearch" icon="x icon" class="code-editor-clear-fab" size="mini"></sui-button>
+        </div>
+    </script>
+    
+    <script type="text/x-template" id="comments-marker-component-template">
+        <div class="commentable-section" style="bottom: 20px">
+            <div class="side-comment sidebar" :class="{active: isActive, 'has-comments': hasComments}">
+                <a href="#" class="marker" @click.stop="markerClick">
+                    <span>{{ amountOfComments }}</span>
+                </a>
+            </div>
+        </div>
+    </script>
+    
+    <script type="text/x-template" id="comments-display-component-template">
+        <div>
+            <div class="comment-display">
+                <div v-show="isActive">
+                    <single-comment v-for="comment in comments" :key="comment.id" :comment="comment"></single-comment>
+                    <sui-divider v-show="hasComments" />
+                    <sui-form>
+                        <sui-form-field>
+                            <!-- <div is="sui-button-group" attached="top" size="mini">
+                                <sui-button icon="bold" />
+                                <sui-button icon="underline" />
+                                <sui-button icon="text width" />
+                            </div> -->
+                            <textarea ref="inputComment" v-model="newComment" placeholder="Markdown wird unterstützt. Hinterlasse einen Kommentar..." @keyup.esc="clearCommentInput" ></textarea>
+                        </sui-form-field>
+                    </sui-form>
+                    <div>
+                        <sui-dropdown selection :options="commentCategories" v-model="currentCategory" placeholder="Kategorie" />
+                        <sui-button @click.prevent="postNewComment" positive floated="right">Speichern</sui-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    
+    <script type="text/x-template" id="comment-component-template">
+        <sui-card class="fluid">
+            <sui-card-content>
+                <sui-card-description>
+                    <p v-html="renderedMarkdown"></p>
+                </sui-card-description>
+                <sui-divider v-show="isEditMode" />
+                <sui-form v-if="isEditMode">
+                    <sui-form-field>
+                        <textarea ref="editTextarea" v-model="rawMarkdown" @keyup.esc="cancelCommentEdit" rows="1"></textarea>
+                    </sui-form-field>
+                </sui-form>
+            </sui-card-content>
+            <sui-card-content extra v-if="isEditMode">
+                <sui-dropdown selection :options="commentCategories" v-model="currentCategory" />
+            </sui-card-content>
+            <sui-card-content extra v-else>
+                <span :style="{color: categoryColor}">{{ categoryName }}</span>
+                <span slot="right">
+                    {{ comment.authorName }}
+                </span>
+            </sui-card-content>
+            <div v-if="isFromCurrentUser && !isEditMode" is="sui-button-group" basic size="mini">
+                <sui-button @click="startEditMode" compact icon="edit" />
+                <sui-button @click="deleteComment" compact icon="trash" />
+            </div>
+            <div v-if="isFromCurrentUser && isEditMode" is="sui-button-group" size="mini">
+                <sui-button @click="cancelCommentEdit">Abbrechen</sui-button>
+                <sui-button @click="postUpdatedComment" positive>Speichern</sui-button>
+            </div>           
+        </sui-card>
+    </script>
+    
+    <script type="text/x-template" id="tree-view-component-template">
+        <div>
+            <sui-button-group size="mini">
+                <sui-button basic color="grey" inverted @click="openFileTree">open all</sui-button>
+                <sui-button basic color="grey" inverted @click="collapseFileTree">collapse all</sui-button>
+            </sui-button-group>
+            <sui-list inverted class="tree-view">
+                <tree-item class="item" :item="treeData"></tree-item>
+            </sui-list>
+        </div>
+    </script>
+    
+    <script type="text/x-template" id="tree-item-component-template">
+        <sui-list-item>
+            <sui-list-icon inverted :class="{selected: isSelected, modified: item.isModified}" :name="iconName" @click="toggle"/>
+            <sui-list-content>
+                <sui-list-header :class="{selected: isSelected, modified: item.isModified}" @click="toggle">{{ item.name }}</sui-list-header>
+                <sui-list-list v-show="item.isOpen" v-if="isFolder">
+                    <tree-item class="item" v-for="(child, index) in item.children" key="index" :item="child"></tree-item>
+                </sui-list-list>
+            </sui-list-content>
+        </sui-list-item>
+    </script>
+    
+    <script type="text/x-template" id="checklist-component-template">
+        <sui-segment v-show="checklistData.isVisible" raised class="checklist">
+            <sui-segments>
+                <sui-segment v-for="(checkboxes, categoryName, index) in checklistData.categories"  :key="index">
+                    <sui-header sub>{{ categoryName }}</sui-header>
+                    <sui-list relaxed>
+                        <costum-checkbox v-for="(item, index) in checkboxes" :key=item.id :data="item" :category="categoryName"/>
+                    </sui-list>
+                </sui-segment>
+            </sui-segments>
+        </sui-segment>
+    </script>
+    
+    <script type="text/x-template" id="semantic-checkbox-component-template">
+        <sui-list-item>
+            <sui-list-icon :name="iconName" @click="toggle" class="pointer"/>
+            <sui-list-content><span v-html="renderedMarkdown" @click="toggle" class="pointer"></span></sui-list-content>
+        </sui-list-item>
+    </script>
+    
+    <script type="text/x-template" id="faq-component-template">
+        <sui-modal :open="faqData.isVisible">
+            <sui-modal-header>Fragen und Antworten</sui-modal-header>
+            <sui-modal-content scrolling>
+                <sui-accordion exclusive>
+                    <template v-for="(item, index) in faqData.data">
+                        <sui-accordion-title :key="item.question">
+                            <sui-icon name="dropdown" />
+                            {{ item.question }}
+                        </sui-accordion-title>
+                        <sui-accordion-content :key="index">
+                            <p v-html="renderMarkdown(item.answer)"></p>
+                        </sui-accordion-content>
+                    </template>
+                </sui-accordion>
+            </sui-modal-content>
+            <sui-modal-actions>
+                <sui-button positive @click.native="toggle">
+                    OK
+                </sui-button>
+            </sui-modal-actions>
+        </sui-modal>
+    </script>
+    
+    <script type="text/x-template" id="task-component-template">
+        <sui-modal :open="taskData.isVisible">
+            <sui-modal-header>
+                Aufgabenstellung für dieses Code-Review
+            </sui-modal-header>
+            <sui-modal-content scrolling>
+                <sui-container v-html="renderedMarkdown"></sui-container>
+            </sui-modal-content>
+            <sui-modal-actions>
+                <sui-button positive @click.native="toggle">
+                    OK
+                </sui-button>
+            </sui-modal-actions>
+        </sui-modal>
+    </script>
+    
+    <!-- Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- vue semantic ui -->
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui-vue@0.11.0/dist/umd/semantic-ui-vue.min.js"></script>
+    <!-- side-comments -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <!-- codemirror base-->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/lib/codemirror.min.js"></script>
+    <!-- codemirror addons -->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/dialog/dialog.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/mode/meta.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/mode/loadmode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/display/placeholder.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/lint/lint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jshint/2.12.0/jshint.min.js" integrity="sha512-qcoitUjhkmNyPmbIOlUV/zd8MJvrVcKrNqnveMWS3C6MYOl5+HLwliRKUm/Ae/dfIok6+E54hjgVrAeS+sBAGA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/csslint/1.0.5/csslint.js" integrity="sha512-5bwfkKxuFSwlV2AwMc07Skr0dzExiIABONmdT/PgVCGq1LM2zX9Y18v1dRRmbq+S0KF3XMc+U+N5wMfDMWgHgw==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsonlint/1.6.0/jsonlint.min.js" integrity="sha512-6qbnCNQe7wVcBDvhNJT6lZsbDKHCQQBk7yOBQg4s/9GG812CknK0EEIqG2IS10XuNxIQNWjMJd6VLwwezICz6w==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmlhint@0.14.1/dist/htmlhint.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/lint/css-lint.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/lint/html-lint.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/lint/javascript-lint.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/lint/json-lint.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/scroll/simplescrollbars.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/scroll/annotatescrollbar.min.js"></script> <!-- depends on simplescrollbars -->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/scroll/scrollpastend.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/search/searchcursor.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/search/match-highlighter.min.js"></script> <!-- depends on searchcursor, annontatescrollbar -->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/search/matchesonscrollbar.min.js"></script> <!-- depends on match-highlighter, annontatescrollbar -->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/selection/mark-selection.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/search/search.min.js"></script> <!-- depends on searchcursor, dialog -->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/search/jump-to-line.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/foldcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/brace-fold.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/indent-fold.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/markdown-fold.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/xml-fold.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/foldgutter.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/edit/matchbrackets.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/edit/matchtags.min.js"></script> <!-- depends on xml-fold -->
+    <!-- codemirror modes -->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/mode/javascript/javascript.js"></script>
+    <script src=https://cdn.jsdelivr.net/npm/codemirror@5.58.2/mode/python/python.min.js></script>
+    <script src=https://cdn.jsdelivr.net/npm/codemirror@5.58.2/mode/markdown/markdown.min.js></script>
+    <script src=https://cdn.jsdelivr.net/npm/codemirror@5.58.2/mode/htmlmixed/htmlmixed.min.js></script>
+    <script src=https://cdn.jsdelivr.net/npm/codemirror@5.58.2/mode/xml/xml.min.js></script>
+    <script src=https://cdn.jsdelivr.net/npm/codemirror@5.58.2/mode/css/css.min.js></script>
+    <script src=https://cdn.jsdelivr.net/npm/codemirror@5.58.2/mode/vue/vue.min.js></script>
+    <script src=https://cdn.jsdelivr.net/npm/codemirror@5.58.2/mode/shell/shell.min.js></script>
+    <!-- vue-codemirror -->
+    <script src="https://cdn.jsdelivr.net/npm/vue-codemirror@4.0.6/dist/vue-codemirror.min.js"></script>
+    <!-- html sanitizer -->
+    <script src="https://cdn.jsdelivr.net/gh/jitbit/HtmlSanitizer@master/HtmlSanitizer.js"></script>
+    <!-- app -->
+    <script type="module" src="./res/js/ReviewEditor.js"></script>
+</body>
+</html>

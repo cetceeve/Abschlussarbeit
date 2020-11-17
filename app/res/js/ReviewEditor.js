@@ -23,6 +23,7 @@ new Vue({
     },
     data: {
         sharedState: store.state,
+        exitConfirmationIsVisible: false,
     },
     methods: {
         toggleChecklist() {
@@ -33,6 +34,12 @@ new Vue({
         },
         showTask() {
             store.toggleTaskVisibility();
+        },
+        toggleExitConfirmation() {
+            this.exitConfirmationIsVisible = !this.exitConfirmationIsVisible;
+        },
+        exit() {
+            location.href = "./";
         },
     },
 });
