@@ -208,17 +208,19 @@
     </script>
     
     <script type="text/x-template" id="faq-component-template">
-        <sui-modal basic :open="faqData.isVisible">
+        <sui-modal :open="faqData.isVisible">
             <sui-modal-header>Fragen und Antworten</sui-modal-header>
             <sui-modal-content scrolling>
-                <sui-accordion inverted exclusive v-for="(item, index) in faqData.data" :key="index">
-                    <sui-accordion-title>
-                        <sui-icon name="dropdown" />
-                        {{ item.question }}
-                    </sui-accordion-title>
-                    <sui-accordion-content>
-                        <p>{{ item.answer }}</p>
-                    </sui-accordion-content>
+                <sui-accordion exclusive>
+                    <template v-for="(item, index) in faqData.data">
+                        <sui-accordion-title :key="item.question">
+                            <sui-icon name="dropdown" />
+                            {{ item.question }}
+                        </sui-accordion-title>
+                        <sui-accordion-content :key="index">
+                            <p v-html="renderMarkdown(item.answer)"></p>
+                        </sui-accordion-content>
+                    </template>
                 </sui-accordion>
             </sui-modal-content>
             <sui-modal-actions>

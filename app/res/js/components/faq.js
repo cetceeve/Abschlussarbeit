@@ -1,4 +1,6 @@
+/* global HtmlSanitizer */
 import store from "../data/store.js";
+import snarkdown from "../../../vendors/snarkdown/snarkdown.es.js";
 
 /**
 * Display a simple faq modal.
@@ -34,6 +36,10 @@ let FaqComponent = {
     methods: {
         toggle() {
             store.toggleFaqVisibility();
+        },
+        renderMarkdown(rawInput) {
+            // Sanitizing snarkdowns Html-output is very important to avoid XSS attacks
+            return HtmlSanitizer.SanitizeHtml(snarkdown(rawInput));
         },
     },
 };

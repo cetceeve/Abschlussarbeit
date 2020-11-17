@@ -135,8 +135,8 @@ let store = {
                     answer: "well i'm coding like hella fast",
                 },
                 {
-                    question: "Am I too bigheaded?",
-                    answer: "Ask a psychiatrist.",
+                    question: "Is this Markdown?",
+                    answer: "is this **Markdowned**?",
                 },
                 {
                     question: "What is the meaning of life?",
