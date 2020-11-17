@@ -3,6 +3,7 @@
 * The state object must not be manipulated directly.
 * Follows the {@link https://vuejs.org/v2/guide/state-management.html#Simple-State-Management-from-Scratch|Store-Pattern}.
 * @module data/store
+* @author Fabian Zeiher <fzeiher@gmail.com>
 */
 /**
 * Represents the state of the Review-Editor, can be safed to external database.

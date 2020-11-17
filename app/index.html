@@ -52,23 +52,21 @@
             </sui-grid-row> -->
             <sui-grid-row class="remove-row-padding">
                 <sui-grid-column :width="3" class="dark-background left-row-padding">
-                    <sui-button-group :widths="2">
-                        <sui-button @click="showFaq" :class="{active: sharedState.faq.isVisible}">FAQ</sui-button>
-                        <sui-button @click="showTask" :class="{active: sharedState.task.isVisible}" primary>Aufgabe</sui-button>
-                    </sui-button-group>
+                    <sui-button @click="showFaq" :class="{active: sharedState.faq.isVisible}" class="raised">FAQ</sui-button>
+                    <sui-button @click="showTask" :class="{active: sharedState.task.isVisible}" class="raised" primary>Aufgabe</sui-button>
                     <div>
                         <sui-divider />
                     </div>
                     <tree-view></tree-view>
                     <checklist class="checklist-container"></checklist>
-                    <sui-button content="Checkliste" @click="toggleChecklist" class="button-checklist":class="{active: sharedState.checklist.isVisible}"></sui-button>
+                    <sui-button content="Checkliste" @click="toggleChecklist" class="button-checklist raised":class="{active: sharedState.checklist.isVisible}"></sui-button>
                 </sui-grid-column>
                 <sui-grid-column :width="9" class="remove-padding">
                     <code-editor></code-editor>
                 </sui-grid-column>
                 <sui-grid-column :width="4" class="light-dark-background">
                     <comments-display></comments-display>
-                    <sui-button positive class="button-end-review">Review beenden</sui-button>
+                    <sui-button positive class="button-end-review raised">Review beenden</sui-button>
                 </sui-grid-column>
             </sui-grid-row>
         </sui-grid>
