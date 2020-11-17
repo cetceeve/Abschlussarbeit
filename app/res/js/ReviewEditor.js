@@ -42,4 +42,8 @@ new Vue({
             location.href = "./";
         },
     },
+    mounted() {
+        document.querySelector("#loader").style.display = "none";
+        document.querySelector("#app").style.display = "block"; 
+    },
 });
