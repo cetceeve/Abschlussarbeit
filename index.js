@@ -4,7 +4,7 @@ const AppServer = require("./lib/AppServer.js"),
   fs = require("fs");
 
 var server,
-  comments = JSON.parse(fs.readFileSync("./data/comments.json", "utf8"));
+  state = JSON.parse(fs.readFileSync("./data/test_state.json", "utf8"));
 
 /**
  * Starts webserver to serve files from "/app" folder
@@ -19,16 +19,13 @@ function init() {
 
 init();
 
-server.app.post("/comments", (req, res) => {
-  console.log("/comments: sending...");
-  res.json(comments[req.body.fileSha]);
+server.app.get("/", (req, res) => {
+  console.log(req.query);
+  console.log("did this work?");
 });
 
-server.app.post("/insert", (req, res) => {
-  console.log(req.body);
-  res.json({
-    "success": true,
-  });
+server.app.post("/", (req, res) => {
+  console.log("Endpoint /");
 });
 
 server.app.post("/editor", (req, res) => {
