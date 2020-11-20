@@ -120,34 +120,43 @@
     
     <script type="text/x-template" id="comment-component-template">
         <sui-card class="fluid">
-            <sui-card-content>
-                <sui-card-description>
-                    <p v-html="renderedMarkdown"></p>
-                </sui-card-description>
-                <sui-divider v-show="isEditMode" />
-                <sui-form v-if="isEditMode">
-                    <sui-form-field>
-                        <textarea ref="editTextarea" v-model="rawMarkdown" @keyup.esc="cancelCommentEdit" rows="1"></textarea>
-                    </sui-form-field>
-                </sui-form>
-            </sui-card-content>
-            <sui-card-content extra v-if="isEditMode">
-                <sui-dropdown selection :options="commentCategories" v-model="currentCategory" />
-            </sui-card-content>
-            <sui-card-content extra v-else>
-                <span :style="{color: categoryColor}">{{ categoryName }}</span>
-                <span slot="right">
-                    {{ comment.authorName }}
-                </span>
-            </sui-card-content>
-            <div v-if="isFromCurrentUser && !isEditMode" is="sui-button-group" basic size="mini">
-                <sui-button @click="startEditMode" compact icon="edit" />
-                <sui-button @click="deleteComment" compact icon="trash" />
-            </div>
-            <div v-if="isFromCurrentUser && isEditMode" is="sui-button-group" size="mini">
-                <sui-button @click="cancelCommentEdit">Abbrechen</sui-button>
-                <sui-button @click="postUpdatedComment" positive>Speichern</sui-button>
-            </div>           
+            <template v-if="!isEditMode">
+                <sui-card-content>
+                    <sui-card-description>
+                        <p v-html="renderedMarkdown"></p>
+                    </sui-card-description>
+                </sui-card-content>
+                <sui-card-content extra>
+                    <span :style="{color: categoryColor}">{{ categoryName }}</span>
+                    <span slot="right">
+                        {{ comment.authorName }}
+                    </span>
+                </sui-card-content>
+                <div v-if="isFromCurrentUser" is="sui-button-group" basic size="mini">
+                    <sui-button @click="startEditMode" compact icon="edit" />
+                    <sui-button @click="deleteComment" compact icon="trash" />
+                </div>
+            </template>
+            <template v-else>
+                <sui-card-content>
+                    <sui-card-description>
+                        <p v-html="renderedMarkdown"></p>
+                    </sui-card-description>
+                    <sui-divider />
+                    <sui-form>
+                        <sui-form-field>
+                            <textarea ref="editTextarea" v-model="rawMarkdown" @keyup.esc="cancelCommentEdit" rows="1"></textarea>
+                        </sui-form-field>
+                    </sui-form>
+                </sui-card-content>
+                <sui-card-content extra>
+                    <sui-dropdown selection :options="commentCategories" v-model="currentCategory" />
+                </sui-card-content>
+                <div is="sui-button-group" size="mini">
+                    <sui-button @click="cancelCommentEdit">Abbrechen</sui-button>
+                    <sui-button @click="postUpdatedComment" positive>Speichern</sui-button>
+                </div>
+            </template>
         </sui-card>
     </script>
     
