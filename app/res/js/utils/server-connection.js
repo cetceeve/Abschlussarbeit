@@ -1,7 +1,7 @@
 let serverConnection = {
     fetchState: async function () {
         let serverRes = await fetch("/state", {
-            method: "GET",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },

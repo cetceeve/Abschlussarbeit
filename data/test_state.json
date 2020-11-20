@@ -1,0 +1,294 @@
+{
+    "meta": {
+        "id": "0000",
+        "status": "wip",
+        "ready": true
+    },
+    "user": {
+        "id": "123",
+        "name": "Musterfrau"
+    },
+    "faq": {
+        "isVisible": false,
+        "data": [
+            {
+                "question": "what is going on?",
+                "answer": "well i'm coding like hella fast"
+            },
+            {
+                "question": "Is this Markdown?",
+                "answer": "is this **working**?"
+            },
+            {
+                "question": "Do you have some more philosophy?",
+                "answer": "The term “free will” has emerged over the past two millennia as the canonical designator for a significant kind of control over one’s actions. Questions concerning the nature and existence of this kind of control (e.g., does it require and do we have the freedom to do otherwise or the power of self-determination?), and what its true significance is (is it necessary for moral responsibility or human dignity?) have been taken up in every period of Western philosophy and by many of the most important philosophical figures, such as Plato, Aristotle, Augustine, Aquinas, Descartes, and Kant. (We cannot undertake here a review of related discussions in other philosophical traditions. For a start, the reader may consult Marchal and Wenzel 2017 and Chakrabarti 2017 for overviews of thought on free will, broadly construed, in Chinese and Indian philosophical traditions, respectively.) In this way, it should be clear that disputes about free will ineluctably involve disputes about metaphysics and ethics. In ferreting out the kind of control involved in free will, we are forced to consider questions about (among others) causation, laws of nature, time, substance, ontological reduction vs emergence, the relationship of causal and reasons-based explanations, the nature of motivation and more generally of human persons. In assessing the significance of free will, we are forced to consider questions about (among others) rightness and wrongness, good and evil, virtue and vice, blame and praise, reward and punishment, and desert. The topic of free will also gives rise to purely empirical questions that are beginning to be explored in the human \"sciences\": do we have it, and to what degree? Here is an overview of what follows. In Section 1, we acquaint the reader with some central historical contributions to our understanding of free will. (As nearly every major and minor figure had something to say about it, we cannot begin to cover them all.) As with contributions to many other foundational topics, these ideas are not of ‘merely historical interest’: present-day philosophers continue to find themselves drawn back to certain thinkers as they freshly engage their contemporaries. In Section 2, we map the complex architecture of the contemporary discussion of the nature of free will by dividing it into five: its relation to moral responsibility; the proper analysis of the freedom to do otherwise; a powerful, recent argument that the freedom to do otherwise (at least in one important sense) is not necessary for moral responsibility; ‘compatibilist’ accounts of sourcehood or self-determination; and ‘incompatibilist’ or ‘libertarian’ accounts of source and self-determination. In Section 3, we consider arguments from experience, a priori reflection, and various scientific findings and theories for and against the thesis that human beings have free will, along with the related question of whether it is reasonable to believe that we have it. Finally, in Section 4, we survey the long-debated questions involving free will that arise in classical theistic metaphysics."
+            }
+        ]
+    },
+    "checklist": {
+        "isVisible": true,
+        "categories": {
+            "Vorbereitung": [
+                {
+                    "id": "11",
+                    "label": "Aufgabenstellung ausführlich durchlesen",
+                    "checked": false
+                },
+                {
+                    "id": "12",
+                    "label": "Should be checked",
+                    "checked": true
+                },
+                {
+                    "id": "13",
+                    "label": "Very very long label to see how the system responds to such kind of nonsensical usage.",
+                    "checked": false
+                }
+            ],
+            "Überblick": [
+                {
+                    "id": "21",
+                    "label": "Aufgabenstellung ausführlich durchlesen",
+                    "checked": false
+                },
+                {
+                    "id": "22",
+                    "label": "Should be checked",
+                    "checked": true
+                },
+                {
+                    "id": "23",
+                    "label": "Very very long label to see how the system responds to such kind of nonsensical usage.",
+                    "checked": false
+                }
+            ],
+            "Bearbeitung": [
+                {
+                    "id": "31",
+                    "label": "Wurden bekannte *Coding Guidelines* eingehalten?",
+                    "checked": false
+                },
+                {
+                    "id": "32",
+                    "label": "Wurden für Variablen und Methoden verständliche und treffend formulierte Bezeichner verwendet?",
+                    "checked": false
+                },
+                {
+                    "id": "33",
+                    "label": "Folgt der Aufbau des Codes einem nachvollziehbaren und sinnvollen Konzept?",
+                    "checked": false
+                },
+                {
+                    "id": "34",
+                    "label": "Wurden die verschiedenen Aufgabenbereiche der Software sichtbar und sinnvoll voneinander getrennt?",
+                    "checked": false
+                },
+                {
+                    "id": "35",
+                    "label": "Wurde auf eine modularisierte Code-Strtuktur, z.B. durch gute *Decomposition* oder wiederverwendbare Methoden und Prototypen geachtet?",
+                    "checked": false
+                },
+                {
+                    "id": "36",
+                    "label": "Wurde das [MVC-Konzept](https://de.wikipedia.org/wiki/Model_View_Controller) korrekt umgesetzt: Sind Model und UI klar voneinander getrennt?",
+                    "checked": false
+                },
+                {
+                    "id": "37",
+                    "label": "Wurden kritische oder komplexe Stellen im Code ausreichend kommentiert?",
+                    "checked": false
+                },
+                {
+                    "id": "38",
+                    "label": "Wurden alle nicht benötigten Teilbereiche des Codes entfernt? Wurden alle Debug-Ausgaben und -Methoden vor der Abgabe entfernt?",
+                    "checked": false
+                }
+            ]
+        }
+    },
+    "database": {
+        "repositoryUrl": "undefined",
+        "revisionId": "undefined",
+        "databaseUrl": "undefined",
+        "saved": false
+    },
+    "task": {
+        "isVisible": false,
+        "owner": "Fabian Zeiher",
+        "content": "##Führe ein Code-Review durch\nby Fabi\n\n---\n\nlet's go!"          
+    },
+    "content": {
+        "currentFile": "fileSha0001",
+        "commentCategories": [
+            {
+                "text": "Bug",
+                "color": "red",
+                "value": "1"
+            },
+            {
+                "text": "Alternative",
+                "color": "orange",
+                "value": "2"
+            },
+            {
+                "text": "Anmerkung",
+                "color": "blue",
+                "value": "3"
+            },
+            {
+                "text": "Kompliment",
+                "color": "green",
+                "value": "4"
+            }
+        ],
+        "files": {
+            "fileSha0000": {
+                "sha": "fileSha000",
+                "path": "src/js/Appserver.js",
+                "text": "/* global Vue VueCodemirror SemanticUIVue*/\r\nimport ChecklistComponent from \"./components/checklist.js\";\r\nimport CodeEditorComponent from \"./components/code-editor.js\";\r\nimport CommentsDisplayComponent from \"./components/comments-display.js\";\r\nimport FaqComponent from \"./components/faq.js\";\r\nimport TaskComponent from \"./components/task.js\";\r\nimport TreeViewComponent from \"./components/tree-view.js\";\r\nimport store from \"./model/store.js\";\r\n\r\nVue.use(VueCodemirror);\r\nVue.use(SemanticUIVue);\r\n\r\n// eslint-disable-next-line no-new\r\nnew Vue({\r\n    el: \"#app\",\r\n    components: {\r\n        \"code-editor\": CodeEditorComponent,\r\n        \"comments-display\": CommentsDisplayComponent,\r\n        \"tree-view\": TreeViewComponent,\r\n        \"checklist\": ChecklistComponent,\r\n        \"faq-modal\": FaqComponent,\r\n        \"task-modal\": TaskComponent,\r\n    },\r\n    data: {\r\n        sharedState: store.state,\r\n        exitConfirmationIsVisible: false,\r\n    },\r\n    methods: {\r\n        toggleChecklist() {\r\n            store.toggleChecklistVisibility();\r\n        },\r\n        showFaq() {\r\n            store.toggleFaqVisibility();\r\n        },\r\n        showTask() {\r\n            store.toggleTaskVisibility();\r\n        },\r\n        toggleExitConfirmation() {\r\n            this.exitConfirmationIsVisible = !this.exitConfirmationIsVisible;\r\n        },\r\n        exit() {\r\n            location.href = \"./\";\r\n        },\r\n    },\r\n    mounted() {\r\n        document.querySelector(\"#loader\").style.display = \"none\";\r\n        document.querySelector(\"#app\").style.display = \"block\"; \r\n    },\r\n});",
+                "linePresentationModifiers": [
+                    {
+                        "class": "unchanged_line",
+                        "lines": [0,1,2,3,55]
+                    }
+                ],
+                "activeCommentSection": null, 
+                "comments": 
+                [
+                    {
+                        "id": "10001",
+                        "sectionId": "1",
+                        "authorId": "2",
+                        "authorAvatarUrl": "https://i.kym-cdn.com/photos/images/original/001/474/942/012.gif",
+                        "authorUrl": "https://i.imgflip.com/40ga2o.jpg",
+                        "authorName": "Winnie",
+                        "content": "Morning my Friend",
+                        "categoryId": "2"
+                    },
+                    {
+                        "id": "10002",
+                        "sectionId": "1",
+                        "authorId": "12",
+                        "authorAvatarUrl": "https://www.kindpng.com/picc/m/28-287073_elonlol-discord-emoji-elon-musk-laughing-deer-hd.png",
+                        "authorName": "Elon",
+                        "content": "I am gonna write a **super long** and not at all helpful comment because i am a ~~dick~~ and i want to destroy this `holes tool` career.",
+                        "categoryId": "1"
+                    },
+                    {
+                        "id": "10003",
+                        "sectionId": "3",
+                        "authorId": "12",
+                        "authorAvatarUrl": "https://www.kindpng.com/picc/m/28-287073_elonlol-discord-emoji-elon-musk-laughing-deer-hd.png",
+                        "authorName": "Elon",
+                        "content": "Coding is not hard.",
+                        "categoryId": "4"
+                    },
+                    {
+                        "id": "10004",
+                        "sectionId": "54",
+                        "authorId": "2",
+                        "authorAvatarUrl": "https://i.kym-cdn.com/photos/images/original/001/474/942/012.gif",
+                        "authorUrl": "https://i.imgflip.com/40ga2o.jpg",
+                        "authorName": "Winnie",
+                        "content": "Side-Comments is not coded well.",
+                        "categoryId": "1"
+                    }
+                ]
+            },
+            "fileSha0001": {
+                "sha": "fileSha0001",
+                "path": "src/js/SideComments.js",
+                "text": "\r\n/**\r\n* Module to store the current state and all state operations.\r\n* The state object must not be manipulated directly.\r\n* Follows the {@link https://vuejs.org/v2/guide/state-management.html#Simple-State-Management-from-Scratch|Store-Pattern}.\r\n* @module data/store\r\n* @author Fabian Zeiher <fzeiher@gmail.com>\r\n*/\r\n/**\r\n* Represents the state of the Review-Editor, can be safed to external database.\r\n* @typedef State\r\n* @type {Object}\r\n* @property {Object} meta - Information regarding the Review-Editors context and status.\r\n* @property {String} meta.id - the ID of the current state.\r\n* @property {boolean} meta.debug - Used to trigger debug behaviour.\r\n* @property {String} meta.status - Status of the Review [open, in-progress, finished].\r\n* @property {String} meta.activeStage - The currently active stage of the Review.\r\n* \r\n* @property {Object} user - Data for the logged in user.\r\n* @property {String} user.id - User id.\r\n* @property {String} user.name - Display name of the user.\r\n* @property {String} user.avatarUrl - Link to the avatar picture of the user. Should be 1:1 and not too large.\r\n* @property {String} [user.url] - Url for the page/profile of the author.\r\n* \r\n* @property {Object} faq - Data for a simple faq to be displayed.\r\n* @property {Boolean} faq.isVisible - Sentinel guarding the visibility state of the faq modal.\r\n* @property {module:data/store~FaqItem[]} faq.data - Array holding data object for the faq.\r\n* \r\n* @property {Object} checklist - Data for the checklist.\r\n* @property {Boolean} checklist.isVisible - Sentinel guarding the visibility state of the checklist.\r\n* @property {Object.<String, module:data/store~Checkbox>} checklist.categories - Dictionary for checklist displayed on the bottom left. Key: category string. Value: checkbox object.\r\n* \r\n* @property {Object} task - Data for the Task modal\r\n* @property {Boolean} task.isVisible - Sentinel guarding the visibility state of the task modal.\r\n* @property {String} task.content - Content to be displayed. Should be Markdown.\r\n*\r\n* @property {Object} content\r\n* @property {String} content.currentFile - Sha for the currently displayed file.\r\n* @property {module:data/store~CommentCategory[]} content.commentCategories - Array of possible categories for comments\r\n* @property {Object.<String, module:data/store~File>} content.files - Dictonary of files. Key: file sha. Value: file object.\r\n* @property {module:data/store~TreeItem} content.filetree - File tree for the repository. Root item of the file tree.\r\n*\r\n* @property {Object} editor - Data object for look and behaviour of the editor.\r\n* @property {String} editor.activeTheme - Active code highlighting theme for the editor.\r\n* @property {String[]} editor.themes - List of themes for the editor.\r\n*/\r\n/**\r\n* @typedef File\r\n* @type {Object}\r\n* @property {String} sha - Unique identifier for file.\r\n* @property {String} path - Relative path of the file in the project. Extention is used to determine codemirror mode.\r\n* @property {String} text - Text content stored inside that file.\r\n* @property {module:data/store~LinePresentationModifier[]} linePresentationModifiers - Array of objects that are used to change the presentation of a codemirror line.\r\n* @property {String} activeCommentSection - Currently active Comment section. 'null' if no section is active.\r\n* @property {module:data/store~Comment[]} comments - Array of comment objects.\r\n*/\r\n/**\r\n* Data object for side-comments. Origin see below.\r\n* @typedef Comment\r\n* @type {Object}\r\n* @property {String} id - Unique identifier for that comment.\r\n* @property {String} sectionId - Generally represents which element the comment is attached to.\r\n* @property {String} authorId - Id of the author.\r\n* @property {String} [authorAvatarUrl] - Link to the avatar picture of the comment author, should be 1:1 and not too large.\r\n* @property {String} authorName - Display name of the comment author.\r\n* @property {String} [authorUrl] - Url for the page/profile of the author.\r\n* @property {String} content - The value/content of one comment.\r\n* @property {String} categoryId - Id of the category this comment belongs to.\r\n* @see http://aroc.github.io/side-comments-demo/\r\n*/\r\n/**\r\n* @typedef CommentCategory\r\n* @type {Object}\r\n* @property {Sting} value - Serves as an ID for the category, named value because of semantic-vue selection dropdown behaviour, see below\r\n* @property {String} text - Named text because of semantic-vue selection dropdown behaviour, see below\r\n* @property {String} color - Color for this category, can be any css color\r\n* @see https://semantic-ui-vue.github.io/#/modules/dropdown\r\n*/\r\n/**\r\n* Object to be recursivly used in file tree. Can represent a folder or a file.\r\n* @typedef TreeItem\r\n* @type {Object}\r\n* @property {String} name - Display name of the item.\r\n* @property {module:data/store~TreeItem[]} [children] - Array if tree items. Having children makes a tree item a folder.\r\n* @property {Boolean} [isOpen] - Sentinel indicating if the items children are visible.\r\n* @property {String} [sha] - Sha for the file represeted by this tree item.\r\n* @property {Boolean} [isModified] - Indicates if the file was modified by the review author.\r\n*/\r\n/**\r\n* Data object for checkboxes\r\n* @typedef Checkbox\r\n* @type {Object}\r\n* @property {String} id - Unique identifier for this checkbox.\r\n* @property {String} label - Text to be dispayed with the checkbox.\r\n* @property {Boolean} checked - True if checkbox should be checked.\r\n*/\r\n/**\r\n* Data object for one faq item.\r\n* @typedef FaqItem\r\n* @type {Object}\r\n* @property {String} question - A reasonable question.\r\n* @property {String} answer - A formidable answer to the question.\r\n*/\r\n/**\r\n* Object changing the presentation of one line in codemirror using addLineClass on \"wrap\", see below.\r\n* @typedef LinePresentationModifier\r\n* @typedef {Object}\r\n* @property {String} class - Name for the css class to be applied.\r\n* @property {Number[]} lines - Array of lines that the class should be applied to.\r\n* @see https://codemirror.net/doc/manual.html#addLineClass\r\n*/\r\n\r\n/**\r\n* Namespace object for store module.\r\n* @namespace\r\n* @property {module:data/store~State} state - Represents the state of the Review-Editor, can be safed to external database.\r\n*/\r\nlet store = {\r\n    debug: true,\r\n    state: {\r\n        meta: {\r\n            id: \"0000\",\r\n            status: \"wip\",\r\n        },\r\n        user: {\r\n            id: \"123\",\r\n            name: \"Monkey D. Ruffy\",\r\n        },\r\n        faq: {\r\n            isVisible: false,\r\n            data: [\r\n                {\r\n                    question: \"what is going on?\",\r\n                    answer: \"well i'm coding like hella fast\",\r\n                },\r\n                {\r\n                    question: \"Is this Markdown?\",\r\n                    answer: \"is this **Markdowned**?\",\r\n                },\r\n                {\r\n                    question: \"What is the meaning of life?\",\r\n                    answer: \"Many major historical figures in philosophy have provided an answer to the question of what, if anything, makes life meaningful, although they typically have not put it in these terms. Consider, for instance, Aristotle on the human function, Aquinas on the beatific vision, and Kant on the highest good. While these concepts have some bearing on happiness and morality, they are straightforwardly construed as accounts of which final ends a person ought to realize in order to have a life that matters. Despite the venerable pedigree, it is only in the last 50 years or so that something approaching a distinct field on the meaning of life has been established in Anglo-American philosophy, and it is only in the last 30 years that debate with real depth has appeared. Concomitant with the demise of positivism and of utilitarianism in the post-war era has been the rise of analytical enquiry into non-hedonistic conceptions of value, including conceptions of meaning in life, grounded on relatively uncontroversial (but not certain or universally shared) judgments of cases, often called “intuitions.” English-speaking philosophers can be expected to continue to find life's meaning of interest as they increasingly realize that it is a distinct topic that admits of rational enquiry to no less a degree than more familiar ethical categories such as well-being, virtuous character, and right action.\" + \r\n                    \"This survey critically discusses approaches to meaning in life that are prominent in contemporary Anglo-American philosophical literature. To provide context, sometimes it mentions other texts, e.g., in Continental philosophy or from before the 20th century. However, the central aim is to acquaint the reader with recent analytic work on life's meaning and to pose questions about it that are currently worthy of consideration.\" + \r\n                    \"When the topic of the meaning of life comes up, people often pose one of two questions: 'So, what is the meaning of life?' and 'What are you talking about?' The literature can be divided in terms of which question it seeks to answer. This discussion starts off with works that address the latter, abstract question regarding the sense of talk of 'life's meaning,' i.e., that aim to clarify what we are asking when we pose the question of what, if anything, makes life meaningful. Afterward, it considers texts that provide answers to the more substantive question about the nature of meaning as a property. Some accounts of what make life meaningful provide particular ways to do so, e.g., by making certain achievements (James 2005), developing moral character (Thomas 2005), or learning from relationships with family members (Velleman 2005). However, most recent discussions of meaning in life are attempts to capture in a single principle all the variegated conditions that can confer meaning on life. This survey focuses heavily on the articulation and evaluation of these theories of what would make life meaningful. It concludes by examining nihilist views that the conditions necessary for meaning in life do not obtain for any of us, i.e., that all our lives are meaningless.\",\r\n                },\r\n                {\r\n                    question: \"Do you have some more philosophy?\",\r\n                    answer: \"The term “free will” has emerged over the past two millennia as the canonical designator for a significant kind of control over one’s actions. Questions concerning the nature and existence of this kind of control (e.g., does it require and do we have the freedom to do otherwise or the power of self-determination?), and what its true significance is (is it necessary for moral responsibility or human dignity?) have been taken up in every period of Western philosophy and by many of the most important philosophical figures, such as Plato, Aristotle, Augustine, Aquinas, Descartes, and Kant. (We cannot undertake here a review of related discussions in other philosophical traditions. For a start, the reader may consult Marchal and Wenzel 2017 and Chakrabarti 2017 for overviews of thought on free will, broadly construed, in Chinese and Indian philosophical traditions, respectively.) In this way, it should be clear that disputes about free will ineluctably involve disputes about metaphysics and ethics. In ferreting out the kind of control involved in free will, we are forced to consider questions about (among others) causation, laws of nature, time, substance, ontological reduction vs emergence, the relationship of causal and reasons-based explanations, the nature of motivation and more generally of human persons. In assessing the significance of free will, we are forced to consider questions about (among others) rightness and wrongness, good and evil, virtue and vice, blame and praise, reward and punishment, and desert. The topic of free will also gives rise to purely empirical questions that are beginning to be explored in the human sciences: do we have it, and to what degree?\" + \r\n                    \"Here is an overview of what follows. In Section 1, we acquaint the reader with some central historical contributions to our understanding of free will. (As nearly every major and minor figure had something to say about it, we cannot begin to cover them all.) As with contributions to many other foundational topics, these ideas are not of ‘merely historical interest’: present-day philosophers continue to find themselves drawn back to certain thinkers as they freshly engage their contemporaries. In Section 2, we map the complex architecture of the contemporary discussion of the nature of free will by dividing it into five subtopics: its relation to moral responsibility; the proper analysis of the freedom to do otherwise; a powerful, recent argument that the freedom to do otherwise (at least in one important sense) is not necessary for moral responsibility; ‘compatibilist’ accounts of sourcehood or self-determination; and ‘incompatibilist’ or ‘libertarian’ accounts of source and self-determination. In Section 3, we consider arguments from experience, a priori reflection, and various scientific findings and theories for and against the thesis that human beings have free will, along with the related question of whether it is reasonable to believe that we have it. Finally, in Section 4, we survey the long-debated questions involving free will that arise in classical theistic metaphysics.\",\r\n                },\r\n            ],\r\n        },\r\n        checklist: {\r\n            isVisible: true,\r\n            categories: {\r\n                \"Vorbereitung\": [\r\n                    {\r\n                        id: \"11\",\r\n                        label: \"Aufgabenstellung ausführlich durchlesen\",\r\n                        checked: false,\r\n                    },\r\n                    {\r\n                        id: \"12\",\r\n                        label: \"Should be checked\",\r\n                        checked: true,\r\n                    },\r\n                    {\r\n                        id: \"13\",\r\n                        label: \"Very very long label to see how the system responds to such kind of nonsensical usage.\",\r\n                        checked: false,\r\n                    },\r\n                ],\r\n                \"Überblick\": [\r\n                    {\r\n                        id: \"21\",\r\n                        label: \"Aufgabenstellung ausführlich durchlesen\",\r\n                        checked: false,\r\n                    },\r\n                    {\r\n                        id: \"22\",\r\n                        label: \"Should be checked\",\r\n                        checked: true,\r\n                    },\r\n                    {\r\n                        id: \"23\",\r\n                        label: \"Very very long label to see how the system responds to such kind of nonsensical usage.\",\r\n                        checked: false,\r\n                    },\r\n                ],\r\n                \"Bearbeitung\": [\r\n                    {\r\n                        id: \"31\",\r\n                        label: \"Wurden bekannte *Coding Guidelines* eingehalten?\",\r\n                        checked: false,\r\n                    },\r\n                    {\r\n                        id: \"32\",\r\n                        label: \"Wurden für Variablen und Methoden verständliche und treffend formulierte Bezeichner verwendet?\",\r\n                        checked: true,\r\n                    },\r\n                    {\r\n                        id: \"33\",\r\n                        label: \"Folgt der Aufbau des Codes einem nachvollziehbaren und sinnvollen Konzept?\",\r\n                        checked: false,\r\n                    },\r\n                    {\r\n                        id: \"34\",\r\n                        label: \"Wurden die verschiedenen Aufgabenbereiche der Software sichtbar und sinnvoll voneinander getrennt?\",\r\n                        checked: false,\r\n                    },\r\n                    {\r\n                        id: \"35\",\r\n                        label: \"Wurde auf eine modularisierte Code-Strtuktur, z.B. durch gute *Decomposition* oder wiederverwendbare Methoden und Prototypen geachtet?\",\r\n                        checked: false,\r\n                    },\r\n                    {\r\n                        id: \"36\",\r\n                        label: \"Wurde das [MVC-Konzept](https://de.wikipedia.org/wiki/Model_View_Controller) korrekt umgesetzt: Sind Model und UI klar voneinander getrennt?\",\r\n                        checked: false,\r\n                    },\r\n                    {\r\n                        id: \"37\",\r\n                        label: \"Wurden kritische oder komplexe Stellen im Code ausreichend kommentiert?\",\r\n                        checked: false,\r\n                    },\r\n                    {\r\n                        id: \"38\",\r\n                        label: \"Wurden alle nicht benötigten Teilbereiche des Codes entfernt? Wurden alle Debug-Ausgaben und -Methoden vor der Abgabe entfernt?\",\r\n                        checked: false,\r\n                    },\r\n                ],\r\n            },\r\n        },\r\n        database: {\r\n            repositoryUrl: \"undefined\",\r\n            revisionId: \"undefined\",\r\n            databaseUrl: \"undefined\",\r\n            saved: false,\r\n        },\r\n        task: {\r\n            isVisible: false,\r\n            owner: \"Fabian Zeiher\",\r\n            content: \"##Führe ein Code-Review durch\\nby Fabi\\n\\n---\\n\\nlet's go!\",           \r\n        },\r\n        content: {\r\n            currentFile: \"fileSha0000\",\r\n            commentCategories: [\r\n                {\r\n                    text: \"Bug\",\r\n                    color: \"red\",\r\n                    value: \"1\",\r\n                },\r\n                {\r\n                    text: \"Alternative\",\r\n                    color: \"orange\",\r\n                    value: \"2\",\r\n                },\r\n                {\r\n                    text: \"Anmerkung\",\r\n                    color: \"blue\",\r\n                    value: \"3\",\r\n                },\r\n                {\r\n                    text: \"Kompliment\",\r\n                    color: \"green\",\r\n                    value: \"4\",\r\n                },\r\n            ],\r\n            files: {\r\n                \"fileSha0000\": {\r\n                    sha: \"fileSha000\",\r\n                    path: \"src/js/Appserver.js\",\r\n                    text: \"/* eslint-env node */\\r\\n\" +\r\n                    \"\\r\\n\" +\r\n                    \"const path = require(\\\"path\\\"),\\r\\n\" +\r\n                    \"  express = require(\\\"express\\\");\\r\\n\" +\r\n                    \"\\r\\n\" +\r\n                    \"/**\\r\\n\" +\r\n                    \" * AppServer\\r\\n\" +\r\n                    \" *\\r\\n\" +\r\n                    \" * Creates a simple web server by using express to static serve files from a given directory.\\r\\n\" +\r\n                    \" *\\r\\n\" +\r\n                    \" * @author: Alexander Bazo\\r\\n\" +\r\n                    \" * @version: 1.0\\r\\n\" +\r\n                    \" */\\r\\n\" +\r\n                    \"\\r\\n\" +\r\n                    \"class AppServer {\\r\\n\" +\r\n                    \"\\r\\n\" +\r\n                    \"  /**\\r\\n\" +\r\n                    \"   * Creates full path to given appDir and constructors express application with\\r\\n\" +\r\n                    \"   * static \\\"/app\\\" route to serve files from app directory.\\r\\n\" +\r\n                    \"   * \\r\\n\" +\r\n                    \"   * @constructor\\r\\n\" +\r\n                    \"   * @param  {String} appDir Relative path to application dir (from parent)\\r\\n\" +\r\n                    \"   */\\r\\n\" +\r\n                    \"  constructor(appDir) {\\r\\n\" +\r\n                    \"    this.appDir = path.join(__dirname, \\\"../\\\", appDir);\\r\\n\" +\r\n                    \"    this.app = express();\\r\\n\" +\r\n                    \"    this.app.use(express.json());\\r\\n\" +\r\n                    \"    this.app.use(\\\"/app\\\", express.static(this.appDir));\\r\\n\" +\r\n                    \"  }\\r\\n\" +\r\n                    \"\\r\\n\" +\r\n                    \"  /**\\r\\n\" +\r\n                    \"   * Starts server on given port\\r\\n\" +\r\n                    \"   * \\r\\n\" +\r\n                    \"   * @param  {Number} port Port to use for serving static files\\r\\n\" +\r\n                    \"   */\\r\\n\" +\r\n                    \"  start(port) {\\r\\n\" +\r\n                    \"    this.server = this.app.listen(port, function () {\\r\\n\" +\r\n                    \"      console.log(\\r\\n\" +\r\n                    \"        `AppServer started. Client available at http://localhost:${port}/app`\\r\\n\" +\r\n                    \"      );\\r\\n\" +\r\n                    \"    });\\r\\n\" +\r\n                    \"  }\\r\\n\" +\r\n                    \"\\r\\n\" +\r\n                    \"  /**\\r\\n\" +\r\n                    \"   * Stops running express server\\r\\n\" +\r\n                    \"   */\\r\\n\" +\r\n                    \"  stop() {\\r\\n\" +\r\n                    \"    if (this.server === undefined) {\\r\\n\" +\r\n                    \"      return;\\r\\n\" +\r\n                    \"    }\\r\\n\" +\r\n                    \"    this.server.close();\\r\\n\" +\r\n                    \"  }\\r\\n\" +\r\n                    \"\\r\\n\" +\r\n                    \"}\\r\\n\" +\r\n                    \"\\r\\n\" +\r\n                    \"module.exports = AppServer;\",\r\n                    linePresentationModifiers: [\r\n                        {\r\n                            class: \"unchanged_line\",\r\n                            lines: [0,1,2,3,55],\r\n                        },\r\n                    ],\r\n                    activeCommentSection: null, \r\n                    comments: \r\n                    [\r\n                        {\r\n                            id: \"10001\",\r\n                            sectionId: \"1\",\r\n                            authorId: \"2\",\r\n                            authorAvatarUrl: \"https://i.kym-cdn.com/photos/images/original/001/474/942/012.gif\",\r\n                            authorUrl: \"https://i.imgflip.com/40ga2o.jpg\",\r\n                            authorName: \"Winnie\",\r\n                            content: \"Morning my Friend\",\r\n                            categoryId: \"2\",\r\n                        },\r\n                        {\r\n                            id: \"10002\",\r\n                            sectionId: \"1\",\r\n                            authorId: \"12\",\r\n                            authorAvatarUrl: \"https://www.kindpng.com/picc/m/28-287073_elonlol-discord-emoji-elon-musk-laughing-deer-hd.png\",\r\n                            authorName: \"Elon\",\r\n                            content: \"I am gonna write a **super long** and not at all helpful comment because i am a ~~dick~~ and i want to destroy this `holes tool` career.\",\r\n                            categoryId: \"1\",\r\n                        },\r\n                        {\r\n                            id: \"10003\",\r\n                            sectionId: \"3\",\r\n                            authorId: \"12\",\r\n                            authorAvatarUrl: \"https://www.kindpng.com/picc/m/28-287073_elonlol-discord-emoji-elon-musk-laughing-deer-hd.png\",\r\n                            authorName: \"Elon\",\r\n                            content: \"Coding is not hard.\",\r\n                            categoryId: \"4\",\r\n                        },\r\n                        {\r\n                            id: \"10004\",\r\n                            sectionId: \"54\",\r\n                            authorId: \"2\",\r\n                            authorAvatarUrl: \"https://i.kym-cdn.com/photos/images/original/001/474/942/012.gif\",\r\n                            authorUrl: \"https://i.imgflip.com/40ga2o.jpg\",\r\n                            authorName: \"Winnie\",\r\n                            content: \"Side-Comments is not coded well.\",\r\n                            categoryId: \"1\",\r\n                        },\r\n                    ],\r\n                },\r\n                \"fileSha0001\": {\r\n                    sha: \"fileSha0001\",\r\n                    path: \"src/js/SideComments.js\",\r\n                    text: \"/**\\r\\n\" +\r\n                    \" * Iniate a side-comments instance with a user object.\\r\\n\" +\r\n                    \" * @param {Object} wrapperElement - The element which contains all the .commentable-section elements.\\r\\n\" +\r\n                    \" * @see http://aroc.github.io/side-comments-demo/\\r\\n\" +\r\n                    \" * @returns {Object} - New instance of side-comments.\\r\\n\" +\r\n                    \" */\\r\\n\" +\r\n                    \"initSideComments = (wrapperElement) => {\\r\\n\" +\r\n                    \"    // eslint-disable-next-line no-undef    \\r\\n\" +\r\n                    \"    let SideComments = require(\\\"side-comments\\\");\\r\\n\" +\r\n                    \"    return new SideComments(wrapperElement, storage.state.user);\\r\\n\" +\r\n                    \"},\\r\\n\" +\r\n                    \"/**\\r\\n\" +\r\n                    \" * Add stored comments for the current file.\\r\\n\" +\r\n                    \" * Utilises side-comments insertCommit() function internaly.\\r\\n\" +\r\n                    \" * @param {Object} sideComments - A side-comments instance.\\r\\n\" +\r\n                    \" */\\r\\n\" +\r\n                    \"insertStoredComments = () => {\\r\\n\" +\r\n                    \"    for (let comment of storage.state.comments[storage.state.code.currentFile]) {\\r\\n\" +\r\n                    \"        sideComments.insertComment(comment);\\r\\n\" +\r\n                    \"    }\\r\\n\" +\r\n                    \"},\\r\\n\" +\r\n                    \"/**\\r\\n\" +\r\n                    \" * Register Listeners on the side-comments instance.\\r\\n\" +\r\n                    \" * On \\\"commentPosted\\\" the comment will be saved to storage and then inserted to the DOM.\\r\\n\" +\r\n                    \" * @param {Object} sideComments - A side-comments instance.\\r\\n\" +\r\n                    \" */\\r\\n\" +\r\n                    \"registerSideCommentsListeners = (sideComments) => {\\r\\n\" +\r\n                    \"    sidecomments.on(\\\"commentPosted\\\", comment => {\\r\\n\" +\r\n                    \"        sidecomments.insertComment(comment);\\r\\n\" +\r\n                    \"        storage.setComment(storage.state.code.currentFile, comment)\\r\\n\" +\r\n                    \"    });\\r\\n\" +\r\n                    \"};\",\r\n                    linePresentationModifiers: [\r\n                        {\r\n                            class: \"unchanged_line\",\r\n                            lines: [0,1,2,3,4,5,6,7,8,9,10],\r\n                        },\r\n                        {\r\n                            class: \"halloween_line\",\r\n                            lines: [0,6,7,8,9,10,11,12,13,14],\r\n                        },\r\n                    ],\r\n                    activeCommentSection: \"2\",\r\n                    comments: [\r\n                        {\r\n                            id: \"20001\",\r\n                            sectionId: \"2\",\r\n                            authorId: \"1111\",\r\n                            authorAvatarUrl: \"https://media.vanityfair.com/photos/5c2fdb09ef10e32ca1332862/1:1/w_1420,h_1420,c_limit/trumpshutdownraises.jpg\",\r\n                            authorName: \"Trump\",\r\n                            content: \"What's up with you?\",\r\n                            categoryId: \"3\",\r\n                        },\r\n                        {\r\n                            id: \"20002\",\r\n                            sectionId: \"12\",\r\n                            authorId: \"123\",\r\n                            authorName: \"Monkey D. Ruffy\",\r\n                            content: \"Why would you delete this?\",\r\n                            categoryId: \"2\",\r\n                        },\r\n                        {\r\n                            id: \"20003\",\r\n                            sectionId: \"12\",\r\n                            authorId: \"123\",\r\n                            authorName: \"Monkey D. Ruffy\",\r\n                            content: \"ID3 lol\",\r\n                            categoryId: \"2\",\r\n                        },\r\n                    ],\r\n                },\r\n                \"fileSha0002\": {\r\n                    sha: \"fileSha0002\",\r\n                    path: \"src/test.htm\",\r\n                    text: \"<!DOCTYPE HTML>\\n<html>\\n<head>\\n    <meta charset=\\\"UTF-8\\\">\\n    <title>HTMLHint</title>\\n</head>\\n<body>\\n    <div>HTMLHint: help your html code better\\n</body>\\n</html>\",\r\n                    linePresentationModifiers: [],\r\n                    activeCommentSection: null,\r\n                    comments: [],\r\n                },\r\n                \"fileSha0003\": {\r\n                    sha: \"fileSha0003\",\r\n                    path: \"src/test.css\",\r\n                    text: \".checklist-button {\\n\" + \r\n                    \"    position: absolute !important;\\n}\\n\\n\" +\r\n                    \".code-editor-search-fab {\\n\" + \r\n                    \"    position: absolute;\\n\" +\r\n                    \"    right: 1em;\\n\" +\r\n                    \"    bottom: 1em\\n\" +\r\n                    \"    z-index: 99;\\n}\",\r\n                    linePresentationModifiers: [],\r\n                    activeCommentSection: null,\r\n                    comments: [],\r\n                },\r\n            },\r\n            filetree: {\r\n                name: \"src\",\r\n                isOpen: true,\r\n                children: [\r\n                    { sha: \"undefined\", name: \"test.html\", isModified: false},\r\n                    { sha: \"fileSha0002\", name: \"test.htm\", isModified: true},\r\n                    { sha: \"fileSha0003\", name: \"test.css\", isModified: true},\r\n                    { sha: \"undefined\", name: \"test.txt\", isModified: false},\r\n                    {\r\n                        name: \"js\",\r\n                        isOpen: false,\r\n                        children: [\r\n                            { sha: \"fileSha0000\", name: \"AppServer.js\", isModified: true},\r\n                            { sha: \"fileSha0001\", name: \"SideComments.js\", isModified: false},\r\n                        ],\r\n                    },\r\n                    {\r\n                        name: \"test\",\r\n                        isOpen: false,\r\n                        children: [\r\n                            { sha: \"undefined\", name: \"test.js\", isModified: false},\r\n                            { sha: \"testfile0000\", name: \"testfile.js\", isModified: false},\r\n                            {\r\n                                name: \"emptyFolder\", isOpen: false, children: [],\r\n                            },\r\n                        ],\r\n                    },\r\n                ],\r\n            },\r\n        },\r\n        editor: {\r\n            activeTheme: \"monokai\",\r\n            themes: [\r\n                \"default\",\"gruvbox-dark\",\"monokai\",\"seti\",\"idea\",\"the-matrix\",\r\n            ],\r\n        },\r\n    },\r\n    /**\r\n    * Add or update one comment for one code file, enriches user inputed data with the user data\r\n    * @param {String} fileSha\r\n    * @param {module:data/store~Comment} newComment\r\n    */\r\n    postComment(fileSha, newComment) {\r\n        // search if that comment already exists in the database\r\n        let existingComment = this.state.content.files[fileSha].comments.find((comment) => {\r\n            return comment.id === newComment.id;\r\n        });\r\n\r\n        // update exiting or create a new comment\r\n        if (existingComment) {\r\n            existingComment.content = newComment.content;\r\n            existingComment.categoryId = newComment.categoryId;\r\n        } else {\r\n            this.state.content.files[fileSha].comments.push(newComment);\r\n        }\r\n        this.save();\r\n    },\r\n    \r\n    /**\r\n    * Delete one comment\r\n    * @param {String} fileSha\r\n    * @param {String} commentID - Id of comment to be deleted.\r\n    */\r\n    deleteComment(fileSha, commentId) {\r\n        let index = this.state.content.files[fileSha].comments.findIndex((comment) => {\r\n            return comment.id === commentId;\r\n        });\r\n        if (index !== -1) {\r\n            this.state.content.files[fileSha].comments.splice(index, 1);\r\n            this.save();\r\n        }\r\n    },\r\n    \r\n    /**\r\n    * Set the current file on display\r\n    * @param {String} fileSha\r\n    */\r\n    setCurrentFile(fileSha) {\r\n        if (fileSha !== this.state.content.currentFile) {        \r\n            if (Object.keys(this.state.content.files).includes(fileSha)) {\r\n                this.state.content.currentFile = fileSha;\r\n                if (this.debug) { console.log(\"new current File: \" + this.state.content.currentFile); }\r\n                this.save();\r\n            }\r\n        }\r\n    },\r\n    \r\n    /**\r\n    * Set active selection for comments on one file\r\n    * @param {String} fileSha - File the comments are connected to.\r\n    * @param {String} sectionId - Section id to set as active section.\r\n    */\r\n    setActiveSection(fileSha, sectionId) {\r\n        // This is essentially a deselect\r\n        if (this.state.content.files[fileSha].activeCommentSection === sectionId) {\r\n            this.state.content.files[fileSha].activeCommentSection = null;\r\n            if (this.debug) { console.log(\"active comment section deselected\"); }\r\n        } else {\r\n            this.state.content.files[fileSha].activeCommentSection = sectionId;\r\n            if (this.debug) { console.log(\"new active comment section selected: \" + this.state.content.files[fileSha].activeCommentSection); }\r\n        }\r\n        this.save();\r\n    },\r\n    \r\n    /**\r\n    * Set active code editor theme.\r\n    * @param {String} theme - Name for each theme originates from codemirrors implementation.\r\n    */\r\n    setActiveTheme(theme) {\r\n        if (this.state.editor.themes.includes(theme)) {\r\n            if (this.state.editor.activeTheme !== theme) {\r\n                this.state.editor.activeTheme = theme;\r\n                this.save();\r\n            }\r\n        }\r\n    },\r\n    \r\n    /**\r\n    * Toggle checkbox item in checklist.\r\n    * @param {String} category - category the item belongs too.\r\n    * @param {String} id - checkbox id of the system.\r\n    */\r\n    toggleCheckbox(category, id) {\r\n        if (Object.keys(this.state.checklist.categories).includes(category)) {\r\n            let result = this.state.checklist.categories[category].find(item => item.id === id);\r\n            if (result !== undefined) {\r\n                result.checked = !result.checked;\r\n                this.save();\r\n            }\r\n        }\r\n    },\r\n    \r\n    /**\r\n    * Toggles the visibility state of the checklist\r\n    */\r\n    toggleChecklistVisibility() {\r\n        this.state.checklist.isVisible = !this.state.checklist.isVisible;\r\n        this.save();\r\n    },\r\n    \r\n    /**\r\n    * Toggle the visibility state of the faq\r\n    */\r\n    toggleFaqVisibility() {\r\n        this.state.faq.isVisible = !this.state.faq.isVisible;\r\n        this.save();\r\n    },\r\n    \r\n    /**\r\n    * Toggle the visibility state of the task\r\n    */\r\n    toggleTaskVisibility() {\r\n        this.state.task.isVisible = !this.state.task.isVisible;\r\n        this.save();\r\n    },\r\n    \r\n    /**\r\n    * Toggle isOpen property of a folder.\r\n    * @param {String} folderName \r\n    */\r\n    toggleFolderOpen(folderName) {\r\n        let folder = this.searchFileTree({name: folderName});\r\n        if (folder !== null) {\r\n            folder.isOpen = !folder.isOpen;\r\n            this.save();\r\n        }\r\n    },\r\n    \r\n    /**\r\n    * Search for any item in file tree.\r\n    * @param {Object} searchOptions - Object must have one key and one value, from the filetree item that is searched for. If the combination is not unique the fist result will be returned.\r\n    * @returns {module:data/store~TreeItem}\r\n    */\r\n    searchFileTree(searchOptions) {\r\n        // general tree search function\r\n        // with kind help by stackoverflow (https://stackoverflow.com/questions/9133500/how-to-find-a-node-in-a-tree-with-javascript)\r\n        function recursiveSearch(node, key, value) {\r\n            if (node[key] === value) {\r\n                return node;\r\n            } else if (node.children !== undefined) {\r\n                let result = null;\r\n                for (let child of node.children) {\r\n                    result = recursiveSearch(child, key, value);\r\n                    if (result !== null) { break; }\r\n                }\r\n                return result;\r\n            }\r\n            return null;\r\n        }\r\n        \r\n        if (Object.keys(searchOptions).length === 1) {\r\n            let searchKey = Object.keys(searchOptions)[0],\r\n            searchValue = searchOptions[searchKey];\r\n            \r\n            return recursiveSearch(this.state.content.filetree, searchKey, searchValue);\r\n        }\r\n        return null;\r\n    },\r\n    \r\n    /**\r\n    * Open all folders of file tree.\r\n    */\r\n    openFileTree() {\r\n        this.changeFileTreeRecusive(this.state.content.filetree, \"isOpen\", true);\r\n        this.save();\r\n    },\r\n    \r\n    /**\r\n    * Close all folders of filetree.\r\n    */\r\n    collapseFileTree() {\r\n        this.changeFileTreeRecusive(this.state.content.filetree, \"isOpen\", false);\r\n        this.save();\r\n    },\r\n    \r\n    /**\r\n    * Change one parameter in all items of the file tree\r\n    * @param {module:data/store~TreeItem} node \r\n    * @param {String} key \r\n    * @param {*} value \r\n    */\r\n    changeFileTreeRecusive(node, key, value) {\r\n        if (node[key] !== undefined) {\r\n            node[key] = value;\r\n        } \r\n        if (node.children !== undefined) {\r\n            for (let child of node.children) {\r\n                this.changeFileTreeRecusive(child, key, value);\r\n            }\r\n        }\r\n    },\r\n    \r\n    setState(stateString) {\r\n        if (stateString !== null) {\r\n            this.state = JSON.parse(stateString);\r\n            console.log(\"state loaded\");\r\n        }\r\n    },\r\n    \r\n    /**\r\n    * Stringify current state.\r\n    * @return {String} String of the current state\r\n    */\r\n    getStateString() {\r\n        return JSON.stringify(this.state);\r\n    },\r\n    \r\n    /**\r\n    * Meke deep copy of current state.\r\n    * @return {module:data/store~State} Deep copy of state\r\n    */\r\n    getStateCopy() {\r\n        return JSON.parse(this.getStateString());\r\n    },\r\n    \r\n    get currentFileSha() {\r\n        return this.state.content.currentFile;\r\n    },\r\n    \r\n    get currentFile() {\r\n        return this.state.content.files[this.state.content.currentFile];\r\n    },\r\n    \r\n    // Save current state to the nrowsers local storage\r\n    save() {\r\n        localStorage.setItem(\"autosave_state\", this.getStateString());\r\n        if (this.debug) {\r\n            console.log(\"state saved\");\r\n            console.log(this.state);\r\n        }\r\n    },\r\n};\r\n\r\nstore.setState((function() {\r\n    if (localStorage.getItem(\"state\") !== undefined) {\r\n        return localStorage.getItem(\"state\");\r\n    }\r\n    return null;\r\n})());\r\n\r\nexport default store;",
+                "linePresentationModifiers": [
+                    {
+                        "class": "unchanged_line",
+                        "lines": [0,1,2,3,4,5,6,7,8,9,10]
+                    },
+                    {
+                        "class": "halloween_line",
+                        "lines": [0,6,7,8,9,10,11,12,13,14]
+                    }
+                ],
+                "activeCommentSection": "2",
+                "comments": [
+                    {
+                        "id": "20001",
+                        "sectionId": "2",
+                        "authorId": "1111",
+                        "authorAvatarUrl": "https://media.vanityfair.com/photos/5c2fdb09ef10e32ca1332862/1:1/w_1420,h_1420,c_limit/trumpshutdownraises.jpg",
+                        "authorName": "Trump",
+                        "content": "What's up with you?",
+                        "categoryId": "3"
+                    },
+                    {
+                        "id": "20002",
+                        "sectionId": "12",
+                        "authorId": "123",
+                        "authorName": "Monkey D. Ruffy",
+                        "content": "Why would you delete this?",
+                        "categoryId": "2"
+                    },
+                    {
+                        "id": "20003",
+                        "sectionId": "12",
+                        "authorId": "123",
+                        "authorName": "Monkey D. Ruffy",
+                        "content": "ID3 lol",
+                        "categoryId": "2"
+                    }
+                ]
+            },
+            "fileSha0002": {
+                "sha": "fileSha0002",
+                "path": "src/test.htm",
+                "text": "<!DOCTYPE HTML>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>HTMLHint</title>\n</head>\n<body>\n  <div>\"HTMLHint\": help your html code better\n</body>\n</html>",
+                "linePresentationModifiers": [],
+                "activeCommentSection": null,
+                "comments": []
+            },
+            "fileSha0003": {
+                "sha": "fileSha0003",
+                "path": "src/test.css",
+                "text": "",
+                "linePresentationModifiers": [],
+                "activeCommentSection": null,
+                "comments": []
+            }
+        },
+        "filetree": {
+            "name": "src",
+            "isOpen": true,
+            "children": [
+                { "sha": "undefined", "name": "test.html", "isModified": false},
+                { "sha": "fileSha0002", "name": "test.htm", "isModified": true},
+                { "sha": "fileSha0003", "name": "test.css", "isModified": true},
+                { "sha": "undefined", "name": "test.txt", "isModified": false},
+                {
+                    "name": "js",
+                    "isOpen": false,
+                    "children": [
+                        { "sha": "fileSha0000", "name": "AppServer.js", "isModified": true},
+                        { "sha": "fileSha0001", "name": "SideComments.js", "isModified": false}
+                    ]
+                },
+                {
+                    "name": "test",
+                    "isOpen": false,
+                    "children": [
+                        { "sha": "undefined", "name": "test.js", "isModified": false},
+                        { "sha": "testfile0000", "name": "testfile.js", "isModified": false},
+                        {
+                            "name": "emptyFolder", "isOpen": false, "children": []
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "editor": {
+        "activeTheme": "gruvbox-dark",
+        "themes": [
+            "default","gruvbox-dark","monokai","seti","idea","the-matrix"
+        ]
+    }
+}

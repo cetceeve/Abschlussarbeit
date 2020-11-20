@@ -36,6 +36,9 @@
         <h4 id="loader-text">Internet nach Skripten durchsuchen...</h4>
     </div>
     <div id="app" style="display:none;">
+        <sui-dimmer :active="!sharedState.meta.ready" inverted>
+            <sui-loader>Loading ...</sui-loader>
+        </sui-dimmer>
         <sui-grid :columns="3">
             <sui-grid-row class="remove-row-padding">
                 <sui-grid-column :width="3" class="dark-background left-row-padding">

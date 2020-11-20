@@ -1,3 +1,4 @@
+
 /**
 * Module to store the current state and all state operations.
 * The state object must not be manipulated directly.
@@ -120,7 +121,6 @@ let store = {
         meta: {
             id: "0000",
             status: "wip",
-            activeStage: "undefined",
         },
         user: {
             id: "123",
@@ -707,7 +707,7 @@ let store = {
     setState(stateString) {
         if (stateString !== null) {
             this.state = JSON.parse(stateString);
-            console.log("state recovered");
+            console.log("state loaded");
         }
     },
     
@@ -737,7 +737,7 @@ let store = {
     
     // Save current state to the nrowsers local storage
     save() {
-        localStorage.setItem("autosave_state", this.getStateString());
+        // localStorage.setItem("autosave_state", this.getStateString());
         if (this.debug) {
             console.log("state saved");
             console.log(this.state);
@@ -746,7 +746,9 @@ let store = {
 };
 
 store.setState((function() {
-    
+    if (localStorage.getItem("state") !== undefined) {
+        return localStorage.getItem("state");
+    }
     return null;
 })());
 

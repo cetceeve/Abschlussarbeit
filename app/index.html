@@ -8,5 +8,14 @@
 </head>
 <body>
     <button onclick="location.href = './review-editor?test=hello';" >Click me!</button>
+    <script type="module">
+        console.log("hey")
+        import serverConnection from "./res/js/utils/server-connection.js"
+
+        serverConnection.fetchState().then(data => {
+            localStorage.setItem("state", data.state);
+            console.log("state ready");
+        });
+    </script>
 </body>
 </html>
