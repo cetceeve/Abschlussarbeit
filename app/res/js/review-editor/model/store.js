@@ -12,9 +12,9 @@
 * @type {Object}
 * @property {Object} meta - Information regarding the Review-Editors context and status.
 * @property {String} meta.id - the ID of the current state.
-* @property {boolean} meta.debug - Used to trigger debug behaviour.
-* @property {String} meta.status - Status of the Review [open, in-progress, finished].
-* @property {String} meta.activeStage - The currently active stage of the Review.
+* @property {Boolean} meta.ready - Status of the state.
+* @property {module:data/store~Task} meta.task - The user study task this state is used for.
+* @property {Boolean} meta.exitConfirmationIsVisible - Sentinel to determine if exit confirmation should be visible.
 * 
 * @property {Object} user - Data for the logged in user.
 * @property {String} user.id - User id.
@@ -104,10 +104,18 @@
 /**
 * Object changing the presentation of one line in codemirror using addLineClass on "wrap", see below.
 * @typedef LinePresentationModifier
-* @typedef {Object}
+* @type {Object}
 * @property {String} class - Name for the css class to be applied.
 * @property {Number[]} lines - Array of lines that the class should be applied to.
 * @see https://codemirror.net/doc/manual.html#addLineClass
+*/
+/**
+* Object for one user study task
+* @typedef Task
+* @type {Object}
+* @property {String} id
+* @property {String} name
+* @property {String} description
 */
 
 /**
@@ -119,8 +127,14 @@ let store = {
     debug: true,
     state: {
         meta: {
-            id: "0000",
-            status: "wip",
+            id: "unknown",
+            ready: false,
+            task: {
+                id: "unknown",
+                name: "unknown",
+                description: "unknown",
+            },
+            exitConfirmationIsVisible: false,
         },
         user: {
             id: "123",
@@ -519,7 +533,7 @@ let store = {
         let existingComment = this.state.content.files[fileSha].comments.find((comment) => {
             return comment.id === newComment.id;
         });
-
+        
         // update exiting or create a new comment
         if (existingComment) {
             existingComment.content = newComment.content;
@@ -625,6 +639,14 @@ let store = {
     */
     toggleTaskVisibility() {
         this.state.task.isVisible = !this.state.task.isVisible;
+        this.save();
+    },
+    
+    /**
+    * Toggle the visibility state of the exit confirmation
+    */
+    toggleExitConfirmationVisibility() {
+        this.state.meta.exitConfirmationIsVisible = !this.state.meta.exitConfirmationIsVisible;
         this.save();
     },
     

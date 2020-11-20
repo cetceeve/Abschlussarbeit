@@ -8,10 +8,10 @@ Vue.use(SemanticUIVue);
 new Vue({
     el:"#app",
     data: {
-        user: "undefined",
+        user: "unknown",
         currentTask: {
-            name: "undefined",
-            description: "undefined",
+            name: "unknown",
+            description: "unknown",
         },
     },
     /** Hold computed properties for the component.
@@ -27,8 +27,6 @@ new Vue({
         startEditor() {
             serverConnection.fetchState().then(data => {
                 localStorage.setItem("state", data.state);
-                localStorage.setItem("currentTaskName", "Exploration");
-                localStorage.setItem("currentTaskDescription", "Das ist _bald_ die coole `Task Desscription`.");
                 location.href = "./review-editor";
                 console.log("start editor");
             });

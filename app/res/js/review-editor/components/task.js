@@ -10,7 +10,7 @@ import snarkdown from "../../../../vendors/snarkdown/snarkdown.es.js";
 */
 
 /**
-* Namespace for FAQ component
+* Namespace for Task component
 * @namespace
 */
 let TaskComponent = {

@@ -1,8 +1,13 @@
 {
     "meta": {
         "id": "0000",
-        "status": "wip",
-        "ready": true
+        "ready": false,
+        "task": {
+            "id": "1",
+            "name": "Exploration",
+            "description": "Das ist _bald_ die coole `Task Desscription`."
+        },
+        "exitConfirmationIsVisible": false
     },
     "user": {
         "id": "123",

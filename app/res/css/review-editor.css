@@ -254,9 +254,9 @@ pre.code {
     border-left-width: 3px;
 }
 
-.review-task-controls {
+.user-study-controls {
     position: absolute !important;
-    top: 1rem;
+    top: 2rem;
     left: 50%;
     transform: translate(-50%, 0);
     z-index: 99;
