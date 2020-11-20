@@ -253,3 +253,11 @@ pre.code {
     background: #FFF;
     border-left-width: 3px;
 }
+
+.review-task-controls {
+    position: absolute !important;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 99;
+}

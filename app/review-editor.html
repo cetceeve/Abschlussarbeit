@@ -53,27 +53,48 @@
                 </sui-grid-column>
                 <sui-grid-column :width="9" class="remove-padding">
                     <code-editor></code-editor>
+                    <!-- Test Evironment additions -->
+                    <sui-segment raised class="review-task-controls" aligned="center" >
+                        <sui-label attached="top">Task: {{ currentTaskName }}</sui-label>
+                        <sui-button content="Task-Beschreibung" @click="toggleTaskDesciption" :class="{active: taskDescriptionIsVisible}" size="mini"></sui-button>
+                        <sui-button content="Task abschließen" @click="toggleExitConfirmation" icon="right arrow" label-position="right" :class="{active: exitConfirmationIsVisible}" size="mini"></sui-button>
+                    </sui-segment>
                 </sui-grid-column>
                 <sui-grid-column :width="4" class="light-dark-background">
                     <comments-display></comments-display>
-                    <sui-button positive class="button-end-review raised" @click="toggleExitConfirmation" >Review Beenden</sui-button>
+                    <sui-button positive class="button-end-review raised" @click="toggleExitConfirmation" :class="{active: exitConfirmationIsVisible}">Review beenden</sui-button>
                 </sui-grid-column>
             </sui-grid-row>
         </sui-grid>
         <faq-modal></faq-modal>
         <task-modal></task-modal>
+        
+        <!-- Test Evironment additions -->
         <sui-modal size="tiny" :open="exitConfirmationIsVisible">
             <sui-modal-header>
-                Verlassen
+                Task Abschließen
             </sui-modal-header>
             <sui-modal-content>
-                <p>Code-Review-Editor verlassen und Code-Review-Task abschließen?</p>
+                <p>Code-Review-Editor verlassen und Task abschließen?</p>
             </sui-modal-content>
             <sui-modal-actions>
                 <sui-button @click="toggleExitConfirmation">
                     Abbrechen
                 </sui-button>
-                <sui-button primary content="Verlassen" @click="exit" icon="right arrow" label-position="right" />
+                <sui-button primary content="Task Abschließen" @click="exit" icon="right arrow" label-position="right" />
+            </sui-modal-actions>
+        </sui-modal>
+        <sui-modal :open="taskDescriptionIsVisible">
+            <sui-modal-header>
+                Task Beschreibung: {{ currentTaskName }}
+            </sui-modal-header>
+            <sui-modal-content scrolling>
+                <sui-container v-html="renderedMarkdown"></sui-container>
+            </sui-modal-content>
+            <sui-modal-actions>
+                <sui-button positive @click.native="toggleTaskDesciption">
+                    OK
+                </sui-button>
             </sui-modal-actions>
         </sui-modal>
     </div>

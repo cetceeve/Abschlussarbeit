@@ -21,11 +21,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/review-editor", (req, res) => {
-    console.log(req.query);
     res.sendFile(path.join(__dirname + "/app/review-editor.html"));
 });
 
 app.post("/state", (req, res) => {
     console.log(req.body);
-    res.json({ state: state});
+    res.json({ state: fs.readFileSync("./data/test_state.json", "utf8")});
 });

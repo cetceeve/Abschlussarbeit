@@ -7,13 +7,14 @@
     <title>Review-Edior-Test</title>
 </head>
 <body>
-    <button onclick="location.href = './review-editor?test=hello';" >Click me!</button>
+    <button onclick="location.href = './review-editor';" >Click me!</button>
     <script type="module">
-        console.log("hey")
         import serverConnection from "./res/js/utils/server-connection.js"
 
         serverConnection.fetchState().then(data => {
             localStorage.setItem("state", data.state);
+            localStorage.setItem("currentTaskName", "Exploration");
+            localStorage.setItem("currentTaskDescription", "Das ist _bald_ die coole `Task Desscription`.");
             console.log("state ready");
         });
     </script>
