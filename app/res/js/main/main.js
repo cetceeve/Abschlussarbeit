@@ -1,6 +1,6 @@
 /* global Vue SemanticUIVue HtmlSanitizer*/
-import snarkdown from "../../vendors/snarkdown/snarkdown.es.js";
-import serverConnection from "./utils/server-connection.js";
+import snarkdown from "../../../vendors/snarkdown/snarkdown.es.js";
+import serverConnection from "../utils/server-connection.js";
 
 Vue.use(SemanticUIVue);
 

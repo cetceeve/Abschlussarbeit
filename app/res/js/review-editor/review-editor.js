@@ -6,7 +6,7 @@ import FaqComponent from "./components/faq.js";
 import TaskComponent from "./components/task.js";
 import TreeViewComponent from "./components/tree-view.js";
 import store from "./model/store.js";
-import snarkdown from "../../vendors/snarkdown/snarkdown.es.js";
+import snarkdown from "../../../vendors/snarkdown/snarkdown.es.js";
 
 Vue.use(VueCodemirror);
 Vue.use(SemanticUIVue);

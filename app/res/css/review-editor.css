@@ -256,7 +256,7 @@ pre.code {
 
 .review-task-controls {
     position: absolute !important;
-    top: 0;
+    top: 1rem;
     left: 50%;
     transform: translate(-50%, 0);
     z-index: 99;

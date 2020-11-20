@@ -1,6 +1,6 @@
 /* global HtmlSanitizer */
 import store from "../model/store.js";
-import snarkdown from "../../../vendors/snarkdown/snarkdown.es.js";
+import snarkdown from "../../../../vendors/snarkdown/snarkdown.es.js";
 
 /**
 * Display a checklist, responsive of the review state
