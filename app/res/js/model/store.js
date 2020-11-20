@@ -1,4 +1,3 @@
-import serverConnection from "./server-connection.js";
 /**
 * Module to store the current state and all state operations.
 * The state object must not be manipulated directly.
@@ -747,9 +746,7 @@ let store = {
 };
 
 store.setState((function() {
-    // if (localStorage.getItem("autosave_state")) {
-    //     return localStorage.getItem("autosave_state");
-    // }
+    
     return null;
 })());
 

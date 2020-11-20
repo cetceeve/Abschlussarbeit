@@ -1,5 +1,5 @@
 /* global HtmlSanitizer */
-import store from "../data/store.js";
+import store from "../model/store.js";
 import snarkdown from "../../../vendors/snarkdown/snarkdown.es.js";
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 

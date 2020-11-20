@@ -3,7 +3,6 @@
 const express = require("express"),
 fs = require("fs"),
 path = require("path"),
-state = JSON.parse(fs.readFileSync("./data/test_state.json", "utf8")),
 port = 3000;
 
 let app = express();
@@ -23,4 +22,8 @@ app.get("/", (req, res) => {
 app.get("/review-editor", (req, res) => {
     console.log(req.query);
     res.sendFile(path.join(__dirname + "/app/review-editor.html"));
+});
+
+app.get("/state", (req, res) => {
+    console.log(req.body.taskId);
 });

@@ -1,12 +1,12 @@
 let serverConnection = {
-    fetchState: async function (url) {
-        let serverRes = await fetch(url, {
-            method: "POST",
+    fetchState: async function () {
+        let serverRes = await fetch("/state", {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                message: "hi",
+                taskId: "12345",
             }),
         });
         return await serverRes.json();

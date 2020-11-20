@@ -1,5 +1,5 @@
 /* global CodeMirror */
-import store from "../data/store.js";
+import store from "../model/store.js";
 import CommentsMarkerComponent from "./comments-marker.js";
 
 /**

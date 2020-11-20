@@ -5,7 +5,7 @@ import CommentsDisplayComponent from "./components/comments-display.js";
 import FaqComponent from "./components/faq.js";
 import TaskComponent from "./components/task.js";
 import TreeViewComponent from "./components/tree-view.js";
-import store from "./data/store.js";
+import store from "./model/store.js";
 
 Vue.use(VueCodemirror);
 Vue.use(SemanticUIVue);

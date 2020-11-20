@@ -1,5 +1,5 @@
 /* global Vue */
-import store from "../data/store.js";
+import store from "../model/store.js";
 
 /**
 * Display tree view of the projects/repositories file structure.

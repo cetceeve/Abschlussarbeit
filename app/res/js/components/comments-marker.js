@@ -1,4 +1,4 @@
-import store from "../data/store.js";
+import store from "../model/store.js";
 
 /**
  * Marker component to be added to one codemirror line.

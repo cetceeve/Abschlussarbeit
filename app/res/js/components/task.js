@@ -1,5 +1,5 @@
 /* global HtmlSanitizer */
-import store from "../data/store.js";
+import store from "../model/store.js";
 import snarkdown from "../../../vendors/snarkdown/snarkdown.es.js";
 
 /**
