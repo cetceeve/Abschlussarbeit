@@ -111,7 +111,13 @@
 }
 
 .light-dark-background {
-    background-color: #f8f8f8;
+    background-color: #f7f7f7;
+}
+
+.panel {
+    background: #e0e1e2;
+    padding: 3px 7px;
+    font-size: 0.85em;
 }
 
 .remove-padding {
@@ -256,8 +262,8 @@ pre.code {
 
 .user-study-controls {
     position: absolute !important;
-    top: 2rem;
-    left: 50%;
-    transform: translate(-50%, 0);
+    top: 3rem;
+    right: 1.5rem;
+    /* transform: translate(-50%, 0); */
     z-index: 99;
 }

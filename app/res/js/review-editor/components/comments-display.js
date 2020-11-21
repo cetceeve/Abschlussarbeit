@@ -167,6 +167,9 @@ CommentsDisplayComponent = {
         isActive() {
             return store.currentFile.activeCommentSection !== null;
         },
+        activeLineNumber() {
+            return parseInt(store.currentFile.activeCommentSection) + 1;
+        },
     },
     /**
     * Hold methods for this component.

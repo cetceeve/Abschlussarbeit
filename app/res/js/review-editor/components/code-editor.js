@@ -63,6 +63,7 @@ let CodeEditorComponent = {
                 },
             },
             linePaddingRight: "22px",
+            filePathPanel: undefined,
         };
     },
     /** Hold computed properties for the component.
@@ -103,10 +104,10 @@ let CodeEditorComponent = {
         },
     },
     /**
-     * Triggered before Vue updates the Dom
-     * Used to bring reactive behaviour into codemirror.
-     * @see https://vuejs.org/v2/guide/reactivity.html
-     */
+    * Triggered before Vue updates the Dom
+    * Used to bring reactive behaviour into codemirror.
+    * @see https://vuejs.org/v2/guide/reactivity.html
+    */
     beforeUpdate() {
         // Catch a theme change in the application state
         if (this.editorOptions.activeTheme !== this.codemirror.options.theme) {
@@ -171,6 +172,17 @@ let CodeEditorComponent = {
                 modifier.lines.map(lineNum => this.codemirror.addLineClass(lineNum, "wrap", modifier.class));
             });
         },
+        addFilePathPanel = () => {
+            if (this.filePathPanel === undefined) {
+                let node = document.createElement("div"),
+                label = node.appendChild(document.createElement("span"));
+                label.textContent = store.currentFile.path;
+                node.className = "panel";
+                this.filePathPanel = this.codemirror.addPanel(node);
+            } else {
+                this.filePathPanel.node.firstChild.textContent = store.currentFile.path;
+            }
+        },
         // Add Comment Markers to each code mirror line.
         // Marker elements get reused for performance reasons.
         addCommentMarkers = () => {
@@ -180,11 +192,16 @@ let CodeEditorComponent = {
             }
         },
         // Stuff that needs to be done after startup
-        initOnce = () => {
+        initCodeEditor = () => {
             loadMode();
             applyLinePresentationModifiers();
             addCommentMarkers();
-        };
+            this.$nextTick(function () {
+                // DOM is now updated
+               addFilePathPanel();
+               this.codemirror.setSize(null, "100vh");
+            });
+        }; 
         
         // Callback runs whenever text in the editor changes (file changes).
         this.codemirror.on("change", () => {
@@ -194,6 +211,8 @@ let CodeEditorComponent = {
             applyLinePresentationModifiers();
             // Re-add comment marker elements to codemirror when the editors content changes.
             addCommentMarkers();
+            // Re-render file path panel to reflect change
+            addFilePathPanel();
         });
         
         // triggered on every render and re-render of one line
@@ -222,8 +241,7 @@ let CodeEditorComponent = {
             });
         });
         
-        this.codemirror.setSize(null, "100vh");
-        initOnce();
+        initCodeEditor();
     },
 };
 

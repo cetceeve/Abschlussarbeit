@@ -54,10 +54,12 @@
   top: 0;
   right: 0;
   cursor: pointer;
+  z-index: 98;
 }
 
 .side-comment .marker span {
   display: none;
+  z-index: 99;
 }
 
 .side-comment.active .marker,

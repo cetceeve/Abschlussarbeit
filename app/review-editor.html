@@ -97,6 +97,8 @@
         <div>
             <div class="comment-display">
                 <div v-show="isActive">
+                    <h4 is="sui-header">Zeile: {{ activeLineNumber }}</h4>
+                    <sui-divider />
                     <single-comment v-for="comment in comments" :key="comment.id" :comment="comment"></single-comment>
                     <sui-divider v-show="hasComments" />
                     <sui-form>
@@ -321,6 +323,7 @@
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/fold/foldgutter.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/edit/matchbrackets.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/edit/matchtags.min.js"></script> <!-- depends on xml-fold -->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/addon/display/panel.js"></script>
     <!-- codemirror modes -->
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/mode/javascript/javascript.js"></script>
     <script src=https://cdn.jsdelivr.net/npm/codemirror@5.58.2/mode/python/python.min.js></script>
