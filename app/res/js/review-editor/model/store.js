@@ -3,7 +3,7 @@
 * Module to store the current state and all state operations.
 * The state object must not be manipulated directly.
 * Follows the {@link https://vuejs.org/v2/guide/state-management.html#Simple-State-Management-from-Scratch|Store-Pattern}.
-* @module data/store
+* @module review-editor/model/Store
 * @author Fabian Zeiher <fzeiher@gmail.com>
 */
 /**
@@ -13,7 +13,7 @@
 * @property {Object} meta - Information regarding the Review-Editors context and status.
 * @property {String} meta.id - the ID of the current state.
 * @property {Boolean} meta.ready - Status of the state.
-* @property {module:data/store~Task} meta.task - The user study task this state is used for.
+* @property {module:review-editor/model/Store~Task} meta.task - The user study task this state is used for.
 * @property {Boolean} meta.exitConfirmationIsVisible - Sentinel to determine if exit confirmation should be visible.
 * 
 * @property {Object} user - Data for the logged in user.
@@ -24,11 +24,11 @@
 * 
 * @property {Object} faq - Data for a simple faq to be displayed.
 * @property {Boolean} faq.isVisible - Sentinel guarding the visibility state of the faq modal.
-* @property {module:data/store~FaqItem[]} faq.data - Array holding data object for the faq.
+* @property {module:review-editor/model/Store~FaqItem[]} faq.data - Array holding data object for the faq.
 * 
 * @property {Object} checklist - Data for the checklist.
 * @property {Boolean} checklist.isVisible - Sentinel guarding the visibility state of the checklist.
-* @property {Object.<String, module:data/store~Checkbox>} checklist.categories - Dictionary for checklist displayed on the bottom left. Key: category string. Value: checkbox object.
+* @property {Object.<String, module:review-editor/model/Store~Checkbox>} checklist.categories - Dictionary for checklist displayed on the bottom left. Key: category string. Value: checkbox object.
 * 
 * @property {Object} task - Data for the Task modal
 * @property {Boolean} task.isVisible - Sentinel guarding the visibility state of the task modal.
@@ -36,9 +36,9 @@
 *
 * @property {Object} content
 * @property {String} content.currentFile - Sha for the currently displayed file.
-* @property {module:data/store~CommentCategory[]} content.commentCategories - Array of possible categories for comments
-* @property {Object.<String, module:data/store~File>} content.files - Dictonary of files. Key: file sha. Value: file object.
-* @property {module:data/store~TreeItem} content.filetree - File tree for the repository. Root item of the file tree.
+* @property {module:review-editor/model/Store~CommentCategory[]} content.commentCategories - Array of possible categories for comments
+* @property {Object.<String, module:review-editor/model/Store~File>} content.files - Dictonary of files. Key: file sha. Value: file object.
+* @property {module:review-editor/model/Store~TreeItem} content.filetree - File tree for the repository. Root item of the file tree.
 *
 * @property {Object} editor - Data object for look and behaviour of the editor.
 * @property {String} editor.activeTheme - Active code highlighting theme for the editor.
@@ -50,9 +50,9 @@
 * @property {String} sha - Unique identifier for file.
 * @property {String} path - Relative path of the file in the project. Extention is used to determine codemirror mode.
 * @property {String} text - Text content stored inside that file.
-* @property {module:data/store~LinePresentationModifier[]} linePresentationModifiers - Array of objects that are used to change the presentation of a codemirror line.
+* @property {module:review-editor/model/Store~LinePresentationModifier[]} linePresentationModifiers - Array of objects that are used to change the presentation of a codemirror line.
 * @property {String} activeCommentSection - Currently active Comment section. 'null' if no section is active.
-* @property {module:data/store~Comment[]} comments - Array of comment objects.
+* @property {module:review-editor/model/Store~Comment[]} comments - Array of comment objects.
 */
 /**
 * Data object for side-comments. Origin see below.
@@ -81,7 +81,7 @@
 * @typedef TreeItem
 * @type {Object}
 * @property {String} name - Display name of the item.
-* @property {module:data/store~TreeItem[]} [children] - Array if tree items. Having children makes a tree item a folder.
+* @property {module:review-editor/model/Store~TreeItem[]} [children] - Array if tree items. Having children makes a tree item a folder.
 * @property {Boolean} [isOpen] - Sentinel indicating if the items children are visible.
 * @property {String} [sha] - Sha for the file represeted by this tree item.
 * @property {Boolean} [isModified] - Indicates if the file was modified by the review author.
@@ -121,7 +121,7 @@
 /**
 * Namespace object for store module.
 * @namespace
-* @property {module:data/store~State} state - Represents the state of the Review-Editor, can be safed to external database.
+* @property {module:review-editor/model/Store~State} state - Represents the state of the Review-Editor, can be safed to external database.
 */
 let store = {
     debug: true,
@@ -526,7 +526,7 @@ let store = {
     /**
     * Add or update one comment for one code file, enriches user inputed data with the user data
     * @param {String} fileSha
-    * @param {module:data/store~Comment} newComment
+    * @param {module:review-editor/model/Store~Comment} newComment
     */
     postComment(fileSha, newComment) {
         // search if that comment already exists in the database
@@ -665,7 +665,7 @@ let store = {
     /**
     * Search for any item in file tree.
     * @param {Object} searchOptions - Object must have one key and one value, from the filetree item that is searched for. If the combination is not unique the fist result will be returned.
-    * @returns {module:data/store~TreeItem}
+    * @returns {module:review-editor/model/Store~TreeItem}
     */
     searchFileTree(searchOptions) {
         // general tree search function
@@ -711,7 +711,7 @@ let store = {
     
     /**
     * Change one parameter in all items of the file tree
-    * @param {module:data/store~TreeItem} node 
+    * @param {module:review-editor/model/Store~TreeItem} node 
     * @param {String} key 
     * @param {*} value 
     */
@@ -743,7 +743,7 @@ let store = {
     
     /**
     * Meke deep copy of current state.
-    * @return {module:data/store~State} Deep copy of state
+    * @return {module:review-editor/model/Store~State} Deep copy of state
     */
     getStateCopy() {
         return JSON.parse(this.getStateString());

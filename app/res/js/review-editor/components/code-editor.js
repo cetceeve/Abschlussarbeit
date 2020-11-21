@@ -11,9 +11,10 @@ import CommentsMarkerComponent from "./comments-marker.js";
 * Handles display of the code.
 * Holds the configuration for codemirror.
 * 
-* @module components/CodeEditorComponent
+* @module review-editor/components/CodeEditorComponent
 * @author Fabian Zeiher <fzeiher@gmail.com>
-* @requires module:data/store
+* @requires module:review-editor/model/Store
+* @requires module:review-editor/components/CommentsMarkerComponent
 */
 /**
 * Namespace Object for Code Editor Component.

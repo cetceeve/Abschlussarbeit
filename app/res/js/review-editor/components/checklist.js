@@ -4,8 +4,8 @@ import snarkdown from "../../../../vendors/snarkdown/snarkdown.es.js";
 
 /**
 * Display a checklist, responsive of the review state
-* @module components/ChecklistComponent
-* @requires module:data/store
+* @module review-editor/components/ChecklistComponent
+* @requires module:review-editor/model/Store
 * @author Fabian Zeiher
 */
 
@@ -23,7 +23,7 @@ let CostumCheckboxComponent = {
     /**
     * Attributes that are exposed to accept data from the parent component.
     * @property {String} category - The category this checkbox belongs to.
-    * @property {module:data/store~Checkbox} data - Data object for the checkbox.
+    * @property {module:review-editor/model/Store~Checkbox} data - Data object for the checkbox.
     */
     props: {
         data: Object,

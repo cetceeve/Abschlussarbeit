@@ -5,9 +5,9 @@ import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 
 /**
 * Display the currently selected visible section of comments
-* @module components/CommentsDisplayComponent
+* @module review-editor/components/CommentsDisplayComponent
 * @author Fabian Zeiher <fzeiher@gmail.com>
-* @requires module:data/store
+* @requires module:review-editor/model/Store
 */
 
 /**
@@ -23,7 +23,7 @@ let CommentComponent = {
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
     * @property {String} rawMarkdown - Text that can be edited by the user. Bound by v-model.
     * @property {Boolean} isEditMode - Sentinel checking if the user interface is in editing mode.
-    * @property {module:data/store~CommentCategory[]} commentCategories - Array of possible categories for comments.
+    * @property {module:review-editor/model/Store~CommentCategory[]} commentCategories - Array of possible categories for comments.
     * @property {String} currentCategory - Currently selected comment category id.
     * @see https://vuejs.org/v2/guide/reactivity.html
     */
@@ -37,7 +37,7 @@ let CommentComponent = {
     },
     /**
      * Attributes that are exposed to accept data from the parent component.
-     * @property {module:data/store~Comment} comment - Data object for a single comment.
+     * @property {module:review-editor/model/Store~Comment} comment - Data object for a single comment.
     */
     props: {
         comment: Object,
@@ -129,7 +129,7 @@ CommentsDisplayComponent = {
     template: "#comments-display-component-template",
     /**
     * Register Subcomponents locally.
-    * @property {module:components/CommentsDisplayComponent~CommentComponent} single-comment - Comment component displaying single comment.
+    * @property {module:review-editor/components/CommentsDisplayComponent~CommentComponent} single-comment - Comment component displaying single comment.
     */
     components: {
         "single-comment": CommentComponent,
@@ -139,7 +139,7 @@ CommentsDisplayComponent = {
     * @see https://vuejs.org/v2/guide/reactivity.html
     * @property {Object} currentUser - Points to the user area of store.
     * @property {String} newComment - Input text of the comment input box. Bound by v-model.
-    * @property {module:data/store~CommentCategory[]} commentCategories - Array of possible categories for comments.
+    * @property {module:review-editor/model/Store~CommentCategory[]} commentCategories - Array of possible categories for comments.
     * @property {String} currentCategory - Currently selected comment category id. Current default is 3
     */
     data() {
@@ -151,7 +151,7 @@ CommentsDisplayComponent = {
         };
     },
     /** Hold computed properties for the component.
-    * @property {module:data/store~Comment[]} comments - Comments to be displayed for the selected section.
+    * @property {module:review-editor/model/Store~Comment[]} comments - Comments to be displayed for the selected section.
     * @property {Boolean} hasComments - uses comments internally
     * @property {Boolean} isActive - checks if there is a currently active section
     */

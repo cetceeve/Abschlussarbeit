@@ -5,9 +5,9 @@ import store from "../model/store.js";
  * Clickable to create new or display existing comments.
  * Shows number of comments on one line
  * 
- * @module components/CommentsMarkerComponent
+ * @module review-editor/components/CommentsMarkerComponent
  * @author Fabian Zeiher <fzeiher@gmail.com>
- * @requires module:data/store
+ * @requires module:review-editor/model/Store
  */
 
  /**

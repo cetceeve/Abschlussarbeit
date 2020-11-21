@@ -14,7 +14,14 @@ Vue.use(SemanticUIVue);
 /**
 * Display a simple task modal.
 * @module review-editor/ReviewEditor
-* @requires module:data/store
+* @requires module:review-editor/model/Store
+* @requires module:review-editor/components/CodeEditorComponent
+* @requires module:review-editor/components/CommentsDisplayComponent
+* @requires module:review-editor/components/TreeViewComponent
+* @requires module:review-editor/components/ChecklistComponent
+* @requires module:review-editor/components/FaqComponent
+* @requires module:review-editor/components/TaskComponent
+* @requires module:review-editor/components/UserStudyControlsComponent
 * @author Fabian Zeiher
 */
 
@@ -26,13 +33,13 @@ new Vue({
     el: "#app",
     /**
     * Register Subcomponents locally.
-    * @property {module:components/CodeEditorComponent} code-editor - 
-    * @property {module:components/CommentsDisplayComponent} comments-display - 
-    * @property {module:components/TreeViewComponent} tree-view - 
-    * @property {module:components/ChecklistComponent} checklist - 
-    * @property {module:components/FaqComponent} faq-modal - 
-    * @property {module:components/TaskComponent} task-modal - 
-    * @property {module:components/UserStudyControlsComponent} user-study-controls - 
+    * @property {module:review-editor/components/CodeEditorComponent} code-editor - 
+    * @property {module:review-editor/components/CommentsDisplayComponent} comments-display - 
+    * @property {module:review-editor/components/TreeViewComponent} tree-view - 
+    * @property {module:review-editor/components/ChecklistComponent} checklist - 
+    * @property {module:review-editor/components/FaqComponent} faq-modal - 
+    * @property {module:review-editor/components/TaskComponent} task-modal - 
+    * @property {module:review-editor/components/UserStudyControlsComponent} user-study-controls - 
     */
     components: {
         "code-editor": CodeEditorComponent,
@@ -47,7 +54,7 @@ new Vue({
     * Hold reactive data for the component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
     * @see https://vuejs.org/v2/guide/reactivity.html
-    * @property {module:data/store~State} sharedState - Data model for the app, see store.state. Please note that components utilize their own connections to the model.
+    * @property {module:review-editor/model/Store~State} sharedState - Data model for the app, see store.state. Please note that components utilize their own connections to the model.
     */
     data: {
         sharedState: store.state,

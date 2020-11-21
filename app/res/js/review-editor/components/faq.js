@@ -4,8 +4,8 @@ import snarkdown from "../../../../vendors/snarkdown/snarkdown.es.js";
 
 /**
 * Display a simple faq modal.
-* @module components/FaqComponent
-* @requires module:data/store
+* @module review-editor/components/FaqComponent
+* @requires module:review-editor/model/Store
 * @author Fabian Zeiher
 */
 

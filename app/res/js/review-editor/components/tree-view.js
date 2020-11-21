@@ -4,8 +4,8 @@ import store from "../model/store.js";
 /**
 * Display tree view of the projects/repositories file structure.
 * Originally from an example on the Vue website, see below.
-* @module components/TreeViewComponent
-* @requires module:data/store
+* @module review-editor/components/TreeViewComponent
+* @requires module:review-editor/model/Store
 * @author Fabian Zeiher
 * @see https://vuejs.org/v2/examples/tree-view.html
 */
@@ -21,7 +21,7 @@ let TreeViewComponent = {
     /** Hold reactive data for the component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
     * @see https://vuejs.org/v2/guide/reactivity.html
-    * @property {module:data/store~TreeItem} treeData - File tree for the repository. Root item of the file tree.
+    * @property {module:review-editor/model/Store~TreeItem} treeData - File tree for the repository. Root item of the file tree.
     */
     data() {
         return {
@@ -48,7 +48,7 @@ let TreeViewComponent = {
 * Component is globaly registered to allow for recursion.
 * Originally from an example on the Vue website, see below.
 * @namespace TreeItemComponent
-* @requires module:data/store
+* @requires module:review-editor/model/Store
 * @author Fabian Zeiher
 * @see https://vuejs.org/v2/examples/tree-view.html
 * @global
@@ -62,7 +62,7 @@ Vue.component("tree-item", {
     /**
     * Attributes that are exposed to accept data from the parent component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
-    * @property {module:data/store~TreeItem} item - Data item for this node.
+    * @property {module:review-editor/model/Store~TreeItem} item - Data item for this node.
     * @memberof TreeItemComponent
     * @see https://vuejs.org/v2/guide/reactivity.html
     */

@@ -4,8 +4,8 @@ import snarkdown from "../../../../vendors/snarkdown/snarkdown.es.js";
 
 /**
 * Display a simple task modal.
-* @module components/TaskComponent
-* @requires module:data/store
+* @module review-editor/components/TaskComponent
+* @requires module:review-editor/model/Store
 * @author Fabian Zeiher
 */
 
