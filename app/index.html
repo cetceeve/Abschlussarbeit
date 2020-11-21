@@ -18,38 +18,57 @@
     </div>
     
     <script type="text/x-template" id="survey-component-template">
-        <sui-segment>
-            <h2 is="sui-header">
-                <sui-icon name="clipboard" />
-                <sui-header-content>
-                    Fragebogen Task: {{ task.name }}
-                    <sui-header-subheader>{{ survey.description }}</sui-header-subheader>
-                </sui-header-content>
-            </h2>
-            <sui-form size="large">
-                <sui-divider />
-                <sui-likert v-for="(item, index) in survey.items" :key="index" :left-label="item.leftLabel" :right-label="item.rightLabel" :range="survey.likertRange" :id="index.toString()"></sui-likert>
-            </sui-form>
-            <sui-segment basic aligned="right">
-                <sui-button icon="save" label-position="left" @click="startEditor" primary>Ergebnisse abschicken</sui-button>
+        <div>
+            <sui-segment basic>
+                <h1 is="sui-header">Fragebogen Task: {{ task.name }}</h1>
             </sui-segment>
-        </sui-segment>
+            <sui-segment>
+                <h2 is="sui-header">
+                    <sui-icon name="check" />
+                    <sui-header-content>
+                        Task Success
+                        <sui-header-subheader>{{ taskSuccess.description }}</sui-header-subheader>
+                    </sui-header-content>
+                </h2>
+                <sui-form size="large">
+                    <sui-form-field inline>
+                        <label>Task konnte erfolgreich abgeschlossen werden:</label>
+                        <sui-dropdown placeholder="bitte auswählen" selection :options="taskSuccess.options" v-model="taskSuccess.value" />
+                    </sui-form-field>
+                </sui-form>
+            </sui-segment>
+            <sui-segment>
+                <h2 is="sui-header">
+                    <sui-icon name="clipboard" />
+                    <sui-header-content>
+                        Bitte bewerte die Anwendung!
+                        <sui-header-subheader>{{ survey.description }}</sui-header-subheader>
+                    </sui-header-content>
+                </h2>
+                <sui-form>
+                    <sui-table basic="very" celled collapsing unstackable class="center-in-container">
+                        <sui-table-body>
+                            <sui-table-row v-for="(item, index) in survey.items" :key="index">
+                                <sui-table-cell text-align="right">{{ item.leftLabel }}</sui-table-cell>
+                                <sui-table-cell text-align="center">
+                                    <sui-likert @change="item.value = $event" :range="survey.likertRange" :id="index.toString()"></sui-likert>
+                                </sui-table-cell>
+                                <sui-table-cell>{{ item.rightLabel }}</sui-table-cell>
+                            </sui-table-row>
+                        </sui-table-body>
+                    </sui-table>
+                </sui-form>
+            </sui-segment>
+            <sui-segment basic aligned="right">
+                <sui-button icon="save" label-position="left" @click="startEditor" primary :disabled="!isComplete">Ergebnisse abschicken</sui-button>
+            </sui-segment>
+        </div>
     </script>
     
     <script type="text/x-template" id="likert-scale-component-template">
-        <sui-form-fields inline>
-            <sui-form-field width="six">
-                <label style="margin-left: auto">{{ leftLabel }}</label>
-            </sui-form-field>
-            <sui-form-field width="six">
-                <sui-form-fields inline style="margin-bottom: 0; margin-left: auto; margin-right: auto;">
-                    <sui-form-field v-for="index in rangeNumber" :key="index" style="padding-left: 8px; padding-right: 8px;">
-                        <sui-checkbox radio :name="id" :value="index.toString()" v-model="value" />
-                    </sui-form-field>
-                </sui-form-fields>
-            </sui-form-field>
-            <sui-form-field width="six">
-                <label>{{ rightLabel }}</label>
+        <sui-form-fields inline style="margin: auto;">
+            <sui-form-field v-for="index in rangeNumber" :key="index" style="padding-left: 8px; padding-right: 8px;">
+                <sui-checkbox radio :name="id" :value="index.toString()" v-model="result" />
             </sui-form-field>
         </sui-form-fields>
     </script>

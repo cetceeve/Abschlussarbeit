@@ -28,22 +28,31 @@ Vue.component("sui-likert", {
     * Hold reactive data for the component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
     * @see https://vuejs.org/v2/guide/reactivity.html
-    * 
+    * @memberof SuiLikertScaleComponent
+    * @property {String} result - Value of the checkbox that has been selected.
     */
     data() {
         return {
-            value: null,
+            version: false,
+            result: null,
         };
     },
     /** Hold computed properties for the component.
-    * 
+     * @memberof SuiLikertScaleComponent
+    * @property {Number} rangeNumber - Prses range prop to string.
     */
     computed: {
         rangeNumber() {
             return parseInt(this.range);
         },
     },
+    /**
+    * Triggered after Vue updated the Dom
+    * Used to bubble change events upwards
+    * @memberof SuiLikertScaleComponent
+    * @see https://vuejs.org/v2/guide/reactivity.html
+    */
     updated() {
-        console.log("Row:" + this.id + " is set to: " + this.value);
+        this.$emit("change", this.result);
     },
 });

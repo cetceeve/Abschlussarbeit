@@ -18,54 +18,82 @@ let SurveyComponent = {
     * Hold reactive data for the component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
     * @see https://vuejs.org/v2/guide/reactivity.html
-    * 
     */
     data() {
         return {
+            version: false,
             task: {
                 name: "unknown",
             },
+            taskSuccess: {
+                description: "Wir bewerten nur die Anwendung. Antworte also so ehrlich wie möglich.",
+                value: null,
+                options: [
+                    {
+                        text: "Ja",
+                        value: 0,
+                    },
+                    {
+                        text: "Nein",
+                        value: 1,
+                    },
+                ],
+            },
             survey: {
-                description: "unknown",
+                description: "Entscheide so spontan wie möglich welcher der folgenden widersprüchlichen Terme die Anwendung besser beschreibt. Es gibt keine richtigen oder falschen Antworten. Nur deine Meinung zählt.",
                 likertRange: "7",
                 items: [
                     {
-                        leftLabel: "obstructive",
-                        rightLabel: "supportive",
+                        leftLabel: "behindernd",
+                        rightLabel: "unterstützend",
+                        value: null,
                     },
                     {
-                        leftLabel: "complicated",
-                        rightLabel: "easy",
+                        leftLabel: "kompliziert",
+                        rightLabel: "einfach",
+                        value: null,
                     },
                     {
-                        leftLabel: "inefficient",
-                        rightLabel: "efficient",
+                        leftLabel: "ineffizient",
+                        rightLabel: "effizient",
+                        value: null,
                     },
                     {
-                        leftLabel: "clear",
-                        rightLabel: "confusing",
+                        leftLabel: "verwirrend",
+                        rightLabel: "übersichtlich",
+                        value: null,
                     },
                     {
-                        leftLabel: "boring",
-                        rightLabel: "exiting",
+                        leftLabel: "langweilig",
+                        rightLabel: "spannend",
+                        value: null,
                     },
                     {
-                        leftLabel: "not interesting",
-                        rightLabel: "interesting",
+                        leftLabel: "uninteressant",
+                        rightLabel: "interessant",
+                        value: null,
                     },
                     {
-                        leftLabel: "conventional",
-                        rightLabel: "inventive",
+                        leftLabel: "konventionell",
+                        rightLabel: "originell",
+                        value: null,
+                    },
+                    {
+                        leftLabel: "herkömmlich",
+                        rightLabel: "neuartig",
+                        value: null,
                     },
                 ],
             },
         };
     },
     /** Hold computed properties for the component.
-    * 
+    * @property {Boolean} isComplete - Sentinel to determine if user completed the survey.
     */
     computed: {
-        
+        isComplete() {
+            return this.survey.items.every(currentValue => currentValue.value !== null) && this.taskSuccess.value !== null;
+        },
     },
     /**
     * Hold methods for this component.
