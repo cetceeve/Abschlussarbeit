@@ -26,10 +26,32 @@
                     <sui-header-subheader>{{ survey.description }}</sui-header-subheader>
                 </sui-header-content>
             </h2>
+            <sui-form size="large">
+                <sui-divider />
+                <sui-likert v-for="(item, index) in survey.items" :key="index" :left-label="item.leftLabel" :right-label="item.rightLabel" :range="survey.likertRange" :id="index.toString()"></sui-likert>
+            </sui-form>
             <sui-segment basic aligned="right">
                 <sui-button icon="save" label-position="left" @click="startEditor" primary>Ergebnisse abschicken</sui-button>
             </sui-segment>
         </sui-segment>
+    </script>
+    
+    <script type="text/x-template" id="likert-scale-component-template">
+        <sui-form-fields inline>
+            <sui-form-field width="six">
+                <label style="margin-left: auto">{{ leftLabel }}</label>
+            </sui-form-field>
+            <sui-form-field width="six">
+                <sui-form-fields inline style="margin-bottom: 0; margin-left: auto; margin-right: auto;">
+                    <sui-form-field v-for="index in rangeNumber" :key="index" style="padding-left: 8px; padding-right: 8px;">
+                        <sui-checkbox radio :name="id" :value="index.toString()" v-model="value" />
+                    </sui-form-field>
+                </sui-form-fields>
+            </sui-form-field>
+            <sui-form-field width="six">
+                <label>{{ rightLabel }}</label>
+            </sui-form-field>
+        </sui-form-fields>
     </script>
     
     <!-- Vue -->
@@ -43,5 +65,6 @@
     <script src="https://cdn.jsdelivr.net/gh/jitbit/HtmlSanitizer@master/HtmlSanitizer.js"></script>
     <!-- app -->
     <script type="module" src="./res/js/main/main.js"></script>
+    <script type="text/javascript" src="./res/js/utils/sui-likert-scale.js"></script>
 </body>
 </html>

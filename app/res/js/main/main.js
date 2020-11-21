@@ -5,7 +5,7 @@ import SurveyComponent from "./components/survey.js";
 Vue.use(SemanticUIVue);
 
 /**
-* Display a simple task modal.
+* Landing page for the user study.
 * @module main/Main
 * @requires module:main/components/SurveyComponent
 * @author Fabian Zeiher

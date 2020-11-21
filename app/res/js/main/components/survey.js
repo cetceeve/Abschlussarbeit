@@ -1,12 +1,12 @@
 import serverConnection from "../../utils/server-connection.js";
 /**
-* Display a simple task modal.
+* Display a simple survey component.
 * @module main/components/SurveyComponent
 * @author Fabian Zeiher
 */
 
 /**
-* Namespace for FAQ component
+* Namespace for survey component
 * @namespace
 */
 let SurveyComponent = {
@@ -27,6 +27,37 @@ let SurveyComponent = {
             },
             survey: {
                 description: "unknown",
+                likertRange: "7",
+                items: [
+                    {
+                        leftLabel: "obstructive",
+                        rightLabel: "supportive",
+                    },
+                    {
+                        leftLabel: "complicated",
+                        rightLabel: "easy",
+                    },
+                    {
+                        leftLabel: "inefficient",
+                        rightLabel: "efficient",
+                    },
+                    {
+                        leftLabel: "clear",
+                        rightLabel: "confusing",
+                    },
+                    {
+                        leftLabel: "boring",
+                        rightLabel: "exiting",
+                    },
+                    {
+                        leftLabel: "not interesting",
+                        rightLabel: "interesting",
+                    },
+                    {
+                        leftLabel: "conventional",
+                        rightLabel: "inventive",
+                    },
+                ],
             },
         };
     },

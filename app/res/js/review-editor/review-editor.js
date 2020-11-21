@@ -12,7 +12,7 @@ Vue.use(VueCodemirror);
 Vue.use(SemanticUIVue);
 
 /**
-* Display a simple task modal.
+* Base page for the review editor.
 * @module review-editor/ReviewEditor
 * @requires module:review-editor/model/Store
 * @requires module:review-editor/components/CodeEditorComponent
