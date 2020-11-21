@@ -22,7 +22,12 @@ let SurveyComponent = {
     */
     data() {
         return {
-            
+            task: {
+                name: "unknown",
+            },
+            survey: {
+                description: "unknown",
+            },
         };
     },
     /** Hold computed properties for the component.

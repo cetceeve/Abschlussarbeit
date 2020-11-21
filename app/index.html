@@ -18,10 +18,18 @@
     </div>
     
     <script type="text/x-template" id="survey-component-template">
-        <div>
-            <h1>Welcome to the Survey Component</h1>
-            <sui-button @click="startEditor" primary>Start Editor</sui-button>
-        </div>
+        <sui-segment>
+            <h2 is="sui-header">
+                <sui-icon name="clipboard" />
+                <sui-header-content>
+                    Fragebogen Task: {{ task.name }}
+                    <sui-header-subheader>{{ survey.description }}</sui-header-subheader>
+                </sui-header-content>
+            </h2>
+            <sui-segment basic aligned="right">
+                <sui-button icon="save" label-position="left" @click="startEditor" primary>Ergebnisse abschicken</sui-button>
+            </sui-segment>
+        </sui-segment>
     </script>
     
     <!-- Vue -->
