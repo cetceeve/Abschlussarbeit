@@ -208,6 +208,7 @@
     
     <script type="text/x-template" id="faq-component-template">
         <sui-modal :open="faqData.isVisible">
+            <sui-icon name="close" @click.native="toggle"/>
             <sui-modal-header>Fragen und Antworten</sui-modal-header>
             <sui-modal-content scrolling>
                 <sui-accordion exclusive>
@@ -232,6 +233,7 @@
     
     <script type="text/x-template" id="task-component-template">
         <sui-modal :open="taskData.isVisible">
+            <sui-icon name="close" @click.native="toggle"/>
             <sui-modal-header>
                 Aufgabenstellung für dieses Code-Review
             </sui-modal-header>
@@ -254,6 +256,7 @@
                 <sui-button content="Task abschließen" @click="toggleExitConfirmation" icon="right arrow" label-position="right" :class="{active: metaData.exitConfirmationIsVisible}" size="mini"></sui-button>
             </sui-segment>
             <sui-modal size="tiny" :open="metaData.exitConfirmationIsVisible">
+                <sui-icon name="close" @click.native="toggleExitConfirmation"/>
                 <sui-modal-header>
                     Task Abschließen
                 </sui-modal-header>
@@ -261,13 +264,14 @@
                     <p>Code-Review-Editor verlassen und Task abschließen?</p>
                 </sui-modal-content>
                 <sui-modal-actions>
-                    <sui-button @click="toggleExitConfirmation">
+                    <sui-button @click.native="toggleExitConfirmation">
                         Abbrechen
                     </sui-button>
                     <sui-button primary content="Task Abschließen" @click="exitTask" icon="right arrow" label-position="right" />
                 </sui-modal-actions>
             </sui-modal>
             <sui-modal :open="taskDescriptionIsVisible">
+                <sui-icon name="close" @click.native="toggleTaskDesciption"/>
                 <sui-modal-header>
                     Task Beschreibung: {{ metaData.task.name }}
                 </sui-modal-header>
