@@ -11,9 +11,29 @@ import store from "./model/store.js";
 Vue.use(VueCodemirror);
 Vue.use(SemanticUIVue);
 
+/**
+* Display a simple task modal.
+* @module review-editor/ReviewEditor
+* @requires module:data/store
+* @author Fabian Zeiher
+*/
+
 // eslint-disable-next-line no-new
 new Vue({
+    /** Css-selector for Vue app root.
+    * @type {String}
+    */
     el: "#app",
+    /**
+    * Register Subcomponents locally.
+    * @property {module:components/CodeEditorComponent} code-editor - 
+    * @property {module:components/CommentsDisplayComponent} comments-display - 
+    * @property {module:components/TreeViewComponent} tree-view - 
+    * @property {module:components/ChecklistComponent} checklist - 
+    * @property {module:components/FaqComponent} faq-modal - 
+    * @property {module:components/TaskComponent} task-modal - 
+    * @property {module:components/UserStudyControlsComponent} user-study-controls - 
+    */
     components: {
         "code-editor": CodeEditorComponent,
         "comments-display": CommentsDisplayComponent,
@@ -23,9 +43,22 @@ new Vue({
         "task-modal": TaskComponent,
         "user-study-controls": UserStudyControlsComponent,
     },
+    /**
+    * Hold reactive data for the component.
+    * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
+    * @see https://vuejs.org/v2/guide/reactivity.html
+    * @property {module:data/store~State} sharedState - Data model for the app, see store.state. Please note that components utilize their own connections to the model.
+    */
     data: {
         sharedState: store.state,
     },
+    /**
+    * Hold methods for this component.
+    * @property {Function} toggleChecklist - Toggles the checklist, the checklist is a seperate component, that can be positioned freely.
+    * @property {Function} showFaq - Displays faq modal
+    * @property {Function} showTask - Displays task modal
+    * @property {Function} showExitConfirmation - Displays exit confirmation modal
+    */
     methods: {
         toggleChecklist() {
             store.toggleChecklistVisibility();
@@ -40,6 +73,11 @@ new Vue({
             store.toggleExitConfirmationVisibility();
         },
     },
+    /**
+    * Code to execute when component is mounted, reference Vue Lifecycle below.
+    * Add Comment Marker Components as LineWidgets. Listen for events from codemirror to handle rerender and content changes.
+    * @see https://vuejs.org/v2/guide/instance.html
+    */
     mounted() {
         document.querySelector("#loader").style.display = "none";
         document.querySelector("#app").style.display = "block"; 

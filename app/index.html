@@ -7,11 +7,22 @@
     <title>Review-Edior-Test</title>
     <!-- semantic ui -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <!-- my style -->
+    <link rel="stylesheet" href="./res/css/main.css">
 </head>
 <body>
     <div id="app">
-        <sui-button @click="startEditor" primary>Start Editor</sui-button>
+        <main>
+            <survey></survey>
+        </main>
     </div>
+    
+    <script type="text/x-template" id="survey-component-template">
+        <div>
+            <h1>Welcome to the Survey Component</h1>
+            <sui-button @click="startEditor" primary>Start Editor</sui-button>
+        </div>
+    </script>
     
     <!-- Vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

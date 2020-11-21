@@ -46,17 +46,17 @@ let UserStudyControlsComponent = {
     * @property {Function} exitTask - Exits the code review editor.
     * @property {Function} toggleExitConfirmation - Toggles exit confirmation modal via application state.
     */
-   methods: {
-    toggleTaskDesciption() {
-        this.taskDescriptionIsVisible = !this.taskDescriptionIsVisible;
+    methods: {
+        toggleTaskDesciption() {
+            this.taskDescriptionIsVisible = !this.taskDescriptionIsVisible;
+        },
+        exitTask() {
+            location.href = "./";
+        },
+        toggleExitConfirmation() {
+            store.toggleExitConfirmationVisibility();
+        },
     },
-    exitTask() {
-        location.href = "./";
-    },
-    toggleExitConfirmation() {
-        store.toggleExitConfirmationVisibility();
-    },
-},
 };
 
 export default UserStudyControlsComponent;
