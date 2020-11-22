@@ -45,24 +45,28 @@
                         <sui-header-subheader>{{ survey.description }}</sui-header-subheader>
                     </sui-header-content>
                 </h2>
-                <sui-form>
-                    <sui-table basic="very" celled collapsing unstackable class="center-in-container">
-                        <sui-table-body>
-                            <sui-table-row v-for="(item, index) in survey.items" :key="index">
-                                <sui-table-cell text-align="right">{{ item.leftLabel }}</sui-table-cell>
-                                <sui-table-cell text-align="center">
-                                    <sui-likert @change="item.value = $event" :range="survey.likertRange" :id="index.toString()"></sui-likert>
-                                </sui-table-cell>
-                                <sui-table-cell>{{ item.rightLabel }}</sui-table-cell>
-                            </sui-table-row>
-                        </sui-table-body>
-                    </sui-table>
-                </sui-form>
+                <likert-table v-model="survey.items" :range="survey.likertRange"></likert-table>
             </sui-segment>
             <sui-segment basic aligned="right">
                 <sui-button icon="save" label-position="left" @click="startEditor" primary :disabled="!isComplete">Ergebnisse abschicken</sui-button>
             </sui-segment>
         </div>
+    </script>
+    
+    <script type="text/x-template" id="likert-table-component-template">
+        <sui-form>
+            <sui-table basic="very" celled collapsing unstackable class="center-in-container">
+                <sui-table-body>
+                    <sui-table-row v-for="(item, index) in items" :key="index">
+                        <sui-table-cell text-align="right">{{ item.leftLabel }}</sui-table-cell>
+                        <sui-table-cell text-align="center">
+                            <sui-likert v-model="item.value" :range="range" :id="index.toString()"></sui-likert>
+                        </sui-table-cell>
+                        <sui-table-cell>{{ item.rightLabel }}</sui-table-cell>
+                    </sui-table-row>
+                </sui-table-body>
+            </sui-table>
+        </sui-form>
     </script>
     
     <script type="text/x-template" id="likert-scale-component-template">

@@ -11,34 +11,26 @@ Vue.component("sui-likert", {
     * @memberof SuiLikertScaleComponent
     */
     template: "#likert-scale-component-template",
+    model: {
+        prop: "result",
+        event: "change",
+    },
     /**
     * Attributes that are exposed to accept data from the parent component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
-    * @property {module:review-editor/model/Store~TreeItem} item - Data item for this node.
     * @memberof SuiLikertScaleComponent
+    * @property {String} range - Range of the likert scale
+    * @property {String} id - id for this likert scale
+    * @property {String} result - Value of the checkbox that has been selected.
     * @see https://vuejs.org/v2/guide/reactivity.html
     */
     props: {
-        leftLabel: String,
-        rightLabel: String,
+        result: String,
         range: String,
         id: String,
     },
-    /**
-    * Hold reactive data for the component.
-    * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
-    * @see https://vuejs.org/v2/guide/reactivity.html
-    * @memberof SuiLikertScaleComponent
-    * @property {String} result - Value of the checkbox that has been selected.
-    */
-    data() {
-        return {
-            version: false,
-            result: null,
-        };
-    },
     /** Hold computed properties for the component.
-     * @memberof SuiLikertScaleComponent
+    * @memberof SuiLikertScaleComponent
     * @property {Number} rangeNumber - Prses range prop to string.
     */
     computed: {

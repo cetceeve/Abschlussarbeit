@@ -1,10 +1,11 @@
-import serverConnection from "../../utils/server-connection.js";
 /**
-* Display a simple survey component.
-* @module main/components/SurveyComponent
-* @author Fabian Zeiher
-*/
+ * Display a simple survey component.
+ * @module main/components/SurveyComponent
+ * @author Fabian Zeiher
+ */
 
+import serverConnection from "../../utils/server-connection.js";
+import LikertTableComponent from "./likert-table.js";
 /**
 * Namespace for survey component
 * @namespace
@@ -15,13 +16,19 @@ let SurveyComponent = {
     */
     template: "#survey-component-template",
     /**
+    * Register Subcomponents locally.
+    * @property {module:main/components/SurveyComponent} likert-table - 
+    */
+    components: {
+        "likert-table": LikertTableComponent,
+    },
+    /**
     * Hold reactive data for the component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
     * @see https://vuejs.org/v2/guide/reactivity.html
     */
     data() {
         return {
-            version: false,
             task: {
                 name: "unknown",
             },
@@ -51,7 +58,7 @@ let SurveyComponent = {
                     {
                         leftLabel: "kompliziert",
                         rightLabel: "einfach",
-                        value: null,
+                        value: "2",
                     },
                     {
                         leftLabel: "ineffizient",
