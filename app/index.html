@@ -15,6 +15,7 @@
         <main>
             <survey></survey>
         </main>
+        <agreements></agreements>
     </div>
     
     <script type="text/x-template" id="survey-component-template">
@@ -75,6 +76,23 @@
                 <sui-checkbox radio :name="id" :value="index.toString()" :inputValue="inputValue" @change="bubbleEvent($event)"/>
             </sui-form-field>
         </sui-form-fields>
+    </script>
+
+    <script type="text/x-template" id="agreements-component-template">
+        <sui-modal :open="open">
+            <sui-modal-header>
+                Vorraussetzungen und Datenschutz
+            </sui-modal-header>
+            <sui-modal-content scrolling>
+                <sui-container v-html="renderedMarkdown"></sui-container>
+            </sui-modal-content>
+            <sui-modal-actions>
+                <sui-checkbox toggle label="Ich erfülle die Vorraussetzungen und stimme den Datenschutzvereinbarungen zu." v-model="isChecked"></sui-checkbox>
+                <sui-button positive @click.native="saveAgreement" :disabled="!isChecked">
+                    Speichern
+                </sui-button>
+            </sui-modal-actions>
+        </sui-modal>
     </script>
     
     <!-- Vue -->

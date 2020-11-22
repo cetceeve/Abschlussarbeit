@@ -58,7 +58,7 @@ let SurveyComponent = {
                     {
                         leftLabel: "kompliziert",
                         rightLabel: "einfach",
-                        value: "2",
+                        value: null,
                     },
                     {
                         leftLabel: "ineffizient",

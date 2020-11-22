@@ -1,6 +1,7 @@
 /* global Vue SemanticUIVue HtmlSanitizer*/
 import snarkdown from "../../../vendors/snarkdown/snarkdown.es.js";
 import SurveyComponent from "./components/survey.js";
+import AgreementsComponent from "./components/agreements.js";
 
 Vue.use(SemanticUIVue);
 
@@ -23,6 +24,7 @@ new Vue({
     */
     components: {
         "survey": SurveyComponent,
+        "agreements": AgreementsComponent,
     },
     /**
     * Hold reactive data for the component.
@@ -54,6 +56,6 @@ new Vue({
     * @see https://vuejs.org/v2/guide/instance.html
     */
     mounted() {
-        return;
+        localStorage.clear();
     },
 });
