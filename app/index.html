@@ -57,10 +57,10 @@
         <sui-form>
             <sui-table basic="very" celled collapsing unstackable class="center-in-container">
                 <sui-table-body>
-                    <sui-table-row v-for="(item, index) in items" :key="index">
+                    <sui-table-row v-for="(item, index) in value" :key="index">
                         <sui-table-cell text-align="right">{{ item.leftLabel }}</sui-table-cell>
                         <sui-table-cell text-align="center">
-                            <sui-likert v-model="item.value" :range="range" :id="index.toString()"></sui-likert>
+                            <sui-likert :inputValue="item.value" @input="bubbleEvent($event)" :range="range" :id="index.toString()"></sui-likert>
                         </sui-table-cell>
                         <sui-table-cell>{{ item.rightLabel }}</sui-table-cell>
                     </sui-table-row>
@@ -72,7 +72,7 @@
     <script type="text/x-template" id="likert-scale-component-template">
         <sui-form-fields inline style="margin: auto;">
             <sui-form-field v-for="index in rangeNumber" :key="index" style="padding-left: 8px; padding-right: 8px;">
-                <sui-checkbox radio :name="id" :value="index.toString()" v-model="result" />
+                <sui-checkbox radio :name="id" :value="index.toString()" :inputValue="inputValue" @change="bubbleEvent($event)"/>
             </sui-form-field>
         </sui-form-fields>
     </script>

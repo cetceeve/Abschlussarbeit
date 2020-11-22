@@ -11,25 +11,23 @@ Vue.component("sui-likert", {
     * @memberof SuiLikertScaleComponent
     */
     template: "#likert-scale-component-template",
-    model: {
-        prop: "result",
-        event: "change",
-    },
     /**
     * Attributes that are exposed to accept data from the parent component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
+    * @type {Object}
     * @memberof SuiLikertScaleComponent
     * @property {String} range - Range of the likert scale
     * @property {String} id - id for this likert scale
-    * @property {String} result - Value of the checkbox that has been selected.
+    * @property {String} inputValue - Value of the checkbox that has been selected.
     * @see https://vuejs.org/v2/guide/reactivity.html
     */
     props: {
-        result: String,
+        inputValue: String,
         range: String,
         id: String,
     },
     /** Hold computed properties for the component.
+     * @type {Object}
     * @memberof SuiLikertScaleComponent
     * @property {Number} rangeNumber - Prses range prop to string.
     */
@@ -39,12 +37,12 @@ Vue.component("sui-likert", {
         },
     },
     /**
-    * Triggered after Vue updated the Dom
-    * Used to bubble change events upwards
-    * @memberof SuiLikertScaleComponent
-    * @see https://vuejs.org/v2/guide/reactivity.html
+    * Hold methods for this component.
+    * @property {Function} bubbleEvent - Bubbles event to parent, enriches event data object.
     */
-    updated() {
-        this.$emit("change", this.result);
+    methods: {
+        bubbleEvent(newValue) {
+            this.$emit("input", {id: this.id, value: newValue});
+        },
     },
 });
