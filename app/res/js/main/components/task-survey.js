@@ -108,16 +108,9 @@ let TaskSurveyComponent = {
     },
     /**
     * Hold methods for this component.
-    * @property {Function} startEditor - Fetches a new state into local storage and redirects to review editor
+    * @property {Function} sendResults - Save results to the server.
     */
     methods: {
-        startEditor() {
-            serverConnection.fetchState().then(data => {
-                localStorage.setItem("state", data.state);
-                location.href = "./review-editor";
-                console.log("start editor");
-            });
-        },
         sendResults() {
             this.surveyCompleted = true;
         },

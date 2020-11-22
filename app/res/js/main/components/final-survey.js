@@ -4,7 +4,6 @@
  * @author Fabian Zeiher
  */
 
-import serverConnection from "../../utils/server-connection.js";
 import LikertTableComponent from "./likert-table.js";
 /**
 * Namespace for survey component

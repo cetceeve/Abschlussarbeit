@@ -1,8 +1,8 @@
-/* global Vue SemanticUIVue HtmlSanitizer*/
-import snarkdown from "../../../vendors/snarkdown/snarkdown.es.js";
+/* global Vue SemanticUIVue */
 import TaskSurveyComponent from "./components/task-survey.js";
 import AgreementsComponent from "./components/agreements.js";
 import FinalSurveyComponent from "./components/final-survey.js";
+import StudyIntroductionComponent from "./components/study-introduction.js";
 
 Vue.use(SemanticUIVue);
 
@@ -24,6 +24,7 @@ new Vue({
     * @property {module:main/components/TaskSurveyComponent} task-survey - 
     */
     components: {
+        "study-introduction": StudyIntroductionComponent,
         "task-survey": TaskSurveyComponent,
         "final-survey": FinalSurveyComponent,
         "agreements": AgreementsComponent,
@@ -35,15 +36,6 @@ new Vue({
     * 
     */
     data: {
-    },
-    /** Hold computed properties for the component.
-    * @property {String} renderedMarkdown - Transformed markdown html string.
-    */
-    computed: {
-        renderedMarkdown() {
-            // Sanitizing snarkdowns Html-output is very important to avoid XSS attacks
-            return HtmlSanitizer.SanitizeHtml(snarkdown("there will be stuff to render"));
-        },
     },
     /**
     * Hold methods for this component.

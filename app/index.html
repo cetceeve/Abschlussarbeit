@@ -13,8 +13,9 @@
 <body>
     <div id="app">
         <main>
+            <study-introduction></study-introduction>
             <task-survey></task-survey>
-            <final-survey v-if="false"></final-survey>
+            <final-survey></final-survey>
         </main>
         <agreements></agreements>
     </div>
@@ -23,12 +24,26 @@
         localStorage.clear();
     </script>
     
+    <script type="text/x-template" id="study-introduction-component-template">
+        <div>
+            <sui-segment basic>
+                <h1 is="sui-header">Willkommen zur Code-Review-Editor-Remote-Usabililty-Studie</h1>
+            </sui-segment>
+            <sui-segment>
+                <sui-container v-html="renderedMarkdown"></sui-container>
+            </sui-segment>
+            <sui-segment basic aligned="right">
+                <sui-button icon="arrow right" label-position="right" @click="startEditor" primary >Exploration starten</sui-button>
+            </sui-segment>
+        </div>
+    </script>
+    
     <script type="text/x-template" id="task-survey-component-template">
         <div>
             <sui-segment basic>
                 <h1 is="sui-header">Fragebogen Task: {{ task.name }}</h1>
             </sui-segment>
-
+            
             <sui-segment v-show="!surveyCompleted">
                 <h2 is="sui-header">
                     <sui-icon name="check" />
@@ -44,7 +59,7 @@
                     </sui-form-field>
                 </sui-form>
             </sui-segment>
-
+            
             <sui-segment v-show="!surveyCompleted">
                 <h2 is="sui-header">
                     <sui-icon name="clipboard" />
@@ -55,18 +70,16 @@
                 </h2>
                 <likert-table v-model="survey.items" :range="survey.likertRange"></likert-table>
             </sui-segment>
-
+            
             <sui-segment basic aligned="right" v-show="!surveyCompleted">
                 <sui-button icon="save" label-position="left" @click="sendResults" primary :disabled="!isComplete">Ergebnisse abschicken</sui-button>
             </sui-segment>
-
+            
             <sui-message positive v-show="surveyCompleted">
-                <sui-message-header>Fragebogen abgeschlossen</sui-message-header>
-                <p>
-                    Vielen Dank für deine Teilnahme!
-                </p>
+                <sui-message-header>Task "{{ task.name }}" abgeschlossen</sui-message-header>
+                <p>Vielen Dank für deine Teilnahme!</p>
             </sui-message>
-
+            
             <study-controls v-show="surveyCompleted"></study-controls>
         </div>
     </script>
@@ -87,17 +100,17 @@
                 <likert-table v-model="survey.items" :range="survey.likertRange"></likert-table>
             </sui-segment>
             <sui-segment basic aligned="right">
-                <sui-button icon="sign out alternate" @click="sendResults" label-position="left" primary :disabled="!isComplete">Studie beenden</sui-button>
+                <sui-button icon="sign out alternate" @click="sendResults" label-position="right" primary :disabled="!isComplete">Studie beenden</sui-button>
             </sui-segment>
         </div>
     </script>
-
+    
     <script type="text/x-template" id="study-controls-component-template">
         <sui-segment>
-                <sui-progress indicating :percent="percent" :label="label" />
-                <sui-button @click="">Studie Beenden</sui-button>
-                <sui-button icon="right arrow" label-position="right" @click="startEditor" positive floated="right">Nächster Task</sui-button>
-            </sui-segment>
+            <sui-progress indicating :percent="percent" :label="label" />
+            <sui-button @click="">Studie Beenden</sui-button>
+            <sui-button icon="right arrow" label-position="right" @click="startEditor" positive floated="right">Nächster Task</sui-button>
+        </sui-segment>
     </script>
     
     <script type="text/x-template" id="likert-table-component-template">
