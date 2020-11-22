@@ -1,14 +1,15 @@
 /* global Vue SemanticUIVue HtmlSanitizer*/
 import snarkdown from "../../../vendors/snarkdown/snarkdown.es.js";
-import SurveyComponent from "./components/survey.js";
+import TaskSurveyComponent from "./components/task-survey.js";
 import AgreementsComponent from "./components/agreements.js";
+import FinalSurveyComponent from "./components/final-survey.js";
 
 Vue.use(SemanticUIVue);
 
 /**
 * Landing page for the user study.
 * @module main/Main
-* @requires module:main/components/SurveyComponent
+* @requires module:main/components/TaskSurveyComponent
 * @author Fabian Zeiher
 */
 
@@ -20,10 +21,11 @@ new Vue({
     el:"#app",
     /**
     * Register Subcomponents locally.
-    * @property {module:main/components/SurveyComponent} survey - 
+    * @property {module:main/components/TaskSurveyComponent} task-survey - 
     */
     components: {
-        "survey": SurveyComponent,
+        "task-survey": TaskSurveyComponent,
+        "final-survey": FinalSurveyComponent,
         "agreements": AgreementsComponent,
     },
     /**
@@ -56,6 +58,6 @@ new Vue({
     * @see https://vuejs.org/v2/guide/instance.html
     */
     mounted() {
-        localStorage.clear();
+        return;
     },
 });

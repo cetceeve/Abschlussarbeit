@@ -13,12 +13,17 @@
 <body>
     <div id="app">
         <main>
-            <survey></survey>
+            <task-survey></task-survey>
+            <final-survey></final-survey>
         </main>
         <agreements></agreements>
     </div>
+
+    <script type="text/javascript">
+        localStorage.clear();
+    </script>
     
-    <script type="text/x-template" id="survey-component-template">
+    <script type="text/x-template" id="task-survey-component-template">
         <div>
             <sui-segment basic>
                 <h1 is="sui-header">Fragebogen Task: {{ task.name }}</h1>
@@ -42,7 +47,7 @@
                 <h2 is="sui-header">
                     <sui-icon name="clipboard" />
                     <sui-header-content>
-                        Bitte bewerte die Anwendung!
+                        {{ survey.title }}
                         <sui-header-subheader>{{ survey.description }}</sui-header-subheader>
                     </sui-header-content>
                 </h2>
@@ -54,30 +59,54 @@
         </div>
     </script>
     
+    <script type="text/x-template" id="final-survey-component-template">
+        <div>
+            <sui-segment basic>
+                <h1 is="sui-header">Abschlussfragebogen</h1>
+            </sui-segment>
+            <sui-segment>
+                <h2 is="sui-header">
+                    <sui-icon name="clipboard" />
+                    <sui-header-content>
+                        {{ survey.title }}
+                        <sui-header-subheader>{{ survey.description }}</sui-header-subheader>
+                    </sui-header-content>
+                </h2>
+                <likert-table v-model="survey.items" :range="survey.likertRange"></likert-table>
+            </sui-segment>
+            <sui-segment basic aligned="right">
+                <sui-button icon="sign out alternate" @click="sendResults" label-position="left" primary :disabled="!isComplete">Studie beenden</sui-button>
+            </sui-segment>
+        </div>
+    </script>
+    
     <script type="text/x-template" id="likert-table-component-template">
-        <sui-form>
-            <sui-table basic="very" celled collapsing unstackable class="center-in-container">
-                <sui-table-body>
-                    <sui-table-row v-for="(item, index) in value" :key="index">
-                        <sui-table-cell text-align="right">{{ item.leftLabel }}</sui-table-cell>
-                        <sui-table-cell text-align="center">
-                            <sui-likert :inputValue="item.value" @input="bubbleEvent($event)" :range="range" :id="index.toString()"></sui-likert>
-                        </sui-table-cell>
-                        <sui-table-cell>{{ item.rightLabel }}</sui-table-cell>
-                    </sui-table-row>
-                </sui-table-body>
-            </sui-table>
-        </sui-form>
+        <sui-table basic="very" celled collapsing unstackable class="center-in-container">
+            <sui-table-body>
+                <sui-table-row v-for="(item, index) in value" :key="index">
+                    <sui-table-cell v-if="item.question !== undefined">
+                        <h4 is="sui-header">{{ item.question }}</h4>
+                    </sui-table-cell>
+                    <sui-table-cell text-align="right">{{ item.leftLabel }}</sui-table-cell>
+                    <sui-table-cell text-align="center">
+                        <sui-likert :inputValue="item.value" @input="bubbleEvent($event)" :range="range" :id="index.toString()"></sui-likert>
+                    </sui-table-cell>
+                    <sui-table-cell>{{ item.rightLabel }}</sui-table-cell>
+                </sui-table-row>
+            </sui-table-body>
+        </sui-table>
     </script>
     
     <script type="text/x-template" id="likert-scale-component-template">
-        <sui-form-fields inline style="margin: auto;">
-            <sui-form-field v-for="index in rangeNumber" :key="index" style="padding-left: 8px; padding-right: 8px;">
-                <sui-checkbox radio :name="id" :value="index.toString()" :inputValue="inputValue" @change="bubbleEvent($event)"/>
-            </sui-form-field>
-        </sui-form-fields>
+        <sui-form unstackable>
+            <sui-form-fields inline style="margin: auto;">
+                <sui-form-field v-for="index in rangeNumber" :key="index" style="padding-left: 8px; padding-right: 8px;">
+                    <sui-checkbox radio :name="id" :value="index.toString()" :inputValue="inputValue" @change="bubbleEvent($event)"/>
+                </sui-form-field>
+            </sui-form-fields>
+        </sui-form>
     </script>
-
+    
     <script type="text/x-template" id="agreements-component-template">
         <sui-modal :open="open">
             <sui-modal-header>

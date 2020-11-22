@@ -1,6 +1,6 @@
 /**
  * Display a simple survey component.
- * @module main/components/SurveyComponent
+ * @module main/components/TaskSurveyComponent
  * @author Fabian Zeiher
  */
 
@@ -10,14 +10,14 @@ import LikertTableComponent from "./likert-table.js";
 * Namespace for survey component
 * @namespace
 */
-let SurveyComponent = {
+let TaskSurveyComponent = {
     /** Css-selector for component template.
     * @type {String}
     */
-    template: "#survey-component-template",
+    template: "#task-survey-component-template",
     /**
     * Register Subcomponents locally.
-    * @property {module:main/components/SurveyComponent} likert-table - 
+    * @property {module:main/components/LikertTableComponent} likert-table - Component to display a table with lickert items.
     */
     components: {
         "likert-table": LikertTableComponent,
@@ -47,6 +47,8 @@ let SurveyComponent = {
                 ],
             },
             survey: {
+                name: "UEQ-S",
+                title: "Bitte bewerte die Anwendung!",
                 description: "Entscheide so spontan wie möglich welcher der folgenden widersprüchlichen Terme die Anwendung besser beschreibt. Es gibt keine richtigen oder falschen Antworten. Nur deine Meinung zählt.",
                 likertRange: "7",
                 items: [
@@ -117,4 +119,4 @@ let SurveyComponent = {
     },
 };
 
-export default SurveyComponent;
+export default TaskSurveyComponent;
