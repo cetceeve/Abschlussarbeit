@@ -14,11 +14,11 @@
     <div id="app">
         <main>
             <task-survey></task-survey>
-            <final-survey></final-survey>
+            <final-survey v-if="false"></final-survey>
         </main>
         <agreements></agreements>
     </div>
-
+    
     <script type="text/javascript">
         localStorage.clear();
     </script>
@@ -28,7 +28,8 @@
             <sui-segment basic>
                 <h1 is="sui-header">Fragebogen Task: {{ task.name }}</h1>
             </sui-segment>
-            <sui-segment>
+
+            <sui-segment v-show="!surveyCompleted">
                 <h2 is="sui-header">
                     <sui-icon name="check" />
                     <sui-header-content>
@@ -43,7 +44,8 @@
                     </sui-form-field>
                 </sui-form>
             </sui-segment>
-            <sui-segment>
+
+            <sui-segment v-show="!surveyCompleted">
                 <h2 is="sui-header">
                     <sui-icon name="clipboard" />
                     <sui-header-content>
@@ -53,8 +55,21 @@
                 </h2>
                 <likert-table v-model="survey.items" :range="survey.likertRange"></likert-table>
             </sui-segment>
-            <sui-segment basic aligned="right">
-                <sui-button icon="save" label-position="left" @click="startEditor" primary :disabled="!isComplete">Ergebnisse abschicken</sui-button>
+
+            <sui-segment basic aligned="right" v-show="!surveyCompleted">
+                <sui-button icon="save" label-position="left" @click="sendResults" primary :disabled="!isComplete">Ergebnisse abschicken</sui-button>
+            </sui-segment>
+
+            <sui-message positive v-show="surveyCompleted">
+                <sui-message-header>Fragebogen abgeschlossen</sui-message-header>
+                <p>
+                    Vielen Dank für deine Teilnahme!
+                </p>
+            </sui-message>
+
+            <sui-segment v-show="surveyCompleted">
+                <sui-button @click="">Studie Beenden</sui-button>
+                <sui-button icon="right arrow" label-position="right" @click="startEditor" positive floated="right">Nächster Task</sui-button>
             </sui-segment>
         </div>
     </script>

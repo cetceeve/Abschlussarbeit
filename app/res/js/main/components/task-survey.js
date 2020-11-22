@@ -29,6 +29,7 @@ let TaskSurveyComponent = {
     */
     data() {
         return {
+            surveyCompleted: false,
             task: {
                 name: "unknown",
             },
@@ -115,6 +116,9 @@ let TaskSurveyComponent = {
                 location.href = "./review-editor";
                 console.log("start editor");
             });
+        },
+        sendResults() {
+            this.surveyCompleted = true;
         },
     },
 };
