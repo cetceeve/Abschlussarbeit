@@ -4,8 +4,8 @@
  * @author Fabian Zeiher
  */
 
-import serverConnection from "../../utils/server-connection.js";
 import LikertTableComponent from "./likert-table.js";
+import StudyControlsComponent from "./study-controls.js";
 /**
 * Namespace for survey component
 * @namespace
@@ -21,6 +21,7 @@ let TaskSurveyComponent = {
     */
     components: {
         "likert-table": LikertTableComponent,
+        "study-controls": StudyControlsComponent,
     },
     /**
     * Hold reactive data for the component.

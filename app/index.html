@@ -67,10 +67,7 @@
                 </p>
             </sui-message>
 
-            <sui-segment v-show="surveyCompleted">
-                <sui-button @click="">Studie Beenden</sui-button>
-                <sui-button icon="right arrow" label-position="right" @click="startEditor" positive floated="right">Nächster Task</sui-button>
-            </sui-segment>
+            <study-controls v-show="surveyCompleted"></study-controls>
         </div>
     </script>
     
@@ -93,6 +90,14 @@
                 <sui-button icon="sign out alternate" @click="sendResults" label-position="left" primary :disabled="!isComplete">Studie beenden</sui-button>
             </sui-segment>
         </div>
+    </script>
+
+    <script type="text/x-template" id="study-controls-component-template">
+        <sui-segment>
+                <sui-progress indicating :percent="percent" :label="label" />
+                <sui-button @click="">Studie Beenden</sui-button>
+                <sui-button icon="right arrow" label-position="right" @click="startEditor" positive floated="right">Nächster Task</sui-button>
+            </sui-segment>
     </script>
     
     <script type="text/x-template" id="likert-table-component-template">
