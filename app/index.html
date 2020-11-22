@@ -81,7 +81,7 @@
     </script>
     
     <script type="text/x-template" id="likert-table-component-template">
-        <sui-table basic="very" celled collapsing unstackable class="center-in-container">
+        <sui-table basic striped celled collapsing unstackable class="center-in-container">
             <sui-table-body>
                 <sui-table-row v-for="(item, index) in value" :key="index">
                     <sui-table-cell v-if="item.question !== undefined">
