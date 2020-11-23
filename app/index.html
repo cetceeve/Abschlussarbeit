@@ -13,16 +13,28 @@
 <body>
     <div id="app">
         <main>
-            <study-introduction></study-introduction>
-            <task-survey></task-survey>
-            <final-survey></final-survey>
+            <p v-if="studyCompleted">byebye for now</p>
+            <template v-else>
+                <final-survey v-if="isFinalSurvey" @study-completed="showFinalScreen"></final-survey>
+                <template v-else>
+                    <task-survey :task="currentTask" v-if="isTaskSurvey"></task-survey>
+                    <template v-else>
+                        <study-introduction></study-introduction>
+                        <sui-message positive v-show="currentTask.isFinished && currentTask.surveyCompleted">
+                            <sui-message-header>Task "{{currentTask.name }}" abgeschlossen</sui-message-header>
+                            <p>Vielen Dank für deine Teilnahme!</p>
+                        </sui-message>
+                        <study-controls @start-next-task="startNextTask" @show-final-survey="showFinalSurvey"></study-controls>
+                    </template>
+                </template>
+            </template>
         </main>
         <agreements></agreements>
     </div>
     
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         localStorage.clear();
-    </script>
+    </script> -->
     
     <script type="text/x-template" id="study-introduction-component-template">
         <div>
@@ -31,9 +43,6 @@
             </sui-segment>
             <sui-segment>
                 <sui-container v-html="renderedMarkdown"></sui-container>
-            </sui-segment>
-            <sui-segment basic aligned="right">
-                <sui-button icon="arrow right" label-position="right" @click="startEditor" primary >Exploration starten</sui-button>
             </sui-segment>
         </div>
     </script>
@@ -44,7 +53,7 @@
                 <h1 is="sui-header">Fragebogen Task: {{ task.name }}</h1>
             </sui-segment>
             
-            <sui-segment v-show="!surveyCompleted">
+            <sui-segment>
                 <h2 is="sui-header">
                     <sui-icon name="check" />
                     <sui-header-content>
@@ -60,7 +69,7 @@
                 </sui-form>
             </sui-segment>
             
-            <sui-segment v-show="!surveyCompleted">
+            <sui-segment>
                 <h2 is="sui-header">
                     <sui-icon name="clipboard" />
                     <sui-header-content>
@@ -71,16 +80,10 @@
                 <likert-table v-model="survey.items" :range="survey.likertRange"></likert-table>
             </sui-segment>
             
-            <sui-segment basic aligned="right" v-show="!surveyCompleted">
+            <sui-segment basic aligned="right">
                 <sui-button icon="save" label-position="left" @click="sendResults" primary :disabled="!isComplete">Ergebnisse abschicken</sui-button>
             </sui-segment>
             
-            <sui-message positive v-show="surveyCompleted">
-                <sui-message-header>Task "{{ task.name }}" abgeschlossen</sui-message-header>
-                <p>Vielen Dank für deine Teilnahme!</p>
-            </sui-message>
-            
-            <study-controls v-show="surveyCompleted"></study-controls>
         </div>
     </script>
     
@@ -108,8 +111,15 @@
     <script type="text/x-template" id="study-controls-component-template">
         <sui-segment>
             <sui-progress indicating :percent="percent" :label="label" />
-            <sui-button @click="">Studie Beenden</sui-button>
-            <sui-button icon="right arrow" label-position="right" @click="startEditor" positive floated="right">Nächster Task</sui-button>
+            <sui-button v-show="!exitConfirmationIsVisible" @click="toggleExitConfirmation">Studie Beenden</sui-button>
+            <div v-show="exitConfirmationIsVisible" style="display: inline-block;">
+                <h4 is="sui-header" style="display: inline-block; margin-right: 1rem;">Studie wirklich beenden?</h4>
+                <div is="sui-button-group">
+                    <sui-button @click="toggleExitConfirmation">Nein</sui-button>
+                    <sui-button @click="$emit('show-final-survey')" primary>Ja</sui-button>
+                </div>
+            </div>
+            <sui-button icon="right arrow" label-position="right" @click="$emit('start-next-task')" positive floated="right">Nächster Task</sui-button>
         </sui-segment>
     </script>
     

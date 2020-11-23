@@ -3,6 +3,8 @@ import TaskSurveyComponent from "./components/task-survey.js";
 import AgreementsComponent from "./components/agreements.js";
 import FinalSurveyComponent from "./components/final-survey.js";
 import StudyIntroductionComponent from "./components/study-introduction.js";
+import StudyControlsComponent from "./components/study-controls.js";
+import serverConnection from "../utils/server-connection.js";
 
 Vue.use(SemanticUIVue);
 
@@ -28,6 +30,7 @@ new Vue({
         "task-survey": TaskSurveyComponent,
         "final-survey": FinalSurveyComponent,
         "agreements": AgreementsComponent,
+        "study-controls": StudyControlsComponent,
     },
     /**
     * Hold reactive data for the component.
@@ -36,13 +39,47 @@ new Vue({
     * 
     */
     data: {
+        studyCompleted: false,
+        isFinalSurvey: false,
+        currentTask: {
+            id: "unknown",
+            name: "unknown",
+            isFinished: false,
+            surveyCompleted: false,
+        },
+        taskList: ["task1", "task2"],
+    },
+    /** Hold computed properties for the component.
+    * @property {Boolean} isTaskSurvey - 
+    */
+    computed: {
+        isTaskSurvey() {
+            return this.currentTask.isFinished && !this.currentTask.surveyCompleted;
+        },
+    },
+    created() {
+        this.studyCompleted = (localStorage.getItem("studyCompleted") === "true");
+        this.isFinalSurvey = (localStorage.getItem("isFinalSurvey") === "true");
     },
     /**
     * Hold methods for this component.
     * 
     */
     methods: {
-        
+        startNextTask() {
+            serverConnection.fetchState().then(data => {
+                localStorage.setItem("state", data.state);
+                location.href = "./review-editor";
+                console.log("start editor");
+            });
+        },
+        showFinalSurvey() {
+            localStorage.setItem("isFinalSurvey", "true");
+            this.isFinalSurvey = true;
+        },
+        showFinalScreen() {
+            this.studyCompleted = true;
+        },
     },
     /**
     * Code to execute when component is mounted, reference Vue Lifecycle below.

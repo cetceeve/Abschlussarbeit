@@ -111,7 +111,8 @@ let FinalSurveyComponent = {
     */
     methods: {
         sendResults() {
-            console.log("i would send results here");
+            localStorage.setItem("studyCompleted", "true");
+            this.$emit("study-completed");
         },
     },
 };

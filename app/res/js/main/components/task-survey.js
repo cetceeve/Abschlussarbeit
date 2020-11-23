@@ -1,11 +1,10 @@
 /**
- * Display a simple survey component.
- * @module main/components/TaskSurveyComponent
- * @author Fabian Zeiher
- */
+* Display a simple survey component.
+* @module main/components/TaskSurveyComponent
+* @author Fabian Zeiher
+*/
 
 import LikertTableComponent from "./likert-table.js";
-import StudyControlsComponent from "./study-controls.js";
 /**
 * Namespace for survey component
 * @namespace
@@ -21,7 +20,15 @@ let TaskSurveyComponent = {
     */
     components: {
         "likert-table": LikertTableComponent,
-        "study-controls": StudyControlsComponent,
+    },
+    /**
+    * Attributes that are exposed to accept data from the parent component.
+    * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
+    * @property {module:review-editor/model/Store~TreeItem} item - Data item for this node.
+    * @see https://vuejs.org/v2/guide/reactivity.html
+    */
+    props: {
+        task: Object,
     },
     /**
     * Hold reactive data for the component.
@@ -30,10 +37,6 @@ let TaskSurveyComponent = {
     */
     data() {
         return {
-            surveyCompleted: false,
-            task: {
-                name: "unknown",
-            },
             taskSuccess: {
                 description: "Wir bewerten nur die Anwendung. Antworte also so ehrlich wie möglich.",
                 value: null,
@@ -112,7 +115,7 @@ let TaskSurveyComponent = {
     */
     methods: {
         sendResults() {
-            this.surveyCompleted = true;
+            console.log("survey completed");
         },
     },
 };

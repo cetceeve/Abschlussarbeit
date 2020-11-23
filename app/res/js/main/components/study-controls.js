@@ -4,8 +4,6 @@
 * @author Fabian Zeiher
 */
 
-import serverConnection from "../../utils/server-connection.js";
-
 /**
 * Namespace for study controls component
 * @namespace
@@ -24,6 +22,7 @@ let StudyControlsComponent = {
     data() {
         return {
             percent: 10,
+            exitConfirmationIsVisible: false,
         };
     },
     /** Hold computed properties for the component.
@@ -39,12 +38,8 @@ let StudyControlsComponent = {
     * @property {Function} startEditor - Fetches a new state into local storage and redirects to review editor
     */
     methods: {
-        startEditor() {
-            serverConnection.fetchState().then(data => {
-                localStorage.setItem("state", data.state);
-                location.href = "./review-editor";
-                console.log("start editor");
-            });
+        toggleExitConfirmation() {
+            this.exitConfirmationIsVisible = !this.exitConfirmationIsVisible;
         },
     },
 };
