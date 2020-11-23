@@ -35,9 +35,12 @@ let UserStudyControlsComponent = {
     * @property {String} renderedDescription - Transformed markdown html string.
     */
     computed: {
+        currentTask() {
+            return localStorage.getItem("currentTask") !== null ? JSON.parse(localStorage.getItem("currentTask")) : { id: null, name: "unknown", description: "unknown" };
+        },
         renderedDescription() {
             // Sanitizing snarkdowns Html-output is very important to avoid XSS attacks
-            return HtmlSanitizer.SanitizeHtml(snarkdown(this.metaData.task.description));
+            return HtmlSanitizer.SanitizeHtml(snarkdown(this.currentTask.description));
         },
     },
     /**
@@ -51,10 +54,11 @@ let UserStudyControlsComponent = {
             this.taskDescriptionIsVisible = !this.taskDescriptionIsVisible;
         },
         exitTask() {
-            let currentTask = JSON.parse(localStorage.getItem("currentTask"));
-            currentTask.isFinished = true;
-            localStorage.setItem("currentTask", JSON.stringify(currentTask));
-            location.href = "./";
+            if (this.currentTask.id !== null) {
+                this.currentTask.isFinished = true;
+                localStorage.setItem("currentTask", JSON.stringify(this.currentTask));
+                location.href = "./";
+            }
         },
         toggleExitConfirmation() {
             store.toggleExitConfirmationVisibility();

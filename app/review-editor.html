@@ -251,7 +251,7 @@
     <script type="text/x-template" id="user-study-controls-component-template">
         <div>
             <sui-segment raised class="user-study-controls" aligned="center" >
-                <sui-label attached="top">Task: {{ metaData.task.name }}</sui-label>
+                <sui-label attached="top">Task: {{ currentTask.name }}</sui-label>
                 <sui-button content="Task-Beschreibung" @click="toggleTaskDesciption" :class="{active: taskDescriptionIsVisible}" size="mini"></sui-button>
                 <sui-button content="Task abschließen" @click="toggleExitConfirmation" icon="right arrow" label-position="right" :class="{active: metaData.exitConfirmationIsVisible}" size="mini"></sui-button>
             </sui-segment>
@@ -273,7 +273,7 @@
             <sui-modal :open="taskDescriptionIsVisible">
                 <sui-icon name="close" @click.native="toggleTaskDesciption"/>
                 <sui-modal-header>
-                    Task Beschreibung: {{ metaData.task.name }}
+                    Task Beschreibung: {{ currentTask.name }}
                 </sui-modal-header>
                 <sui-modal-content scrolling>
                     <sui-container v-html="renderedDescription"></sui-container>

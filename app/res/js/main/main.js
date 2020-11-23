@@ -44,6 +44,7 @@ new Vue({
         currentTask: {
             id: null,
             name: "unknown",
+            description: "unknown",
             isFinished: false,
             surveyCompleted: false,
         },
@@ -68,7 +69,7 @@ new Vue({
     */
     methods: {
         startNextTask() {
-            localStorage.setItem("currentTask", JSON.stringify({ id: "unknown", name: "Test Task", isFinished: false, surveyCompleted: false}));
+            localStorage.setItem("currentTask", JSON.stringify({ id: "unknown", name: "Test Task", description: "ist *fesche* description.", isFinished: false, surveyCompleted: false}));
             serverConnection.fetchState().then(data => {
                 localStorage.setItem("state", data.state);
                 location.href = "./review-editor";
