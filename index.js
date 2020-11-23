@@ -10,6 +10,7 @@ let app = express();
 app.use(express.json());
 app.use("/res", express.static("./app/res"));
 app.use("/vendors", express.static("./app/vendors"));
+app.use("/data", express.static("./app/data"));
 
 app.listen(port, function () {
     console.log(`AppServer started. Client available at http://localhost:${port}`);

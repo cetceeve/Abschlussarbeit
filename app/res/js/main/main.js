@@ -6,6 +6,8 @@ import StudyIntroductionComponent from "./components/study-introduction.js";
 import StudyControlsComponent from "./components/study-controls.js";
 import serverConnection from "../utils/server-connection.js";
 
+import studyTasks from "../../../data/study-tasks.js";
+
 Vue.use(SemanticUIVue);
 
 /**
@@ -49,6 +51,7 @@ new Vue({
             surveyCompleted: false,
         },
         taskList: ["task1", "task2"],
+        tasks: studyTasks,
     },
     /** Hold computed properties for the component.
     * @property {Boolean} isTaskSurvey - 
