@@ -21,6 +21,10 @@ let TaskSurveyComponent = {
     components: {
         "likert-table": LikertTableComponent,
     },
+    model: {
+        prop: "task",
+        event: "input",
+    },
     /**
     * Attributes that are exposed to accept data from the parent component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
@@ -115,7 +119,10 @@ let TaskSurveyComponent = {
     */
     methods: {
         sendResults() {
-            console.log("survey completed");
+            let clone = { ...this.task };
+            clone.surveyCompleted = true;
+            localStorage.setItem("currentTask", JSON.stringify(clone));
+            this.$emit("input", clone);
         },
     },
 };

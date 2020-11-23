@@ -17,14 +17,14 @@
             <template v-else>
                 <final-survey v-if="isFinalSurvey" @study-completed="showFinalScreen"></final-survey>
                 <template v-else>
-                    <task-survey :task="currentTask" v-if="isTaskSurvey"></task-survey>
+                    <task-survey v-model="currentTask" v-if="isTaskSurvey"></task-survey>
                     <template v-else>
                         <study-introduction></study-introduction>
                         <sui-message positive v-show="currentTask.isFinished && currentTask.surveyCompleted">
                             <sui-message-header>Task "{{currentTask.name }}" abgeschlossen</sui-message-header>
                             <p>Vielen Dank für deine Teilnahme!</p>
                         </sui-message>
-                        <study-controls @start-next-task="startNextTask" @show-final-survey="showFinalSurvey"></study-controls>
+                        <study-controls @start-next-task="startNextTask" @show-final-survey="showFinalSurvey" :isfirsttask="currentTask.id === null"></study-controls>
                     </template>
                 </template>
             </template>
@@ -119,7 +119,7 @@
                     <sui-button @click="$emit('show-final-survey')" primary>Ja</sui-button>
                 </div>
             </div>
-            <sui-button icon="right arrow" label-position="right" @click="$emit('start-next-task')" positive floated="right">Nächster Task</sui-button>
+            <sui-button icon="right arrow" label-position="right" @click="$emit('start-next-task')" positive floated="right">{{ isfirsttask ? "Exploration starten" : "Nächster Task"}}</sui-button>
         </sui-segment>
     </script>
     

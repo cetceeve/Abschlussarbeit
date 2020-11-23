@@ -14,6 +14,15 @@ let StudyControlsComponent = {
     */
     template: "#study-controls-component-template",
     /**
+    * Attributes that are exposed to accept data from the parent component.
+    * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
+    * @property {module:review-editor/model/Store~TreeItem} item - Data item for this node.
+    * @see https://vuejs.org/v2/guide/reactivity.html
+    */
+    props: {
+        isfirsttask: Boolean,
+    },
+    /**
     * Hold reactive data for the component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
     * @see https://vuejs.org/v2/guide/reactivity.html

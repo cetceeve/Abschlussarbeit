@@ -42,7 +42,7 @@ new Vue({
         studyCompleted: false,
         isFinalSurvey: false,
         currentTask: {
-            id: "unknown",
+            id: null,
             name: "unknown",
             isFinished: false,
             surveyCompleted: false,
@@ -60,6 +60,7 @@ new Vue({
     created() {
         this.studyCompleted = (localStorage.getItem("studyCompleted") === "true");
         this.isFinalSurvey = (localStorage.getItem("isFinalSurvey") === "true");
+        this.currentTask = localStorage.getItem("currentTask") !== null ? JSON.parse(localStorage.getItem("currentTask")) : this.currentTask;
     },
     /**
     * Hold methods for this component.
@@ -67,6 +68,7 @@ new Vue({
     */
     methods: {
         startNextTask() {
+            localStorage.setItem("currentTask", JSON.stringify({ id: "unknown", name: "Test Task", isFinished: false, surveyCompleted: false}));
             serverConnection.fetchState().then(data => {
                 localStorage.setItem("state", data.state);
                 location.href = "./review-editor";

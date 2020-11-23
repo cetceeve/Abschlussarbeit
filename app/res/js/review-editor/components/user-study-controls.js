@@ -51,6 +51,9 @@ let UserStudyControlsComponent = {
             this.taskDescriptionIsVisible = !this.taskDescriptionIsVisible;
         },
         exitTask() {
+            let currentTask = JSON.parse(localStorage.getItem("currentTask"));
+            currentTask.isFinished = true;
+            localStorage.setItem("currentTask", JSON.stringify(currentTask));
             location.href = "./";
         },
         toggleExitConfirmation() {
