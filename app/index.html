@@ -22,7 +22,7 @@
                         <study-introduction></study-introduction>
                         <sui-message positive v-show="currentTask.isFinished && currentTask.surveyCompleted">
                             <sui-message-header>Task "{{currentTask.name }}" abgeschlossen</sui-message-header>
-                            <p>Vielen Dank für deine Teilnahme!</p>
+                            <p>Vielen Dank!</p>
                         </sui-message>
                         <study-controls @start-task="onStartTaskButtonClicked" @show-final-survey="showFinalSurvey" :isfirsttask="isFirstTask" :tasklist="taskList" :maxtasknumber="tasks.length"></study-controls>
                     </template>

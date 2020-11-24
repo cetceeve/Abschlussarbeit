@@ -64,6 +64,15 @@ let UserStudyControlsComponent = {
             store.toggleExitConfirmationVisibility();
         },
     },
+    mounted() {
+        // task is already finished, exit editor immidiatly
+        if (this.currentTask.isFinished) {
+            // wait for initialization to be completed
+            this.$nextTick(function () {
+                location.href = "./";
+            });
+        }
+    },
 };
 
 export default UserStudyControlsComponent;
