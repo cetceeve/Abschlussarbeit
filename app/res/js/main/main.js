@@ -92,13 +92,8 @@ new Vue({
         startTask(taskId) {
             // eslint-disable-next-line no-param-reassign
             taskId = taskId || this.taskList[Math.floor(Math.random() * this.taskList.length)];
-            this.updateTaskList(taskId);
             this.updateCurrentTask(taskId);
             this.startReviewEditor(taskId);
-        },
-        updateTaskList(taskId) {
-            this.taskList.splice(this.taskList.indexOf(taskId), 1);
-            localStorage.setItem("taskList", JSON.stringify(this.taskList));
         },
         updateCurrentTask(taskId) {
             let newTask = this.tasks.find(task => task.id === taskId);
@@ -111,6 +106,13 @@ new Vue({
                 localStorage.setItem("state", data.state);
                 location.href = "./review-editor";
             });
+        },
+        finishCurrentTask() {
+            this.currentTask.surveyCompleted = true;
+            localStorage.setItem("currentTask", JSON.stringify(this.currentTask));
+
+            this.taskList.splice(this.taskList.indexOf(this.currentTask.id), 1);
+            localStorage.setItem("taskList", JSON.stringify(this.taskList));
         },
         showFinalSurvey() {
             localStorage.setItem("isFinalSurvey", "true");

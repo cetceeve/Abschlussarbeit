@@ -17,7 +17,7 @@
             <template v-else>
                 <final-survey v-if="isFinalSurvey" @study-completed="showFinalScreen"></final-survey>
                 <template v-else>
-                    <task-survey v-model="currentTask" v-if="isTaskSurvey"></task-survey>
+                    <task-survey :task="currentTask" @task-survey-completed="finishCurrentTask" v-if="isTaskSurvey"></task-survey>
                     <template v-else>
                         <study-introduction></study-introduction>
                         <sui-message positive v-show="currentTask.isFinished && currentTask.surveyCompleted">
