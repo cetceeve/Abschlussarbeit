@@ -31,6 +31,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "snarkdown": "^2.0.0",
+    "sqlite3": "^5.0.0",
     "uuid": "^8.3.1"
   },
   "dependencies": {

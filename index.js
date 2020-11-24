@@ -4,6 +4,7 @@ const express = require("express"),
 fs = require("fs"),
 path = require("path"),
 cookieParser = require("cookie-parser"),
+db = require("./server/database-connection"),
 port = 3000;
 
 let app = express();
@@ -20,6 +21,7 @@ app.listen(port, function () {
 app.get("/", (req, res) => {
     console.log("/");
     console.log("Cookies: ", req.cookies);
+    db.registerSession(req.cookies.sessionId);
     res.sendFile(path.join(__dirname + "/app/index.html"));
 });
 
