@@ -4,6 +4,7 @@ const express = require("express"),
 fs = require("fs"),
 path = require("path"),
 cookieParser = require("cookie-parser"),
+{ v4: uuidv4 } = require("uuid"),
 db = require("./server/database-connection"),
 port = 3000;
 
@@ -14,26 +15,36 @@ app.use("/res", express.static("./app/res"));
 app.use("/vendors", express.static("./app/vendors"));
 app.use("/data", express.static("./app/data"));
 
-app.listen(port, function () {
-    console.log(`AppServer started. Client available at http://localhost:${port}`);
+// set session id if not there
+app.use(function (req, res, next) {
+    // check if client sent cookie
+    var sessionId = req.cookies.sessionId;
+    if (sessionId === undefined) {
+        let newSessionId = uuidv4();
+        res.cookie("sessionId", newSessionId, { 
+            expires: new Date(Date.now() + 1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 30),
+        });
+        console.log("cookie created successfully");
+        db.registerSession(newSessionId);
+    }
+    next();
 });
 
 app.get("/", (req, res) => {
-    console.log("/");
-    console.log("Cookies: ", req.cookies);
-    db.registerSession(req.cookies.sessionId);
     res.sendFile(path.join(__dirname + "/app/index.html"));
 });
 
 app.get("/review-editor", (req, res) => {
-    console.log("/review-editor");
-    console.log("Cookies: ", req.cookies);
+    console.log("/review-editor - for session: " + req.cookies.sessionId);
     res.sendFile(path.join(__dirname + "/app/review-editor.html"));
 });
 
 app.post("/state", (req, res) => {
-    console.log("/state");
-    console.log("Cookies: ", req.cookies);
+    console.log("/state - for session: " + req.cookies.sessionId);
     console.log(req.body);
     res.json({ state: fs.readFileSync("./data/test_state.json", "utf8")});
+});
+
+app.listen(port, function () {
+    console.log(`AppServer started. Client available at http://localhost:${port}`);
 });
