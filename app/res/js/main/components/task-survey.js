@@ -5,6 +5,7 @@
 */
 
 import ueqShort from "../../../../data/ueq-short-survey.js";
+import serverConnection from "../../utils/server-connection.js";
 import LikertTableComponent from "./likert-table.js";
 
 /**
@@ -70,7 +71,15 @@ let TaskSurveyComponent = {
     */
     methods: {
         sendResults() {
-            this.$emit("task-survey-completed");
+            let data = {
+                taskId: this.task.id,
+                surveyResults: this.survey.items.map(item => parseInt(item.value)),
+            };
+            console.log(data);
+            serverConnection.sendSurveyResults("/UEQ", data).then(response => {
+                console.log(response.message);
+                this.$emit("task-survey-completed");
+            });
         },
     },
 };

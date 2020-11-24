@@ -11,6 +11,17 @@ let serverConnection = {
         });
         return await serverRes.json();
     },
+    
+    sendSurveyResults: async function (urlEndpoint, inputData) {
+        let serverRes = await fetch(urlEndpoint, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(inputData),
+        });
+        return await serverRes.json();
+    },
 };
 
 export default serverConnection;
