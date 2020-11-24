@@ -60,6 +60,9 @@ new Vue({
         isTaskSurvey() {
             return this.currentTask.isFinished && !this.currentTask.surveyCompleted;
         },
+        isFirstTask() {
+            return this.currentTask.id === null;
+        },
     },
     created() {
         this.studyCompleted = (localStorage.getItem("studyCompleted") === "true");
@@ -77,12 +80,36 @@ new Vue({
     * 
     */
     methods: {
-        startNextTask() {
-            localStorage.setItem("currentTask", JSON.stringify({ id: "unknown", name: "Test Task", description: "ist *fesche* description.", isFinished: false, surveyCompleted: false}));
-            serverConnection.fetchState().then(data => {
+        onStartTaskButtonClicked() {
+            if (this.isFirstTask) {
+                this.startTask("exploration");
+            } else if (!this.currentTask.isFinished) {
+                this.startReviewEditor(this.currentTask.id);
+            } else {
+                this.startTask();
+            }
+        },
+        startTask(taskId) {
+            // eslint-disable-next-line no-param-reassign
+            taskId = taskId || this.taskList[Math.floor(Math.random() * this.taskList.length)];
+            this.updateTaskList(taskId);
+            this.updateCurrentTask(taskId);
+            this.startReviewEditor(taskId);
+        },
+        updateTaskList(taskId) {
+            this.taskList.splice(this.taskList.indexOf(taskId), 1);
+            localStorage.setItem("taskList", JSON.stringify(this.taskList));
+        },
+        updateCurrentTask(taskId) {
+            let newTask = this.tasks.find(task => task.id === taskId);
+            newTask.isFinished = false;
+            newTask.surveyCompleted = false;
+            localStorage.setItem("currentTask", JSON.stringify(newTask));
+        },
+        startReviewEditor(taskId) {
+            serverConnection.fetchState(taskId).then(data => {
                 localStorage.setItem("state", data.state);
                 location.href = "./review-editor";
-                console.log("start editor");
             });
         },
         showFinalSurvey() {

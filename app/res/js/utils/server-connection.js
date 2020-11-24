@@ -1,12 +1,12 @@
 let serverConnection = {
-    fetchState: async function () {
+    fetchState: async function (taskId) {
         let serverRes = await fetch("/state", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                taskId: "12345",
+                taskId: taskId,
             }),
         });
         return await serverRes.json();

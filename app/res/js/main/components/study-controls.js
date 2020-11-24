@@ -21,6 +21,8 @@ let StudyControlsComponent = {
     */
     props: {
         isfirsttask: Boolean,
+        tasklist: Array,
+        maxtasknumber: Number,
     },
     /**
     * Hold reactive data for the component.
@@ -30,7 +32,6 @@ let StudyControlsComponent = {
     */
     data() {
         return {
-            percent: 10,
             exitConfirmationIsVisible: false,
         };
     },
@@ -38,8 +39,14 @@ let StudyControlsComponent = {
     * @property {String} label - Label to be displayed below progree bar.
     */
     computed: {
+        percent() {
+            return 100 - ((this.tasklist.length / this.maxtasknumber) * 100); 
+        },
         label() {
-            return `${this.percent}% Complete`;
+            return `${this.maxtasknumber - this.tasklist.length} von ${this.maxtasknumber} Tasks abgeschlossen`;
+        },
+        allTasksComplete() {
+            return this.tasklist.length < 1;
         },
     },
     /**
