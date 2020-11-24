@@ -81,8 +81,12 @@ new Vue({
     */
     methods: {
         onStartTaskButtonClicked() {
+            // update current task. this is a saveguard in case multiple tabs are used
+            this.currentTask = localStorage.getItem("currentTask") !== null ? JSON.parse(localStorage.getItem("currentTask")) : this.currentTask;
             if (this.isFirstTask) {
                 this.startTask("exploration");
+            } else if (this.isTaskSurvey) {
+                location.reload();
             } else if (!this.currentTask.isFinished) {
                 this.startReviewEditor(this.currentTask.id);
             } else {
