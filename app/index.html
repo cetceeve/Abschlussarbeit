@@ -13,7 +13,7 @@
 <body>
     <div id="app">
         <main>
-            <p v-if="studyCompleted">byebye for now</p>
+            <end-screen v-if="studyCompleted">byebye for now</end-screen>
             <template v-else>
                 <final-survey v-if="isFinalSurvey" @study-completed="showFinalScreen"></final-survey>
                 <template v-else>
@@ -161,6 +161,30 @@
                 </sui-button>
             </sui-modal-actions>
         </sui-modal>
+    </script>
+
+    <script type="text/x-template" id="end-screen-component-template">
+        <div>
+            <sui-segment basic>
+                <h1 is="sui-header">Studie beendet</h1>
+            </sui-segment>
+            <sui-message positive>
+                <sui-message-header>Vielen Dank</sui-message-header>
+                <p>Vielen Dank für deine Teilnahme!</p>
+            </sui-message>
+            <sui-segment v-show="!feedbackWasSent">
+                <sui-form>
+                    <sui-form-field>
+                      <label>Feedback</label>
+                      <textarea v-model="feedback" placeholder="Hinterlasse dein Feedback zur Studie..."></textarea>
+                    </sui-form-field>
+                  </sui-form>
+                  <sui-button icon="save" label-position="left" @click="sendFeedback" primary :disabled="feedback.length < 1">Feedback abschicken</sui-button>
+            </sui-segment>
+            <sui-message positive v-show="feedbackWasSent">
+                <p>Vielen Dank für dein Feedback!</p>
+            </sui-message>
+        </div>
     </script>
     
     <!-- Vue -->

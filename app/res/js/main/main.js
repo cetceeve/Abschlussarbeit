@@ -4,6 +4,8 @@ import AgreementsComponent from "./components/agreements.js";
 import FinalSurveyComponent from "./components/final-survey.js";
 import StudyIntroductionComponent from "./components/study-introduction.js";
 import StudyControlsComponent from "./components/study-controls.js";
+import EndScreenComponent from "./components/end-screen.js";
+
 import serverConnection from "../utils/server-connection.js";
 
 import studyTasks from "../../../data/study-tasks.js";
@@ -33,6 +35,7 @@ new Vue({
         "final-survey": FinalSurveyComponent,
         "agreements": AgreementsComponent,
         "study-controls": StudyControlsComponent,
+        "end-screen": EndScreenComponent,
     },
     /**
     * Hold reactive data for the component.
