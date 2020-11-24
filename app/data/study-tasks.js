@@ -1,5 +1,10 @@
 const studyTasks = [
     {
+        "id": "exploration",
+        "name": "Exploration",
+        "description": "This is the **Description** for the Exploration `Task`.",
+    },
+    {
         "id": "task1",
         "name": "Task Name 1",
         "description": "This is the **Description** for the first `Task`.",

@@ -50,7 +50,7 @@ new Vue({
             isFinished: false,
             surveyCompleted: false,
         },
-        taskList: ["task1", "task2"],
+        taskList: null,
         tasks: studyTasks,
     },
     /** Hold computed properties for the component.
@@ -65,6 +65,12 @@ new Vue({
         this.studyCompleted = (localStorage.getItem("studyCompleted") === "true");
         this.isFinalSurvey = (localStorage.getItem("isFinalSurvey") === "true");
         this.currentTask = localStorage.getItem("currentTask") !== null ? JSON.parse(localStorage.getItem("currentTask")) : this.currentTask;
+        // get or create taskList from tasks data
+        if (localStorage.getItem("taskList") !== null) {
+            this.taskList = JSON.parse(localStorage.getItem("taskList"));
+        } else {
+            this.taskList = this.tasks.map(task => task.id);
+        }
     },
     /**
     * Hold methods for this component.
