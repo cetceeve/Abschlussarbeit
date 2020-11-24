@@ -55,8 +55,10 @@ let UserStudyControlsComponent = {
         },
         exitTask() {
             if (this.currentTask.id !== null) {
-                this.currentTask.isFinished = true;
-                localStorage.setItem("currentTask", JSON.stringify(this.currentTask));
+                // update current task. this is a saveguard in case multiple tabs are used
+                let task = localStorage.getItem("currentTask") !== null ? JSON.parse(localStorage.getItem("currentTask")) : { id: null, name: "unknown", description: "unknown" };
+                task.isFinished = true;
+                localStorage.setItem("currentTask", JSON.stringify(task));
                 location.href = "./";
             }
         },
