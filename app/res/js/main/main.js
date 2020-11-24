@@ -1,4 +1,7 @@
 /* global Vue SemanticUIVue */
+import Cookies from "https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.mjs";
+import { v4 as uuidv4 } from "https://jspm.dev/uuid";
+
 import TaskSurveyComponent from "./components/task-survey.js";
 import AgreementsComponent from "./components/agreements.js";
 import FinalSurveyComponent from "./components/final-survey.js";
@@ -143,6 +146,11 @@ new Vue({
     * @see https://vuejs.org/v2/guide/instance.html
     */
     mounted() {
-        return;
+        console.log("getting cookie");
+        let sessionId = Cookies.get("sessionId");
+        if (sessionId === undefined) {
+            console.log("setting cookie");
+            Cookies.set("sessionId", uuidv4(), {expires: 30});
+        }
     },
 });
