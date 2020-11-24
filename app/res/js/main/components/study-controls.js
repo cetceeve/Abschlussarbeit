@@ -20,8 +20,9 @@ let StudyControlsComponent = {
     * @see https://vuejs.org/v2/guide/reactivity.html
     */
     props: {
-        isfirsttask: Boolean,
+        allowexit: Boolean,
         tasklist: Array,
+        isfirsttask: Boolean,
         maxtasknumber: Number,
     },
     /**

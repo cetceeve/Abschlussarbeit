@@ -44,6 +44,7 @@ new Vue({
     * 
     */
     data: {
+        allowExit: false,
         studyCompleted: false,
         isFinalSurvey: false,
         currentTask: {
@@ -124,6 +125,9 @@ new Vue({
 
             this.taskList.splice(this.taskList.indexOf(this.currentTask.id), 1);
             localStorage.setItem("taskList", JSON.stringify(this.taskList));
+            
+            this.allowExit = true;
+            setTimeout(() => { this.allowExit = false; }, 300000);
         },
         showFinalSurvey() {
             localStorage.setItem("isFinalSurvey", "true");
