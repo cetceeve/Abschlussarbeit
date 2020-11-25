@@ -4,7 +4,10 @@ path = require("path");
 
 class dbConnection {
     constructor() {
-        this.db = new sqlite3.Database(path.join(__dirname + "/../data/StudyResults.db"), (error) => console.log(error));
+        this.db = new sqlite3.Database(path.join(__dirname + "/../data/StudyResults.db"), (error) => {
+            if (error === null) { console.log("DB: SQLite connected"); }
+            else { console.log(error); }
+        });
     }
     
     registerSession(sessionId) {

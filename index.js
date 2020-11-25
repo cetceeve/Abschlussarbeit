@@ -1,11 +1,14 @@
 /* eslint-env node */
 
-const express = require("express"),
-fs = require("fs"),
+const fs = require("fs"),
 path = require("path"),
-cookieParser = require("cookie-parser"),
 { v4: uuidv4 } = require("uuid"),
+redis = require("redis"),
 db = require("./server/database-connection"),
+express = require("express"),
+cookieParser = require("cookie-parser"),
+
+redisClient = redis.createClient(),
 port = 3000;
 
 let app = express();
@@ -61,6 +64,9 @@ app.put("/SUS", function (req, res) {
     res.json({ message: "Processed /SUS PUT request" });
 });
 
-app.listen(port, function () {
-    console.log(`AppServer started. Client available at http://localhost:${port}`);
-});
+redisClient.on("ready", function () {
+    console.log("DB: redis connected");
+    app.listen(port, function () {
+        console.log(`AppServer started. Client available at http://localhost:${port}`);
+    });
+  });
