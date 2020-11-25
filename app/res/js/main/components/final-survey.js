@@ -5,6 +5,7 @@
  */
 
 import sus from "../../../../data/sus-survey.js";
+import serverConnection from "../../utils/server-connection.js";
 import LikertTableComponent from "./likert-table.js";
 
 /**
@@ -46,8 +47,12 @@ let FinalSurveyComponent = {
     */
     methods: {
         sendResults() {
-            localStorage.setItem("studyCompleted", "true");
-            this.$emit("study-completed");
+            let data = this.survey.items.map(item => parseInt(item.value));
+            serverConnection.sendSurveyResults("/SUS", { surveyResults: data}).then(response => {
+                console.log(response.message);
+                localStorage.setItem("studyCompleted", "true");
+                this.$emit("study-completed");
+            });
         },
     },
 };

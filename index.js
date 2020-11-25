@@ -51,6 +51,12 @@ app.put("/UEQ", function (req, res) {
     res.json({ message: "Processed /UEQ PUT request" });
 });
 
+app.put("/SUS", function (req, res) {
+    console.log("/SUS - for session: " + req.cookies.sessionId);
+    db.saveSUSResults(req.cookies.sessionId, req.body.surveyResults);
+    res.json({ message: "Processed /SUS PUT request" });
+});
+
 app.listen(port, function () {
     console.log(`AppServer started. Client available at http://localhost:${port}`);
 });

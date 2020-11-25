@@ -34,6 +34,20 @@ class dbConnection {
             });
         });
     }
+
+    saveSUSResults(sessionId, surveyResults) {
+        this.db.serialize(() => {
+            let inputArray = [ sessionId, ...surveyResults];
+
+            this.db.run("CREATE TABLE IF NOT EXISTS sus (sessionId TEXT PRIMARY KEY, q1 INTEGER, q2 INTEGER, q3 INTEGER, q4 INTEGER, q5 INTEGER, q6 INTEGER, q7 INTEGER, q8 INTEGER, q9 INTEGER, q10 INTEGER)", (error) => {
+                if (error !== null) { console.log(error); }
+            });
+
+            this.db.run("INSERT OR IGNORE INTO sus VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", inputArray, (error) => {
+                if (error !== null) { console.log(error); }
+            });
+        });
+    }
 }
 
 module.exports = new dbConnection();
