@@ -98,6 +98,13 @@ class dbConnection {
             });
         });
     }
+
+    close(callback) {
+        this.db.close((error) => {
+            if (error === null) { if (callback !== undefined) { callback(); } }
+            else { console.log(error); }
+        });
+    }
 }
 
 module.exports = new dbConnection();
