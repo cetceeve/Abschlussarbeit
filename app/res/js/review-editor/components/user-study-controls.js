@@ -1,6 +1,7 @@
 /* global HtmlSanitizer */
 import store from "../model/store.js";
 import snarkdown from "../../../../vendors/snarkdown/snarkdown.es.js";
+import logger from "../../utils/logger.js";
 
 /**
 * Display a simple task modal.
@@ -58,6 +59,7 @@ let UserStudyControlsComponent = {
                 this.taskStarted = true;
                 this.taskStartTime = performance.now();
             }
+            logger.log({ eventType: "test" });
             this.taskDescriptionIsVisible = !this.taskDescriptionIsVisible;
         },
         exitTask() {
