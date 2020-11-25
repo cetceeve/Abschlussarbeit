@@ -45,9 +45,10 @@ app.post("/state", (req, res) => {
     res.json({ state: fs.readFileSync("./data/test_state.json", "utf8")});
 });
 
-app.put("/UEQ", function (req, res) {
-    console.log("/UEQ - for session: " + req.cookies.sessionId);
-    db.saveUEQResults(req.body.taskId, req.cookies.sessionId, req.body.surveyResults);
+app.put("/task", function (req, res) {
+    console.log("/task - for session: " + req.cookies.sessionId);
+    db.saveUEQResults(req.cookies.sessionId, req.body.taskId, req.body.surveyResults);
+    db.saveTaskSuccessResults(req.cookies.sessionId, req.body.taskId, req.body.taskSuccess);
     res.json({ message: "Processed /UEQ PUT request" });
 });
 

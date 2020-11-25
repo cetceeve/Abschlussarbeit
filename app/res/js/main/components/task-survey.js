@@ -46,11 +46,11 @@ let TaskSurveyComponent = {
                 options: [
                     {
                         text: "Ja",
-                        value: 0,
+                        value: 1,
                     },
                     {
                         text: "Nein",
-                        value: 1,
+                        value: 0,
                     },
                 ],
             },
@@ -73,10 +73,11 @@ let TaskSurveyComponent = {
         sendResults() {
             let data = {
                 taskId: this.task.id,
+                taskSuccess: this.taskSuccess.value,
                 surveyResults: this.survey.items.map(item => parseInt(item.value)),
             };
             console.log(data);
-            serverConnection.sendSurveyResults("/UEQ", data).then(response => {
+            serverConnection.sendSurveyResults("/task", data).then(response => {
                 console.log(response.message);
                 this.$emit("task-survey-completed");
             });
