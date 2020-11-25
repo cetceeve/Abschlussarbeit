@@ -74,6 +74,7 @@ let TaskSurveyComponent = {
             let data = {
                 taskId: this.task.id,
                 taskSuccess: this.taskSuccess.value,
+                taskCompletionTime: this.task.taskCompletionTime === undefined ? 0 : this.task.taskCompletionTime,
                 surveyResults: this.survey.items.map(item => parseInt(item.value)),
             };
             console.log(data);

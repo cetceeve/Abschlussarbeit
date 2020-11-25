@@ -31,7 +31,7 @@ class dbConnection {
             });
             
             this.db.run(`INSERT OR IGNORE INTO ${taskId} VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`, inputArray, (error) => {
-                if (error === null) { console.log("DB: saved UEQ result: " + inputArray); }
+                if (error === null) { console.log("DB: saved UEQ result: " + surveyResults); }
                 else { console.log(error); }
             });
         });
@@ -46,7 +46,7 @@ class dbConnection {
             });
             
             this.db.run("INSERT OR IGNORE INTO sus VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", inputArray, (error) => {
-                if (error === null) { console.log("DB: saved SUS result: " + inputArray); }
+                if (error === null) { console.log("DB: saved SUS result: " + surveyResults); }
                 else { console.log(error); }
             });
         });
@@ -68,7 +68,29 @@ class dbConnection {
                 $sessionId: sessionId,
                 $value: taskSuccess,
             }, (error) => {
-                if (error === null) { console.log("DB: saved TSR result: " + taskId + ": " + taskSuccess); }
+                if (error === null) { console.log("DB: saved TSR result: " + taskId + " - " + taskSuccess); }
+                else { console.log(error); }
+            });
+        });
+    }
+
+    saveTaskCompletionTime(sessionId, taskId, taskCompletionTime) {
+        this.db.serialize(() => {
+            this.db.run("CREATE TABLE IF NOT EXISTS tct (sessionId TEXT PRIMARY KEY, exploration INTEGER, task1 INTEGER, task2 INTEGER, task3 INTEGER, task4 INTEGER, task5 INTEGER)", (error) => {
+                if (error !== null) { console.log(error); }
+            });
+
+            this.db.run("INSERT OR IGNORE INTO tct(sessionId) VALUES($sessionId)", {
+                $sessionId: sessionId,
+            }, (error) => {
+                if (error !== null) { console.log(error); }
+            });
+
+            this.db.run(`UPDATE OR IGNORE tct SET ${taskId}=$value WHERE tct.sessionId = $sessionId`, {
+                $sessionId: sessionId,
+                $value: taskCompletionTime,
+            }, (error) => {
+                if (error === null) { console.log("DB: saved TCT result: " + taskId + " - " + taskCompletionTime); }
                 else { console.log(error); }
             });
         });

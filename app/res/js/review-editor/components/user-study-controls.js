@@ -29,6 +29,9 @@ let UserStudyControlsComponent = {
         return {
             metaData: store.state.meta,
             taskDescriptionIsVisible: true,
+            taskStarted: false,
+            taskStartTime: null,
+            taskEndTime: null,
         };
     },
     /** Hold computed properties for the component.
@@ -51,13 +54,20 @@ let UserStudyControlsComponent = {
     */
     methods: {
         toggleTaskDesciption() {
+            if (!this.taskStarted) {
+                this.taskStarted = true;
+                this.taskStartTime = performance.now();
+            }
             this.taskDescriptionIsVisible = !this.taskDescriptionIsVisible;
         },
         exitTask() {
             if (this.currentTask.id !== null) {
+                this.taskEndTime = performance.now();
+
                 // update current task. this is a saveguard in case multiple tabs are used
                 let task = localStorage.getItem("currentTask") !== null ? JSON.parse(localStorage.getItem("currentTask")) : { id: null, name: "unknown", description: "unknown" };
                 task.isFinished = true;
+                task.taskCompletionTime = Math.round((this.taskEndTime - this.taskStartTime) / 1000);
                 localStorage.setItem("currentTask", JSON.stringify(task));
                 location.href = "./";
             }

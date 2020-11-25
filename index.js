@@ -49,7 +49,8 @@ app.put("/task", function (req, res) {
     console.log("/task - for session: " + req.cookies.sessionId);
     db.saveUEQResults(req.cookies.sessionId, req.body.taskId, req.body.surveyResults);
     db.saveTaskSuccessResults(req.cookies.sessionId, req.body.taskId, req.body.taskSuccess);
-    res.json({ message: "Processed /UEQ PUT request" });
+    db.saveTaskCompletionTime(req.cookies.sessionId, req.body.taskId, req.body.taskCompletionTime);
+    res.json({ message: "Processed /task PUT request" });
 });
 
 app.put("/SUS", function (req, res) {
