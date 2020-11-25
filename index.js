@@ -18,7 +18,8 @@ app.use("/data", express.static("./app/data"));
 // set session id if not there
 app.use(function (req, res, next) {
     // check if client sent cookie
-    var sessionId = req.cookies.sessionId;
+    let sessionId = req.cookies.sessionId;
+    console.log(req.ip);
     if (sessionId === undefined) {
         let newSessionId = uuidv4();
         res.cookie("sessionId", newSessionId, { 
