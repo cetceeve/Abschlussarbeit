@@ -146,8 +146,6 @@ new Vue({
     * @see https://vuejs.org/v2/guide/instance.html
     */
     mounted() {
-        console.log("checking cookie");
-        let sessionId = Cookies.get("sessionId");
-        console.log(sessionId);
+        return;
     },
 });

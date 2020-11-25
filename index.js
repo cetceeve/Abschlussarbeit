@@ -24,6 +24,7 @@ app.use(function (req, res, next) {
         let newSessionId = uuidv4();
         res.cookie("sessionId", newSessionId, { 
             expires: new Date(Date.now() + 1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 30),
+            httpOnly: true,
         });
         console.log("cookie created successfully");
         db.registerSession(newSessionId);
