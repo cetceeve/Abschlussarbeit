@@ -7,6 +7,7 @@ import TaskComponent from "./components/task.js";
 import TreeViewComponent from "./components/tree-view.js";
 import UserStudyControlsComponent from "./components/user-study-controls.js";
 import store from "./model/store.js";
+import "../utils/logger.js";
 
 Vue.use(VueCodemirror);
 Vue.use(SemanticUIVue);

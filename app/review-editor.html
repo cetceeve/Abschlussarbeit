@@ -46,7 +46,7 @@
                     </div>
                     <tree-view></tree-view>
                     <checklist class="checklist-container"></checklist>
-                    <sui-button content="Checkliste" @click="toggleChecklist" class="button-checklist raised":class="{active: sharedState.checklist.isVisible}"></sui-button>
+                    <sui-button id="ckecklist-button" content="Checkliste" @click="toggleChecklist(); logger($event);" class="button-checklist raised":class="{active: sharedState.checklist.isVisible}"></sui-button>
                 </sui-grid-column>
                 <sui-grid-column :width="9" class="remove-padding">
                     <code-editor></code-editor>
@@ -200,7 +200,7 @@
     </script>
     
     <script type="text/x-template" id="semantic-checkbox-component-template">
-        <sui-list-item>
+        <sui-list-item @click="logger($event, {target: 'checklist-item', content: data.label})">
             <sui-list-icon :name="iconName" @click="toggle" class="pointer"/>
             <sui-list-content><span v-html="renderedMarkdown" @click="toggle" class="pointer"></span></sui-list-content>
         </sui-list-item>

@@ -1,7 +1,7 @@
 /* global HtmlSanitizer */
 import store from "../model/store.js";
 import snarkdown from "../../../../vendors/snarkdown/snarkdown.es.js";
-import logger from "../../utils/logger.js";
+// import logger from "../../utils/logger.js";
 
 /**
 * Display a simple task modal.
@@ -54,16 +54,14 @@ let UserStudyControlsComponent = {
     * @property {Function} toggleExitConfirmation - Toggles exit confirmation modal via application state.
     */
     methods: {
-        toggleTaskDesciption(event) {
+        toggleTaskDesciption() {
             if (!this.taskStarted) {
                 this.taskStarted = true;
                 this.taskStartTime = performance.now();
             }
             this.taskDescriptionIsVisible = !this.taskDescriptionIsVisible;
-            logger.log({ eventType: event.type, eventTarget: "task-description-button", posX: event.clientX, posY: event.clientY });
         },
-        exitTask(event) {
-            logger.log({ eventType: event.type, eventTarget: "task-exit-confirmation-button", posX: event.clientX, posY: event.clientY });
+        exitTask() {
             if (this.currentTask.id !== null) {
                 this.taskEndTime = performance.now();
 

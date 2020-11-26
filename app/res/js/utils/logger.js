@@ -1,3 +1,4 @@
+/* global Vue */
 /**
 * Module used to log user interaction for testing purposes
 * @module utils/logger
@@ -6,32 +7,34 @@
 
 import serverConnection from "./server-connection.js";
 
-class Logger {
-    constructor() {
-        this.taskId = JSON.parse(localStorage.getItem("currentTask")).id;
-    }
-
-    base() {
+Vue.mixin({
+    data() {
         return {
-            taskID: this.taskId,
-            time: new Date().toLocaleString(),
-            timestamp: Date.now(),
-            windowHeight: window.outerHeight,
-            windowWidth: window.outerWidth,
-            eventType: null,
-            eventTarget: null,
-            posX: null,
-            posY: null,
-            payload: null,
-            shortHand: null,
+            loggerTaskId: JSON.parse(localStorage.getItem("currentTask")).id,
         };
-    }
-
-    async log(input) {
-        let logData = { ...this.base(), ...input};
-        console.log(logData);
-        // serverConnection.sendLog(logData);
-    }
-}
-
-export default new Logger();
+    },
+    methods: {
+        loggerBase(event) {
+            return {
+                taskID: this.loggerTaskId,
+                time: new Date().toLocaleString(),
+                timeStamp: Date.now(),
+                windowHeight: window.outerHeight,
+                windowWidth: window.outerWidth,
+                type: event.type || null,
+                target: event.target.id || null,
+                posX: event.clientX || null,
+                posY: event.clientY || null,
+                key: event.key || null,
+                tag: event.target.tagName || null,
+                content: event.target.textContent || null,
+                data: null,
+            };
+        },
+        logger: async function(event, input) {
+            let logData = { ...this.loggerBase(event), ...input};
+            console.log(logData);
+            // serverConnection.sendLog(logData);
+        },
+    },
+});
