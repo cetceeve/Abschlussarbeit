@@ -30,6 +30,7 @@ Vue.mixin({
                 tag: event.target.tagName || null,
                 content: null,
                 data: null,
+                info: null,
             };
         },
         logger: async function(event, input) {

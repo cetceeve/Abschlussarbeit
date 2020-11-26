@@ -82,7 +82,7 @@
     <script type="text/x-template" id="comments-marker-component-template">
         <div class="commentable-section" style="bottom: 20px">
             <div class="side-comment sidebar" :class="{active: isActive, 'has-comments': hasComments}">
-                <a href="#" class="marker" @click.stop="markerClick">
+                <a href="#" class="marker" @click.stop="markerClick(); logger($event, {'target': 'comment-marker', 'content': amountOfComments, 'info': 'section ' + section});">
                     <span>{{ amountOfComments }}</span>
                 </a>
             </div>
@@ -91,7 +91,7 @@
     
     <script type="text/x-template" id="comments-display-component-template">
         <div>
-            <div class="comment-display">
+            <div class="comment-display" @scroll.passive="loggerDebounced(event, {'target': 'comment-display', 'content': 'scrolling...', 'info': 'line ' + activeLineNumber})">
                 <div v-show="isActive">
                     <h4 is="sui-header">Zeile: {{ activeLineNumber }}</h4>
                     <sui-divider />
@@ -104,12 +104,12 @@
                                 <sui-button icon="underline" />
                                 <sui-button icon="text width" />
                             </div> -->
-                            <textarea ref="inputComment" v-model="newComment" placeholder="Markdown wird unterstützt. Hinterlasse einen Kommentar..." @keyup.esc="clearCommentInput" ></textarea>
+                            <textarea id="comment-display-textarea" ref="inputComment" v-model="newComment" placeholder="Markdown wird unterstützt. Hinterlasse einen Kommentar..." @keyup.esc="logger($event, {'info': 'line ' + activeLineNumber, 'content': newComment}); clearCommentInput();" @change="logger($event, {'info': 'line ' + activeLineNumber, 'content': newComment})"></textarea>
                         </sui-form-field>
                     </sui-form>
                     <div>
-                        <sui-dropdown selection :options="commentCategories" v-model="currentCategory" placeholder="Kategorie" />
-                        <sui-button @click.prevent="postNewComment" positive floated="right">Speichern</sui-button>
+                        <sui-dropdown selection :options="commentCategories" v-model="currentCategory" placeholder="Kategorie" @click="logger($event, {'info': 'line ' + activeLineNumber, 'target': 'comment-display-category-dropdown', 'content': currentCategory})"/>
+                        <sui-button id="comment-display-button-post" @click.prevent="logger($event, {'info': 'line ' + activeLineNumber, 'data': newComment}); postNewComment();" positive floated="right">Speichern</sui-button>
                     </div>
                 </div>
             </div>
