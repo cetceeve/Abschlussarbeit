@@ -6,11 +6,13 @@
 */
 
 import serverConnection from "./server-connection.js";
+import debounce from "https://cdn.jsdelivr.net/npm/lodash-es@4.17.15/debounce.js";
 
 Vue.mixin({
     data() {
         return {
             loggerTaskId: JSON.parse(localStorage.getItem("currentTask")).id,
+            scrolling: false,
         };
     },
     methods: {
@@ -25,16 +27,16 @@ Vue.mixin({
                 target: event.target.id || null,
                 posX: event.clientX || null,
                 posY: event.clientY || null,
-                key: event.key || null,
                 tag: event.target.tagName || null,
-                content: event.target.textContent || null,
+                content: null,
                 data: null,
             };
         },
         logger: async function(event, input) {
             let logData = { ...this.loggerBase(event), ...input};
-            console.log(logData);
-            // serverConnection.sendLog(logData);
+            // console.log(logData);
+            serverConnection.sendLog(logData);
         },
+        loggerDebounced: debounce(function(event, input) { this.logger(event, input); }, 300, { "leading": true, "trailing": false}),
     },
 });

@@ -187,7 +187,7 @@
     </script>
     
     <script type="text/x-template" id="checklist-component-template">
-        <sui-segment v-show="checklistData.isVisible" raised class="checklist">
+        <sui-segment id="checklist-container" v-show="checklistData.isVisible" raised class="checklist" @scroll="loggerDebounced($event)">
             <sui-segments>
                 <sui-segment v-for="(checkboxes, categoryName, index) in checklistData.categories"  :key="index">
                     <sui-header sub>{{ categoryName }}</sui-header>
