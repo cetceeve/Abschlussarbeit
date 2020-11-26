@@ -2,46 +2,16 @@
 
 const fs = require("fs"),
 path = require("path"),
-{ v4: uuidv4 } = require("uuid"),
-crypto = require("crypto"),
 redisClient = require("redis"),
-sql = require("./server/database-connection"),
 express = require("express"),
 cookieParser = require("cookie-parser"),
+sql = require("./server/database-connection"),
+serverUtils = require("./server/utils.js"),
 
 redis = redisClient.createClient(),
 port = 3000;
 
-let app = express(),
-
-shutDown = () => {
-    console.log("Received kill signal, shutting down gracefully");
-    server.close(() => {
-        console.log("Closed out remaining connections");
-        sql.close(() => {
-            redis.quit(() => {
-                console.log("Closed databases");
-                process.exit(0);
-            });
-        });
-    });
-    
-    setTimeout(() => {
-        console.error("Could not close connections in time, shutting down databases");
-        sql.close(() => {
-            redis.quit(() => {
-                console.log("Closed databases");
-                process.exit(1);
-            });
-        });
-    }, 30000);
-
-    setTimeout(() => {
-        console.error("Could not close databases, forcefully shutting down");
-        process.exit(1);
-    }, 40000);
-},
-server;
+let app = express(), server;
 
 redis.on("ready", () => {
     console.log("DB: redis connected");
@@ -50,49 +20,12 @@ redis.on("ready", () => {
     });
 });
 
-process.on("SIGTERM", shutDown);
-process.on("SIGINT", shutDown);
-
 app.use(express.json());
 app.use(cookieParser());
 app.use("/res", express.static("./app/res"));
 app.use("/vendors", express.static("./app/vendors"));
 app.use("/data", express.static("./app/data"));
-
-// set session id if not there
-app.use(function (req, res, next) {
-    // check if client sent session id cookie
-    if (req.cookies.sessionId === undefined) {
-        // disguise user ip as hash for data privacy
-        let ipHash = crypto.createHash("sha1").update(req.ip).digest("hex");
-        // check if ip was already, if true, reasign old sessionId
-        // this is a mechanism against fraud
-        redis.get(ipHash, (err, reply) => {
-            if (reply === null) {
-                // this ip was not seen before, create a new sessionId and store it as a cookie
-                let newSessionId = uuidv4();
-                res.cookie("sessionId", newSessionId, { 
-                    expires: new Date(Date.now() + 1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 30),
-                    httpOnly: true,
-                });
-                // save the ip and sessionId for 23 hours
-                redis.set(ipHash, newSessionId);
-                redis.expire(ipHash, 60*60*24);
-                // register the new session
-                sql.registerSession(newSessionId);
-                console.log("SERVER: Cookie created successfully");
-            } else {
-                // user was already seen, reasign old sessionId
-                res.cookie("sessionId", reply, { 
-                    expires: new Date(Date.now() + 1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 30),
-                    httpOnly: true,
-                });
-                console.log("SERVER: Fraud attempt blocked");
-            }
-        });
-    }
-    next();
-});
+app.use(serverUtils.sessionIdMiddleware(redis, sql));
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname + "/app/index.html"));
@@ -123,3 +56,5 @@ app.put("/SUS", function (req, res) {
     res.json({ message: "Processed /SUS PUT request" });
 });
 
+process.on("SIGTERM", () => serverUtils.shutDown(server, sql, redis));
+process.on("SIGINT", () => serverUtils.shutDown(server, sql, redis));
