@@ -4,6 +4,8 @@
 * @author Fabian Zeiher <fzeiher@gmail.com>
 */
 
+import serverConnection from "./server-connection.js";
+
 let logger = {
     taskId: null,
     base() {
@@ -20,7 +22,7 @@ let logger = {
     },
     log: async function(input) {
         let logData = { ...this.base(), ...input};
-        console.log(logData);
+        serverConnection.sendLog(logData);
     },
 };
 

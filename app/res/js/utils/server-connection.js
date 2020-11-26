@@ -22,6 +22,17 @@ let serverConnection = {
         });
         return await serverRes.json();
     },
+
+    sendLog: async function (logData) {
+        let serverRes = await fetch("/log", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(logData),
+        });
+        console.log(serverRes.status);
+    },
 };
 
 export default serverConnection;

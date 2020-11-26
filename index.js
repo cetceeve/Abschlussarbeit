@@ -56,5 +56,12 @@ app.put("/SUS", function (req, res) {
     res.json({ message: "Processed /SUS PUT request" });
 });
 
+app.put("/log", function (req, res) {
+    console.log("/log - for session: " + req.cookies.sessionId);
+    redis.lpush("log_" + req.cookies.sessionId, JSON.stringify(req.body));
+    // redis.XADD("log_stream_" + req.cookies.sessionId, "*", "test", "secondomator");
+    res.sendStatus(200);
+});
+
 process.on("SIGTERM", () => serverUtils.shutDown(server, sql, redis));
 process.on("SIGINT", () => serverUtils.shutDown(server, sql, redis));
