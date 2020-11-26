@@ -6,26 +6,23 @@ redisClient = require("redis"),
 express = require("express"),
 cookieParser = require("cookie-parser"),
 sql = require("./server/database-connection"),
-serverUtils = require("./server/utils.js"),
+ServerUtils = require("./server/utils.js"),
 
-redis = redisClient.createClient(),
+redis = redisClient.createClient().on("ready", () => { console.log("DB: redis connected"); }),
 port = 3000;
 
-let app = express(), server;
-
-redis.on("ready", () => {
-    console.log("DB: redis connected");
-    server = app.listen(port, function () {
-        console.log(`AppServer started. Client available at http://localhost:${port}`);
-    });
-});
+let app = express(),
+server = app.listen(port, function () {
+    console.log(`AppServer started. Client available at http://localhost:${port}`);
+}),
+utils = new ServerUtils(server, sql, redis);
 
 app.use(express.json());
 app.use(cookieParser());
 app.use("/res", express.static("./app/res"));
 app.use("/vendors", express.static("./app/vendors"));
 app.use("/data", express.static("./app/data"));
-app.use(serverUtils.sessionIdMiddleware(redis, sql));
+app.use(utils.sessionIdMiddleware());
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname + "/app/index.html"));
@@ -63,5 +60,5 @@ app.put("/log", function (req, res) {
     res.sendStatus(200);
 });
 
-process.on("SIGTERM", () => serverUtils.shutDown(server, sql, redis));
-process.on("SIGINT", () => serverUtils.shutDown(server, sql, redis));
+process.on("SIGTERM", () => utils.shutDown());
+process.on("SIGINT", () => utils.shutDown());

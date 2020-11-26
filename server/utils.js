@@ -1,17 +1,23 @@
 /* eslint-env node */
 const { v4: uuidv4 } = require("uuid"),
-crypto = require("crypto"),
+crypto = require("crypto");
 
-serverUtils = {
-    sessionIdMiddleware(redis, sql) {
-        return function(req, res, next) {
+class ServerUtils {
+    constructor(server, sql, redis) {
+        this.server = server;
+        this.sql = sql;
+        this.redis = redis;
+    }
+
+    sessionIdMiddleware() {
+        return (req, res, next) => {
             // check if client sent session id cookie
             if (req.cookies.sessionId === undefined) {
                 // disguise user ip as hash for data privacy
                 let ipHash = crypto.createHash("sha1").update(req.ip).digest("hex");
                 // check if ip was already, if true, reasign old sessionId
                 // this is a mechanism against fraud
-                redis.get(ipHash, (err, reply) => {
+                this.redis.get(ipHash, (err, reply) => {
                     if (reply === null) {
                         // this ip was not seen before, create a new sessionId and store it as a cookie
                         let newSessionId = uuidv4();
@@ -20,10 +26,11 @@ serverUtils = {
                             httpOnly: true,
                         });
                         // save the ip and sessionId for 23 hours
-                        redis.set(ipHash, newSessionId);
-                        redis.expire(ipHash, 60*60*24);
+                        this.redis.set(ipHash, newSessionId);
+                        this.redis.expire(ipHash, 60*60*24);
                         // register the new session
-                        sql.registerSession(newSessionId);
+                        this.redis.sadd("sessions", newSessionId);
+                        this.sql.registerSession(newSessionId);
                         console.log("SERVER: Cookie created successfully");
                     } else {
                         // user was already seen, reasign old sessionId
@@ -37,14 +44,14 @@ serverUtils = {
             }
             next();
         };
-    },
+    }
     
-    shutDown(server, sql, redis) {
+    shutDown() {
         console.log("Received kill signal, shutting down gracefully");
-        server.close(() => {
+        this.server.close(() => {
             console.log("Closed out remaining connections");
-            sql.close(() => {
-                redis.quit(() => {
+            this.sql.close(() => {
+                this.redis.quit(() => {
                     console.log("Closed databases");
                     process.exit(0);
                 });
@@ -53,8 +60,8 @@ serverUtils = {
         
         setTimeout(() => {
             console.error("Could not close connections in time, shutting down databases");
-            sql.close(() => {
-                redis.quit(() => {
+            this.sql.close(() => {
+                this.redis.quit(() => {
                     console.log("Closed databases");
                     process.exit(1);
                 });
@@ -65,7 +72,7 @@ serverUtils = {
             console.error("Could not close databases, forcefully shutting down");
             process.exit(1);
         }, 40000);
-    },
-};
+    }
+}
 
-module.exports = serverUtils;
+module.exports = ServerUtils;

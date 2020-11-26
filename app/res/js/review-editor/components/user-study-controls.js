@@ -54,15 +54,16 @@ let UserStudyControlsComponent = {
     * @property {Function} toggleExitConfirmation - Toggles exit confirmation modal via application state.
     */
     methods: {
-        toggleTaskDesciption() {
+        toggleTaskDesciption(event) {
             if (!this.taskStarted) {
                 this.taskStarted = true;
                 this.taskStartTime = performance.now();
             }
-            logger.log({ eventType: "test" });
             this.taskDescriptionIsVisible = !this.taskDescriptionIsVisible;
+            logger.log({ eventType: event.type, eventTarget: "task-description-button", posX: event.clientX, posY: event.clientY });
         },
-        exitTask() {
+        exitTask(event) {
+            logger.log({ eventType: event.type, eventTarget: "task-exit-confirmation-button", posX: event.clientX, posY: event.clientY });
             if (this.currentTask.id !== null) {
                 this.taskEndTime = performance.now();
 

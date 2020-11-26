@@ -6,26 +6,32 @@
 
 import serverConnection from "./server-connection.js";
 
-let logger = {
-    taskId: null,
+class Logger {
+    constructor() {
+        this.taskId = JSON.parse(localStorage.getItem("currentTask")).id;
+    }
+
     base() {
         return {
             taskID: this.taskId,
-            timestamp: new Date().toLocaleString(),
-            windowHeight: null,
-            windowWidth: null,
+            time: new Date().toLocaleString(),
+            timestamp: Date.now(),
+            windowHeight: window.outerHeight,
+            windowWidth: window.outerWidth,
             eventType: null,
             eventTarget: null,
+            posX: null,
+            posY: null,
             payload: null,
             shortHand: null,
         };
-    },
-    log: async function(input) {
+    }
+
+    async log(input) {
         let logData = { ...this.base(), ...input};
-        serverConnection.sendLog(logData);
-    },
-};
+        console.log(logData);
+        // serverConnection.sendLog(logData);
+    }
+}
 
-logger.taskId = JSON.parse(localStorage.getItem("currentTask")).id;
-
-export default logger;
+export default new Logger();
