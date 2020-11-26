@@ -3,6 +3,7 @@
 const fs = require("fs"),
 path = require("path"),
 { v4: uuidv4 } = require("uuid"),
+crypto = require("crypto"),
 redisClient = require("redis"),
 sql = require("./server/database-connection"),
 express = require("express"),
@@ -60,17 +61,35 @@ app.use("/data", express.static("./app/data"));
 
 // set session id if not there
 app.use(function (req, res, next) {
-    // check if client sent cookie
-    let sessionId = req.cookies.sessionId;
-    console.log(req.ip);
-    if (sessionId === undefined) {
-        let newSessionId = uuidv4();
-        res.cookie("sessionId", newSessionId, { 
-            expires: new Date(Date.now() + 1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 30),
-            httpOnly: true,
+    // check if client sent session id cookie
+    if (req.cookies.sessionId === undefined) {
+        // disguise user ip as hash for data privacy
+        let ipHash = crypto.createHash("sha1").update(req.ip).digest("hex");
+        // check if ip was already, if true, reasign old sessionId
+        // this is a mechanism against fraud
+        redis.get(ipHash, (err, reply) => {
+            if (reply === null) {
+                // this ip was not seen before, create a new sessionId and store it as a cookie
+                let newSessionId = uuidv4();
+                res.cookie("sessionId", newSessionId, { 
+                    expires: new Date(Date.now() + 1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 30),
+                    httpOnly: true,
+                });
+                // save the ip and sessionId for 23 hours
+                redis.set(ipHash, newSessionId);
+                redis.expire(ipHash, 60*60*24);
+                // register the new session
+                sql.registerSession(newSessionId);
+                console.log("SERVER: Cookie created successfully");
+            } else {
+                // user was already seen, reasign old sessionId
+                res.cookie("sessionId", reply, { 
+                    expires: new Date(Date.now() + 1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 30),
+                    httpOnly: true,
+                });
+                console.log("SERVER: Fraud attempt blocked");
+            }
         });
-        console.log("cookie created successfully");
-        sql.registerSession(newSessionId);
     }
     next();
 });
