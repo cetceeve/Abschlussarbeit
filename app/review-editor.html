@@ -64,22 +64,18 @@
     
     <script type="text/x-template" id="code-editor-component-template">
         <div>
-            <!-- <sui-button-group size="mini" class="code-editor-fold-buttons">
-                <sui-button @click="unfoldAll">unfold all</sui-button>
-                <sui-button @click="foldAll">fold all</sui-button>
-            </sui-button-group> -->
-            <codemirror ref="cmEditor" v-model="code" :options="cmOption"></codemirror>
+            <codemirror ref="cmEditor" v-model="code" :options="cmOption" @scroll.passive="loggerDebounced(event, {'target': 'codemirror', 'content': 'scrolling...'})"></codemirror>
             <div class="code-editor-bottom-controls">
-                <span class="fold-buttons" @click="unfoldAll">unfold all</span>
-                <sui-dropdown :text="editorOptions.activeTheme">
+                <span id="code-editor-controls-unfold" class="fold-buttons" @click="unfoldAll(); logger($event);">unfold all</span>
+                <sui-dropdown :text="editorOptions.activeTheme" @click.capture="logger($event, {'target': 'code-editor-controls-theme-dropdown', 'content': editorOptions.activeTheme})">
                     <sui-dropdown-menu>
-                        <sui-dropdown-item v-for="(value, index) in editorOptions.themes" :key="index" @click="setActiveTheme(value)">{{ value }}</sui-dropdown-item>
+                        <sui-dropdown-item v-for="(value, index) in editorOptions.themes" :key="index" @click="setActiveTheme(value); logger($event, {'target': 'code-editor-controls-theme-item', 'content': value});">{{ value }}</sui-dropdown-item>
                     </sui-dropdown-menu>
                 </sui-dropdown>
-                <span class="fold-buttons" @click="foldAll">fold all</span>
+                <span id="code-editor-controls-fold" class="fold-buttons" @click="foldAll(); logger($event);">fold all</span>
             </div>
-            <sui-button circular @click="showSearch" icon="search" class="code-editor-search-fab" size="massive"></sui-button>
-            <sui-button circular @click="clearSearch" icon="x icon" class="code-editor-clear-fab" size="mini"></sui-button>
+            <sui-button circular @click="showSearch(); logger($event, {'target': 'code-editor-search'});" icon="search" class="code-editor-search-fab" size="massive"></sui-button>
+            <sui-button circular @click="clearSearch(); logger($event, {'target': 'code-editor-search-clear'});" icon="x icon" class="code-editor-clear-fab" size="mini"></sui-button>
         </div>
     </script>
     
@@ -187,7 +183,7 @@
     </script>
     
     <script type="text/x-template" id="checklist-component-template">
-        <sui-segment id="checklist-container" v-show="checklistData.isVisible" raised class="checklist" @scroll="loggerDebounced($event)">
+        <sui-segment id="checklist-container" v-show="checklistData.isVisible" raised class="checklist" @scroll.passive="loggerDebounced($event, {'content': 'scrolling...'})">
             <sui-segments>
                 <sui-segment v-for="(checkboxes, categoryName, index) in checklistData.categories"  :key="index">
                     <sui-header sub>{{ categoryName }}</sui-header>
