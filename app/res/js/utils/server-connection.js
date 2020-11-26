@@ -20,7 +20,7 @@ let serverConnection = {
             },
             body: JSON.stringify(inputData),
         });
-        return await serverRes.json();
+        return serverRes;
     },
 
     sendLog: async function (logData) {

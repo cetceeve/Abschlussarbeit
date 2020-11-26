@@ -1,8 +1,8 @@
 /**
- * Display a simple survey component.
- * @module main/components/FinalSurveyComponent
- * @author Fabian Zeiher
- */
+* Display a simple survey component.
+* @module main/components/FinalSurveyComponent
+* @author Fabian Zeiher
+*/
 
 import sus from "../../../../data/sus-survey.js";
 import serverConnection from "../../utils/server-connection.js";
@@ -49,9 +49,10 @@ let FinalSurveyComponent = {
         sendResults() {
             let data = this.survey.items.map(item => parseInt(item.value));
             serverConnection.sendSurveyResults("/SUS", { surveyResults: data}).then(response => {
-                console.log(response.message);
-                localStorage.setItem("studyCompleted", "true");
-                this.$emit("study-completed");
+                if (response.status === 200) {
+                    localStorage.setItem("studyCompleted", "true");
+                    this.$emit("study-completed");
+                }
             });
         },
     },

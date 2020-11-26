@@ -44,13 +44,13 @@ app.put("/task", function (req, res) {
     sql.saveUEQResults(req.cookies.sessionId, req.body.taskId, req.body.surveyResults);
     sql.saveTaskSuccessResults(req.cookies.sessionId, req.body.taskId, req.body.taskSuccess);
     sql.saveTaskCompletionTime(req.cookies.sessionId, req.body.taskId, req.body.taskCompletionTime);
-    res.json({ message: "Processed /task PUT request" });
+    res.sendStatus(200);
 });
 
 app.put("/SUS", function (req, res) {
     console.log("/SUS - for session: " + req.cookies.sessionId);
     sql.saveSUSResults(req.cookies.sessionId, req.body.surveyResults);
-    res.json({ message: "Processed /SUS PUT request" });
+    res.sendStatus(200);
 });
 
 app.put("/log", function (req, res) {

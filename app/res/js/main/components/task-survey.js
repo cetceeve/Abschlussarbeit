@@ -79,8 +79,9 @@ let TaskSurveyComponent = {
             };
             console.log(data);
             serverConnection.sendSurveyResults("/task", data).then(response => {
-                console.log(response.message);
-                this.$emit("task-survey-completed");
+                if (response.status === 200) {
+                    this.$emit("task-survey-completed"); 
+                }
             });
         },
     },
