@@ -247,11 +247,14 @@
 
     <script type="text/x-template" id="user-study-controls-component-template">
         <div>
-            <sui-segment raised class="user-study-controls" aligned="center" >
-                <sui-label attached="top">Task: {{ currentTask.name }}</sui-label>
-                <sui-button content="Task-Beschreibung" @click="toggleTaskDesciption" :class="{active: taskDescriptionIsVisible}" size="mini"></sui-button>
-                <sui-button content="Task abschließen" @click="toggleExitConfirmation" icon="right arrow" label-position="right" :class="{active: metaData.exitConfirmationIsVisible}" size="mini"></sui-button>
-            </sui-segment>
+            <div class="user-study-controls">
+                <sui-button :content="barContent" primary :icon="barIcon" label-position="right" @click="toggleTaskControls" attached="bottom" size="mini" class="raised"></sui-button>
+                <sui-segment color="blue" v-show="taskControlsAreVisible" raised aligned="center" >
+                    <sui-label attached="top">Task: {{ currentTask.name }}</sui-label>
+                    <sui-button content="Task-Beschreibung" @click="toggleTaskDesciption" :class="{active: taskDescriptionIsVisible}" size="mini"></sui-button>
+                    <sui-button content="Task abschließen" @click="toggleExitConfirmation" icon="sign out alternate" label-position="right" :class="{active: metaData.exitConfirmationIsVisible}" size="mini"></sui-button>
+                </sui-segment>
+            </div>
             <sui-modal size="tiny" :open="metaData.exitConfirmationIsVisible">
                 <sui-icon name="close" @click.native="toggleExitConfirmation"/>
                 <sui-modal-header>
@@ -264,7 +267,7 @@
                     <sui-button @click.native="toggleExitConfirmation">
                         Abbrechen
                     </sui-button>
-                    <sui-button primary content="Task Abschließen" @click="exitTask" icon="right arrow" label-position="right" />
+                    <sui-button primary content="Task Abschließen" @click="exitTask" icon="sign out alternate" label-position="right" />
                 </sui-modal-actions>
             </sui-modal>
             <sui-modal :open="taskDescriptionIsVisible">

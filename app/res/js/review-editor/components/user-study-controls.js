@@ -29,6 +29,7 @@ let UserStudyControlsComponent = {
     data() {
         return {
             metaData: store.state.meta,
+            taskControlsAreVisible: false,
             taskDescriptionIsVisible: true,
             taskStarted: false,
             taskStartTime: null,
@@ -45,6 +46,12 @@ let UserStudyControlsComponent = {
         renderedDescription() {
             // Sanitizing snarkdowns Html-output is very important to avoid XSS attacks
             return HtmlSanitizer.SanitizeHtml(snarkdown(this.currentTask.description));
+        },
+        barContent() {
+            return this.taskControlsAreVisible ? "Steuerungselemente für Usability-Task ausblenden" : "Steuerungselemente für Usability-Task einblenden";
+        },
+        barIcon() {
+            return this.taskControlsAreVisible ? "caret up" : "caret down";
         },
     },
     /**
@@ -75,6 +82,9 @@ let UserStudyControlsComponent = {
         },
         toggleExitConfirmation() {
             store.toggleExitConfirmationVisibility();
+        },
+        toggleTaskControls() {
+            this.taskControlsAreVisible = !this.taskControlsAreVisible;
         },
     },
     mounted() {
