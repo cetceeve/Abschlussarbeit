@@ -50,7 +50,6 @@ let FinalSurveyComponent = {
             let data = this.survey.items.map(item => parseInt(item.value));
             serverConnection.sendSurveyResults("/SUS", { surveyResults: data}).then(response => {
                 if (response.status === 200) {
-                    localStorage.setItem("studyCompleted", "true");
                     this.$emit("study-completed");
                 }
             });

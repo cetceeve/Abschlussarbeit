@@ -134,6 +134,9 @@ new Vue({
             this.isFinalSurvey = true;
         },
         showFinalScreen() {
+            localStorage.clear();
+            localStorage.setItem("studyCompleted", "true");
+            localStorage.setItem("agreementIsGiven", "true");
             this.studyCompleted = true;
         },
     },
