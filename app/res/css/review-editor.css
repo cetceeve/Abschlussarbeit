@@ -18,7 +18,7 @@
     }
 }
 
-#loader {
+#startup {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -26,6 +26,10 @@
 
 #loader-text {
     margin-top: 2rem;
+    transform: translate(-50%, 0);
+}
+
+#mobile-sorry {
     transform: translate(-50%, 0);
 }
 

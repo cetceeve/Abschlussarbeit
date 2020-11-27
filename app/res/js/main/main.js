@@ -6,8 +6,6 @@ import StudyIntroductionComponent from "./components/study-introduction.js";
 import StudyControlsComponent from "./components/study-controls.js";
 import EndScreenComponent from "./components/end-screen.js";
 
-import serverConnection from "../utils/server-connection.js";
-
 import studyTasks from "../../../data/study-tasks.js";
 
 Vue.use(SemanticUIVue);
@@ -149,6 +147,14 @@ new Vue({
     * @see https://vuejs.org/v2/guide/instance.html
     */
     mounted() {
-        return;
+        let isMobile = window.matchMedia("only screen and (max-width: 1049px)").matches;
+
+        if (isMobile) {
+            document.querySelector("#spinner").style.display = "none";
+            document.querySelector("#mobile-sorry").style.display = "block";
+        } else {
+            document.querySelector("#startup").style.display = "none";
+            document.querySelector("#app").style.display = "block";
+        } 
     },
 });

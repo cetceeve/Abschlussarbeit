@@ -31,9 +31,10 @@
 </head>
 
 <body>
-    <div id="loader">
+    <div id="startup">
         <div id="spinner"></div>
-        <h4 id="loader-text">Internet nach Skripten durchsuchen...</h4>
+        <h4 id="loader-text">Code-Review-Editor wird gestalltet...</h4>
+        <h4 id="mobile-sorry" style="display:none;">Sorry, leider kann die Studie nicht auf mobilen Geräten durchgeführt werden.</h4>
     </div>
     <div id="app" style="display:none;">
         <sui-grid :columns="3">
@@ -82,7 +83,7 @@
     <script type="text/x-template" id="comments-marker-component-template">
         <div class="commentable-section" style="bottom: 20px">
             <div class="side-comment sidebar" :class="{active: isActive, 'has-comments': hasComments}">
-                <a href="#" class="marker" @click.stop="markerClick(); logger($event, {'target': 'comment-marker', 'content': amountOfComments, 'info': 'section ' + section});">
+                <a href="#" class="marker" @touchstart.prevent="markerClick(); logger($event, {'target': 'comment-marker', 'content': amountOfComments, 'info': 'section ' + section});" @click.stop="markerClick(); logger($event, {'target': 'comment-marker', 'content': amountOfComments, 'info': 'section ' + section});">
                     <span>{{ amountOfComments }}</span>
                 </a>
             </div>

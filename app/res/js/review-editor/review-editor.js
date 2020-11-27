@@ -87,7 +87,15 @@ new Vue({
     * @see https://vuejs.org/v2/guide/instance.html
     */
     mounted() {
-        document.querySelector("#loader").style.display = "none";
-        document.querySelector("#app").style.display = "block"; 
+        let isMobile = window.matchMedia("only screen and (max-width: 1049px)").matches;
+
+        if (isMobile) {
+            document.querySelector("#loader-text").style.display = "none";
+            document.querySelector("#spinner").style.display = "none";
+            document.querySelector("#mobile-sorry").style.display = "block";
+        } else {
+            document.querySelector("#startup").style.display = "none";
+            document.querySelector("#app").style.display = "block";
+        } 
     },
 });
