@@ -38,7 +38,7 @@
     
     <script type="text/x-template" id="study-controls-component-template">
         <sui-segment>
-            <sui-progress indicating :percent="percent" :label="label" />
+            <sui-progress indicating :percent="progressPercent" :label="progressLabel" />
             <sui-button v-show="!exitConfirmationIsVisible" @click="toggleExitConfirmation" :disabled="!allowexit && !allTasksComplete" :primary="allTasksComplete">Studie Beenden</sui-button>
             <div v-show="exitConfirmationIsVisible" style="display: inline-block;">
                 <h4 is="sui-header" style="display: inline-block; margin-right: 1rem;">Studie wirklich beenden?</h4>
@@ -64,10 +64,30 @@
     
     <script type="text/x-template" id="task-survey-component-template">
         <div>
-            <sui-segment basic>
+            <sui-segment basic style="margin-bottom: 0;">
                 <h1 is="sui-header">Fragebogen Task: {{ task.name }}</h1>
             </sui-segment>
+
+            <sui-segment basic style="margin-top: 0;">
+                <h4 is="sui-header">
+                    <sui-icon name="lightbulb outline" />
+                    <sui-header-content>
+                        Als Erinnerungshilfe
+                        <sui-header-subheader><p v-html="renderedTaskDescription"></p></sui-header-subheader>
+                    </sui-header-content>
+                </h4>
+            </sui-segment>
             
+            <sui-segment color="blue">
+                <h4 is="sui-header">
+                    <sui-icon name="info circle" />
+                    <sui-header-content>
+                        Hinweis
+                        <sui-header-subheader>Danke für die Durchführung des Usability-Tasks! Bitte beantworte den folgenen Fragebogen so spontan und ehrlich wie möglich. Dieser Fragebogen bezieht sich auf den gerade von dir abgeschlossenen Usability-Task. Deine Meinung zur Usability und User-Experience des Systems ist uns wichtig. Bitte beachte: Wir bewerten nur die Anwendung, nicht die Nutzer*innen.</sui-header-subheader>
+                    </sui-header-content>
+                </h4>
+            </sui-segment>
+
             <sui-segment>
                 <h2 is="sui-header">
                     <sui-icon name="check" />
@@ -107,6 +127,17 @@
             <sui-segment basic>
                 <h1 is="sui-header">Abschlussfragebogen</h1>
             </sui-segment>
+
+            <sui-segment color="blue">
+                <h4 is="sui-header">
+                    <sui-icon name="info circle" />
+                    <sui-header-content>
+                        Hinweis
+                        <sui-header-subheader>Danke für die Bearbeitung der Usability-Tasks! Du hast es fast geschafft. Bitte beantworte den folgenen Fragebogen so spontan und ehrlich wie möglich. In diesem Fragebogen soll das System als ganzes - unabhängig von einzelnen Usability-Tasks - betrachtet werden.</sui-header-subheader>
+                    </sui-header-content>
+                </h4>
+            </sui-segment>
+
             <sui-segment>
                 <h2 is="sui-header">
                     <sui-icon name="clipboard" />
@@ -117,6 +148,7 @@
                 </h2>
                 <likert-table v-model="survey.items" :range="survey.likertRange"></likert-table>
             </sui-segment>
+            
             <sui-segment basic aligned="right">
                 <sui-button icon="sign out alternate" @click="sendResults" label-position="right" primary :disabled="!isComplete">Studie beenden</sui-button>
             </sui-segment>
@@ -180,7 +212,7 @@
                 <sui-form>
                     <sui-form-field>
                       <label>Feedback</label>
-                      <textarea v-model="feedback" placeholder="Hinterlasse dein Feedback zur Studie..."></textarea>
+                      <textarea v-model="feedback" placeholder="Hinterlasse dein Feedback zur Studie und/oder dem Code-Review-Editor..."></textarea>
                     </sui-form-field>
                   </sui-form>
                   <sui-button icon="save" label-position="left" @click="sendFeedback" primary :disabled="feedback.length < 1">Feedback abschicken</sui-button>

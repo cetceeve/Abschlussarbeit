@@ -40,11 +40,11 @@ let StudyControlsComponent = {
     * @property {String} label - Label to be displayed below progree bar.
     */
     computed: {
-        percent() {
+        progressPercent() {
             return 100 - ((this.tasklist.length / this.maxtasknumber) * 100); 
         },
-        label() {
-            return `${this.maxtasknumber - this.tasklist.length} von ${this.maxtasknumber} Tasks abgeschlossen`;
+        progressLabel() {
+            return `${this.maxtasknumber - this.tasklist.length} von ${this.maxtasknumber} möglichen Tasks abgeschlossen. Vielen Dank!`;
         },
         allTasksComplete() {
             return this.tasklist.length < 1;

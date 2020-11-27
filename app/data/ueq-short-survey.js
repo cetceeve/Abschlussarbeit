@@ -1,6 +1,6 @@
 let ueqs = {
     name: "UEQ-S",
-    title: "Bitte bewerte die Anwendung!",
+    title: "Bitte bewerte die Anwendung",
     description: "Entscheide so spontan wie möglich welcher der folgenden widersprüchlichen Terme die Anwendung besser beschreibt. Es gibt keine richtigen oder falschen Antworten. Nur deine Meinung zählt.",
     likertRange: "7",
     items: [

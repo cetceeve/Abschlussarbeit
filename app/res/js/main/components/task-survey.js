@@ -1,9 +1,11 @@
+/* global HtmlSanitizer*/
 /**
-* Display a simple survey component.
-* @module main/components/TaskSurveyComponent
-* @author Fabian Zeiher
-*/
+ * Display a simple survey component.
+ * @module main/components/TaskSurveyComponent
+ * @author Fabian Zeiher
+ */
 
+import snarkdown from "../../../../vendors/snarkdown/snarkdown.es.js";
 import ueqShort from "../../../../data/ueq-short-survey.js";
 import serverConnection from "../../utils/server-connection.js";
 import LikertTableComponent from "./likert-table.js";
@@ -58,11 +60,16 @@ let TaskSurveyComponent = {
         };
     },
     /** Hold computed properties for the component.
-    * @property {Boolean} isComplete - Sentinel to determine if user completed the survey.
+     * @property {Boolean} isComplete - Sentinel to determine if user completed the survey.
+     * @property {String} renderedTaskDescription - Transformed markdown html string.
     */
     computed: {
         isComplete() {
             return this.survey.items.every(currentValue => currentValue.value !== null) && this.taskSuccess.value !== null;
+        },
+        renderedTaskDescription() {
+            // Sanitizing snarkdowns Html-output is very important to avoid XSS attacks
+            return HtmlSanitizer.SanitizeHtml(snarkdown(this.task.description));
         },
     },
     /**
