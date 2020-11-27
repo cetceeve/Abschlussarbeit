@@ -11,7 +11,7 @@ import debounce from "https://cdn.jsdelivr.net/npm/lodash-es@4.17.15/debounce.js
 Vue.mixin({
     data() {
         return {
-            loggerTaskId: JSON.parse(localStorage.getItem("currentTask")).id,
+            loggerTaskId: JSON.parse(localStorage.getItem("currentTask")) ? JSON.parse(localStorage.getItem("currentTask")).id : "unknown",
             scrolling: false,
         };
     },
