@@ -1,5 +1,12 @@
 /* eslint-env node */
-const { v4: uuidv4 } = require("uuid");
+const { v4: uuidv4 } = require("uuid"),
+mailTransporter = require("nodemailer").createTransport({
+    service: "gmail",
+    auth: {
+      user: "fzeiher@gmail.com",
+      pass: "nslnpjmvcbfncjpm",
+    },
+  });
 
 class ServerUtils {
     constructor(server, sql, redis) {
@@ -24,6 +31,19 @@ class ServerUtils {
             }
             next();
         };
+    }
+
+    mail(sessionId, text) {
+        let mailOptions = {
+            from: "fzeiher@gmail.com",
+            to: "fzeiher@gmail.com",
+            subject: "A message from session: " + sessionId,
+            text: text,
+        };
+        mailTransporter.sendMail(mailOptions, function(error, info) {
+            if (error) { console.log(error); }
+            else { console.log("Email sent: " + info.response); }
+        });
     }
     
     shutDown() {

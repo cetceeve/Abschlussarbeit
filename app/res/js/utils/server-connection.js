@@ -11,7 +11,7 @@ let serverConnection = {
         return serverRes;
     },
 
-    sendLog: async function (logData) {
+    sendLog: async function(logData) {
         let serverRes = await fetch("/log", {
             method: "PUT",
             headers: {
@@ -20,6 +20,17 @@ let serverConnection = {
             body: JSON.stringify(logData),
         });
         console.log(serverRes.status);
+    },
+
+    sendFeedback: async function(message) {
+        let serverRes = await fetch("/feedback", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ message: message }),
+        });
+        return serverRes;
     },
 };
 

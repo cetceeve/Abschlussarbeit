@@ -53,5 +53,11 @@ app.put("/log", function (req, res) {
     res.sendStatus(200);
 });
 
+app.put("/feedback", function (req, res) {
+    console.log("/log - for session: " + req.cookies.sessionId);
+    utils.mail(req.cookies.sessionId, req.body.message);
+    res.sendStatus(200);
+});
+
 process.on("SIGTERM", () => utils.shutDown());
 process.on("SIGINT", () => utils.shutDown());

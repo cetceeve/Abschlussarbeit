@@ -4,6 +4,8 @@
 * @author Fabian Zeiher
 */
 
+import serverConnection from "../../utils/server-connection.js";
+
 /**
 * Namespace for end screen component
 * @namespace
@@ -31,7 +33,13 @@ let EndScreenComponent = {
     */
     methods: {
         sendFeedback() {
-            this.feedbackWasSent = true;
+            if (this.feedback.length > 0) {
+                serverConnection.sendFeedback(this.feedback).then(response => {
+                    if (response.status === 200) {
+                        this.feedbackWasSent = true;
+                    }
+                });
+            }
         },
     },
 };

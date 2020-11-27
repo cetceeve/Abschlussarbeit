@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Fabian Zeiher" />
-    <title>Review-Edior-Test</title>
+    <title>Studie | Code Review Editor</title>
     <!-- semantic ui -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <!-- my style -->
@@ -13,7 +13,7 @@
 <body>
     <div id="startup">
         <div id="spinner"></div>
-        <h4 id="mobile-sorry" style="display:none;">Sorry, leider kann die Studie nicht auf mobilen Geräten durchgeführt werden.</h4>
+        <h4 id="mobile-sorry" style="display:none;">Sorry, leider kann die Studie nicht auf mobilen Geräten oder Bildschirmen mit weniger als 1050 Pixel Breite durchgeführt werden.</h4>
     </div>
     <div id="app" style="display: none;">
         <main>
@@ -212,7 +212,7 @@
                 <sui-form>
                     <sui-form-field>
                       <label>Feedback</label>
-                      <textarea v-model="feedback" placeholder="Hinterlasse dein Feedback zur Studie und/oder dem Code-Review-Editor..."></textarea>
+                      <textarea v-model.trim="feedback" placeholder="Hinterlasse dein Feedback zur Studie und/oder dem Code-Review-Editor..."></textarea>
                     </sui-form-field>
                   </sui-form>
                   <sui-button icon="save" label-position="left" @click="sendFeedback" primary :disabled="feedback.length < 1">Feedback abschicken</sui-button>
