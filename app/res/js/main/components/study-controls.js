@@ -16,14 +16,14 @@ let StudyControlsComponent = {
     /**
     * Attributes that are exposed to accept data from the parent component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
-    * @property {module:review-editor/model/Store~TreeItem} item - Data item for this node.
     * @see https://vuejs.org/v2/guide/reactivity.html
     */
     props: {
-        allowexit: Boolean,
-        tasklist: Array,
-        isfirsttask: Boolean,
-        maxtasknumber: Number,
+        allowExit: Boolean,
+        taskList: Array,
+        isFirstTask: Boolean,
+        maxTaskNumber: Number,
+        numTasksCompleted: Number,
     },
     /**
     * Hold reactive data for the component.
@@ -41,13 +41,13 @@ let StudyControlsComponent = {
     */
     computed: {
         progressPercent() {
-            return 100 - ((this.tasklist.length / this.maxtasknumber) * 100); 
+            return 100 - ((this.taskList.length / this.maxTaskNumber) * 100); 
         },
         progressLabel() {
-            return `${this.maxtasknumber - this.tasklist.length} von ${this.maxtasknumber} möglichen Tasks abgeschlossen. Vielen Dank!`;
+            return `Du hast ${this.numTasksCompleted} von ${this.maxTaskNumber} möglichen Tasks abgeschlossen und ${this.numTasksCompleted * 0.25} VP-Stunden gesammelt.`;
         },
         allTasksComplete() {
-            return this.tasklist.length < 1;
+            return this.taskList.length < 1;
         },
     },
     /**

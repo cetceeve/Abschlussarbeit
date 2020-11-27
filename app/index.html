@@ -17,7 +17,7 @@
     </div>
     <div id="app" style="display: none;">
         <main>
-            <end-screen v-if="studyCompleted">byebye for now</end-screen>
+            <end-screen v-if="studyCompleted" :num-tasks-completed="numTasksCompleted">byebye for now</end-screen>
             <template v-else>
                 <final-survey v-if="isFinalSurvey" @study-completed="showFinalScreen"></final-survey>
                 <template v-else>
@@ -28,7 +28,7 @@
                             <sui-message-header>Task "{{currentTask.name }}" abgeschlossen</sui-message-header>
                             <p>Vielen Dank!</p>
                         </sui-message>
-                        <study-controls @start-task="onStartTaskButtonClicked" @show-final-survey="showFinalSurvey" :allowexit="allowExit" :isfirsttask="isFirstTask" :tasklist="taskList" :maxtasknumber="tasks.length"></study-controls>
+                        <study-controls @start-task="onStartTaskButtonClicked" @show-final-survey="showFinalSurvey" :allow-exit="allowExit" :is-first-task="isFirstTask" :task-list="taskList" :max-task-number="tasks.length" :num-tasks-completed="numTasksCompleted"></study-controls>
                     </template>
                 </template>
             </template>
@@ -39,7 +39,7 @@
     <script type="text/x-template" id="study-controls-component-template">
         <sui-segment>
             <sui-progress indicating :percent="progressPercent" :label="progressLabel" />
-            <sui-button v-show="!exitConfirmationIsVisible" @click="toggleExitConfirmation" :disabled="!allowexit && !allTasksComplete" :primary="allTasksComplete">Studie Beenden</sui-button>
+            <sui-button v-show="!exitConfirmationIsVisible" @click="toggleExitConfirmation" :disabled="!allowExit && !allTasksComplete" :primary="allTasksComplete">Studie Beenden</sui-button>
             <div v-show="exitConfirmationIsVisible" style="display: inline-block;">
                 <h4 is="sui-header" style="display: inline-block; margin-right: 1rem;">Studie wirklich beenden?</h4>
                 <div is="sui-button-group">
@@ -47,7 +47,7 @@
                     <sui-button @click="$emit('show-final-survey')" primary>Ja</sui-button>
                 </div>
             </div>
-            <sui-button icon="right arrow" label-position="right" @click="$emit('start-task')" positive floated="right" :disabled="allTasksComplete">{{ isfirsttask ? "Exploration starten" : "Nächster Task"}}</sui-button>
+            <sui-button icon="right arrow" label-position="right" @click="$emit('start-task')" positive floated="right" :disabled="allTasksComplete">{{ isFirstTask ? "Exploration starten" : "Nächster Task"}}</sui-button>
         </sui-segment>
     </script>
     
@@ -209,10 +209,16 @@
                 <p>Vielen Dank für deine Teilnahme!</p>
             </sui-message>
             <sui-segment v-show="!feedbackWasSent">
+                <h4 is="sui-header">
+                    <sui-icon name="bullhorn" />
+                    <sui-header-content>
+                        Feedback
+                        <sui-header-subheader>Hinterlasse dein Feedback zur Studie und/oder dem Code-Review-Editor.</sui-header-subheader>
+                    </sui-header-content>
+                </h4>
                 <sui-form>
                     <sui-form-field>
-                      <label>Feedback</label>
-                      <textarea v-model.trim="feedback" placeholder="Hinterlasse dein Feedback zur Studie und/oder dem Code-Review-Editor..."></textarea>
+                      <textarea v-model.trim="feedback" placeholder="Bitte weise mich auch umbedingt auf Bugs hin, wenn dir welche begennt sind..."></textarea>
                     </sui-form-field>
                   </sui-form>
                   <sui-button icon="save" label-position="left" @click="sendFeedback" primary :disabled="feedback.length < 1">Feedback abschicken</sui-button>
@@ -220,6 +226,22 @@
             <sui-message positive v-show="feedbackWasSent">
                 <p>Vielen Dank für dein Feedback!</p>
             </sui-message>
+            <sui-segment v-if="numTasksFinished > 0" color="green">
+                <h4 is="sui-header">
+                    <sui-icon name="handshake" />
+                    <sui-header-content>
+                        VP-Stunden
+                        <sui-header-subheader>Danke für deine Tailnahme an der Studie! Trage dich unter dem folgenden Link ein, um deine {{numTasksFinished * 0.25}} VP-Stunden zu erhalten.</sui-header-subheader>
+                    </sui-header-content>
+                </h4>
+                <sui-segment aligned="center" basic>
+                    <a is="sui-label" color="green" :href="linkList[numTasksFinished - 1]" floated="center">
+                        <sui-icon name="external alternate" />
+                        {{ linkList[numTasksFinished - 1] }}
+                        <sui-label-detail>{{numTasksFinished * 0.25}} VP-Stunden</sui-label-detail>
+                    </a>
+                </sui-segment>
+            </sui-segment>
         </div>
     </script>
     
