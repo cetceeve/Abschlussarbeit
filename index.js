@@ -1,7 +1,6 @@
 /* eslint-env node */
 
-const fs = require("fs"),
-path = require("path"),
+const path = require("path"),
 redisClient = require("redis"),
 express = require("express"),
 cookieParser = require("cookie-parser"),
@@ -31,12 +30,6 @@ app.get("/", (req, res) => {
 app.get("/review-editor", (req, res) => {
     console.log("/review-editor - for session: " + req.cookies.sessionId);
     res.sendFile(path.join(__dirname + "/app/review-editor.html"));
-});
-
-app.post("/state", (req, res) => {
-    console.log("/state - for session: " + req.cookies.sessionId);
-    console.log(req.body);
-    res.json({ state: fs.readFileSync("./data/test_state.json", "utf8")});
 });
 
 app.put("/task", function (req, res) {

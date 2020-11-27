@@ -114,15 +114,18 @@ new Vue({
             localStorage.setItem("currentTask", JSON.stringify(newTask));
         },
         startReviewEditor(taskId) {
-            serverConnection.fetchState(taskId).then(data => {
-                localStorage.setItem("state", data.state);
-                location.href = "./review-editor";
+            taskId = "test"; //TODO: task id correct zuweißen!
+            fetch(`../../data/state_${taskId}.json`)
+                .then(response => response.text())
+                .then(stateString => {
+                    localStorage.setItem("state", stateString);
+                    location.href = "./review-editor";
             });
         },
         finishCurrentTask() {
             this.currentTask.surveyCompleted = true;
             localStorage.setItem("currentTask", JSON.stringify(this.currentTask));
-
+            
             this.taskList.splice(this.taskList.indexOf(this.currentTask.id), 1);
             localStorage.setItem("taskList", JSON.stringify(this.taskList));
             
