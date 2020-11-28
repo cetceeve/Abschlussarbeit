@@ -46,6 +46,12 @@ app.put("/SUS", function (req, res) {
     res.sendStatus(200);
 });
 
+app.put("/demographics", function (req, res) {
+    console.log("/demographics - for session: " + req.cookies.sessionId);
+    console.log("demographics data recieved");
+    res.sendStatus(200);
+});
+
 app.put("/log", function (req, res) {
     console.log("/log - for session: " + req.cookies.sessionId);
     redis.lpush("log_" + req.cookies.sessionId, JSON.stringify(req.body));

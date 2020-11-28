@@ -1,6 +1,7 @@
 /* global Vue SemanticUIVue */
-import TaskSurveyComponent from "./components/task-survey.js";
 import AgreementsComponent from "./components/agreements.js";
+import DemographicsSurveyComponent from "./components/demographics-survery.js";
+import TaskSurveyComponent from "./components/task-survey.js";
 import FinalSurveyComponent from "./components/final-survey.js";
 import StudyIntroductionComponent from "./components/study-introduction.js";
 import StudyControlsComponent from "./components/study-controls.js";
@@ -29,6 +30,7 @@ new Vue({
     */
     components: {
         "study-introduction": StudyIntroductionComponent,
+        "demographics": DemographicsSurveyComponent,
         "task-survey": TaskSurveyComponent,
         "final-survey": FinalSurveyComponent,
         "agreements": AgreementsComponent,
@@ -44,6 +46,7 @@ new Vue({
     data: {
         allowExit: false,
         studyCompleted: false,
+        demographicsSurveyCompleted: false,
         isFinalSurvey: false,
         currentTask: {
             id: null,
@@ -72,6 +75,8 @@ new Vue({
     created() {
         this.studyCompleted = (localStorage.getItem("studyCompleted") === "true");
         this.isFinalSurvey = (localStorage.getItem("isFinalSurvey") === "true");
+        this.demographicsSurveyCompleted = (localStorage.getItem("demographicsSurveyCompleted") === "true");
+
         this.currentTask = localStorage.getItem("currentTask") !== null ? JSON.parse(localStorage.getItem("currentTask")) : this.currentTask;
         // get or create taskList from tasks data
         if (localStorage.getItem("taskList") !== null) {
@@ -143,6 +148,10 @@ new Vue({
             localStorage.setItem("agreementIsGiven", "true");
             localStorage.setItem("numTasksCompleted", this.numTasksCompleted.toString());
             this.studyCompleted = true;
+        },
+        hideDemographicsSurvey() {
+            localStorage.setItem("demographicsSurveyCompleted", "true");
+            this.demographicsSurveyCompleted = true;
         },
     },
     /**
