@@ -1,7 +1,7 @@
 let sus = {
     name: "SUS",
     title: "Bitte bewerte die Anwendung",
-    description: "Entscheide so ehrlich und spontan wie möglich. Es gibt keine richtigen oder falschen Antworten. Nur deine Meinung zählt.",
+    description: "Bitte entscheide bei den folgenden Aussagen so ehrlich und spontan wie möglich. Es gibt keine richtigen oder falschen Antworten. Nur deine Meinung zählt.",
     likertRange: "5",
     items: [
         {

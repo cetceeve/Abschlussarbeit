@@ -11,6 +11,10 @@ Vue.component("sui-likert", {
     * @memberof SuiLikertScaleComponent
     */
     template: "#likert-scale-component-template",
+    model: {
+        prop: "inputValue",
+        event: "input",
+    },
     /**
     * Attributes that are exposed to accept data from the parent component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
@@ -42,7 +46,7 @@ Vue.component("sui-likert", {
     */
     methods: {
         bubbleEvent(newValue) {
-            this.$emit("input", {id: this.id, value: newValue});
+            this.$emit("input", this.id === undefined ? newValue : {id: this.id, value: newValue});
         },
     },
 });

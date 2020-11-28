@@ -1,8 +1,8 @@
 /**
- * Display a simple survey component.
- * @module main/components/DemographicsSurveyComponent
- * @author Fabian Zeiher
- */
+* Display a simple survey component.
+* @module main/components/DemographicsSurveyComponent
+* @author Fabian Zeiher
+*/
 
 import serverConnection from "../../utils/server-connection.js";
 import LikertTableComponent from "./likert-table.js";
@@ -30,15 +30,79 @@ let DemographicsSurveyComponent = {
     */
     data() {
         return {
-            survey: {},
+            results: {
+                age: null,
+                studentStatus: null,
+                semester: null,
+                experience: null,
+                experienceOrigin: null,
+                experienceReview: null,
+                experienceCoding: null,
+                assessmentReview: null,
+                assessmentTools: null,
+                assessmentCode: null,
+            },
+            survey: {
+                studentStatusOptions: [
+                    {
+                        text: "Bachelor",
+                        value: 1,
+                    },
+                    {
+                        text: "Master",
+                        value: 2,
+                    },
+                    {
+                        text: "kein Studentenstatus",
+                        value: 3,
+                    },
+                ],
+                experienceOriginOptions: [
+                    {
+                        text: "Universität",
+                        value: 1,
+                    },
+                    {
+                        text: "Beruf",
+                        value: 2,
+                    },
+                    {
+                        text: "Freizeit",
+                        value: 3,
+                    },
+                    {
+                        text: "andere",
+                        value: 4,
+                    },
+                ],
+                experience: {
+                    leftLabel: "sehr wenig",
+                    rightLabel: "sehr viel",
+                    likertRange: "5",
+                },
+                assessment: {
+                    leftLabel: "Stimme überhaupt nicht zu",
+                    rightLabel: "Stimme voll zu",
+                    likertRange: "5",
+                },
+            },
         };
     },
     /** Hold computed properties for the component.
-     * @property {Boolean} isComplete - Sentinel to determine if user completed the survey.
+    * @property {Boolean} isComplete - Sentinel to determine if user completed the survey.
     */
     computed: {
+        demographieIsComplete() {
+            return this.results.age !== null && this.results.studentStatus !== null && (this.results.semester !== null || this.results.studentStatus === 3) ;
+        },
+        experienceIsComplete() {
+            return this.results.experience === "0" || (this.results.experience === "1" && this.results.experienceOrigin !== null && this.results.experienceReview !== null && this.results.experienceCoding !== null);
+        },
+        assessmentIsComplete() {
+            return this.results.assessmentReview !== null && this.results.assessmentTools !== null && this.results.assessmentCode !== null;
+        },
         isComplete() {
-            return false;
+            return this.demographieIsComplete && this.experienceIsComplete && this.assessmentIsComplete;
         },
     },
     /**

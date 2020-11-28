@@ -76,29 +76,152 @@
                     <sui-icon name="info circle" />
                     <sui-header-content>
                         Hinweis
-                        <sui-header-subheader>Zunächst benötigen wir noch einige Informationen zu deinem Kontext und deiner Vorerfahrung.</sui-header-subheader>
+                        <sui-header-subheader>Zunächst benötigen wir noch einige Kontextinformationen. Bitte antworte so Wahrheitsgemäß wie möglich. Falls keine exakt passende Option zur Verfügung steht, wähle eine naheliegende aus.</sui-header-subheader>
                     </sui-header-content>
                 </h4>
             </sui-segment>
             
             <sui-segment>
                 <h2 is="sui-header">
-                    <sui-icon name="user" />
                     <sui-header-content>
                         Demographie
                         <sui-header-subheader>Diese Angaben helfen uns die Repräsentativität der Studie zu bewerten.</sui-header-subheader>
                     </sui-header-content>
                 </h2>
+                <sui-divider />
                 <sui-form size="large">
-                    <sui-form-field inline required>
+                    <sui-form-field inline>
                         <label>Alter</label>
-                        <input type="number" required placeholder="0" min=0 max=99/>
+                        <input v-model="results.age" type="number" required placeholder="0" min=0 max=99/>
+                    </sui-form-field>
+
+                    <sui-form-field inline>
+                        <label>Stundenstatus</label>
+                        <sui-dropdown placeholder="Studentenstatus" selection :options="survey.studentStatusOptions" v-model="results.studentStatus"/>
+                    </sui-form-field>
+
+                    <sui-form-field inline :disabled="results.studentStatus === 3">
+                        <label>Semester</label>
+                        <input v-model="results.semester" type="number" required placeholder="0" min=0 max=99/>
                     </sui-form-field>
                 </sui-form>
             </sui-segment>
             
+            <sui-segment>
+                <h2 is="sui-header">
+                    <sui-header-content>
+                        Vorerfahrung
+                        <sui-header-subheader>Bei der Einschätzung der Studienergebnisse dienen diese Angaben als Kontext.</sui-header-subheader>
+                    </sui-header-content>
+                </h2>
+                <sui-divider />
+                <sui-form size="large">
+                    <sui-form-fields inline>
+                        <label>Hast du bereits Erfahrung mit Code-Reviews?</label>
+                        <sui-form-field>
+                            <sui-checkbox label="Ja" radio value="1" v-model="results.experience" />
+                        </sui-form-field>
+                        <sui-form-field>
+                            <sui-checkbox label="Nein" radio value="0" v-model="results.experience" />
+                        </sui-form-field>
+                    </sui-form-fields>
+
+                    <sui-form-field inline :disabled="results.experience === '0'">
+                        <label>Wo konntest du bereits Erfahrung mit Code-Reviews sammeln?</label>
+                        <sui-dropdown placeholder="Herkunft" selection :options="survey.experienceOriginOptions" v-model="results.experienceOrigin"/>
+                    </sui-form-field>
+
+                    <sui-form-field :disabled="results.experience === '0'">
+                        <label>Wie viel Vorerfahrung hast du mit Code-Reviews?</label>
+                        <sui-table basic="very" celled collapsing unstackable class="center-in-container">
+                            <sui-table-body>
+                                <sui-table-row>
+                                    <sui-table-cell text-align="right">{{ survey.experience.leftLabel }}</sui-table-cell>
+                                    <sui-table-cell text-align="center">
+                                        <sui-likert v-model="results.experienceReview" :range="survey.experience.likertRange"></sui-likert>
+                                    </sui-table-cell>
+                                    <sui-table-cell>{{ survey.experience.rightLabel }}</sui-table-cell>
+                                </sui-table-row>
+                            </sui-table-body>
+                        </sui-table>
+                    </sui-form-field>
+
+                    <sui-form-field :disabled="results.experience === '0'">
+                        <label>Wie viel Programmiererfahrung hast du?</label>
+                        <sui-table basic="very" celled collapsing unstackable class="center-in-container">
+                            <sui-table-body>
+                                <sui-table-row>
+                                    <sui-table-cell text-align="right">{{ survey.experience.leftLabel }}</sui-table-cell>
+                                    <sui-table-cell text-align="center">
+                                        <sui-likert v-model="results.experienceCoding" :range="survey.experience.likertRange"></sui-likert>
+                                    </sui-table-cell>
+                                    <sui-table-cell>{{ survey.experience.rightLabel }}</sui-table-cell>
+                                </sui-table-row>
+                            </sui-table-body>
+                        </sui-table>
+                    </sui-form-field>
+                </sui-form>
+            </sui-segment>
+
+            <sui-segment>
+                <h2 is="sui-header">
+                    <sui-header-content>
+                        Selbsteinschätzung
+                        <sui-header-subheader>Bitte entscheide bei den folgenden Aussagen so ehrlich und spontan wie möglich. Es gibt keine richtigen oder falschen Antworten.</sui-header-subheader>
+                    </sui-header-content>
+                </h2>
+                <sui-divider />
+                <sui-form size="large">
+                    <sui-form-field>
+                        <label>Ich traue mir zu hochwertige Code-Reviews zu verfassen.</label>
+                        <sui-table basic="very" celled collapsing unstackable class="center-in-container">
+                            <sui-table-body>
+                                <sui-table-row>
+                                    <sui-table-cell text-align="right">{{ survey.assessment.leftLabel }}</sui-table-cell>
+                                    <sui-table-cell text-align="center">
+                                        <sui-likert v-model="results.assessmentReview" :range="survey.assessment.likertRange"></sui-likert>
+                                    </sui-table-cell>
+                                    <sui-table-cell>{{ survey.assessment.rightLabel }}</sui-table-cell>
+                                </sui-table-row>
+                            </sui-table-body>
+                        </sui-table>
+                    </sui-form-field>
+
+                    <sui-form-field>
+                        <label>Die Nutzung für mich unbekannter Anwendungen und Systeme fällt mir leicht.</label>
+                        <sui-table basic="very" celled collapsing unstackable class="center-in-container">
+                            <sui-table-body>
+                                <sui-table-row>
+                                    <sui-table-cell text-align="right">{{ survey.assessment.leftLabel }}</sui-table-cell>
+                                    <sui-table-cell text-align="center">
+                                        <sui-likert v-model="results.assessmentTools" :range="survey.assessment.likertRange"></sui-likert>
+                                    </sui-table-cell>
+                                    <sui-table-cell>{{ survey.assessment.rightLabel }}</sui-table-cell>
+                                </sui-table-row>
+                            </sui-table-body>
+                        </sui-table>
+                    </sui-form-field>
+
+                    <sui-form-field>
+                        <label>Das Lesen und Verstehen von Programmcode fällt mir leicht.</label>
+                        <sui-table basic="very" celled collapsing unstackable class="center-in-container">
+                            <sui-table-body>
+                                <sui-table-row>
+                                    <sui-table-cell text-align="right">{{ survey.assessment.leftLabel }}</sui-table-cell>
+                                    <sui-table-cell text-align="center">
+                                        <sui-likert v-model="results.assessmentCode" :range="survey.assessment.likertRange"></sui-likert>
+                                    </sui-table-cell>
+                                    <sui-table-cell>{{ survey.assessment.rightLabel }}</sui-table-cell>
+                                </sui-table-row>
+                            </sui-table-body>
+                        </sui-table>
+                    </sui-form-field>
+
+                </sui-form>
+            </sui-segment>
+            
             <sui-segment basic aligned="right">
-                <sui-button icon="save" label-position="left" @click="sendResults" primary :disabled="isComplete">Ergebnisse abschicken</sui-button>
+                <sui-button icon="save" label-position="left" @click="sendResults" primary :disabled="!isComplete">Ergebnisse abschicken</sui-button>
             </sui-segment>
         </div>
     </script>
