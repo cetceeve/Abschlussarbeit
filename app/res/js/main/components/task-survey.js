@@ -29,7 +29,6 @@ let TaskSurveyComponent = {
     /**
     * Attributes that are exposed to accept data from the parent component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
-    * @property {module:review-editor/model/Store~TreeItem} item - Data item for this node.
     * @see https://vuejs.org/v2/guide/reactivity.html
     */
     props: {

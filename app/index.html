@@ -24,7 +24,7 @@
                     <template v-else>
                         <task-survey  v-if="isTaskSurvey" :task="currentTask" @task-survey-completed="finishCurrentTask"></task-survey>
                         <template v-else>
-                            <study-introduction></study-introduction>
+                            <study-introduction :is-first-task="isFirstTask"></study-introduction>
                             <sui-message positive v-show="currentTask.isFinished && currentTask.surveyCompleted">
                                 <sui-message-header>Task "{{currentTask.name }}" abgeschlossen</sui-message-header>
                                 <p>Vielen Dank!</p>
@@ -59,9 +59,17 @@
             <sui-segment basic>
                 <h1 is="sui-header">Willkommen zur Code-Review-Editor-Remote-Usabililty-Studie</h1>
             </sui-segment>
-            <sui-segment>
-                <sui-container v-html="renderedMarkdown"></sui-container>
-            </sui-segment>
+            <sui-segment :loading="rawMarkdown.length < 1">
+                <sui-accordion fluid>
+                    <sui-accordion-title :active="isFirstTask">
+                      <sui-icon name="dropdown" />
+                      Einführung und Informationen zur Studie
+                    </sui-accordion-title>
+                    <sui-accordion-content :active="isFirstTask">
+                        <sui-container v-html="renderedMarkdown"></sui-container>
+                    </sui-accordion-content>
+                </sui-accordion>
+              </sui-segment>
         </div>
     </script>
     
@@ -347,11 +355,12 @@
     </script>
     
     <script type="text/x-template" id="agreements-component-template">
-        <sui-modal :open="open">
+        <sui-modal :open="open" loading>
             <sui-modal-header>
                 Vorraussetzungen und Datenschutz
             </sui-modal-header>
             <sui-modal-content scrolling>
+                <sui-loader :active="text.length < 1" />
                 <sui-container v-html="renderedMarkdown"></sui-container>
             </sui-modal-content>
             <sui-modal-actions>

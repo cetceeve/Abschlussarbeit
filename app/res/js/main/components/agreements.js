@@ -27,7 +27,7 @@ let AgreementsComponent = {
     data() {
         return {
             isChecked: false,
-            text: "Im zuge der studie sammeln wir _verschiedene_ daten ...",
+            text: "",
             open: (localStorage.getItem("agreementIsGiven") !== "true"),
         };
     },
@@ -39,6 +39,13 @@ let AgreementsComponent = {
             // Sanitizing snarkdowns Html-output is very important to avoid XSS attacks
             return HtmlSanitizer.SanitizeHtml(snarkdown(this.text));
         },
+    },
+    created() {
+        fetch("../../data/agreements.md")
+        .then(response => response.text())
+        .then(textString => {
+            this.text = textString;
+        });
     },
     /**
     * Hold methods for this component.
