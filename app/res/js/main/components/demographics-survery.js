@@ -112,11 +112,21 @@ let DemographicsSurveyComponent = {
     methods: {
         sendResults() {
             let data = {
+                age: this.results.age === null ? null : parseInt(this.results.age),
+                studentStatus: this.survey.studentStatusOptions.find(item => item.value === this.results.studentStatus).text,
+                semester: this.results.semester === null ? null : parseInt(this.results.semester),
+                experience: this.results.experience === null ? null : parseInt(this.results.experience),
+                experienceOrigin: this.results.experienceOrigin === null ? null : this.survey.experienceOriginOptions.find(item => item.value === this.results.experienceOrigin).text,
+                experienceReview: this.results.experienceReview === null ? null : parseInt(this.results.experienceReview),
+                experienceCoding: this.results.experienceCoding === null ? null : parseInt(this.results.experienceCoding),
+                assessmentReview: this.results.assessmentReview === null ? null : parseInt(this.results.assessmentReview),
+                assessmentTools: this.results.assessmentTools === null ? null : parseInt(this.results.assessmentTools),
+                assessmentCode: this.results.assessmentCode === null ? null : parseInt(this.results.assessmentCode),
             };
             console.log(data);
-            serverConnection.sendSurveyResults("/demographics", data).then(response => {
+            serverConnection.sendSurveyResults("/demographics", { surveyResults: data }).then(response => {
                 if (response.status === 200) {
-                    // this.$emit("demographics-survey-completed"); 
+                    this.$emit("demographics-survey-completed"); 
                 }
             });
         },

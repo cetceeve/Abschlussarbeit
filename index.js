@@ -48,7 +48,7 @@ app.put("/SUS", function (req, res) {
 
 app.put("/demographics", function (req, res) {
     console.log("/demographics - for session: " + req.cookies.sessionId);
-    console.log("demographics data recieved");
+    console.log(req.body.surveyResults);
     res.sendStatus(200);
 });
 

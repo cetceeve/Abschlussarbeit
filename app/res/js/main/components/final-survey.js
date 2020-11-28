@@ -48,7 +48,7 @@ let FinalSurveyComponent = {
     methods: {
         sendResults() {
             let data = this.survey.items.map(item => parseInt(item.value));
-            serverConnection.sendSurveyResults("/SUS", { surveyResults: data}).then(response => {
+            serverConnection.sendSurveyResults("/SUS", { surveyResults: data }).then(response => {
                 if (response.status === 200) {
                     this.$emit("study-completed");
                 }
