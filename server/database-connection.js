@@ -76,19 +76,19 @@ class dbConnection {
             });
         });
     }
-
+    
     saveTaskCompletionTime(sessionId, taskId, taskCompletionTime) {
         this.db.serialize(() => {
             this.db.run("CREATE TABLE IF NOT EXISTS tct (sessionId TEXT PRIMARY KEY, exploration INTEGER, task1 INTEGER, task2 INTEGER, task3 INTEGER, task4 INTEGER, task5 INTEGER)", (error) => {
                 if (error !== null) { console.log(error); }
             });
-
+            
             this.db.run("INSERT OR IGNORE INTO tct(sessionId) VALUES($sessionId)", {
                 $sessionId: sessionId,
             }, (error) => {
                 if (error !== null) { console.log(error); }
             });
-
+            
             this.db.run(`UPDATE OR IGNORE tct SET ${taskId}=$value WHERE tct.sessionId = $sessionId`, {
                 $sessionId: sessionId,
                 $value: taskCompletionTime,
@@ -98,7 +98,32 @@ class dbConnection {
             });
         });
     }
-
+    
+    saveDemographics(sessionId, surveyResults) {
+        this.db.serialize(() => {
+            this.db.run("CREATE TABLE IF NOT EXISTS demographics (sessionId TEXT PRIMARY KEY, age NUMBER, studentStatus TEXT, semester NUMBER, experience NUMBER, experienceOrigin TEXT, experienceReview NUMBER, experienceCoding NUMBER, assessmentReview NUMBER, assessmentTools NUMBER, assessmentCode NUMBER)", (error) => {
+                if (error !== null) { console.log(error); }
+            });
+            
+            this.db.run("INSERT OR IGNORE INTO demographics VALUES ($sessionId, $age, $studentStatus, $semester, $experience, $experienceOrigin, $experienceReview, $experienceCoding, $assessmentReview, $assessmentTools, $assessmentCode)", {
+                $sessionId: sessionId,
+                $age: surveyResults.age,
+                $studentStatus: surveyResults.studentStatus,
+                $semester: surveyResults.semester,
+                $experience: surveyResults.experience,
+                $experienceOrigin: surveyResults.experienceOrigin,
+                $experienceReview: surveyResults.experienceReview,
+                $experienceCoding: surveyResults.experienceCoding,
+                $assessmentReview: surveyResults.assessmentReview,
+                $assessmentTools: surveyResults.assessmentTools,
+                $assessmentCode: surveyResults.assessmentCode,
+            }, (error) => {
+                if (error === null) { console.log("DB: saved demographics survey result"); }
+                else { console.log(error); }
+            });
+        });
+    }
+    
     close(callback) {
         this.db.close((error) => {
             if (error === null) { if (callback !== undefined) { callback(); } }
