@@ -431,7 +431,7 @@ let store = {
     
     // Save current state to the nrowsers local storage
     save() {
-        // localStorage.setItem("autosave_state", this.getStateString());
+        localStorage.setItem("state", this.getStateString());
         if (this.debug) {
             console.log("state saved");
             console.log(this.state);

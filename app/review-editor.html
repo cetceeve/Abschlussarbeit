@@ -280,7 +280,7 @@
                 </sui-modal-content>
                 <sui-modal-actions>
                     <sui-button positive @click.native="toggleTaskDesciption">
-                        OK
+                        {{ taskStarted ? 'OK' : 'Starten' }}
                     </sui-button>
                 </sui-modal-actions>
             </sui-modal>
