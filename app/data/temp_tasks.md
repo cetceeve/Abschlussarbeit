@@ -54,8 +54,6 @@ Finde den fehlerhaften Kommentar. Wichtig: Es handelt sich dabei nicht um ein in
 
 Überarbeite den Kommentar mit der fehlerhaften Darstellung. Nutze [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) um die Inhalte übersichtlich zu präsentieren. Der Task ist abgeschlossen, wenn du den Kommentar gefunden und bearbeitet hast.
 
-## Task: Quellcode lesen
-
 
 > Info: task startet nicht im korrekten file/ file tree ist geschlossen
 ## Task: Kommentar verfassen
@@ -77,3 +75,21 @@ Die beiden Varianten werden für verschiedene *Iterables* genutzt (siehe [MDN](h
 **Ziel:**
 
 Verfasse einen hilfreichen, übersichtlich formatierten Kommentar zur `for of` Syntax in Datei `index.js` Zeile **28**. Der Task ist abgeschlossen sobald du mit deinem Kommentar zufrieden bist.
+
+
+## Task: Kommentare löschen
+
+**Scenario:** 
+
+Du hast für das Code-Review eines studentischen Projekts, bereits einige Kommentare verfasst. Darunter auf zwei Kommentare in der Datei `style.css`. Allerdings hast du deine Meinung geändert und möchtest deine Kommentare entfernen.
+
+**Aktivität:**
+
+Finde und löschen die beiden Kommentare. Tipp: Beide Kommentare befinden sich auf derselben Code-Zeile. Dein Username ist: *FriedrichB*
+
+**Ziel:**
+
+Der Task gilt als abgeschlossen, wenn die beiden Kommentare gelöscht sind.
+
+
+## Task: Quellcode lesen

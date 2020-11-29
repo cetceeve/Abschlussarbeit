@@ -1,6 +1,8 @@
 ## Einführung
 
-Danke, dass du dich dazu entschlossen hast an unserer Usability Studie teilzunehmen. Im Zuge dieser Studie wird eine Web-Anwendung evaluiert, die dich beim Verfassen von Code-Reviews unterstützen soll. Es handelt sich bei der Software um einen späten Prototypen. Die Anwendung sollte weitestgehend fehlerfrei laufen. Wir uns freuen, wenn du uns im Feedbackfeld - am Ende der Studie - auf Bugs und Performanceprobleme aufmerksam machst.
+Danke, dass du dich dazu entschlossen hast an unserer Usability Studie teilzunehmen. Im Zuge dieser Studie wird eine Web-Anwendung evaluiert, die dich beim Verfassen von Code-Reviews unterstützen soll. Wenn du noch keine oder wenig Erfahrung mit Code-Review hast. Keine Sorge, innerhalb der Anwendung findest du unter dem Button `Aufgabe` eine kurze Erklärung zu Code-Reviews.
+
+ Es handelt sich bei der Software um einen späten Prototypen. Die Anwendung sollte weitestgehend fehlerfrei laufen. Wir uns freuen, wenn du uns im Feedbackfeld - am Ende der Studie - auf Bugs und Performanceprobleme aufmerksam machst.
 
 ## Ablauf
 
@@ -33,3 +35,4 @@ Wir speichern deinen letzten Bearbeitungsstand lokal in deinem Browser. Du kanns
 
 Du kannst die Studie leider nicht offline durchführen. Es werden kontinuierlich log-Daten an unseren Server geschickt und auch die Ergebnisse der Fragebögen werden sofort auf einem Server gespeichert.
 
+### Datenschutz
