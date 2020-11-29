@@ -44,6 +44,7 @@ new Vue({
     * 
     */
     data: {
+        agreementsOpen: false,
         allowExit: false,
         studyCompleted: false,
         demographicsSurveyCompleted: false,
@@ -73,6 +74,7 @@ new Vue({
         },
     },
     created() {
+        this.agreementsOpen = (localStorage.getItem("agreementIsGiven") !== "true");
         this.studyCompleted = (localStorage.getItem("studyCompleted") === "true");
         this.isFinalSurvey = (localStorage.getItem("isFinalSurvey") === "true");
         this.demographicsSurveyCompleted = (localStorage.getItem("demographicsSurveyCompleted") === "true");

@@ -24,7 +24,7 @@
                     <template v-else>
                         <task-survey  v-if="isTaskSurvey" :task="currentTask" @task-survey-completed="finishCurrentTask"></task-survey>
                         <template v-else>
-                            <study-introduction :is-first-task="isFirstTask"></study-introduction>
+                            <study-introduction :is-first-task="isFirstTask" @show-agreements="agreementsOpen = true"></study-introduction>
                             <sui-message positive v-show="currentTask.isFinished && currentTask.surveyCompleted">
                                 <sui-message-header>Task "{{currentTask.name }}" abgeschlossen</sui-message-header>
                                 <p>Vielen Dank!</p>
@@ -36,7 +36,7 @@
                 <demographics v-else @demographics-survey-completed="hideDemographicsSurvey"></demographics>
             </template>
         </main>
-        <agreements></agreements>
+        <agreements v-model="agreementsOpen"></agreements>
     </div>
     
     <script type="text/x-template" id="study-controls-component-template">
@@ -67,6 +67,7 @@
                     </sui-accordion-title>
                     <sui-accordion-content :active="isFirstTask">
                         <sui-container v-html="renderedMarkdown"></sui-container>
+                        <sui-button basic size="tiny" @click="$emit('show-agreements')">Datenschutzerklärung und Impressum öffnen</sui-button>
                     </sui-accordion-content>
                 </sui-accordion>
               </sui-segment>

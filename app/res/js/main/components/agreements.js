@@ -16,6 +16,13 @@ let AgreementsComponent = {
     * @type {String}
     */
     template: "#agreements-component-template",
+    model: {
+        prop: "open",
+        event: "input",
+    },
+    props: {
+        open: Boolean,
+    },
     /**
     * Hold reactive data for the component.
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
@@ -28,7 +35,6 @@ let AgreementsComponent = {
         return {
             isChecked: false,
             text: "",
-            open: (localStorage.getItem("agreementIsGiven") !== "true"),
         };
     },
     /** Hold computed properties for the component.
@@ -41,6 +47,7 @@ let AgreementsComponent = {
         },
     },
     created() {
+        this.isChecked = (localStorage.getItem("agreementIsGiven") === "true");
         fetch("../../data/agreements.md")
         .then(response => response.text())
         .then(textString => {
@@ -54,7 +61,7 @@ let AgreementsComponent = {
     methods: {
         saveAgreement() {
             localStorage.setItem("agreementIsGiven", "true");
-            this.open = false;
+            this.$emit("input", false);
         },
     },
 };
