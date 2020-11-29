@@ -283,10 +283,6 @@
                         <label>Task konnte erfolgreich abgeschlossen werden:</label>
                         <sui-dropdown placeholder="bitte auswählen" selection :options="taskSuccess.options" v-model="taskSuccess.value" />
                     </sui-form-field>
-                    <sui-form-field v-show="taskSuccess.value === 0">
-                        <label>Warum konnte der Task nicht abgeschlossen werden?</label>
-                        <input placeholder="Bug, Datei/Kommentar nicht gefunden, etc..." />
-                    </sui-form-field>
                 </sui-form>
             </sui-segment>
             
