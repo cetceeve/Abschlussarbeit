@@ -132,8 +132,8 @@
                     </span>
                 </sui-card-content>
                 <div v-if="isFromCurrentUser" is="sui-button-group" basic size="mini">
-                    <sui-button @click="startEditMode" compact icon="edit" />
-                    <sui-button @click="deleteComment" compact icon="trash" />
+                    <sui-button id="comment-button-start-edit" compact icon="edit" @click="startEditMode(); logger($event, {'target': 'comment-button-start-edit', 'info': 'line ' + comment.sectionId, 'data': 'commentID ' + comment.id});" />
+                    <sui-button id="comment-button-delete" compact icon="trash" @click="deleteComment(); logger($event, {'target': 'comment-button-delete', 'info': 'line ' + comment.sectionId, 'data': 'commentID ' + comment.id});" />
                 </div>
             </template>
             <template v-else>
@@ -144,16 +144,16 @@
                     <sui-divider />
                     <sui-form>
                         <sui-form-field>
-                            <textarea ref="editTextarea" v-model="rawMarkdown" @keyup.esc="cancelCommentEdit" rows="1"></textarea>
+                            <textarea id="comment-edit-textarea" ref="editTextarea" v-model="rawMarkdown" rows="1" @keyup.esc="logger($event, {'info': 'line ' + comment.sectionId, 'content': rawMarkdown, 'data': 'commentID ' + comment.id}); cancelCommentEdit();" @change="logger($event, {'info': 'line ' + comment.sectionId, 'content': rawMarkdown, 'data': 'commentID ' + comment.id})"></textarea>
                         </sui-form-field>
                     </sui-form>
                 </sui-card-content>
                 <sui-card-content extra>
-                    <sui-dropdown selection :options="commentCategories" v-model="currentCategory" />
+                    <sui-dropdown selection :options="commentCategories" v-model="currentCategory" @click="logger($event, {'info': 'line ' + comment.sectionId, 'target': 'comment-edit-category-dropdown', 'content': currentCategory, 'data': 'commentID ' + comment.id})"/>
                 </sui-card-content>
                 <div is="sui-button-group" size="mini">
-                    <sui-button @click="cancelCommentEdit">Abbrechen</sui-button>
-                    <sui-button @click="postUpdatedComment" positive>Speichern</sui-button>
+                    <sui-button id="comment-edit-button-abort" @click="logger($event, {'info': 'line ' + comment.sectionId, 'content': rawMarkdown, 'data': 'commentID ' + comment.id}); cancelCommentEdit();">Abbrechen</sui-button>
+                    <sui-button id="comment-edit-button-save" @click="logger($event, {'info': 'line ' + comment.sectionId, 'content': rawMarkdown, 'data': 'commentID ' + comment.id}); postUpdatedComment();" positive>Speichern</sui-button>
                 </div>
             </template>
         </sui-card>
