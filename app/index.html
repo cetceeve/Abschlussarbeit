@@ -62,15 +62,15 @@
             <sui-segment :loading="rawMarkdown.length < 1">
                 <sui-accordion fluid>
                     <sui-accordion-title :active="isFirstTask">
-                      <sui-icon name="dropdown" />
-                      Einführung und Informationen zur Studie
+                        <sui-icon name="dropdown" />
+                        Einführung und Informationen zur Studie
                     </sui-accordion-title>
                     <sui-accordion-content :active="isFirstTask">
                         <sui-container v-html="renderedMarkdown"></sui-container>
                         <sui-button basic size="tiny" @click="$emit('show-agreements')">Datenschutzerklärung und Impressum öffnen</sui-button>
                     </sui-accordion-content>
                 </sui-accordion>
-              </sui-segment>
+            </sui-segment>
         </div>
     </script>
     
@@ -103,12 +103,12 @@
                         <label>Alter</label>
                         <input v-model="results.age" type="number" required placeholder="0" min=0 max=99/>
                     </sui-form-field>
-
+                    
                     <sui-form-field inline>
                         <label>Stundenstatus</label>
                         <sui-dropdown placeholder="Studentenstatus" selection :options="survey.studentStatusOptions" v-model="results.studentStatus"/>
                     </sui-form-field>
-
+                    
                     <sui-form-field inline :disabled="results.studentStatus === 3">
                         <label>Semester</label>
                         <input v-model="results.semester" type="number" required placeholder="0" min=0 max=99/>
@@ -134,12 +134,12 @@
                             <sui-checkbox label="Nein" radio value="0" v-model="results.experience" />
                         </sui-form-field>
                     </sui-form-fields>
-
+                    
                     <sui-form-field inline :disabled="results.experience === '0'">
                         <label>Wo konntest du bereits Erfahrung mit Code-Reviews sammeln?</label>
                         <sui-dropdown placeholder="Herkunft" selection :options="survey.experienceOriginOptions" v-model="results.experienceOrigin"/>
                     </sui-form-field>
-
+                    
                     <sui-form-field :disabled="results.experience === '0'">
                         <label>Wie viel Vorerfahrung hast du mit Code-Reviews?</label>
                         <sui-table basic="very" celled collapsing unstackable class="center-in-container">
@@ -154,7 +154,7 @@
                             </sui-table-body>
                         </sui-table>
                     </sui-form-field>
-
+                    
                     <sui-form-field :disabled="results.experience === '0'">
                         <label>Wie viel Programmiererfahrung hast du?</label>
                         <sui-table basic="very" celled collapsing unstackable class="center-in-container">
@@ -171,7 +171,7 @@
                     </sui-form-field>
                 </sui-form>
             </sui-segment>
-
+            
             <sui-segment>
                 <h2 is="sui-header">
                     <sui-header-content>
@@ -195,7 +195,7 @@
                             </sui-table-body>
                         </sui-table>
                     </sui-form-field>
-
+                    
                     <sui-form-field>
                         <label>Die Nutzung für mich unbekannter Anwendungen und Systeme fällt mir leicht.</label>
                         <sui-table basic="very" celled collapsing unstackable class="center-in-container">
@@ -210,7 +210,7 @@
                             </sui-table-body>
                         </sui-table>
                     </sui-form-field>
-
+                    
                     <sui-form-field>
                         <label>Das Lesen und Verstehen von Programmcode fällt mir leicht.</label>
                         <sui-table basic="very" celled collapsing unstackable class="center-in-container">
@@ -225,7 +225,7 @@
                             </sui-table-body>
                         </sui-table>
                     </sui-form-field>
-
+                    
                 </sui-form>
             </sui-segment>
             
@@ -237,18 +237,27 @@
     
     <script type="text/x-template" id="task-survey-component-template">
         <div>
-            <sui-segment basic style="margin-bottom: 0;">
+            <sui-segment basic>
                 <h1 is="sui-header">Fragebogen Task: {{ task.name }}</h1>
             </sui-segment>
             
-            <sui-segment basic style="margin-top: 0;">
+            <sui-segment>
                 <h4 is="sui-header">
                     <sui-icon name="lightbulb outline" />
                     <sui-header-content>
                         Als Erinnerungshilfe
-                        <sui-header-subheader><p v-html="renderedTaskDescription"></p></sui-header-subheader>
+                        <sui-header-subheader>Falls du die Task-Beschreibung noch einmal durchlesen möchtest.</sui-header-subheader>
                     </sui-header-content>
                 </h4>
+                <sui-accordion fluid>
+                    <sui-accordion-title>
+                        <sui-icon name="dropdown" />
+                        Task-Beschreibung zum Task: {{ task.name }}
+                    </sui-accordion-title>
+                    <sui-accordion-content>
+                        <sui-container v-html="renderedTaskDescription"></sui-container>
+                    </sui-accordion-content>
+                </sui-accordion>
             </sui-segment>
             
             <sui-segment color="blue">
