@@ -26,8 +26,8 @@ const studyTasks = [
     },
     {
         "id": "task5",
-        "name": "Task Name 5",
-        "description": "This is the **Description** for the fifth `Task`.",
+        "name": "Kommentare löschen",
+        "description": "**Scenario:** \n\nDu hast für das Code-Review eines studentischen Projekts, bereits einige Kommentare verfasst. Darunter auf zwei Kommentare in der Datei `style.css`. Allerdings hast du deine Meinung geändert und möchtest deine Kommentare entfernen.\n\n**Aktivität:**\n\nFinde und löschen die beiden Kommentare. Tipp: Beide Kommentare befinden sich auf derselben Code-Zeile. Dein Username ist: *FriedrichB*\n\n**Ziel:**\n\nDer Task gilt als abgeschlossen, wenn die beiden Kommentare gelöscht sind.",
     },
 ];
 

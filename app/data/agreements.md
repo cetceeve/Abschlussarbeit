@@ -21,3 +21,18 @@ Bei der Bearbeitung von Tasks innerhalb des *Code Review Editors* werden als Int
 ## Datenschutz
 
 Alle Daten werden auf einem privatem Server innerhalb des Netzwerks der Universität Regensburg gespeichert. Nur vertrauenswürdige Mitlieder oder Bekannte des Lehrstuhls für Medieninformatik haben Zugang zum Server. Nur Einzelpersonen haben Zugang zum Server. Die Daten werden zu keinem Zeitpunkt öffentlich zugänglich gemacht. Alle Daten werden nur zur wissenschaftlichen Auswertung innerhalb dieser Studie verwendet. Es werden keine Daten an Dritte weitergegeben. Die Daten können nicht auf die Teilnehmer*innen zurückgeführt werden.
+
+
+## Task: Kommentare löschen
+
+**Scenario:** 
+
+Du hast für das Code-Review eines studentischen Projekts, bereits einige Kommentare verfasst. Darunter auf zwei Kommentare in der Datei `style.css`. Allerdings hast du deine Meinung geändert und möchtest deine Kommentare entfernen.
+
+**Aktivität:**
+
+Finde und löschen die beiden Kommentare. Tipp: Beide Kommentare befinden sich auf derselben Code-Zeile. Dein Username ist: *FriedrichB*
+
+**Ziel:**
+
+Der Task gilt als abgeschlossen, wenn die beiden Kommentare gelöscht sind.
