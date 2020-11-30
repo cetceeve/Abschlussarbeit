@@ -21,12 +21,8 @@
                 "answer": "well i'm coding like hella fast"
             },
             {
-                "question": "Is this Markdown?",
-                "answer": "is this **working**?"
-            },
-            {
-                "question": "Do you have some more philosophy?",
-                "answer": "The term “free will” has emerged over the past two millennia as the canonical designator for a significant kind of control over one’s actions. Questions concerning the nature and existence of this kind of control (e.g., does it require and do we have the freedom to do otherwise or the power of self-determination?), and what its true significance is (is it necessary for moral responsibility or human dignity?) have been taken up in every period of Western philosophy and by many of the most important philosophical figures, such as Plato, Aristotle, Augustine, Aquinas, Descartes, and Kant. (We cannot undertake here a review of related discussions in other philosophical traditions. For a start, the reader may consult Marchal and Wenzel 2017 and Chakrabarti 2017 for overviews of thought on free will, broadly construed, in Chinese and Indian philosophical traditions, respectively.) In this way, it should be clear that disputes about free will ineluctably involve disputes about metaphysics and ethics. In ferreting out the kind of control involved in free will, we are forced to consider questions about (among others) causation, laws of nature, time, substance, ontological reduction vs emergence, the relationship of causal and reasons-based explanations, the nature of motivation and more generally of human persons. In assessing the significance of free will, we are forced to consider questions about (among others) rightness and wrongness, good and evil, virtue and vice, blame and praise, reward and punishment, and desert. The topic of free will also gives rise to purely empirical questions that are beginning to be explored in the human \"sciences\": do we have it, and to what degree? Here is an overview of what follows. In Section 1, we acquaint the reader with some central historical contributions to our understanding of free will. (As nearly every major and minor figure had something to say about it, we cannot begin to cover them all.) As with contributions to many other foundational topics, these ideas are not of ‘merely historical interest’: present-day philosophers continue to find themselves drawn back to certain thinkers as they freshly engage their contemporaries. In Section 2, we map the complex architecture of the contemporary discussion of the nature of free will by dividing it into five: its relation to moral responsibility; the proper analysis of the freedom to do otherwise; a powerful, recent argument that the freedom to do otherwise (at least in one important sense) is not necessary for moral responsibility; ‘compatibilist’ accounts of sourcehood or self-determination; and ‘incompatibilist’ or ‘libertarian’ accounts of source and self-determination. In Section 3, we consider arguments from experience, a priori reflection, and various scientific findings and theories for and against the thesis that human beings have free will, along with the related question of whether it is reasonable to believe that we have it. Finally, in Section 4, we survey the long-debated questions involving free will that arise in classical theistic metaphysics."
+                "question": "what is going on?",
+                "answer": "well i'm coding like hella fast"
             }
         ]
     },
@@ -36,38 +32,48 @@
             "Vorbereitung": [
                 {
                     "id": "11",
-                    "label": "Aufgabenstellung ausführlich durchlesen",
+                    "label": "Hast du die Aufgabenstellung bzw. Aufgabenbeschreibung ausführlich durchgelesen und verstanden?",
                     "checked": false
                 },
                 {
                     "id": "12",
-                    "label": "welche zielle",
+                    "label": "Sind die Ziele der Anwendung klar?",
                     "checked": false
                 },
                 {
                     "id": "13",
-                    "label": "welche systeme",
+                    "label": "Weißst du in welchem Kontext die Anwendung verwendet werden soll?",
                     "checked": false
                 }
             ],
-            "Überblick": [
+            "Vorgehen": [
                 {
                     "id": "21",
-                    "label": "struktur",
+                    "label": "Ist die grundsätzliche Struktur der Anwendung klar?",
                     "checked": false
                 },
                 {
                     "id": "22",
-                    "label": "wichtiges klassen, zentral ekompenented",
+                    "label": "Hast du die wichtisten Dateien, Klassen oder Komponenten identifiziert?",
                     "checked": false
                 },
                 {
                     "id": "23",
-                    "label": "",
+                    "label": "Hast du dir die wichtigsten Features oder Entwicklungen bewusst gemacht?",
+                    "checked": false
+                },
+                {
+                    "id": "24",
+                    "label": "Beachtest du bei deinem Code-Review zunächst die wichtigsten Code-Artefakte?",
+                    "checked": false
+                },
+                {
+                    "id": "25",
+                    "label": "Nutzt du die Richtlinien *unten*, um den Quellcode zu analysieren?",
                     "checked": false
                 }
             ],
-            "Bearbeitung": [
+            "Richtlinien": [
                 {
                     "id": "31",
                     "label": "Wurden bekannte *Coding Guidelines* eingehalten?",
@@ -112,47 +118,47 @@
             "Feedback geben": [
                 {
                     "id": "40",
-                    "label": "Kompliment: Hast du besonders guten Code mit einem kleinen positiven Feedback gewürdigt?",
+                    "label": "**Kompliment:** Hast du besonders guten Code mit einem kleinen positiven Feedback gewürdigt?",
                     "checked": false
                 },
                 {
                     "id": "41",
-                    "label": "Strukur: Nutzt dein Feedback die OIR-Regel: *Observation*, *Impact*, *Request*? (siehe: [großartiger Blogeintrag von Philipp Hauer](https://phauer.com/2018/code-review-guidelines/#be-humble))",
+                    "label": "**Strukur:** Nutzt dein Feedback die OIR-Regel: *Observation*, *Impact*, *Request*? (siehe: [großartiger Blogeintrag von Philipp Hauer](https://phauer.com/2018/code-review-guidelines/))",
                     "checked": false
                 },
                 {
                     "id": "42",
-                    "label": "Jeder macht Fehler: Ist dein Kommentar in neutraler oder *positiver Sprache* verfasst?",
+                    "label": "**Sprache:** Ist dein Kommentar in freundlicher und respektvoller Sprache verfasst? (eine schöne weiterführende Referenz dazu: [Respectful Code Reviews](https://chromium.googlesource.com/chromium/src/+/master/docs/cr_respect.md)) ",
                     "checked": false
                 },
                 {
                     "id": "43",
-                    "label": "Zusammenarbeit: Könnte dein Feedback das Klima im Projektteam negativ beeinflussen?",
-                    "checked": true
+                    "label": "**Respekt:** Würdigt dein Feedback die Mühen und Leistungen des Entwicklers oder der Entwicklerin?",
+                    "checked": false
                 },
                 {
                     "id": "44",
-                    "label": "Austausch: Hast du die Gelegenheit genutzt, um auf *nützliche Ressouren* zu verweisen?",
+                    "label": "**Erklärung:** Hast du in deinem Kommentar erklärt, warum du diesen Code kommentierst?",
                     "checked": false
                 },
                 {
                     "id": "45",
-                    "label": "Subjekt: Sprichst du in deinem Kommentar über den *Autor* oder den *Code*?",
+                    "label": "**Austausch:** Hast du die Gelegenheit genutzt, um auf nützliche Ressouren zu verweisen?",
                     "checked": false
                 },
                 {
                     "id": "46",
-                    "label": "Empathie: Wird in deinem Feedback deutlich, dass du aus *deiner Perspektive* aus sprichst?",
+                    "label": "**Subjekt:** Greifst du in deinem Kommentar den oder die *Entwickler:in* an, oder sprichst du über den *Code*? (Beispiele bei [Google's Engineering Practices documentation](https://google.github.io/eng-practices/review/reviewer/comments.html)",
                     "checked": false
                 },
                 {
                     "id": "47",
-                    "label": "Wahrheitsanspruch: Hat dein Feedback den Anspruch die einzige Wahrheit zu sein, oder lässt es *verschiedene Lösungen* zu?",
+                    "label": "**Empathie:** Wird in deinem Feedback deutlich, dass du aus deiner Perspektive aus sprichst?",
                     "checked": false
                 },
                 {
                     "id": "48",
-                    "label": "Kompliment: Hast du besonders guten Code mit einem kleinen positiven Feedback gewürdigt?",
+                    "label": "**Wahrheitsanspruch:** Gibt dein Feedback vor absoluten Wahrheitsanspruch zu haben, oder lässt es auch andere Lösungen und Perspektiven zu?",
                     "checked": false
                 }
             ]
@@ -160,7 +166,6 @@
     },
     "task": {
         "isVisible": false,
-        "owner": "Fabian Zeiher",
         "content": "##Führe ein Code-Review durch\nby Fabi\n\n---\n\nlet's go!"          
     },
     "content": {

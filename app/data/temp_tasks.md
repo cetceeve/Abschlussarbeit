@@ -96,7 +96,7 @@ Der Task gilt als abgeschlossen, wenn die beiden Kommentare gelöscht sind.
 
 **Scenario:** 
 
-Du bearbeitest auch in diesem Task ein Code-Review für eine typische Studienleistung in einem fortgeschrittenen Programmierkurs. In der Datei `BirdList.js` wird mehrmals die Variable `birdArray` genutzt. An einer stelle hat sich allerdings ein schreibfehler eingeschlichen und es wurde `birdarray` geschrieben.
+Du bearbeitest auch in diesem Task ein Code-Review für eine typische Studienleistung in einem fortgeschrittenen Programmierkurs. In der Datei `BirdList.js` wird mehrmals die Variable `birdArray` genutzt. An einer stelle hat sich allerdings ein Schreibfehler eingeschlichen und es wurde `birdarray` geschrieben.
 
 **Aktivität:**
 
