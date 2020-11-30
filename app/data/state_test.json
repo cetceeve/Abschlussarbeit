@@ -41,29 +41,29 @@
                 },
                 {
                     "id": "12",
-                    "label": "Should be checked",
-                    "checked": true
+                    "label": "welche zielle",
+                    "checked": false
                 },
                 {
                     "id": "13",
-                    "label": "Very very long label to see how the system responds to such kind of nonsensical usage.",
+                    "label": "welche systeme",
                     "checked": false
                 }
             ],
             "Überblick": [
                 {
                     "id": "21",
-                    "label": "Aufgabenstellung ausführlich durchlesen",
+                    "label": "struktur",
                     "checked": false
                 },
                 {
                     "id": "22",
-                    "label": "Should be checked",
-                    "checked": true
+                    "label": "wichtiges klassen, zentral ekompenented",
+                    "checked": false
                 },
                 {
                     "id": "23",
-                    "label": "Very very long label to see how the system responds to such kind of nonsensical usage.",
+                    "label": "",
                     "checked": false
                 }
             ],
@@ -108,14 +108,55 @@
                     "label": "Wurden alle nicht benötigten Teilbereiche des Codes entfernt? Wurden alle Debug-Ausgaben und -Methoden vor der Abgabe entfernt?",
                     "checked": false
                 }
+            ],
+            "Feedback geben": [
+                {
+                    "id": "40",
+                    "label": "Kompliment: Hast du besonders guten Code mit einem kleinen positiven Feedback gewürdigt?",
+                    "checked": false
+                },
+                {
+                    "id": "41",
+                    "label": "Strukur: Nutzt dein Feedback die OIR-Regel: *Observation*, *Impact*, *Request*? (siehe: [großartiger Blogeintrag von Philipp Hauer](https://phauer.com/2018/code-review-guidelines/#be-humble))",
+                    "checked": false
+                },
+                {
+                    "id": "42",
+                    "label": "Jeder macht Fehler: Ist dein Kommentar in neutraler oder *positiver Sprache* verfasst?",
+                    "checked": false
+                },
+                {
+                    "id": "43",
+                    "label": "Zusammenarbeit: Könnte dein Feedback das Klima im Projektteam negativ beeinflussen?",
+                    "checked": true
+                },
+                {
+                    "id": "44",
+                    "label": "Austausch: Hast du die Gelegenheit genutzt, um auf *nützliche Ressouren* zu verweisen?",
+                    "checked": false
+                },
+                {
+                    "id": "45",
+                    "label": "Subjekt: Sprichst du in deinem Kommentar über den *Autor* oder den *Code*?",
+                    "checked": false
+                },
+                {
+                    "id": "46",
+                    "label": "Empathie: Wird in deinem Feedback deutlich, dass du aus *deiner Perspektive* aus sprichst?",
+                    "checked": false
+                },
+                {
+                    "id": "47",
+                    "label": "Wahrheitsanspruch: Hat dein Feedback den Anspruch die einzige Wahrheit zu sein, oder lässt es *verschiedene Lösungen* zu?",
+                    "checked": false
+                },
+                {
+                    "id": "48",
+                    "label": "Kompliment: Hast du besonders guten Code mit einem kleinen positiven Feedback gewürdigt?",
+                    "checked": false
+                }
             ]
         }
-    },
-    "database": {
-        "repositoryUrl": "undefined",
-        "revisionId": "undefined",
-        "databaseUrl": "undefined",
-        "saved": false
     },
     "task": {
         "isVisible": false,
