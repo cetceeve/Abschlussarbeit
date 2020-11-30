@@ -40,14 +40,14 @@
         <sui-grid :columns="3">
             <sui-grid-row class="remove-row-padding">
                 <sui-grid-column :width="3" class="dark-background left-row-padding">
-                    <sui-button @click="showFaq" :class="{active: sharedState.faq.isVisible}" class="raised">FAQ</sui-button>
-                    <sui-button @click="showTask" :class="{active: sharedState.task.isVisible}" class="raised" primary>Aufgabe</sui-button>
+                    <sui-button id="button-open-faq" @click="showFaq(); logger($event, {'content': $event.target.textContent});" :class="{active: sharedState.faq.isVisible}" class="raised">FAQ</sui-button>
+                    <sui-button id="button-open-task" @click="showTask(); logger($event, {'content': $event.target.textContent});" :class="{active: sharedState.task.isVisible}" class="raised" primary>Aufgabe</sui-button>
                     <div>
                         <sui-divider />
                     </div>
                     <tree-view></tree-view>
                     <checklist class="checklist-container"></checklist>
-                    <sui-button id="ckecklist-button" content="Checkliste" @click="toggleChecklist(); logger($event);" class="button-checklist raised":class="{active: sharedState.checklist.isVisible}"></sui-button>
+                    <sui-button id="ckecklist-button" content="Checkliste" @click="toggleChecklist(); logger($event, {'content': $event.target.textContent});" class="button-checklist raised":class="{active: sharedState.checklist.isVisible}"></sui-button>
                 </sui-grid-column>
                 <sui-grid-column :width="9" class="remove-padding">
                     <code-editor></code-editor>
@@ -55,7 +55,7 @@
                 </sui-grid-column>
                 <sui-grid-column :width="4" class="light-dark-background">
                     <comments-display></comments-display>
-                    <sui-button positive class="button-end-review raised" @click="showExitConfirmation" :class="{active: sharedState.meta.exitConfirmationIsVisible}">Review beenden</sui-button>
+                    <sui-button id="button-exit-review" positive class="button-end-review raised" @click="showExitConfirmation(); logger($event, {'content': $event.target.textContent});" :class="{active: sharedState.meta.exitConfirmationIsVisible}">Review beenden</sui-button>
                 </sui-grid-column>
             </sui-grid-row>
         </sui-grid>
@@ -67,13 +67,13 @@
         <div>
             <codemirror ref="cmEditor" v-model="code" :options="cmOption" @scroll.passive="loggerDebounced(event, {'target': 'codemirror', 'content': 'scrolling...'})"></codemirror>
             <div class="code-editor-bottom-controls">
-                <span id="code-editor-controls-unfold" class="fold-buttons" @click="unfoldAll(); logger($event);">unfold all</span>
+                <span id="code-editor-controls-unfold" class="fold-buttons" @click="unfoldAll(); logger($event, {'content': $event.target.textContent});">unfold all</span>
                 <sui-dropdown :text="editorOptions.activeTheme" @click.capture="logger($event, {'target': 'code-editor-controls-theme-dropdown', 'content': editorOptions.activeTheme})">
                     <sui-dropdown-menu>
                         <sui-dropdown-item v-for="(value, index) in editorOptions.themes" :key="index" @click="setActiveTheme(value); logger($event, {'target': 'code-editor-controls-theme-item', 'content': value});">{{ value }}</sui-dropdown-item>
                     </sui-dropdown-menu>
                 </sui-dropdown>
-                <span id="code-editor-controls-fold" class="fold-buttons" @click="foldAll(); logger($event);">fold all</span>
+                <span id="code-editor-controls-fold" class="fold-buttons" @click="foldAll(); logger($event, {'content': $event.target.textContent});">fold all</span>
             </div>
             <sui-button circular @click="showSearch(); logger($event, {'target': 'code-editor-search'});" icon="search" class="code-editor-search-fab" size="massive"></sui-button>
             <sui-button circular @click="clearSearch(); logger($event, {'target': 'code-editor-search-clear'});" icon="x icon" class="code-editor-clear-fab" size="mini"></sui-button>
@@ -162,10 +162,10 @@
     <script type="text/x-template" id="tree-view-component-template">
         <div>
             <sui-button-group size="mini">
-                <sui-button basic color="grey" inverted @click="openFileTree">open all</sui-button>
-                <sui-button basic color="grey" inverted @click="collapseFileTree">collapse all</sui-button>
+                <sui-button id="tree-view-button-openall" basic color="grey" inverted @click="openFileTree(); logger($event, { 'content': $event.target.textContent });">open all</sui-button>
+                <sui-button id="tree-view-button-collapseall" basic color="grey" inverted @click="collapseFileTree(); logger($event, { 'content': $event.target.textContent });">collapse all</sui-button>
             </sui-button-group>
-            <sui-list inverted class="tree-view">
+            <sui-list id="tree-view-list" inverted class="tree-view" @scroll.passive="loggerDebounced($event, {'content': 'scrolling...'})">
                 <tree-item class="item" :item="treeData"></tree-item>
             </sui-list>
         </div>
@@ -173,9 +173,9 @@
     
     <script type="text/x-template" id="tree-item-component-template">
         <sui-list-item>
-            <sui-list-icon inverted :class="{selected: isSelected, modified: item.isModified}" :name="iconName" @click="toggle"/>
+            <sui-list-icon inverted :class="{selected: isSelected, modified: item.isModified}" :name="iconName" @click="toggle(); logger($event, { 'content': item.name, 'target': 'tree-item-icon', 'data': item.isOpen ? 'opened' : 'closed', 'info': isFolder ? 'folder' : 'file' });"/>
             <sui-list-content>
-                <sui-list-header :class="{selected: isSelected, modified: item.isModified}" @click="toggle">{{ item.name }}</sui-list-header>
+                <sui-list-header :class="{selected: isSelected, modified: item.isModified}" @click="toggle(); logger($event, { 'content': item.name, 'target': 'tree-item-header', 'data': item.isOpen ? 'opened' : 'closed', 'info': isFolder ? 'folder' : 'file' });">{{ item.name }}</sui-list-header>
                 <sui-list-list v-show="item.isOpen" v-if="isFolder">
                     <tree-item class="item" v-for="(child, index) in item.children" key="index" :item="child"></tree-item>
                 </sui-list-list>
@@ -205,13 +205,13 @@
     
     <script type="text/x-template" id="faq-component-template">
         <sui-modal :open="faqData.isVisible">
-            <sui-icon name="close" @click.native="toggle"/>
+            <sui-icon id="faq-x-icon" name="close" @click.native="toggle(); logger($event);"/>
             <sui-modal-header>Fragen und Antworten</sui-modal-header>
-            <sui-modal-content scrolling>
+            <sui-modal-content scrolling id="faq-content" @scroll.passive="loggerDebounced($event, {'content': 'scrolling...'})">
                 <sui-accordion exclusive>
                     <template v-for="(item, index) in faqData.data">
-                        <sui-accordion-title :key="item.question">
-                            <sui-icon name="dropdown" />
+                        <sui-accordion-title :key="item.question" @click="logger($event, {'target': 'faq-accordion', 'content': item.question});">
+                            <sui-icon name="dropdown" @click="logger($event, {'target': 'faq-accordion', 'content': item.question});"/>
                             {{ item.question }}
                         </sui-accordion-title>
                         <sui-accordion-content :key="index">
@@ -221,26 +221,22 @@
                 </sui-accordion>
             </sui-modal-content>
             <sui-modal-actions>
-                <sui-button positive @click.native="toggle">
-                    OK
-                </sui-button>
+                <sui-button id="faq-OK-button" positive @click.native="toggle(); logger($event, {'content': $event.target.textContent});">OK</sui-button>
             </sui-modal-actions>
         </sui-modal>
     </script>
     
     <script type="text/x-template" id="task-component-template">
         <sui-modal :open="taskData.isVisible">
-            <sui-icon name="close" @click.native="toggle"/>
+            <sui-icon id="task-x-icon" name="close" @click.native="toggle(); logger($event);"/>
             <sui-modal-header>
                 Aufgabenstellung für dieses Code-Review
             </sui-modal-header>
-            <sui-modal-content scrolling>
+            <sui-modal-content scrolling id="task-content" @scroll.passive="loggerDebounced($event, {'content': 'scrolling...'})">
                 <sui-container v-html="renderedMarkdown"></sui-container>
             </sui-modal-content>
             <sui-modal-actions>
-                <sui-button positive @click.native="toggle">
-                    OK
-                </sui-button>
+                <sui-button id="task-OK-button" positive @click.native="toggle(); logger($event, {'content': $event.target.textContent});">OK</sui-button>
             </sui-modal-actions>
         </sui-modal>
     </script>
@@ -248,15 +244,15 @@
     <script type="text/x-template" id="user-study-controls-component-template">
         <div>
             <div class="user-study-controls">
-                <sui-button :content="barContent" primary :icon="barIcon" label-position="right" @click="toggleTaskControls" attached="bottom" size="mini" class="raised"></sui-button>
+                <sui-button :content="barContent" primary :icon="barIcon" label-position="right" @click="logger($event, {'content': $event.target.textContent, 'target': 'user-study-controls-bar'}); toggleTaskControls();" attached="bottom" size="mini" class="raised"></sui-button>
                 <sui-segment color="blue" v-show="taskControlsAreVisible" raised aligned="center" >
                     <sui-label attached="top">Task: {{ currentTask.name }}</sui-label>
-                    <sui-button content="Task-Beschreibung" @click="toggleTaskDesciption" :class="{active: taskDescriptionIsVisible}" size="mini"></sui-button>
-                    <sui-button content="Task abschließen" @click="toggleExitConfirmation" icon="sign out alternate" label-position="right" :class="{active: metaData.exitConfirmationIsVisible}" size="mini"></sui-button>
+                    <sui-button id="user-study-controls-task-description-button" content="Task-Beschreibung" @click="toggleTaskDesciption(); logger($event, {'content': $event.target.textContent});" :class="{active: taskDescriptionIsVisible}" size="mini"></sui-button>
+                    <sui-button id="user-study-controls-exit-button" content="Task abschließen" @click="toggleExitConfirmation(); logger($event, {'content': $event.target.textContent, 'target': 'user-study-controls-exit-button'});" icon="sign out alternate" label-position="right" :class="{active: metaData.exitConfirmationIsVisible}" size="mini"></sui-button>
                 </sui-segment>
             </div>
             <sui-modal size="tiny" :open="metaData.exitConfirmationIsVisible">
-                <sui-icon name="close" @click.native="toggleExitConfirmation"/>
+                <sui-icon id="exit-confirmation-x-icon" name="close" @click.native="toggleExitConfirmation(); logger($event);"/>
                 <sui-modal-header>
                     Task Abschließen
                 </sui-modal-header>
@@ -264,24 +260,20 @@
                     <p>Code-Review-Editor verlassen und Task abschließen?</p>
                 </sui-modal-content>
                 <sui-modal-actions>
-                    <sui-button @click.native="toggleExitConfirmation">
-                        Abbrechen
-                    </sui-button>
-                    <sui-button primary content="Task Abschließen" @click="exitTask" icon="sign out alternate" label-position="right" />
+                    <sui-button id="exit-confirmation-abort-button" @click.native="toggleExitConfirmation(); logger($event, {'content': $event.target.textContent});">Abbrechen</sui-button>
+                    <sui-button primary id="exit-confirmation-agree-button" content="Task Abschließen" @click="logger($event, {'content': $event.target.textContent}); exitTask();" icon="sign out alternate" label-position="right" />
                 </sui-modal-actions>
             </sui-modal>
             <sui-modal :open="taskDescriptionIsVisible">
-                <sui-icon name="close" @click.native="toggleTaskDesciption"/>
+                <sui-icon id="usability-task-x-icon" name="close" @click.native="toggleTaskDesciption(); logger($event);"/>
                 <sui-modal-header>
                     Task Beschreibung: {{ currentTask.name }}
                 </sui-modal-header>
-                <sui-modal-content scrolling>
+                <sui-modal-content scrolling id="usability-task-content" @scroll.passive="loggerDebounced($event, {'content': 'scrolling...'});">
                     <sui-container v-html="renderedDescription"></sui-container>
                 </sui-modal-content>
                 <sui-modal-actions>
-                    <sui-button positive @click.native="toggleTaskDesciption">
-                        {{ taskStarted ? 'OK' : 'Starten' }}
-                    </sui-button>
+                    <sui-button positive id="usability-task-OK-button" @click.native="logger($event, {'content': $event.target.textContent}); toggleTaskDesciption();">{{ taskStarted ? 'OK' : 'Starten' }}</sui-button>
                 </sui-modal-actions>
             </sui-modal>
         </div>
