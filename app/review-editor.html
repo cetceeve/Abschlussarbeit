@@ -40,14 +40,14 @@
         <sui-grid :columns="3">
             <sui-grid-row class="remove-row-padding">
                 <sui-grid-column :width="3" class="dark-background left-row-padding">
-                    <sui-button @click="showFaq" :class="{active: sharedState.faq.isVisible}" class="raised">FAQ</sui-button>
-                    <sui-button @click="showTask" :class="{active: sharedState.task.isVisible}" class="raised" primary>Aufgabe</sui-button>
+                    <sui-button id="button-open-faq" @click="showFaq(); logger($event, {'content': $event.target.textContent});" :class="{active: sharedState.faq.isVisible}" class="raised">FAQ</sui-button>
+                    <sui-button id="button-open-task" @click="showTask(); logger($event, {'content': $event.target.textContent});" :class="{active: sharedState.task.isVisible}" class="raised" primary>Aufgabe</sui-button>
                     <div>
                         <sui-divider />
                     </div>
                     <tree-view></tree-view>
                     <checklist class="checklist-container"></checklist>
-                    <sui-button id="ckecklist-button" content="Checkliste" @click="toggleChecklist(); logger($event);" class="button-checklist raised":class="{active: sharedState.checklist.isVisible}"></sui-button>
+                    <sui-button id="ckecklist-button" content="Checkliste" @click="toggleChecklist(); logger($event, {'content': $event.target.textContent});" class="button-checklist raised":class="{active: sharedState.checklist.isVisible}"></sui-button>
                 </sui-grid-column>
                 <sui-grid-column :width="9" class="remove-padding">
                     <code-editor></code-editor>
@@ -55,7 +55,7 @@
                 </sui-grid-column>
                 <sui-grid-column :width="4" class="light-dark-background">
                     <comments-display></comments-display>
-                    <sui-button id="exit-review-button" positive class="button-end-review raised" @click="showExitConfirmation(); logger($event, {'content': $event.target.textContent});" :class="{active: sharedState.meta.exitConfirmationIsVisible}">Review beenden</sui-button>
+                    <sui-button id="button-exit-review" positive class="button-end-review raised" @click="showExitConfirmation(); logger($event, {'content': $event.target.textContent});" :class="{active: sharedState.meta.exitConfirmationIsVisible}">Review beenden</sui-button>
                 </sui-grid-column>
             </sui-grid-row>
         </sui-grid>
@@ -67,13 +67,13 @@
         <div>
             <codemirror ref="cmEditor" v-model="code" :options="cmOption" @scroll.passive="loggerDebounced(event, {'target': 'codemirror', 'content': 'scrolling...'})"></codemirror>
             <div class="code-editor-bottom-controls">
-                <span id="code-editor-controls-unfold" class="fold-buttons" @click="unfoldAll(); logger($event);">unfold all</span>
+                <span id="code-editor-controls-unfold" class="fold-buttons" @click="unfoldAll(); logger($event, {'content': $event.target.textContent});">unfold all</span>
                 <sui-dropdown :text="editorOptions.activeTheme" @click.capture="logger($event, {'target': 'code-editor-controls-theme-dropdown', 'content': editorOptions.activeTheme})">
                     <sui-dropdown-menu>
                         <sui-dropdown-item v-for="(value, index) in editorOptions.themes" :key="index" @click="setActiveTheme(value); logger($event, {'target': 'code-editor-controls-theme-item', 'content': value});">{{ value }}</sui-dropdown-item>
                     </sui-dropdown-menu>
                 </sui-dropdown>
-                <span id="code-editor-controls-fold" class="fold-buttons" @click="foldAll(); logger($event);">fold all</span>
+                <span id="code-editor-controls-fold" class="fold-buttons" @click="foldAll(); logger($event, {'content': $event.target.textContent});">fold all</span>
             </div>
             <sui-button circular @click="showSearch(); logger($event, {'target': 'code-editor-search'});" icon="search" class="code-editor-search-fab" size="massive"></sui-button>
             <sui-button circular @click="clearSearch(); logger($event, {'target': 'code-editor-search-clear'});" icon="x icon" class="code-editor-clear-fab" size="mini"></sui-button>
