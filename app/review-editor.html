@@ -162,8 +162,8 @@
     <script type="text/x-template" id="tree-view-component-template">
         <div>
             <sui-button-group size="mini">
-                <sui-button basic color="grey" inverted @click="openFileTree">open all</sui-button>
-                <sui-button basic color="grey" inverted @click="collapseFileTree">collapse all</sui-button>
+                <sui-button id="tree-view-button-openall" basic color="grey" inverted @click="openFileTree(); logger($event, { 'content': $event.target.textContent });">open all</sui-button>
+                <sui-button id="tree-view-button-collapseall" basic color="grey" inverted @click="collapseFileTree(); logger($event, { 'content': $event.target.textContent });">collapse all</sui-button>
             </sui-button-group>
             <sui-list inverted class="tree-view">
                 <tree-item class="item" :item="treeData"></tree-item>
@@ -173,9 +173,9 @@
     
     <script type="text/x-template" id="tree-item-component-template">
         <sui-list-item>
-            <sui-list-icon inverted :class="{selected: isSelected, modified: item.isModified}" :name="iconName" @click="toggle"/>
+            <sui-list-icon inverted :class="{selected: isSelected, modified: item.isModified}" :name="iconName" @click="toggle(); logger($event, { 'content': item.name, 'target': 'tree-item-icon', 'data': item.isOpen ? 'opened' : 'closed', 'info': isFolder ? 'folder' : 'file' });"/>
             <sui-list-content>
-                <sui-list-header :class="{selected: isSelected, modified: item.isModified}" @click="toggle">{{ item.name }}</sui-list-header>
+                <sui-list-header :class="{selected: isSelected, modified: item.isModified}" @click="toggle(); logger($event, { 'content': item.name, 'target': 'tree-item-header', 'data': item.isOpen ? 'opened' : 'closed', 'info': isFolder ? 'folder' : 'file' });">{{ item.name }}</sui-list-header>
                 <sui-list-list v-show="item.isOpen" v-if="isFolder">
                     <tree-item class="item" v-for="(child, index) in item.children" key="index" :item="child"></tree-item>
                 </sui-list-list>
@@ -205,7 +205,7 @@
     
     <script type="text/x-template" id="faq-component-template">
         <sui-modal :open="faqData.isVisible">
-            <sui-icon name="close" @click.native="toggle"/>
+            <sui-icon id="faq-x-icon" name="close" @click.native="toggle"/>
             <sui-modal-header>Fragen und Antworten</sui-modal-header>
             <sui-modal-content scrolling>
                 <sui-accordion exclusive>
