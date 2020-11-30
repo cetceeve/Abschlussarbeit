@@ -60,7 +60,7 @@ Finde den fehlerhaften Kommentar. Wichtig: Es handelt sich dabei nicht um ein in
 
 **Scenario:**
 
-Du bearbeitest auch in dieserm Task ein Code-Review für eine typische Studienleistung in einem fortgeschrittenen Programmierkurs. Du möchtest einen ersten Kommentar verfassen, in den Quellcodeautor auf die Möglichkeit der `for in` bzw. `for of` Syntax für Iterationen, als Alternative zur klassischen `for (let i = 0; i < iterable.length; i++)` Schleife, hinweisen möchtest.
+Du bearbeitest auch in diesem Task ein Code-Review für eine typische Studienleistung in einem fortgeschrittenen Programmierkurs. Du möchtest einen ersten Kommentar verfassen, in den Quellcodeautor auf die Möglichkeit der `for in` bzw. `for of` Syntax für Iterationen, als Alternative zur klassischen `for (let i = 0; i < iterable.length; i++)` Schleife, hinweisen möchtest.
 
 **Aktivität:**
 
@@ -93,3 +93,16 @@ Der Task gilt als abgeschlossen, wenn die beiden Kommentare gelöscht sind.
 
 
 ## Task: Quellcode lesen
+
+**Scenario:** 
+
+Du bearbeitest auch in diesem Task ein Code-Review für eine typische Studienleistung in einem fortgeschrittenen Programmierkurs. In der Datei `BirdList.js` wird mehrmals die Variable `birdArray` genutzt. An einer stelle hat sich allerdings ein schreibfehler eingeschlichen und es wurde `birdarray` geschrieben.
+
+**Aktivität:**
+
+Finde den fehlerhaften Variablennamen und schreibe einen kurzen Kommentar in der richtigen Code-Zeile.
+
+**Ziel:**
+
+Die Akrivität ist abgeschlossen, wenn der Kommentar erstellt wurde.
+
