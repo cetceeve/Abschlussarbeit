@@ -18,9 +18,10 @@ utils = new ServerUtils(server, sql, redis);
 
 app.use(express.json());
 app.use(cookieParser());
-app.use("/res", express.static("./app/res"));
-app.use("/vendors", express.static("./app/vendors"));
+app.use("/assets", express.static("./app/assets"));
 app.use("/data", express.static("./app/data"));
+app.use("/vendors", express.static("./app/vendors"));
+app.use("/res", express.static("./app/res"));
 app.use(utils.sessionIdMiddleware());
 
 app.get("/", (req, res) => {

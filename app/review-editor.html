@@ -110,7 +110,7 @@
                     </sui-form>
                     <div>
                         <sui-dropdown selection :options="commentCategories" v-model="currentCategory" placeholder="Kategorie" @click="logger($event, {'info': 'line ' + activeLineNumber, 'target': 'comment-display-category-dropdown', 'content': currentCategory})"/>
-                        <sui-button id="comment-display-button-post" @click.prevent="logger($event, {'info': 'line ' + activeLineNumber, 'data': newComment}); postNewComment();" positive floated="right">Speichern</sui-button>
+                        <sui-button id="comment-display-button-post" @click.prevent="logger($event, {'info': 'line ' + activeLineNumber, 'content': newComment, 'data': 'Kategorie: ' + currentCategory}); postNewComment();" positive floated="right">Speichern</sui-button>
                     </div>
                 </div>
             </div>
@@ -153,7 +153,7 @@
                 </sui-card-content>
                 <div is="sui-button-group" size="mini">
                     <sui-button id="comment-edit-button-abort" @click="logger($event, {'info': 'line ' + comment.sectionId, 'content': rawMarkdown, 'data': 'commentID ' + comment.id}); cancelCommentEdit();">Abbrechen</sui-button>
-                    <sui-button id="comment-edit-button-save" @click="logger($event, {'info': 'line ' + comment.sectionId, 'content': rawMarkdown, 'data': 'commentID ' + comment.id}); postUpdatedComment();" positive>Speichern</sui-button>
+                    <sui-button id="comment-edit-button-save" @click="logger($event, {'info': 'line ' + comment.sectionId, 'content': rawMarkdown, 'data': 'commentID ' + comment.id + ' Kategorie: ' + currentCategory}); postUpdatedComment();" positive>Speichern</sui-button>
                 </div>
             </template>
         </sui-card>

@@ -2,11 +2,6 @@
     "meta": {
         "id": "0000",
         "ready": false,
-        "task": {
-            "id": "1",
-            "name": "Exploration",
-            "description": "Das ist _bald_ die coole `Task Desscription`."
-        },
         "exitConfirmationIsVisible": false
     },
     "user": {
@@ -17,12 +12,12 @@
         "isVisible": false,
         "data": [
             {
-                "question": "what is going on?",
-                "answer": "well i'm coding like hella fast"
+                "question": "Wie erstelle ich ein Code-Review?",
+                "answer": "Zu diesem Thema findest du sowohl unter der Schaltfläche `Aufgabe` als auch in der `Checkliste` viele wertvolle Informationen. Ein wunderbare Einführung findest du auch auf der Website der [Google Engineering Practives documentation](https://google.github.io/eng-practices/review/reviewer/standard.html)."
             },
             {
-                "question": "what is going on?",
-                "answer": "well i'm coding like hella fast"
+                "question": "Wie füge ich einen Kommentar zu einer Code-Zeile hinzu?",
+                "answer": "Du kannst in jeder Code-Zeile auf den `+` Icon clicken um in dieser Zeile einen Kommentar zu ergänzen.\n\n![graphik dazu](../assets/add_comment.jpg)"
             }
         ]
     },
