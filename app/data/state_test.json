@@ -16,8 +16,24 @@
                 "answer": "Zu diesem Thema findest du sowohl unter der Schaltfläche `Aufgabe` als auch in der `Checkliste` viele wertvolle Informationen. Ein wunderbare Einführung findest du auch auf der Website der [Google Engineering Practives documentation](https://google.github.io/eng-practices/review/reviewer/standard.html)."
             },
             {
+                "question": "Was ist Markdown bzw. Markdown Syntax?",
+                "answer": "Markdown bietet die Möglichkeit mit einfachen Symbolen einen Text zu formatieren. Die Formatierungsmöglichkeiten sind dabei stark begrenzt aber umso nützlicher. Formal ist Markdown eine vereinfachte Auszeichnungssprache. Auf dieser Website wird Markdown exzessiv zur einfachen Textformatierung und zum einbinden von Hyperlinks genutzt.\n\nDie wichtigste Markdown Syntax im Überblick:\n```\n\n# Erzeugt Header in\n## verschiedenen\n### Größen\n\n---\n\n- Text kann **fett** oder *kursiv* sein.\n- Genauso kann `code` hervorgehoben werden, oder ein [Link](www.ur.de) eingebunden werden.\n  - Listenelemente können mit Leerzeichen weiter verschachtelt werden\n\n```\n\n# Erzeugt Header in\n## verschiedenen\n### Größen\n\n---\n\n- Text kann **fett** oder *kursiv* sein.\n- Genauso kann `code` hervorgehoben werden, oder ein [Link](www.ur.de) eingebunden werden.\n  - Listenelemente können mit Leerzeichen weiter verschachtelt werden\n"
+            },
+            {
                 "question": "Wie füge ich einen Kommentar zu einer Code-Zeile hinzu?",
                 "answer": "Du kannst in jeder Code-Zeile auf den `+` Icon clicken um in dieser Zeile einen Kommentar zu ergänzen.\n\n![graphik dazu](../assets/add_comment.jpg)"
+            },
+            {
+                "question": "Wofür stehen die Kommentar Kategorien?",
+                "answer": "- **Bug:** Damit kannst du den Autor oder die Autorin auf einen Syntax oder Logikfehler hinweisen. \n- **Alternative:** Diese Kategorie ist sinnvoll, wenn du einen alternativen Lösungsweg vorschlagen möchtest.\n- **Anmerkung:** Allgemeine Kategorie ohne besondere Bedeutung.\n- **Kompliment:** Jeder freut sich über ein unerwartetes Kompliment, auch in einem Code-Review."
+            },
+            {
+                "question": "Kann ich die Usability-Task-Beschreibung noch einmal lesen?",
+                "answer": "**Ja!** Klicke auf die Leiste `Steuerungselemente für Usability-Task einblenden` mittig oben und anschließend auf `Task-Beschreibung`."
+            },
+            {
+                "question": "Verliere ich meinen Fortschritt, wenn ich die Website verlasse?",
+                "answer": "**Nein!** Dein Review-Fortschritt wird regelmäßig lokal in deinem Browser gespeichert."
             }
         ]
     },
@@ -191,7 +207,7 @@
             "fileSha0000": {
                 "sha": "fileSha0000",
                 "path": "src/js/Appserver.js",
-                "text": "/* globals Vue, VueCodemirror, SemanticUIVue */\r\nimport ChecklistComponent from \"./components/checklist.js\";\r\nimport CodeEditorComponent from \"./components/code-editor.js\";\r\nimport CommentsDisplayComponent from \"./components/comments-display.js\";\r\nimport FaqComponent from \"./components/faq.js\";\r\nimport TaskComponent from \"./components/task.js\";\r\nimport TreeViewComponent from \"./components/tree-view.js\";\r\nimport store from \"./model/store.js\";\r\n\r\nVue.use(VueCodemirror);\r\nVue.use(SemanticUIVue);\r\n\r\n// eslint-disable-next-line no-new\r\nnew Vue({\r\n    el: \"#app\",\r\n    components: {\r\n        \"code-editor\": CodeEditorComponent,\r\n        \"comments-display\": CommentsDisplayComponent,\r\n        \"tree-view\": TreeViewComponent,\r\n        \"checklist\": ChecklistComponent,\r\n        \"faq-modal\": FaqComponent,\r\n        \"task-modal\": TaskComponent,\r\n    },\r\n    data: {\r\n        sharedState: store.state,\r\n        exitConfirmationIsVisible: false,\r\n    },\r\n    methods: {\r\n        toggleChecklist() {\r\n            store.toggleChecklistVisibility();\r\n        },\r\n        showFaq() {\r\n            store.toggleFaqVisibility();\r\n        },\r\n        showTask() {\r\n            store.toggleTaskVisibility();\r\n        },\r\n        toggleExitConfirmation() {\r\n            this.exitConfirmationIsVisible = !this.exitConfirmationIsVisible;\r\n        },\r\n        exit() {\r\n            location.href = \"./\";\r\n        },\r\n    },\r\n    mounted() {\r\n        document.querySelector(\"#loader\").style.display = \"none\";\r\n        document.querySelector(\"#app\").style.display = \"block\"; \r\n    },\r\n});",
+                "text": "/* globals Vue, VueCodemirror, SemanticUIVue */\nimport ChecklistComponent from \"./components/checklist.js\";\nimport CodeEditorComponent from \"./components/code-editor.js\";\r\nimport CommentsDisplayComponent from \"./components/comments-display.js\";\r\nimport FaqComponent from \"./components/faq.js\";\r\nimport TaskComponent from \"./components/task.js\";\r\nimport TreeViewComponent from \"./components/tree-view.js\";\r\nimport store from \"./model/store.js\";\r\n\r\nVue.use(VueCodemirror);\r\nVue.use(SemanticUIVue);\r\n\r\n// eslint-disable-next-line no-new\r\nnew Vue({\r\n    el: \"#app\",\r\n    components: {\r\n        \"code-editor\": CodeEditorComponent,\r\n        \"comments-display\": CommentsDisplayComponent,\r\n        \"tree-view\": TreeViewComponent,\r\n        \"checklist\": ChecklistComponent,\r\n        \"faq-modal\": FaqComponent,\r\n        \"task-modal\": TaskComponent,\r\n    },\r\n    data: {\r\n        sharedState: store.state,\r\n        exitConfirmationIsVisible: false,\r\n    },\r\n    methods: {\r\n        toggleChecklist() {\r\n            store.toggleChecklistVisibility();\r\n        },\r\n        showFaq() {\r\n            store.toggleFaqVisibility();\r\n        },\r\n        showTask() {\r\n            store.toggleTaskVisibility();\r\n        },\r\n        toggleExitConfirmation() {\r\n            this.exitConfirmationIsVisible = !this.exitConfirmationIsVisible;\r\n        },\r\n        exit() {\r\n            location.href = \"./\";\r\n        },\r\n    },\r\n    mounted() {\r\n        document.querySelector(\"#loader\").style.display = \"none\";\r\n        document.querySelector(\"#app\").style.display = \"block\"; \r\n    },\r\n});",
                 "linePresentationModifiers": [
                     {
                         "class": "unchanged_line",
