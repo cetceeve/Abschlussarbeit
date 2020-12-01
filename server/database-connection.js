@@ -57,7 +57,7 @@ class dbConnection {
     
     saveTaskSuccessResults(sessionId, taskId, taskSuccess) {
         this.db.serialize(() => {
-            this.db.run("CREATE TABLE IF NOT EXISTS tsr (sessionId TEXT PRIMARY KEY, exploration INTEGER, task1 INTEGER, task2 INTEGER, task3 INTEGER, task4 INTEGER, task5 INTEGER)", (error) => {
+            this.db.run("CREATE TABLE IF NOT EXISTS tsr (sessionId TEXT PRIMARY KEY, exploration INTEGER, taskfindbug INTEGER, taskeditcomment INTEGER, taskwritecomment INTEGER, taskdeletecomment INTEGER, tasksearchvariable INTEGER)", (error) => {
                 if (error !== null) { console.log(error); }
             });
             
@@ -79,7 +79,7 @@ class dbConnection {
     
     saveTaskCompletionTime(sessionId, taskId, taskCompletionTime) {
         this.db.serialize(() => {
-            this.db.run("CREATE TABLE IF NOT EXISTS tct (sessionId TEXT PRIMARY KEY, exploration INTEGER, task1 INTEGER, task2 INTEGER, task3 INTEGER, task4 INTEGER, task5 INTEGER)", (error) => {
+            this.db.run("CREATE TABLE IF NOT EXISTS tct (sessionId TEXT PRIMARY KEY, exploration INTEGER, taskfindbug INTEGER, taskeditcomment INTEGER, taskwritecomment INTEGER, taskdeletecomment INTEGER, tasksearchvariable INTEGER)", (error) => {
                 if (error !== null) { console.log(error); }
             });
             
