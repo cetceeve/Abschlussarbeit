@@ -184,7 +184,7 @@
         "content": "# Code Review zur Übungsaufgabe Birding App\n\nBitte fertigen Sie ein *Code Review* für den Lösungsvorschlag in diesem Repository an. Konzentrieren Sie sich auf die qualitativen Aspekte des Quellcodes und des *Software Designs*. Sie müssen den Code nicht ausführen und keine funktionalen Fehler oder Bugs indentifizieren. Versuchen Sie, konstruktives Feedback zur besseren Gestaltung der Teilkomponenten und Funktionen bzw. zur allgemeine Optimierung der Codequalität zu geben. Suchen Sie nach offensichtlichen Verstößen gegen bekannte Regeln zur Gestaltung und Formatierung von JavaScript-Code und identifizieren Sie [unsaubere Lösungen](https://www.martinfowler.com/bliki/CodeSmell.html), die sich negativ auf den Gesamteindruck auswirken. Vergessen Sie dabei nicht, auch positives Feedback zu geben und gelungene Stellen un Umsetzungen zu kennzeichnen.\n\n**Machen Sie sich keine Sorgen über die Qualität Ihres Feedbacks. In der Regel sind alle Hinweise und Ratschläge nützlich. Das Anfertigen des Reviews soll nicht nur den EmpfängerInnen helfen, sonder auch eine Übungsmöglichkeit für Sie selbst darstellen. Nutzen Sie die Chance, wertvolle Erfahrungen für spätere Projekte zu sammeln.**\n\n\n# Kontext: Aufgabenstellung zur Übungsaufgabe Briding App\n\nVom 8. bis 10. Mai fand die jährliche _Stunde der Gartenvögel_ statt. Bei [dieser Aktion](https://www.nabu.de/tiere-und-pflanzen/aktionen-und-projekte/stunde-der-gartenvoegel/index.html) des [NABU](https://www.nabu.de/) und des [LBV](https://www.lbv.de/) werden deutschlandweit Statistiken zur Populationsgröße heimischer Vogelarten erhoben. In dieser Aufgabe implementieren Sie eine Webanwendung, die ornithologisch begeisterten NutzerInnen die Teilnahme an der nächsten Vogelzählung erleichtern wird. Die Anwendung stellt 15 der häufigsten heimischen Vogelarten in einer durchsuchbaren Liste dar und erlaubt das Zählen einzelner Exemplare.\n\n#### Darstellung der fertigen Anwendung\n\n![GIF der fertigen Anwendung](https://git.uni-regensburg.de/multimedia-engineering/mme-online/-/raw/master/docs/Aufgaben/img/screencast-birding-app.gif)\n\n\n## Anforderungen und Anwendungsbeschreibung\n\nVersuchen Sie die folgenden Features möglichst komplett und fehlerfrei umzusetzen. Achten Sie dabei darauf, die vorgeschlagenen Architektur und die Aufgabenverteilung bezüglich der Modulstruktur einzuhalten. Vermeiden Sie fehlerhafte Implementierungen und stellen Sie eine funktionierende Bedienung der Anwendung sicher. Denken Sie daran, dass auch die qualitative Gestaltung des Quellcodes in die Bewertung einfließt.\n\nDie komplette HTML-Struktur sowie die notwendigen CSS-Regeln sind vorgegeben. Bei der Implementierung der Anwendung können Sie sich auf die Erstellung der notwendigen JavaScript-Module konzentrieren.\n\n#### A1) Auswahlliste mit Vogelarten\n\nIm linken Bereich der Anwendung findet sich eine Auswahlliste (Selektor: `.bird-gallery`) aller in der App bekannten Vogelarten. Die Arten sind über ein Suchfeld oberhalb der Liste filterbar, wobei die Eingabe als Such- bzw. Filterkriterium für die Artnamen verwendet wird. Ist das Feld leer, wird die komplette Liste angezeigt. Gibt der Nutzer Text ein, wird mit jeder Änderung überprüft, ob der eingegebene String in einem der Artnamen vorkommt. Angezeigt werden dann alle Arten, auf die dieses Kriterium zutrifft.\n\nÜber die Liste kann der Benutzer Vogelarten auswählen. Dazu klickt er auf das entsprechende _Plus_-Symbol des jeweiligen Listeneintrags. Die so selektierte Art wird in das *Dashboard* aufgenommen.\n\n#### A2) Dashboard mit beobachteten Vogelarten\n\nIm *Dashboard* (Selektor: `.bird-counter`) - rechts von der Auswahlliste - werden alle Vogelarten dargestellt, die bereits über die Liste ausgewählt wurden. Im *Template* werden zwei als Interaktionselemente zu verwendende Bereiche definiert: `<span class=\"bird-counter-decrease button\">` und `<span class=\"bird-counter-increase button\">`. Diese dienen zum Zählen der beobachteten Vögel.\n\n\n## Code-Struktur der Anwendung\n\nDie Code-Struktur der fertigen Anwendung soll weit möglichst dem [Separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns)-Ansatz folgen und dabei das [model-view-controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)-Muster umsetzen. Die unterschiedlichen Aufgabenbereiche werden dabei durch separate ES6-Module abgebildet.\n\n#### BirdingApp | `index.js`\n\nDieses Modul dient als zentrale Komponente der Anwendung. Beim Start werden die anderen Bestandteile der Anwendung hier initialisiert. Zur Laufzeit steuert das Modul die Kommunikation zwischen den übrigen Programmbestandteilen. Diese sind im Optimalfall unabhängig voneinander und geben nötige Informationen an das zentrale Modul weiter bzw. werden von diesem informiert und gesteuert.\n#### BirdingModel | `BirdingModel.js`\n\nDas Model der Anwendung speichert den aktuellen Zustand der App. Hier wird die Liste der verfügbaren Vogelarten gespeichert und bereit gestellt. Andere Komponenten können mit dem Model über ein öffentliches Interface kommunizieren.\n\n#### BirdingController | `BirdingController.js`\n\nDer *Controller* fängt alle relevanten Benutzerinteraktionen ab und gibt die damit verbundene Informationen weiter. Hierzu zählen die Nutzereingaben im Suchfeld, die Auswahl eines Eintrags aus der Auswahlliste sowie die Veränderung des *Counters* der im *Dashboard* aufgeführten Vogelarten.\n\n#### Views | `BirdCounterView.js` und `BirdListView.js`\n\nDie beide *Views* der Anwendung rendern die im *Model* gespeicherten Informationen für die Darstellung im *User Interface*. Beide Module stellen eine öffentliche Schnittstelle zur Verfügung, die es erlaubt, neue Einträge zum *View* hinzuzufügen. Der `BirdCounterView` verfügt zusätzlich über die Möglichkeit, bereits vorhandenen Einträge zu aktualisieren. Die *Views* repräsentieren immer den aktuellen Stand der *Anwendung*, der sich aus den im Model gespeicherten Informationen ergibt.\n\n## Weitere Hinweise und Hilfestellungen\n\n- Über die Notwendigkeit qualitiativ hochwertigen Quellcodes schreibt Martin Fowler [hier](https://martinfowler.com/articles/is-quality-worth-cost.html)\n- Weitere Informationen zum Verfassen von Code-Reviews finden sie in der [Google Engineering Practives documentation](https://google.github.io/eng-practices/review/reviewer/standard.html)"          
     },
     "content": {
-        "currentFile": "fileSha0000",
+        "currentFile": "fileShaIndex",
         "commentCategories": [
             {
                 "text": "Bug",
@@ -208,14 +208,14 @@
             }
         ],
         "files": {
-            "fileSha0000": {
-                "sha": "fileSha0000",
-                "path": "src/js/Appserver.js",
-                "text": "/* globals Vue, VueCodemirror, SemanticUIVue */\nimport ChecklistComponent from \"./components/checklist.js\";\nimport CodeEditorComponent from \"./components/code-editor.js\";\nimport CommentsDisplayComponent from \"./components/comments-display.js\";\nimport FaqComponent from \"./components/faq.js\";\nimport TaskComponent from \"./components/task.js\";\nimport TreeViewComponent from \"./components/tree-view.js\";\nimport store from \"./model/store.js\";\n\nVue.use(VueCodemirror);\nVue.use(SemanticUIVue);\n\n// eslint-disable-next-line no-new\nnew Vue({\n    el: \"#app\",\n    components: {\n        \"code-editor\": CodeEditorComponent,\n        \"comments-display\": CommentsDisplayComponent,\n        \"tree-view\": TreeViewComponent,\n        \"checklist\": ChecklistComponent,\n        \"faq-modal\": FaqComponent,\n        \"task-modal\": TaskComponent,\n    },\n    data: {\n        sharedState: store.state,\n        exitConfirmationIsVisible: false,\n    },\n    methods: {\n        toggleChecklist() {\n            store.toggleChecklistVisibility();\n        },\n        showFaq() {\n            store.toggleFaqVisibility();\n        },\n        showTask() {\n            store.toggleTaskVisibility();\n        },\n        toggleExitConfirmation() {\n            this.exitConfirmationIsVisible = !this.exitConfirmationIsVisible;\n        },\n        exit() {\n            location.href = \"./\";\n        },\n    },\n    mounted() {\n        document.querySelector(\"#loader\").style.display = \"none\";\n        document.querySelector(\"#app\").style.display = \"block\"; \n    },\n});",
+            "fileShaIndex": {
+                "sha": "fileShaIndex",
+                "path": "root/index.html",
+                "text": "<!DOCTYPE html>\n<html>\n\n<head>\n    <meta charset=\"utf-8\">\n    <title>Birding App</title>\n    <link rel=\"stylesheet\" href=\"resources/css/styles.css\">\n    <link rel=\"stylesheet\" href=\"vendors/fontello/css/fontello.css\">\n</head>\n\n<body>\n    <header>\n        <ul class=\"menu\">\n            <li><i class=\"icon-binoculars\"></i></li>\n        </ul>\n        <h1 class=\"title\">Birding App</h1>\n    </header>\n    <div class=\"decal\"></div>\n\n    <content>\n        <div class=\"bird-gallery\">\n            <input type=\"text\" class=\"bird-search\" />\n            <ul class=\"bird-list\">\n                <!-- List of birds matching the current search query -->\n            </ul>\n        </div>\n        <div class=\"bird-counter\">\n            <ul class=\"bird-list\">\n                <!-- List of birds already added to counting board -->\n            </ul>\n        </div>\n    </content>\n\n    <footer>\n        <p>\n            Die verwendeten Bilddateien entstammen den <a href=\"https://commons.wikimedia.org/wiki/Main_Page\"\n                target=\"_new\">Wikimedia Commons</a>. Die Audio-Aufzeichnungen sind dem <a\n                href=\"http://www.tierstimmenarchiv.de/\" target=\"_new\">Tierstimmenarchiv</a> des <a\n                href=\"http://www.naturkundemuseum.berlin/\" target=\"_new\">Naturkundemuseums Berlin</a> entnommen.\n            <p />\n        <p>Bei der Implementierung der Anwendung wurde <a href=\"http://underscorejs.org/\">underscore.js</a> eingesetzt.\n        </p>\n    </footer>\n\n    <!-- Template for one single entry in bird list (.bird-gallery .bird-list) -->\n    <script type=\"text/template\" id=\"bird-list-entry\">\n        <li class=\"bird-list-entry\" bird-id=\"<%= id %>\">\n            <img src=\"<%= imagePath %>\" class=\"bird-image\" />\n            <div class=\"bird-description\">\n                <span class=\"bird-name\"><%= name %></span>\n                <span class=\"bird-latin-name\"><%= latinName %></span>\n            </div>\n            <span class=\"add-bird-button\">\n                <i class=\"icon-plus-circled\" aria-hidden=\"true\"></i>\n            </span>\n        </li>\n    </script>\n\n    <!-- Template for one single entry on counting board (.bird-counter .bird-list) -->\n    <script type=\"text/template\" id=\"bird-counter-entry\">\n        <li class=\"bird-list-entry\" bird-id=\"<%= id %>\">\n            <img src=\"<%= imagePath %>\" class=\"bird-image\" />\n            <div class=\"bird-interface\">\n                <div class=\"bird-info\">\n                    <span class=\"bird-name\"><%= name %></span>\n                    <span class=\"bird-latin-name\"><%= latinName %></span>\n                    <div class=\"bird-counter-info\">\n                        <span class=\"bird-counter-decrease button\"><i class=\"icon-minus button decrease\"\n                                aria-hidden=\"true\"></i></span>\n                        <span class=\"bird-counter-increase button\"><i class=\"icon-plus button increase\"\n                                aria-hidden=\"true\"></i></span>\n                        <span class=\"bird-current-max\"><%= count %></span>\n                    </div>\n                </div>\n            </div>\n        </li>\n    </script>\n\n    <!-- JSON-formatierte Liste der Vögel für diese App -->\n    <template id=\"bird-list\">\n        [{ \"id\":1, \"name\":\"Haussperling\", \"latinName\":\"Passer domesticus\",\n        \"imagePath\":\"resources/data/images/haussperling.png\", \"audioPath\":\"resources/data/audio/haussperling.ogg\" },{ \"id\":2,\n        \"name\":\"Kohlmeise\", \"latinName\":\"Parus major\", \"imagePath\":\"resources/data/images/kohlmeise.png\",\n        \"audioPath\":\"resources/data/audio/kohlmeise.ogg\" },{ \"id\":3, \"name\":\"Star\", \"latinName\":\"Sturnus vulgaris\",\n        \"imagePath\":\"resources/data/images/star.png\", \"audioPath\":\"resources/data/audio/star.ogg\" },{ \"id\":4, \"name\":\"Amsel\",\n        \"latinName\":\"Turdus merula\", \"imagePath\":\"resources/data/images/amsel.png\",\n        \"audioPath\":\"resources/data/audio/amsel.ogg\" },{ \"id\":5,\"name\":\"Blaumeise\", \"latinName\":\"Cyanistes caerruleus\",\n        \"imagePath\":\"resources/data/images/blaumeise.png\", \"audioPath\":\"resources/data/audio/blaumeise.ogg\" },{ \"id\":6,\n        \"name\":\"Elster\", \"latinName\":\"Pica pica\", \"imagePath\":\"resources/data/images/elster.png\",\n        \"audioPath\":\"resources/data/audio/elster.ogg\" },{ \"id\":7, \"name\":\"Grünfink\", \"latinName\":\"Chloris chloris\",\n        \"imagePath\":\"resources/data/images/gruenfink.png\", \"audioPath\":\"resources/data/audio/gruenfink.ogg\" },{ \"id\":8,\n        \"name\":\"Mehlschwalbe\", \"latinName\":\"Delichon urbicum\", \"imagePath\":\"resources/data/images/mehlschwalbe.png\",\n        \"audioPath\":\"resources/data/audio/mehlschwalbe.ogg\" },{ \"id\":9, \"name\":\"Mauersegler\", \"latinName\":\"Apus apus\",\n        \"imagePath\":\"resources/data/images/mauersegler.png\", \"audioPath\":\"resources/data/audio/mauersegler.ogg\" },{ \"id\":10,\n        \"name\":\"Buchfink\", \"latinName\":\"Fringilla coelebs\", \"imagePath\":\"resources/data/images/buchfink.png\",\n        \"audioPath\":\"resources/data/audio/buchfink.ogg\" },{ \"id\":11, \"name\":\"Ringeltaube\", \"latinName\":\"Columba palumbus\", \"imagePath\":\"resources/data/images/ringeltaube.png\", \"audioPath\":\"resources/data/audio/ringeltaube.ogg\"\n        },{ \"id\":12, \"name\":\"Feldsperling\", \"latinName\":\"Passer montanus\",\n        \"imagePath\":\"resources/data/images/feldsperling.png\", \"audioPath\":\"resources/data/audio/feldsperling.ogg\" },{\n        \"id\":13, \"name\":\"Türkentaube\", \"latinName\":\"Streptopelia decaocto\",\n        \"imagePath\":\"resources/data/images/tuerkentaube.png\", \"audioPath\":\"resources/data/audio/tuerkentaube.ogg\" },{\n        \"id\":14, \"name\":\"Rauchschwalbe\", \"latinName\":\"Hirundo rustica\",\n        \"imagePath\":\"resources/data/images/rauchschwalbe.png\", \"audioPath\":\"resources/data/audio/rauchschwalbe.ogg\" },{\n        \"id\":15, \"name\":\"Rotkehlchen\", \"latinName\":\"Erithacus rubecula\", \"imagePath\":\"resources/data/images/rotkehlchen.png\",\n        \"audioPath\":\"resources/data/audio/rotkehlchen.ogg\"}]\n    </template>\n\n    <script type=\"module\" src=\"resources/js/index.js\"></script>\n</body>\n\n</html>",
                 "linePresentationModifiers": [
                     {
                         "class": "unchanged_line",
-                        "lines": [0,1,2,3,55]
+                        "lines": [0,1,2,3,4,5,6,7,8,9,10]
                     }
                 ],
                 "activeCommentSection": null, 
@@ -230,129 +230,189 @@
                         "authorName": "Winnie",
                         "content": "Morning my Friend",
                         "categoryId": "2"
-                    },
-                    {
-                        "id": "10002",
-                        "sectionId": "1",
-                        "authorId": "12",
-                        "authorAvatarUrl": "https://www.kindpng.com/picc/m/28-287073_elonlol-discord-emoji-elon-musk-laughing-deer-hd.png",
-                        "authorName": "Elon",
-                        "content": "I am gonna write a **super long** and not at all helpful comment because i am a ~~dick~~ and i want to destroy this `holes tool` career.",
-                        "categoryId": "1"
-                    },
-                    {
-                        "id": "10003",
-                        "sectionId": "3",
-                        "authorId": "12",
-                        "authorAvatarUrl": "https://www.kindpng.com/picc/m/28-287073_elonlol-discord-emoji-elon-musk-laughing-deer-hd.png",
-                        "authorName": "Elon",
-                        "content": "Coding is not hard.",
-                        "categoryId": "4"
-                    },
-                    {
-                        "id": "10004",
-                        "sectionId": "54",
-                        "authorId": "2",
-                        "authorAvatarUrl": "https://i.kym-cdn.com/photos/images/original/001/474/942/012.gif",
-                        "authorUrl": "https://i.imgflip.com/40ga2o.jpg",
-                        "authorName": "Winnie",
-                        "content": "Side-Comments is not coded well.",
-                        "categoryId": "1"
                     }
                 ]
             },
-            "fileSha0001": {
-                "sha": "fileSha0001",
-                "path": "src/js/SideComments.js",
-                "text": "",
-                "linePresentationModifiers": [
-                    {
-                        "class": "unchanged_line",
-                        "lines": [0,1,2,3,4,5,6,7,8,9,10]
-                    },
-                    {
-                        "class": "halloween_line",
-                        "lines": [0,6,7,8,9,10,11,12,13,14]
-                    }
-                ],
-                "activeCommentSection": "2",
-                "comments": [
-                    {
-                        "id": "20001",
-                        "sectionId": "2",
-                        "authorId": "1111",
-                        "authorAvatarUrl": "https://media.vanityfair.com/photos/5c2fdb09ef10e32ca1332862/1:1/w_1420,h_1420,c_limit/trumpshutdownraises.jpg",
-                        "authorName": "Trump",
-                        "content": "What's up with you?",
-                        "categoryId": "3"
-                    },
-                    {
-                        "id": "20002",
-                        "sectionId": "12",
-                        "authorId": "123",
-                        "authorName": "Monkey D. Ruffy",
-                        "content": "Why would you delete this?",
-                        "categoryId": "2"
-                    },
-                    {
-                        "id": "20003",
-                        "sectionId": "12",
-                        "authorId": "123",
-                        "authorName": "Monkey D. Ruffy",
-                        "content": "ID3 lol",
-                        "categoryId": "2"
-                    }
-                ]
-            },
-            "fileSha0002": {
-                "sha": "fileSha0002",
-                "path": "src/test.htm",
-                "text": "<!DOCTYPE HTML>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>HTMLHint</title>\n</head>\n<body>\n  <div>\"HTMLHint\": help your html code better\n</body>\n</html>",
+            "fileShaReadMe": {
+                "sha": "fileShaReadMe",
+                "path": "root/ReadMe.md",
+                "text": "# Aufgabenstellung zur Übungsaufgabe Briding App\n\nVom 8. bis 10. Mai fand die jährliche _Stunde der Gartenvögel_ statt. Bei [dieser Aktion](https://www.nabu.de/tiere-und-pflanzen/aktionen-und-projekte/stunde-der-gartenvoegel/index.html) des [NABU](https://www.nabu.de/) und des [LBV](https://www.lbv.de/) werden deutschlandweit Statistiken zur Populationsgröße heimischer Vogelarten erhoben. In dieser Aufgabe implementieren Sie eine Webanwendung, die ornithologisch begeisterten NutzerInnen die Teilnahme an der nächsten Vogelzählung erleichtern wird. Die Anwendung stellt 15 der häufigsten heimischen Vogelarten in einer durchsuchbaren Liste dar und erlaubt das Zählen einzelner Exemplare.\n\n#### Darstellung der fertigen Anwendung\n\n![GIF der fertigen Anwendung](https://git.uni-regensburg.de/multimedia-engineering/mme-online/-/raw/master/docs/Aufgaben/img/screencast-birding-app.gif)\n\n\n## Anforderungen und Anwendungsbeschreibung\n\nVersuchen Sie die folgenden Features möglichst komplett und fehlerfrei umzusetzen. Achten Sie dabei darauf, die vorgeschlagenen Architektur und die Aufgabenverteilung bezüglich der Modulstruktur einzuhalten. Vermeiden Sie fehlerhafte Implementierungen und stellen Sie eine funktionierende Bedienung der Anwendung sicher. Denken Sie daran, dass auch die qualitative Gestaltung des Quellcodes in die Bewertung einfließt.\n\nDie komplette HTML-Struktur sowie die notwendigen CSS-Regeln sind vorgegeben. Bei der Implementierung der Anwendung können Sie sich auf die Erstellung der notwendigen JavaScript-Module konzentrieren.\n\n#### A1) Auswahlliste mit Vogelarten\n\nIm linken Bereich der Anwendung findet sich eine Auswahlliste (Selektor: `.bird-gallery`) aller in der App bekannten Vogelarten. Die Arten sind über ein Suchfeld oberhalb der Liste filterbar, wobei die Eingabe als Such- bzw. Filterkriterium für die Artnamen verwendet wird. Ist das Feld leer, wird die komplette Liste angezeigt. Gibt der Nutzer Text ein, wird mit jeder Änderung überprüft, ob der eingegebene String in einem der Artnamen vorkommt. Angezeigt werden dann alle Arten, auf die dieses Kriterium zutrifft.\n\nÜber die Liste kann der Benutzer Vogelarten auswählen. Dazu klickt er auf das entsprechende _Plus_-Symbol des jeweiligen Listeneintrags. Die so selektierte Art wird in das *Dashboard* aufgenommen.\n\n#### A2) Dashboard mit beobachteten Vogelarten\n\nIm *Dashboard* (Selektor: `.bird-counter`) - rechts von der Auswahlliste - werden alle Vogelarten dargestellt, die bereits über die Liste ausgewählt wurden. Im *Template* werden zwei als Interaktionselemente zu verwendende Bereiche definiert: `<span class=\"bird-counter-decrease button\">` und `<span class=\"bird-counter-increase button\">`. Diese dienen zum Zählen der beobachteten Vögel.\n\n\n## Code-Struktur der Anwendung\n\nDie Code-Struktur der fertigen Anwendung soll weit möglichst dem [Separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns)-Ansatz folgen und dabei das [model-view-controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)-Muster umsetzen. Die unterschiedlichen Aufgabenbereiche werden dabei durch separate ES6-Module abgebildet.\n\n#### BirdingApp | `index.js`\n\nDieses Modul dient als zentrale Komponente der Anwendung. Beim Start werden die anderen Bestandteile der Anwendung hier initialisiert. Zur Laufzeit steuert das Modul die Kommunikation zwischen den übrigen Programmbestandteilen. Diese sind im Optimalfall unabhängig voneinander und geben nötige Informationen an das zentrale Modul weiter bzw. werden von diesem informiert und gesteuert.\n#### BirdingModel | `BirdingModel.js`\n\nDas Model der Anwendung speichert den aktuellen Zustand der App. Hier wird die Liste der verfügbaren Vogelarten gespeichert und bereit gestellt. Andere Komponenten können mit dem Model über ein öffentliches Interface kommunizieren.\n\n#### BirdingController | `BirdingController.js`\n\nDer *Controller* fängt alle relevanten Benutzerinteraktionen ab und gibt die damit verbundene Informationen weiter. Hierzu zählen die Nutzereingaben im Suchfeld, die Auswahl eines Eintrags aus der Auswahlliste sowie die Veränderung des *Counters* der im *Dashboard* aufgeführten Vogelarten.\n\n#### Views | `BirdCounterView.js` und `BirdListView.js`\n\nDie beide *Views* der Anwendung rendern die im *Model* gespeicherten Informationen für die Darstellung im *User Interface*. Beide Module stellen eine öffentliche Schnittstelle zur Verfügung, die es erlaubt, neue Einträge zum *View* hinzuzufügen. Der `BirdCounterView` verfügt zusätzlich über die Möglichkeit, bereits vorhandenen Einträge zu aktualisieren. Die *Views* repräsentieren immer den aktuellen Stand der *Anwendung*, der sich aus den im Model gespeicherten Informationen ergibt.",
                 "linePresentationModifiers": [],
-                "activeCommentSection": null,
+                "activeCommentSection": null, 
                 "comments": []
             },
-            "fileSha0003": {
-                "sha": "fileSha0003",
-                "path": "src/test.css",
-                "text": "",
+            "fileShaEslint": {
+                "sha": "fileShaEslint",
+                "path": "root/.eslintrc",
+                "text": "{\n    \"parserOptions\": {\n        \"sourceType\": \"module\"\n    },\n    \"rules\":\n    {\n        \"block-scoped-var\": \"error\",\n        \"camelcase\": \"warn\",\n        \"comma-dangle\": [\"error\", \"always-multiline\"],\n        \"consistent-return\": \"error\",\n        \"curly\": \"error\",\n        \"default-case\": \"error\",\n        \"eqeqeq\": \"error\",\n        \"guard-for-in\": \"error\",\n        \"no-alert\": \"error\",\n        \"no-console\": \"warn\",\n        \"no-else-return\": \"error\",\n        \"no-empty-function\": \"error\",\n        \"no-eval\": \"error\",\n        \"no-eq-null\": \"error\",\n        \"no-extend-native\": \"warn\",\n        \"no-extra-bind\": \"error\",\n        \"no-loop-func\": \"error\",\n        \"no-magic-numbers\": [\"warn\", {\"ignore\": [0, 1, -1], \"ignoreArrayIndexes\": true}],\n        \"no-multiple-empty-lines\": [\"warn\", {\"max\": 1}],\n        \"no-multi-spaces\": \"warn\",\n        \"no-new\": \"error\",\n        \"no-new-func\": \"error\",\n        \"no-new-wrappers\": \"error\",\n        \"no-unused-expressions\": \"error\",\n        \"no-useless-concat\": \"error\",\n        \"no-undef-init\": \"error\",\n        \"no-underscore-dangle\": \"error\",\n        \"no-param-reassign\": \"error\",\n        \"no-self-compare\": \"error\",\n        \"no-void\": \"error\",\n        \"no-with\": \"error\",\n        \"one-var\": \"error\",\n        \"quotes\": [\"warn\", \"double\"],\n        \"semi\": \"error\",\n        \"strict\": \"error\",\n        \"vars-on-top\": \"error\",\n        \"yoda\": \"error\"\n    },\n    \"env\":\n    {\n        \"es6\": true,\n        \"browser\": true\n    },\n    \"extends\": \"eslint:recommended\"\n}",
                 "linePresentationModifiers": [],
-                "activeCommentSection": null,
+                "activeCommentSection": null, 
+                "comments": []
+            },
+            "fileShaPackage": {
+                "sha": "fileShaPackage",
+                "path": "root/package.json",
+                "text": "{\n  \"name\": \"ss20-u02-birding-app-starter\",\n  \"version\": \"1.0.0\",\n  \"description\": \"![Coverbild der Aufgabe](/docs/cover.png)\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/Multimedia-Engineering-Regensburg-Tasks/SS20-U02-Birding-App-Starter/\"\n  },\n  \"main\": \"index.js\",\n  \"directories\": {\n    \"doc\": \"docs\"\n  },\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\",\n    \"start\": \"http-server .\",\n    \"eslint\": \"eslint --format table resources/js\"\n  },\n  \"author\": \"Alexander Bazo <alexanderbazo@googlemail.com>\",\n  \"license\": \"MIT\",\n  \"dependencies\": {\n    \"eslint\": \"^7.0.0\",\n    \"http-server\": \"^0.12.3\"\n  }\n}",
+                "linePresentationModifiers": [],
+                "activeCommentSection": null, 
+                "comments": []
+            },
+            "fileShaCSS": {
+                "sha": "fileShaCSS",
+                "path": "root/resources/css/styles.css",
+                "text": "@font-face {\n    font-family: \"Rokkitt\";\n    src: url(./fonts/Rokkitt/Rokkitt-Regular.ttf);\n    font-weight: 400;\n    font-style: normal\n}\n\nhtml {\n    height: 100%;\n    margin: 0\n}\n\nbody {\n    display: flex;\n    min-height: 100%;\n    margin: 0;\n    font-family: \"Rokkitt\", serif;\n    color: #333;\n    background-color: #1cdf76\n}\n\nheader {\n    width: 100%;\n    height: 70px;\n    position: fixed;\n    top: 0;\n    background: #009143;\n    text-align: center;\n    font-size: 30px;\n    line-height: 50px;\n    color: #FFF\n}\n\nfooter {\n    position: fixed;\n    bottom: 0;\n    left: 0;\n    width: 100%;\n    height: 65px;\n    padding: 10px;\n    text-align: center;\n    background: rgba(255, 255, 255, .4)\n\n}\n\nfooter a {\n    color: #333;\n}\n\n.title {\n    display: block;\n    position: absolute;\n    top: 0;\n    left: 100px;\n    margin: 0;\n    padding: 0;\n    line-height: 70px;\n    font-size: 1.5em;\n    text-align: left\n}\n\n.menu {\n    display: block;\n    position: absolute;\n    width: 100px;\n    list-style-type: none;\n    margin: 0;\n    padding: 0;\n    line-height: 70px\n}\n\n.menu li {\n    display: inline-block;\n    margin: 0;\n    width: 50px;\n    height: 50px;\n    border-radius: 50%;\n    border-style: solid;\n    border-width: 1px;\n    border-color: #1cdf76;\n    color: #009143;\n    line-height: 50px;\n    font-size: 25px;\n    text-align: center;\n    background: #FFF\n}\n\n.decal {\n    position: fixed;\n    width: 100%;\n    top: 70px;\n    height: 2px;\n    border-bottom: 1px solid #1cdf76;\n    background: #00c95d\n}\n\ncontent {\n    min-height: 100%;\n    padding: 25px;\n    margin: 73px 0 0;\n    padding: 17px 0 0 0;\n    background: #1cdf76\n}\n\n.bird-gallery {\n    display: block;\n    float: left;\n    width: 300px;\n    height: 600px;\n    margin: 1em;\n    overflow: hidden\n}\n\n.bird-search {\n    display: block;\n    width: 266px;\n    height: 25px;\n    padding: 5px 10px;\n    border-radius: 10px;\n    border-width: 0;\n    font: 20px/25px \"Rokkitt\", serif\n}\n\n.bird-search:focus {\n    outline-style: none;\n    outline-width: 0\n}\n\n.bird-gallery .bird-list {\n    width: 280px;\n    height: 100%;\n    list-style-type: none;\n    margin: 25px 0;\n    padding: 0;\n    overflow-y: auto\n}\n\n.bird-gallery .bird-list::-webkit-scrollbar {\n    width: 10px;\n    background: #1cdf76\n}\n\n.bird-gallery .bird-list::-webkit-scrollbar-thumb {\n    background: #009143\n}\n\n.bird-gallery .bird-list-entry {\n    position: relative;\n    width: 250px;\n    clear: both;\n    margin: 10px 0\n}\n\n.bird-gallery .bird-image {\n    display: block;\n    width: 50px;\n    height: 50px;\n    margin: 0;\n    float: left;\n    border-radius: 50%;\n    border-style: solid;\n    border-width: 2px;\n    border-color: #FFF\n}\n\n.bird-gallery .bird-description {\n    display: block;\n    height: 44px;\n    margin-left: 25px;\n    padding: 5px 0 5px 40px;\n    border-radius: 0 10px 10px 0;\n    background: #FFF\n}\n\n.bird-gallery .bird-name {\n    display: block;\n    font-size: 24px;\n    color: #333\n}\n\n.bird-gallery .bird-latin-name {\n    display: block;\n    font-size: 15px;\n    font-style: italic;\n    color: #777\n}\n\n.bird-gallery .add-bird-button {\n    display: block;\n    position: absolute;\n    top: 5px;\n    right: 5px;\n    font-size: 1.5em;\n    color: #00662f\n}\n\n.bird-gallery .add-bird-button:hover {\n    cursor: pointer\n}\n\n.bird-counter {\n    display: block;\n    float: left;\n    width: 800px;\n    height: 600px;\n    margin: 1em\n}\n\n.bird-counter .bird-list {\n    width: 800px;\n    list-style-type: none;\n    margin: 0;\n    padding: 0\n}\n\n.bird-counter .bird-list-entry {\n    display: block;\n    position: relative;\n    width: 204px;\n    height: 204px;\n    margin: 1em;\n    float: left;\n    overflow: hidden;\n}\n\n.bird-counter .bird-image {\n    display: block;\n    position: relative;\n    width: 200px;\n    height: 200px;\n    border-radius: 50%;\n    border-style: solid;\n    border-width: 2px;\n    border-color: #FFF;\n    z-index: 1;\n}\n\n.bird-counter .bird-interface {\n    display: block;\n    position: relative;\n    width: 204px;\n    height: 100px;\n    margin-top: -100px;\n    border-radius: 0 0 204px 204px;\n    z-index: 2;\n    overflow: hidden;\n    background: rgba(255, 255, 255, .6)\n}\n\n.bird-counter .bird-info {\n    text-align: center;\n    height: 100px;\n    padding-top: .5em\n}\n\n.bird-counter .bird-name {\n    display: block;\n    font-size: 1.7em\n}\n\n.bird-counter .bird-latin-name {\n    display: block;\n    font-size: 1.1em;\n    font-style: italic\n}\n\n.bird-counter .bird-counter-info {\n    display: block;\n    position: relative;\n    width: 204px;\n    height: 50px;\n    padding: 0;\n    clear: both;\n    background: #FFF\n}\n\n.bird-counter .bird-current-max {\n    display: block;\n    position: relative;\n    width: 50px;\n    height: 50px;\n    margin: -50px auto 0;\n    font-size: 2.2em;\n    font-weight: 700;\n    z-index: 6\n}\n\n.bird-counter .button {\n    display: inline-block;\n    height: 50px;\n    line-height: 50px;\n    text-align: center;\n    width: 70px;\n    z-index: 4\n}\n\n.bird-counter .bird-counter-increase {\n    padding-right: 15px\n}\n\n.bird-counter .bird-counter-decrease {\n    padding-left: 15px\n}\n\n.bird-counter .button:hover {\n    cursor: pointer\n}\n\n.bird-counter .bird-counter-increase:hover {\n    padding-right: 15px;\n    background: rgba(20, 255, 120, .3)\n}\n\n.bird-counter .bird-counter-decrease:hover {\n    padding-left: 15px;\n    background: rgba(255, 20, 120, .3)\n}",
+                "linePresentationModifiers": [],
+                "activeCommentSection": null, 
+                "comments": []
+            },
+            "fileShaIndexJs": {
+                "sha": "fileShaIndexJs",
+                "path": "root/resources/js/index.js",
+                "text": "/* eslint-env browser */\n\nimport Bird from \"./model/Bird.js\";\nimport BirdingModel from \"./model/BirdingModel.js\";\nimport BirdListView from \"./view/BirdListView.js\";\nimport SearchView from \"./view/SearchView.js\";\nimport BirdCounterView from \"./view/BirdCounterView.js\";\n\n\n/**\n * Main module\n * \n * - Initializes all other components\n * - Handles events from other modules and acts as a mediator between different components\n */\n\nvar birdList,\n  birdSearch,\n  birdCounter;\n\nfunction init() {\n  initModel();\n  initUI();\n}\n\n/**\n * Initializes the model with data from HTML element\n */\nfunction initModel() {\n  let jsonList = document.querySelector(\"#bird-list\").innerHTML.trim(),\n    birds = Bird.fromJSONArray(jsonList);\n  BirdingModel.setBirdList(birds);\n}\n\n/**\n * Queries for all relevant DOM elements and initializes the three main views:\n *  - BirdListView to show the (filtered) list of all birds\n *  - SearchView to input a query to filter the bird list\n *  - BirdCounterView to show the selected and counted birds\n */\nfunction initUI() {\n  let birdListEl = document.querySelector(\".bird-gallery .bird-list\"),\n    searchEl = document.querySelector(\".bird-search\"),\n    counterEl = document.querySelector(\".bird-counter .bird-list\");\n  birdList = new BirdListView(birdListEl);\n  birdList.setList(BirdingModel.getBirdList());\n  // Add listener to be informed when user wants to add one bird from the result list to the counter view\n  birdList.addEventListener(\"AddBird\", onAddBirdButtonClicked);\n  birdSearch = new SearchView(searchEl);\n  // Add listener to be informed when user has changed the search box's input value\n  birdSearch.addEventListener(\"QueryChanged\", onQueryChanged);\n  birdCounter = new BirdCounterView(counterEl);\n  // Add listeners to be informed when user wants to change the nuber of counted specimens of one bird\n  birdCounter.addEventListener(\"DecreaseBirdCount\", onBirdCounterDecreased);\n  birdCounter.addEventListener(\"IncreaseBirdCount\", onBirdCounterIncreased);\n}\n\n/**\n * Retrieves a copy of the bird with the given id from the model and adds it to the counter\n * @param {Object} event Contains the id of the bird to be added to the counter view\n */\nfunction onAddBirdButtonClicked(event) {\n  let bird = BirdingModel.getBirdByID(event.data);\n  birdCounter.addBird(bird);\n}\n\n/**\n * Retrieves a list of all birds from the model which match the current search term and renders them in the\n * resul list (BirdListView)\n * @param {Object} event  Contains the search box's current value\n */\nfunction onQueryChanged(event) {\n  let filteredList = event.data === \"\" ? BirdingModel.getBirdList() : BirdingModel.getBirdsByName(event.data);\n  birdList.setList(filteredList);\n}\n\n/**\n * Asks model to update the given birds counter and passes a copy of the updated bird object to the counter view,\n * where the new object state will be rendered (refreshes the displayed counter value)\n * @param {Object} event Containts the if of the bird which speciemen counter should be increased\n */\nfunction onBirdCounterIncreased(event) {\n  let updatedBird = BirdingModel.increaseCounterForBirdWithID(event.data);\n  birdCounter.addBird(updatedBird);\n}\n\n/**\n * Asks model to update the given birds counter and passes a copy of the updated bird object to the counter view,\n * where the new object state will be rendered (refreshes the displayed counter value)\n * @param {Object} event Containts the if of the bird which speciemen counter should be decreased\n */\nfunction onBirdCounterDecreased(event) {\n  let updatedBird = BirdingModel.decreaseCounterForBirdWithID(event.data);\n  birdCounter.addBird(updatedBird);\n}\n\ninit();",
+                "linePresentationModifiers": [],
+                "activeCommentSection": null, 
+                "comments": []
+            },
+            "fileShaModelBird": {
+                "sha": "fileShaModelBird",
+                "path": "root/resources/js/model/Bird.js",
+                "text": "/* eslint-env browser */\n\n/**\n * Prototype to represent one bird (species) \n */\nclass Bird {\n\n    constructor(id, name, latinName, imagePath, audioPath) {\n        this.id = id;\n        this.name = name;\n        this.latinName = latinName;\n        this.imagePath = imagePath;\n        this.audioPath = audioPath;\n        this.wasSpotted = false;\n        this.count = 0;\n    }\n\n    // Helper function for JSON based shallow copies of this object\n    copy() {\n        return Bird.fromJSON(JSON.stringify(this));\n    }\n\n\n    /**\n     * Creates a single bird object from the given JSON string\n     * @param {String} json JSON formated string describing one single bird\n     */\n    static fromJSON(json) {\n        let obj = JSON.parse(json);\n        return new Bird(obj.id, obj.name, obj.latinName, obj.imagePath, obj.audioPath);\n    } \n\n    /**\n     * Creates an array of birds from the given JSON string\n     * @param {String} json JSON formated string describing the bird list\n     */\n    static fromJSONArray(json) {\n        let arrayFromJSON = JSON.parse(json),\n        list = [];\n        for(let i = 0; i < arrayFromJSON.length; i++) {\n            let birdFromJSON = arrayFromJSON[i];\n            list.push(new Bird(birdFromJSON.id, birdFromJSON.name, birdFromJSON.latinName, birdFromJSON.imagePath, birdFromJSON.audioPath));\n        }\n        return list;\n    }\n\n}\n\nexport default Bird;",
+                "linePresentationModifiers": [],
+                "activeCommentSection": null, 
+                "comments": []
+            },
+            "fileShaModelBirding": {
+                "sha": "fileShaModelBirding",
+                "path": "root/resources/js/model/BirdingModel.js",
+                "text": "/* eslint-env browser */\n\nimport * as _ from \"/vendors/underscore/underscore.js\";\n\nvar birdList = [];\n\nfunction getBirdById(id) {\n    return _.findWhere(birdList, { id: parseInt(id) });\n}\n\nfunction getCountedBirdsOnly() {\n    return _.filter(birdList, function(bird){\n        return bird.wasSpotted;\n    });\n}\n\nfunction getBirdsByName(name) {\n    return _.filter(birdList, function(bird){\n        return bird.name.toLowerCase().indexOf(name.toLowerCase()) !== -1;\n    });\n}\n\nfunction updateCounterForBirdWithID(id, value) {\n    let bird = getBirdById(id);\n    bird.count += value;\n    if(bird.count < 0) {\n        bird.count = 0;\n    }\n}\n\n/**\n * Model to store and update the bird list\n */\nclass BirdingModel {\n\n    /**\n     * Overwrites the current list of birds with a copy of the given list\n     * @param {Array} list Array of Bird objects\n     */\n    setBirdList(list) {\n        birdList = [...list];\n    }\n\n    /**\n     * Returns a copy of the current list of birds\n     */\n    getBirdList() {\n        return [...birdList];\n    }\n\n    /**\n     * Returns a copy of all birds already counted\n     */\n    getCountedBird() {\n        let countedBirdsOnly = getCountedBirdsOnly();\n        return [...countedBirdsOnly];\n    }\n\n    /**\n     * Returns a copy of the first bird from the list matching the given name\n     * @param {String} name Name of the bird to be returned\n     */\n    getBirdsByName(name) {\n        let matchingBird = getBirdsByName(name);\n        return [...matchingBird];\n    }\n\n    /**\n     * Returns a copy of the first bird from the list matching the given id\n     * @param {String} name Id of the bird to be returned\n     */\n    getBirdByID(id) {\n        let matchingBird = getBirdById(id);\n        return matchingBird.copy();\n    }\n\n    /**\n     * Increases the counter value for the first bird matching the given id by one\n     * @param {String} id Id of the bird which counter should be increased\n     */\n    increaseCounterForBirdWithID(id) {\n        updateCounterForBirdWithID(id, 1);\n        return getBirdById(id);\n    }\n\n      /**\n     * DEcreases the counter value for the first bird matching the given id by one\n     * @param {String} id Id of the bird which counter should be decreased\n     */\n    decreaseCounterForBirdWithID(id) {\n        updateCounterForBirdWithID(id, -1);\n        return getBirdById(id);\n    }\n\n}\n\nexport default new BirdingModel();",
+                "linePresentationModifiers": [],
+                "activeCommentSection": null, 
+                "comments": []
+            },
+            "fileShaUtilsConfig": {
+                "sha": "fileShaUtilsConfig",
+                "path": "root/resources/js/utils/Config.js",
+                "text": "/* eslint-env browser */\n\nconst Config = {\n    CSS_HIDDEN_CLASS_NAME: \"hidden\",\n};\n\nObject.freeze(Config);\n\nexport default Config;",
+                "linePresentationModifiers": [],
+                "activeCommentSection": null, 
+                "comments": []
+            },
+            "fileShaUtilsObserver": {
+                "sha": "fileShaUtilsObserver",
+                "path": "root/resources/js/utils/Observer.js",
+                "text": "/* eslint-env browser */\n\nclass Event {\n    constructor(type, data) {\n      this.type = type;\n      this.data = data;\n      Object.freeze(this);\n    }\n  }\n  \n  class Observable {\n  \n    constructor() {\n      this.listener = {};\n    }\n  \n    addEventListener(type, callback) {\n      if (this.listener[type] === undefined) {\n        this.listener[type] = [];\n      }\n      this.listener[type].push(callback);\n    }\n  \n    notifyAll(event) {\n      if (this.listener[event.type] !== undefined) {\n        for (let i = 0; i < this.listener[event.type].length; i++) {\n          this.listener[event.type][i](event);\n        }\n      }\n    }\n  \n  }\n  \n  export { Event, Observable };\n  \n  export default Observable;",
+                "linePresentationModifiers": [],
+                "activeCommentSection": null, 
+                "comments": []
+            },
+            "fileShaViewCounter": {
+                "sha": "fileShaViewCounter",
+                "path": "root/resources/js/view/BirdCounterView.js",
+                "text": "/* eslint-env browser */\n\nimport * as _ from \"/vendors/underscore/underscore.js\";\nimport { Event } from \"../utils/Observer.js\";\nimport View from \"./View.js\";\n\nconst CREATE_HTML_STRING_FOR_COUNTER_ENTRY = _.template(document.querySelector(\"#bird-counter-entry\").innerHTML.trim());\n\n/**\n * Creates and returns a HTML element which renders the given bird properties (image, name, count)\n * @param {Object} bird Bird object for which representation a HTML element should be created\n */\nfunction getElementForBird(bird) {\n    let htmlString = CREATE_HTML_STRING_FOR_COUNTER_ENTRY(bird),\n        el = document.createElement(\"div\");\n    el.innerHTML = htmlString;\n    return el.firstChild;\n}\n\n/**\n * Updates the counter value in the given element with data from the bird object\n * @param {Node} el HTML element to be updated\n * @param {Object} bird Bird object which state should be used for updating the element \n */\nfunction updateElement(el, bird) {\n    el.querySelector(\".bird-current-max\").innerHTML = bird.count;\n}\n\nfunction onDecreaseButtonClicked(event) {\n    let counterEvent = getCounterEvent(event.target, \"decrease\");\n    this.notifyAll(counterEvent);\n}\n\nfunction onIncreaseButtonClicked(event) {\n    let counterEvent = getCounterEvent(event.target, \"increase\");\n    this.notifyAll(counterEvent);\n}\n\n/**\n * Creates a either DecreaseBirdCountEvent or IncreaseBirdCountEvent depending on the type parameter\n * \n * @param {NOde} source Clicked Button\n * @param {String} type \"decrease\" or \"increase\" \n */\nfunction getCounterEvent(source, type) {\n    let clickedElement = source.closest(\".bird-list-entry\"),\n        birdID = clickedElement.getAttribute(\"bird-id\"),\n        event = type === \"decrease\" ? new DecreaseBirdCountEvent(birdID) : new IncreaseBirdCountEvent(birdID);\n    return event;\n}\n\n/**\n * Event to be fired when user chooses to decrement a bird's counter\n */\nclass DecreaseBirdCountEvent extends Event {\n\n    constructor(id) {\n        super(\"DecreaseBirdCount\", id);\n    }\n\n}\n\n/**\n * Event to be fired when user chooses to increment a bird's counter\n */\nclass IncreaseBirdCountEvent extends Event {\n\n    constructor(id) {\n        super(\"IncreaseBirdCount\", id);\n    }\n\n}\n\n\n/**\n * Represents the list of already spotted and counted bird, visible in the application's main area\n */\n\nclass BirdCounterView extends View {\n\n    constructor(el) {\n        super();\n        this.setElement(el);\n    }\n\n    /**\n     * Adds the given bird to the counting list or, if there already is a list entry for that bird, updates the existing element\n     * with data from the given bird object\n     * @param {Object} bird Bird object to be added to or updated in the counter view\n     */\n    addBird(bird) {\n        // Look for an existing bird element with the given bird's id\n        let birdEl = this.el.querySelector(`[bird-id=\"${bird.id}\"]`);\n        // Add a new element if none has been found ...\n        if (birdEl === null) {\n            // Construction of the HTML element is handled in a seperate function\n            birdEl = getElementForBird(bird);\n            // Retrieves the Plus- and Minus-buttons from the new element and adds listeners for the click events\n            // Using of bind presevers the current context for when the callbacks are executed later on\n            birdEl.querySelector(\".bird-counter-decrease\").addEventListener(\"click\", onDecreaseButtonClicked.bind(this));\n            birdEl.querySelector(\".bird-counter-increase\").addEventListener(\"click\", onIncreaseButtonClicked.bind(this));\n            this.el.append(birdEl);\n        // ... or update the existing bird element\n        } else {\n            updateElement(birdEl, bird);\n        }\n    }\n\n}\n\nexport default BirdCounterView;",
+                "linePresentationModifiers": [],
+                "activeCommentSection": null, 
+                "comments": []
+            },
+            "fileShaViewList": {
+                "sha": "fileShaViewList",
+                "path": "root/resources/js/view/BirdListView.js",
+                "text": "/* eslint-env browser */\n\nimport * as _ from \"/vendors/underscore/underscore.js\";\nimport { Event } from \"../utils/Observer.js\";\nimport View from \"./View.js\";\n\nconst CREATE_HTML_STRING_FOR_LIST_ENTRY = _.template(document.querySelector(\"#bird-list-entry\").innerHTML.trim());\n\n/**\n * Creates and returns a HTML element which renders the given bird properties (image and name)\n * @param {Object} bird Bird object for which representation a HTML element should be created\n */\nfunction getElementForBird(bird) {\n    let htmlString = CREATE_HTML_STRING_FOR_LIST_ENTRY(bird),\n        el = document.createElement(\"div\");\n    el.innerHTML = htmlString;\n    return el.firstChild;\n}\n\n/**\n * Looks for the id of the clicked bird by traversing the DOM upwards to find the next \"bird-list-entry\"-element and retrieving\n * the bird-id attributes value. Notifies listeners with a AddBirdEvent event.\n * @param {Object} event DOM event (Click) fired when user clicks on the Plus-button in one of the currently visible bird elements\n */\nfunction onAddBirdButtonClicked(event) {\n    let clickedElement = event.target.closest(\".bird-list-entry\"),\n        birdID = clickedElement.getAttribute(\"bird-id\");\n    this.notifyAll(new AddBirdEvent(birdID));\n}\n\n/**\n * Event to be fired when user chooses to add a bird to the counter view\n */\nclass AddBirdEvent extends Event {\n\n    constructor(id) {\n        super(\"AddBird\", id);\n    }\n\n}\n\n/**\n * Represents the visible list of available birds, influenced by the current search box input value\n */\nclass BirdListView extends View {\n\n    constructor(el) {\n        super();\n        this.setElement(el);\n    }\n\n    /**\n     * Clears all content from the view and renders each bird from the given array\n     * @param {Array} list List of birds to be displayed in the view\n     */\n    setList(list) {\n        this.clear();\n        for (let i = 0; i < list.length; i++) {\n            // Construction of the HTML element is handled in a seperate function\n            let birdEl = getElementForBird(list[i]);\n            // Retrieves the Plus-button from the new element and adds a listener for the click event\n            // Using of bind presevers the current context for when the callback is executed later on\n            birdEl.querySelector(\".icon-plus-circled\").addEventListener(\"click\", onAddBirdButtonClicked.bind(this));\n            this.el.append(birdEl);\n\n        }\n    }\n\n}\n\nexport default BirdListView;",
+                "linePresentationModifiers": [],
+                "activeCommentSection": null, 
+                "comments": []
+            },
+            "fileShaViewSearch": {
+                "sha": "fileShaViewSearch",
+                "path": "root/resources/js/view/SearchView.js",
+                "text": "/* eslint-env browser */\n\nimport { Event } from \"../utils/Observer.js\";\nimport View from \"./View.js\";\n\nfunction onQueryChanged(event) {\n    let query = event.target.value;\n    this.notifyAll(new QueryEvent(query));\n}\n\n/**\n * Event to be fired when user changes the search box input value\n */\nclass QueryEvent extends Event {\n    \n    constructor(query) {\n        super(\"QueryChanged\", query);\n    }\n\n}\n\n/**\n * Represents the search input field and informs connected listeners when users change the input value\n */\nclass SearchView extends View {\n\n    constructor(el) {\n        super();\n        this.setElement(el);\n        this.el.addEventListener(\"input\", onQueryChanged.bind(this));\n    }\n\n}\n\nexport default SearchView;",
+                "linePresentationModifiers": [],
+                "activeCommentSection": null, 
+                "comments": []
+            },
+            "fileShaView": {
+                "sha": "fileShaView",
+                "path": "root/resources/js/view/View.js",
+                "text": "/* eslint-env browser */\n\nimport Config from \"../utils/Config.js\";\nimport Observable from \"../utils/Observer.js\";\n\n/**\n * Basic prototype for all view elements. Encapsulates a DOM element and allows for:\n *  - Hiding and Display the element\n *  - Removing all content (children) from the element\n * \n * All views are Observables, allowing us to add and notify listeners for custom events\n */\nclass View extends Observable {\n\n  constructor() {\n    super();\n    this.el = undefined;\n  }\n\n  setElement(el) {\n    this.el = el;\n  }\n\n  clear() {\n    while (this.el.lastElementChild) {\n      this.el.removeChild(this.el.lastChild);\n    }\n  }\n\n  show() {\n    if (this.el) {\n      this.el.classList.remove(Config.CSS_HIDDEN_CLASS_NAME);\n    }\n  }\n\n  hide() {\n    if (this.el) {\n      this.el.classList.add(Config.CSS_HIDDEN_CLASS_NAME);\n    }\n  }\n}\n\nexport default View;",
+                "linePresentationModifiers": [],
+                "activeCommentSection": null, 
                 "comments": []
             }
         },
         "filetree": {
-            "name": "src",
+            "name": "root",
             "isOpen": true,
             "children": [
-                { "sha": "undefined", "name": "test.html", "isModified": false},
-                { "sha": "fileSha0002", "name": "test.htm", "isModified": true},
-                { "sha": "fileSha0003", "name": "test.css", "isModified": true},
-                { "sha": "undefined", "name": "test.txt", "isModified": false},
                 {
-                    "name": "js",
+                    "name": "resources",
                     "isOpen": false,
                     "children": [
-                        { "sha": "fileSha0000", "name": "AppServer.js", "isModified": true},
-                        { "sha": "fileSha0001", "name": "SideComments.js", "isModified": false}
+                        { "name": "css", "isOpen": false, "children": [
+                            { "sha": "fileShaCSS", "name": "styles.css", "isModified": false}
+                        ]},
+                        { "name": "data", "isOpen": false, "children": [
+                            { "name": "audio", "isOpen": false, "children": [
+                                { "sha": "undefined", "name": "amsel.ogg", "isModified": false},
+                                { "sha": "undefined", "name": "blaumeise.ogg", "isModified": false},
+                                { "sha": "undefined", "name": "buchfink.ogg", "isModified": false},
+                                { "sha": "undefined", "name": "elster.ogg", "isModified": false},
+                                { "sha": "undefined", "name": "feldsperling.ogg", "isModified": false},
+                                { "sha": "undefined", "name": "gruenfink.ogg", "isModified": false},
+                                { "sha": "undefined", "name": "haussperling.ogg", "isModified": false},
+                                { "sha": "undefined", "name": "kohlmeise.ogg", "isModified": false},
+                                { "sha": "undefined", "name": "mausersegler.ogg", "isModified": false},
+                                { "sha": "undefined", "name": "mehlschwalbe.ogg", "isModified": false},
+                                { "sha": "undefined", "name": "rauchschwalbe.ogg", "isModified": false},
+                                { "sha": "undefined", "name": "ringeltaube.ogg", "isModified": false},
+                                { "sha": "undefined", "name": "rotkehlchen.ogg", "isModified": false},
+                                { "sha": "undefined", "name": "star.ogg", "isModified": false},
+                                { "sha": "undefined", "name": "tuerkentaube.ogg", "isModified": false}
+                            ]},
+                            { "name": "images", "isOpen": false, "children": [
+                                { "sha": "undefined", "name": "amsel.png", "isModified": false},
+                                { "sha": "undefined", "name": "blaumeise.png", "isModified": false},
+                                { "sha": "undefined", "name": "buchfink.png", "isModified": false},
+                                { "sha": "undefined", "name": "elster.png", "isModified": false},
+                                { "sha": "undefined", "name": "feldsperling.png", "isModified": false},
+                                { "sha": "undefined", "name": "gruenfink.png", "isModified": false},
+                                { "sha": "undefined", "name": "haussperling.png", "isModified": false},
+                                { "sha": "undefined", "name": "kohlmeise.png", "isModified": false},
+                                { "sha": "undefined", "name": "mausersegler.png", "isModified": false},
+                                { "sha": "undefined", "name": "mehlschwalbe.png", "isModified": false},
+                                { "sha": "undefined", "name": "rauchschwalbe.png", "isModified": false},
+                                { "sha": "undefined", "name": "ringeltaube.png", "isModified": false},
+                                { "sha": "undefined", "name": "rotkehlchen.png", "isModified": false},
+                                { "sha": "undefined", "name": "star.png", "isModified": false},
+                                { "sha": "undefined", "name": "tuerkentaube.png", "isModified": false}
+                            ]}
+                        ]},
+                        { "name": "js", "isOpen": false, "children": [
+                            { "name": "model", "isOpen": false, "children": [
+                                { "sha": "fileShaModelBird", "name": "Bird.js", "isModified": false},
+                                { "sha": "fileShaModelBirding", "name": "BirdingModel.js", "isModified": false}
+                            ]},
+                            { "name": "utils", "isOpen": false, "children": [
+                                { "sha": "fileShaUtilsConfig", "name": "Config.js", "isModified": false},
+                                { "sha": "fileShaUtilsObserver", "name": "Observer.js", "isModified": false}
+                            ]},
+                            { "name": "view", "isOpen": false, "children": [
+                                { "sha": "fileShaViewCounter", "name": "BirdCounterView.js", "isModified": false},
+                                { "sha": "fileShaViewList", "name": "BirdListView.js", "isModified": false},
+                                { "sha": "fileShaViewSearch", "name": "SearchView.js", "isModified": false},
+                                { "sha": "fileShaView", "name": "View.js", "isModified": false}
+                            ]},
+                            { "sha": "fileShaIndexJs", "name": "index.js", "isModified": false}
+                        ]}
                     ]
                 },
-                {
-                    "name": "test",
-                    "isOpen": false,
-                    "children": [
-                        { "sha": "undefined", "name": "test.js", "isModified": false},
-                        { "sha": "testfile0000", "name": "testfile.js", "isModified": false},
-                        {
-                            "name": "emptyFolder", "isOpen": false, "children": []
-                        }
-                    ]
-                }
+                { "sha": "fileShaEslint", "name": ".eslintrc", "isModified": false},
+                { "sha": "fileShaPackage", "name": "package.json", "isModified": false},
+                { "sha": "fileShaIndex", "name": "index.html", "isModified": false},
+                { "sha": "fileShaReadMe", "name": "Readme.md", "isModified": false}
             ]
         }
     },
     "editor": {
-        "activeTheme": "gruvbox-dark",
+        "activeTheme": "monokai",
         "themes": [
             "default","gruvbox-dark","monokai","seti","idea","the-matrix"
         ]

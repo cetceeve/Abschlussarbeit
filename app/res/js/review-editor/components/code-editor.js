@@ -157,9 +157,14 @@ let CodeEditorComponent = {
         // Change codemirror mode for current file.
         loadMode = () => {
             let info = CodeMirror.findModeByFileName(store.currentFile.path);
-            if (info.mode !== this.codemirror.options.mode) {
-                this.codemirror.setOption("mode", info.mode);
-                CodeMirror.autoLoadMode(this.codemirror, info.mode);
+            if (info === undefined || info === null) {
+                this.codemirror.setOption("mode", null);
+                CodeMirror.autoLoadMode(this.codemirror, null);
+            } else {
+                if (info.mode !== this.codemirror.options.mode) {
+                    this.codemirror.setOption("mode", info.mode);
+                    CodeMirror.autoLoadMode(this.codemirror, info.mode);
+                }
             }
         },
         // Apply a certain css class to all the lines specified
