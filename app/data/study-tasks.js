@@ -2,12 +2,12 @@ const studyTasks = [
     {
         "id": "exploration",
         "name": "Exploration",
-        "description": "**Scenario:**\n\nDu siehst vor dir ein Code-Review, dass noch nicht abgeschlossen ist. Bei dem Projekt zu dem du Feedback geben möchtest, handelt es sich um eine typische Studienleistung in einem fortgeschrittenen Programmierkurs.\n\n**Aktivität:**\n\nErkunde die Anwendung und mache dich mit den verschiedenen Funktionen vertraut. Schaue dir verschiedene Dateien an und verfasse einige Kommentare. Du musst dich nicht inhaltlich mit dem Review auseinandersetzen. Deine Aufgabe besteht in der Exploration des User Interfaces.\n\n**Ziel:**\n\nMache dich mit dem System vertraut. Du kannst selbst entscheiden, wann du den Task beenden möchtest.",
+        "description": "**Scenario:**\n\nDu hast die Aufgabe bekommen ein Code-Review für das Programmier-Projekt einer Kommilitonin zu verfassen. Bei dem Projekt zu dem du Feedback geben möchtest, handelt es sich um eine typische Studienleistung in einem fortgeschrittenen Programmierkurs. Dein Dozent hat Code-Reviews als festen Bestandteil in den Kurs integriert. Im Bereich `Aufgabe` findest du die Hinweise deines Dozenten zum Code-Review.\n\n**Aktivität:**\n\nErkunde die Anwendung und mache dich mit den verschiedenen Funktionen vertraut. Schaue dir verschiedene Dateien an und verfasse einige Kommentare. Du musst dich nicht inhaltlich mit dem Review auseinandersetzen. Deine Aufgabe besteht in der Exploration des User Interfaces.\n\n**Ziel:**\n\nMache dich mit dem System vertraut. Du kannst selbst entscheiden, wann du den Task beenden möchtest.",
     },
     {
         "id": "task1",
         "name": "Bug finden und kommentieren",
-        "description": "**Scenario:**\n\nDu siehst das Ergebnis eines typischen studentischen Programmierprojekts aus einem einem fortgeschrittenen Programmierkurs. Es wurden bereits einige Kommentare zum JavaScript-Code hinterlassen.\n\n**Aktivität:**\n\nDeine Aufgabe ist es den HTML-Code zu reviewen. Untersuche den Quellcode auf Fehler und verfassen mindestens einen Kommentar, in dem du den Autor auf den Bug hinweist.\n\n**Ziel:**\n\nDer Task gilt als abgeschlossen, wenn du mindestens einen Kommentar verfasst hast.",
+        "description": "**Scenario:**\n\nDu siehst das Ergebnis eines typischen studentischen Programmierprojekts aus einem einem fortgeschrittenen Programmierkurs. Du hast bereits einige Kommentare zum JavaScript-Code hinterlassen. Jetzt geht es daran den HTML-Code einmal durchzusehen. Du hast nicht die Zeit den Code bis ins Detail durchzuarbeiten oder die Inhalte zu kommentieren, möchtest aber sicherstellen, dass sich keine größeren Bugs im Code befinden.\n\n**Aktivität:**\n\nDeine Aufgabe ist es den HTML-Code zu reviewen. Untersuche den Quellcode auf Fehler und verfasse mindestens einen Kommentar, in dem du den Autor auf einen Bug hinweist.\n\n**Ziel:**\n\nDer Task gilt als abgeschlossen, wenn du mindestens einen Kommentar verfasst hast.",
     },
     {
         "id": "task2",
@@ -26,8 +26,8 @@ const studyTasks = [
     },
     {
         "id": "task5",
-        "name": "Fehlerhafte Variable finden",
-        "description": "**Scenario:** \n\nDu bearbeitest auch in diesem Task ein Code-Review für eine typische Studienleistung in einem fortgeschrittenen Programmierkurs. In der Datei `BirdList.js` wird mehrmals die Variable `birdArray` genutzt. An einer stelle hat sich allerdings ein Schreibfehler eingeschlichen und es wurde `birdarray` geschrieben.\n\n**Aktivität:**\n\nFinde den fehlerhaften Variablennamen und schreibe einen kurzen Kommentar in der richtigen Code-Zeile.\n\n**Ziel:**\n\nDie Aktivität ist abgeschlossen, wenn der Kommentar erstellt wurde.",
+        "name": "Alternativen Variablennamen vorschlagen",
+        "description": "**Scenario:** \n\nDu bearbeitest auch in diesem Task ein Code-Review für eine typische Studienleistung in einem fortgeschrittenen Programmierkurs. In der Datei `BirdList.js` wird mehrmals die Variable `disBird` genutzt. Du bist der Meinung, dass dieser Variablennamen nicht besonders lesbar ist und möchtest eine Alternative vorschlagen.\n\n**Aktivität:**\n\nFinde den Variablennamen und schreibe einen kurzen Kommentar in dem du einen besseren Variablennamen vorschlägst. Wähle dafür eine Code-Zeile die dir passend erscheint.\n\n**Ziel:**\n\nDie Aktivität ist abgeschlossen, wenn der Kommentar erstellt wurde.",
     },
 ];
 

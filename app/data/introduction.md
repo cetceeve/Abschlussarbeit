@@ -1,8 +1,8 @@
 ## Einführung
 
-Danke, dass du dich dazu entschlossen hast an unserer Usability Studie teilzunehmen. Im Zuge dieser Studie wird eine Web-Anwendung evaluiert, die dich beim Verfassen von Code-Reviews unterstützen soll. Wenn du noch keine oder wenig Erfahrung mit Code-Review hast. Keine Sorge, innerhalb der Anwendung findest du unter dem Button `Aufgabe` eine kurze Erklärung zu Code-Reviews.
+Danke, dass du dich dazu entschlossen hast an unserer Usability Studie teilzunehmen. Im Zuge dieser Studie wird eine Web-Anwendung evaluiert, die dich beim Verfassen von Code-Reviews unterstützen soll. Die Anwendung kann beispielsweise zum Einsatz kommen, wenn im Zuge einer Veranstaltung Studierende für andere Studierende Code-Reviews zu deren Studienleistungen (Programmieraufgaben) erstellen sollen. Wenn du noch keine oder wenig Erfahrung mit Code-Review hast. Keine Sorge, innerhalb der Anwendung findest du in den Bereichen `Aufgabe` und `Checkliste` Erklärungen und Tipps zu Code-Reviews. Grundsätzlich soll die Anwendung ohne Vorerfahrung nutztbar sein und alle Informationen mitbringen die du brauchst. Beachte auch die nützlichen Anmerkungen im Bereich `FAQ`.
 
- Es handelt sich bei der Software um einen späten Prototypen. Die Anwendung sollte weitestgehend fehlerfrei laufen. Wir uns freuen, wenn du uns im Feedbackfeld - am Ende der Studie - auf Bugs und Performanceprobleme aufmerksam machst.
+Es handelt sich bei der Software um einen späten Prototypen. Die Anwendung sollte weitestgehend fehlerfrei laufen. Wir sind dir sehr dankbar, wenn du uns im Feedbackfeld - am Ende der Studie - auf Bugs und Performanceprobleme aufmerksam machst.
 
 ## Ablauf
 

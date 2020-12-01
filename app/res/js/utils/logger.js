@@ -13,6 +13,7 @@ Vue.mixin({
         return {
             loggerTaskId: JSON.parse(localStorage.getItem("currentTask")) ? JSON.parse(localStorage.getItem("currentTask")).id : "unknown",
             scrolling: false,
+            startTime: Date.now(),
         };
     },
     methods: {
@@ -20,7 +21,7 @@ Vue.mixin({
             return {
                 taskID: this.loggerTaskId,
                 time: new Date().toLocaleString(),
-                timeStamp: Date.now(),
+                timeStamp: (Date.now() - this.startTime) / 1000,
                 windowHeight: window.outerHeight,
                 windowWidth: window.outerWidth,
                 type: event.type || null,
