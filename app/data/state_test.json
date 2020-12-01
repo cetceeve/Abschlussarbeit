@@ -12,8 +12,12 @@
         "isVisible": false,
         "data": [
             {
+                "question": "Was ist ein Code-Review?",
+                "answer": "### Allgemein\n\nCode-Review ist der Prozess der Softwaretechnik zur Qualitätssicherung. Dabei soll überprüft werden, ob das vorliegende Software-Artefakt die gesetzten Qualitäts-Standards erfüllt.\n\n> The core idea is simply to get an expert to examine your work to find problems you can’t see. - Rigby et. al. (2012)\n\nModerne Code-Reviews zeichnen sich dadurch aus, dass es keinen formal definierten Ablauf gibt, sie toolunterstützt durchgeführt werden und möglichst regelmäßig stattfinden. Zudem sind sowohl Bearbeitung als auch Kommunikation typischerweise asynchron.\n\n### Aufgabe des Reviewenden\n\nDie Aufgabe des Reviewers besteht darin, den Code nach verschieden Kriterien zu evaluieren. Beispielsweise nach Code Qualität, dem Einhalten von Style-Guidelines und der Nutzung von sinnvollen Entwurfsmustern. Auch nach unnötiger Komplexität und Bugs wird Ausschau gehalten.\nCode-Reviews haben viele nachweißbare Vorteile, wie z.b. die bessere Lesbarkeit des Codes und einen Wissenstransfer zwischen Reviewer und Autor.\n\n### Weitere Hilfestellungen\n\nViele wichtige Informationen zur Bearbeitung des Code-Reviews findest du unter der Schaltfläche `Aufgabe`.\nNutze auch unbedingt die `Checkliste`, die dich durch das Code-Review begleiten und führen kann.\n\nEin wunderbare Einführung findest du auch auf der Website der [Google Engineering Practives documentation](https://google.github.io/eng-practices/review/reviewer/standard.html)."
+            },
+            {
                 "question": "Wie erstelle ich ein Code-Review?",
-                "answer": "Zu diesem Thema findest du sowohl unter der Schaltfläche `Aufgabe` als auch in der `Checkliste` viele wertvolle Informationen. Ein wunderbare Einführung findest du auch auf der Website der [Google Engineering Practives documentation](https://google.github.io/eng-practices/review/reviewer/standard.html)."
+                "answer": ""
             },
             {
                 "question": "Was ist Markdown bzw. Markdown Syntax?",
