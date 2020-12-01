@@ -83,7 +83,6 @@ let TaskSurveyComponent = {
                 taskCompletionTime: this.task.taskCompletionTime === undefined ? 0 : this.task.taskCompletionTime,
                 surveyResults: this.survey.items.map(item => parseInt(item.value)),
             };
-            console.log(data);
             serverConnection.sendSurveyResults("/task", data).then(response => {
                 if (response.status === 200) {
                     this.$emit("task-survey-completed"); 

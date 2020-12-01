@@ -151,7 +151,7 @@ let CodeEditorComponent = {
                 } else if (this.items.length > length + this.markerReserve) {
                     this.items.splice(length);
                 }
-                console.log("Current amount of stored marker-components: " + this.items.length);
+                // console.log("Current amount of stored marker-components: " + this.items.length);
             },
         },
         // Change codemirror mode for current file.

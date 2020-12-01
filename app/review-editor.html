@@ -67,7 +67,7 @@
     
     <script type="text/x-template" id="code-editor-component-template">
         <div>
-            <codemirror ref="cmEditor" v-model="code" :options="cmOption" @scroll.passive="loggerDebounced(event, {'target': 'codemirror', 'content': 'scrolling...'})"></codemirror>
+            <codemirror ref="cmEditor" v-model="code" :options="cmOption" @scroll.passive="loggerDebounced(event, {'target': 'codemirror', 'content': 'scrolling...'})" @click="logger($event, {'target': 'codemirror'});"></codemirror>
             <div class="code-editor-bottom-controls">
                 <span id="code-editor-controls-unfold" class="fold-buttons" @click="unfoldAll(); logger($event, {'content': $event.target.textContent});">unfold all</span>
                 <sui-dropdown :text="editorOptions.activeTheme" @click.capture="logger($event, {'target': 'code-editor-controls-theme-dropdown', 'content': editorOptions.activeTheme})">

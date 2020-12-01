@@ -60,7 +60,6 @@ let StudyIntroductionComponent = {
             serverConnection.fetchState().then(data => {
                 localStorage.setItem("state", data.state);
                 location.href = "./review-editor";
-                console.log("start editor");
             });
         },
     },

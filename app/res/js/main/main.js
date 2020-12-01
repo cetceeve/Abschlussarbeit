@@ -46,6 +46,8 @@ new Vue({
     data: {
         agreementsOpen: false,
         allowExit: false,
+        allowExitCountdown: 300000,
+
         studyCompleted: false,
         demographicsSurveyCompleted: false,
         isFinalSurvey: false,
@@ -138,7 +140,7 @@ new Vue({
             localStorage.setItem("taskList", JSON.stringify(this.taskList));
             
             this.allowExit = true;
-            setTimeout(() => { this.allowExit = false; }, 300000);
+            setTimeout(() => { this.allowExit = false; }, this.allowExitCountdown);
         },
         showFinalSurvey() {
             localStorage.setItem("isFinalSurvey", "true");

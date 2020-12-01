@@ -19,7 +19,9 @@ let serverConnection = {
             },
             body: JSON.stringify(logData),
         });
-        console.log(serverRes.status);
+        if (serverRes.status !== 200) {
+            console.log("WARNING: unexpected server behaviour");
+        }
     },
 
     sendFeedback: async function(message) {

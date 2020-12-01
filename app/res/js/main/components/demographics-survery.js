@@ -123,7 +123,6 @@ let DemographicsSurveyComponent = {
                 assessmentTools: this.results.assessmentTools === null ? null : parseInt(this.results.assessmentTools),
                 assessmentCode: this.results.assessmentCode === null ? null : parseInt(this.results.assessmentCode),
             };
-            console.log(data);
             serverConnection.sendSurveyResults("/demographics", { surveyResults: data }).then(response => {
                 if (response.status === 200) {
                     this.$emit("demographics-survey-completed"); 

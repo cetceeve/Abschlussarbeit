@@ -36,7 +36,6 @@ Vue.mixin({
         },
         logger: async function(event, input) {
             let logData = { ...this.loggerBase(event), ...input};
-            console.log(logData);
             serverConnection.sendLog(logData);
         },
         loggerDebounced: debounce(function(event, input) { this.logger(event, input); }, 300, { "leading": true, "trailing": false}),

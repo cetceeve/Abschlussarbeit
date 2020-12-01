@@ -124,7 +124,7 @@
 * @property {module:review-editor/model/Store~State} state - Represents the state of the Review-Editor, can be safed to external database.
 */
 let store = {
-    debug: true,
+    debug: false,
     state: {
         meta: {
             id: "unknown",
