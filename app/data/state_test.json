@@ -25,7 +25,7 @@
             },
             {
                 "question": "Wie füge ich einen Kommentar zu einer Code-Zeile hinzu?",
-                "answer": "Du kannst in jeder Code-Zeile auf den `+` Icon clicken um in dieser Zeile einen Kommentar zu ergänzen.\n\n![graphik dazu](../assets/add_comment.jpg)"
+                "answer": "Du kannst in jeder Code-Zeile auf den `+` Icon clicken um in dieser Zeile einen Kommentar zu ergänzen.\n\n![Graphik Kommentar hinzufügen](../assets/add_comment.png)"
             },
             {
                 "question": "Wofür stehen die Kommentar Kategorien?",
@@ -33,7 +33,7 @@
             },
             {
                 "question": " Warum sind manche Zeilen heller?",
-                "answer": "Hellere Zeilen (siehe Graphik unten) markieren Quellcode, den der Autor oder die Autorin unverändert aus dem Starterpacket übernommen hat."
+                "answer": "Hellere Zeilen (siehe Graphik unten) markieren Quellcode, den der Autor oder die Autorin unverändert aus dem Starterpacket übernommen hat.\n\n![Graphik helle Zeilen](../assets/unchanged_line.png)"
             },
             {
                 "question": "Warum sind manche Dateien blau?",

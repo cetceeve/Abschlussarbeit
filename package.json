@@ -10,7 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "build": "node build.js",
-    "prebuild": "eslint app/res/js/"
+    "prebuild": "eslint app/res/js/",
+    "prod:start": "node index_prod.js"
   },
   "repository": {
     "type": "git",
