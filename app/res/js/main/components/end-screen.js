@@ -33,7 +33,7 @@ let EndScreenComponent = {
         return {
             feedback: "",
             feedbackWasSent: false,
-            linkList: ["https://toolslick.com/text/escaper/json", "https://semantic-ui-vue.github.io/#/elements/label"],
+            linkList: ["https://forms.gle/crgaNMhja4EFVknN6", "https://forms.gle/1eXtqBEvc96tTAhJ7", "https://forms.gle/QaEAnWDYKoAopSHF6", "https://forms.gle/2M8dYurEkAuD5oPS9", "https://forms.gle/TukBLeh4NaoEAJNW9", "https://forms.gle/5aZxZRLZja3S7PwSA"],
             numTasksFinished: this.numTasksCompleted,
         };
     },
