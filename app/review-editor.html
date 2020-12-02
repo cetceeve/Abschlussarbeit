@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Fabian Zeiher" />
-    <title>Code Review Editor</title>
+    <title>Code-Review-Editor</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <!-- side-comments -->
@@ -164,8 +164,8 @@
     <script type="text/x-template" id="tree-view-component-template">
         <div>
             <sui-button-group size="mini">
-                <sui-button id="tree-view-button-openall" basic color="grey" inverted @click="openFileTree(); logger($event, { 'content': $event.target.textContent });">open all</sui-button>
-                <sui-button id="tree-view-button-collapseall" basic color="grey" inverted @click="collapseFileTree(); logger($event, { 'content': $event.target.textContent });">collapse all</sui-button>
+                <sui-button id="tree-view-button-openall" basic color="grey" inverted @click="openFileTree(); logger($event, { 'content': $event.target.textContent });">alles aufklappen</sui-button>
+                <sui-button id="tree-view-button-collapseall" basic color="grey" inverted @click="collapseFileTree(); logger($event, { 'content': $event.target.textContent });">alles einklappen</sui-button>
             </sui-button-group>
             <sui-list id="tree-view-list" inverted class="tree-view" @scroll.passive="loggerDebounced($event, {'content': 'scrolling...'})">
                 <tree-item class="item" :item="treeData"></tree-item>
@@ -256,20 +256,19 @@
             <sui-modal size="tiny" :open="metaData.exitConfirmationIsVisible">
                 <sui-icon id="exit-confirmation-x-icon" name="close" @click.native="toggleExitConfirmation(); logger($event);"/>
                 <sui-modal-header>
-                    Task Abschließen
+                    Task abschließen
                 </sui-modal-header>
                 <sui-modal-content>
                     <p>Code-Review-Editor verlassen und Task abschließen?</p>
                 </sui-modal-content>
                 <sui-modal-actions>
                     <sui-button id="exit-confirmation-abort-button" @click.native="toggleExitConfirmation(); logger($event, {'content': $event.target.textContent});">Abbrechen</sui-button>
-                    <sui-button primary id="exit-confirmation-agree-button" content="Task Abschließen" @click="logger($event, {'content': $event.target.textContent}); mainIsLoading = true; exitTask();" icon="sign out alternate" label-position="right" :loading="mainIsLoading"/>
+                    <sui-button primary id="exit-confirmation-agree-button" content="Task abschließen" @click="logger($event, {'content': $event.target.textContent}); mainIsLoading = true; exitTask();" icon="sign out alternate" label-position="right" :loading="mainIsLoading"/>
                 </sui-modal-actions>
             </sui-modal>
             <sui-modal :open="taskDescriptionIsVisible">
-                <sui-icon id="usability-task-x-icon" name="close" @click.native="toggleTaskDesciption(); logger($event);"/>
                 <sui-modal-header>
-                    Task Beschreibung: {{ currentTask.name }}
+                    Task-Beschreibung: {{ currentTask.name }}
                 </sui-modal-header>
                 <sui-modal-content scrolling id="usability-task-content" @scroll.passive="loggerDebounced($event, {'content': 'scrolling...'});">
                     <sui-container v-html="renderedDescription"></sui-container>

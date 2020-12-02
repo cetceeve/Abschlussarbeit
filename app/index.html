@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Fabian Zeiher" />
-    <title>Studie | Code Review Editor</title>
+    <title>Studie | Code-Review-Editor</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <!-- semantic ui -->
@@ -240,7 +240,7 @@
     <script type="text/x-template" id="task-survey-component-template">
         <div>
             <sui-segment basic>
-                <h1 is="sui-header">Fragebogen Task: {{ task.name }}</h1>
+                <h1 is="sui-header">Fragebogen zum Task: {{ task.name }}</h1>
             </sui-segment>
             
             <sui-segment>
@@ -267,7 +267,7 @@
                     <sui-icon name="info circle" />
                     <sui-header-content>
                         Hinweis
-                        <sui-header-subheader>Danke für die Durchführung des Usability-Tasks! Bitte beantworte den folgenen Fragebogen so spontan und ehrlich wie möglich. Dieser Fragebogen bezieht sich auf den gerade von dir abgeschlossenen Usability-Task. Deine Meinung zur Usability und User-Experience des Systems ist uns wichtig. Bitte beachte: Wir bewerten nur die Anwendung, nicht die Nutzer*innen.</sui-header-subheader>
+                        <sui-header-subheader>Danke für die Durchführung des Usability-Tasks! Bitte beantworte den folgenen Fragebogen so spontan und ehrlich wie möglich. Dieser Fragebogen bezieht sich auf den gerade von dir abgeschlossenen Usability-Task. Deine Meinung zur Usability und User-Experience des Systems ist uns wichtig. Bitte beachte: Wir bewerten nur die Anwendung, nicht die Nutzer:innen.</sui-header-subheader>
                     </sui-header-content>
                 </h4>
             </sui-segment>
@@ -403,7 +403,7 @@
                 </h4>
                 <sui-form>
                     <sui-form-field>
-                        <textarea v-model.trim="feedback" placeholder="Bitte weise mich auch umbedingt auf Bugs hin, wenn dir welche begennt sind..."></textarea>
+                        <textarea v-model.trim="feedback" placeholder="Bitte weise uns auch unbedingt auf Bugs hin, wenn dir welche begegnet sind..."></textarea>
                     </sui-form-field>
                 </sui-form>
                 <sui-button icon="save" label-position="left" @click="sendFeedback" primary :disabled="feedback.length < 1">Feedback abschicken</sui-button>
@@ -416,7 +416,7 @@
                     <sui-icon name="handshake" />
                     <sui-header-content>
                         VP-Stunden
-                        <sui-header-subheader>Danke für deine Tailnahme an der Studie! Trage dich unter dem folgenden Link ein, um deine {{numTasksFinished * 0.25}} VP-Stunden zu erhalten.</sui-header-subheader>
+                        <sui-header-subheader>Danke für deine Tailnahme an unserer Studie! Trage dich unter dem folgenden Link ein, um deine {{numTasksFinished * 0.25}} VP-Stunden zu erhalten.</sui-header-subheader>
                     </sui-header-content>
                 </h4>
                 <sui-segment aligned="center" basic>
