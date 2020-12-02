@@ -29,8 +29,10 @@ let UserStudyControlsComponent = {
     data() {
         return {
             taskDescriptionIsVisible: (localStorage.getItem("hideUsabilityTaskDescription") !== "true"),
-            metaData: store.state.meta,
             taskControlsAreVisible: false,
+            metaData: store.state.meta,
+            mainIsLoading: false,
+
             taskStarted: localStorage.getItem("startTaskTime") !== null ? true : false,
             taskStartTime: localStorage.getItem("startTaskTime") !== null ? parseFloat(localStorage.getItem("startTaskTime")) : null,
             taskEndTime: null,

@@ -52,7 +52,7 @@
                     <sui-button @click="$emit('show-final-survey')" primary>Ja</sui-button>
                 </div>
             </div>
-            <sui-button icon="right arrow" label-position="right" @click="$emit('start-task')" positive floated="right" :disabled="allTasksComplete">{{ isFirstTask ? "Exploration starten" : "Nächster Task"}}</sui-button>
+            <sui-button icon="right arrow" label-position="right" @click="$emit('start-task'); taskIsLoading = true;" positive floated="right" :disabled="allTasksComplete" :loading="taskIsLoading">{{ isFirstTask ? "Exploration starten" : "Nächster Task"}}</sui-button>
         </sui-segment>
     </script>
     

@@ -263,7 +263,7 @@
                 </sui-modal-content>
                 <sui-modal-actions>
                     <sui-button id="exit-confirmation-abort-button" @click.native="toggleExitConfirmation(); logger($event, {'content': $event.target.textContent});">Abbrechen</sui-button>
-                    <sui-button primary id="exit-confirmation-agree-button" content="Task Abschließen" @click="logger($event, {'content': $event.target.textContent}); exitTask();" icon="sign out alternate" label-position="right" />
+                    <sui-button primary id="exit-confirmation-agree-button" content="Task Abschließen" @click="logger($event, {'content': $event.target.textContent}); mainIsLoading = true; exitTask();" icon="sign out alternate" label-position="right" :loading="mainIsLoading"/>
                 </sui-modal-actions>
             </sui-modal>
             <sui-modal :open="taskDescriptionIsVisible">

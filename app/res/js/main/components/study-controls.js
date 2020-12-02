@@ -34,6 +34,7 @@ let StudyControlsComponent = {
     data() {
         return {
             exitConfirmationIsVisible: false,
+            taskIsLoading: false,
         };
     },
     /** Hold computed properties for the component.

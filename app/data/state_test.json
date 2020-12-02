@@ -32,6 +32,14 @@
                 "answer": "- **Bug:** Damit kannst du den Autor oder die Autorin auf einen Syntax oder Logikfehler hinweisen. \n- **Alternative:** Diese Kategorie ist sinnvoll, wenn du einen alternativen Lösungsweg vorschlagen möchtest.\n- **Anmerkung:** Allgemeine Kategorie ohne besondere Bedeutung.\n- **Kompliment:** Jeder freut sich über ein unerwartetes Kompliment, auch in einem Code-Review."
             },
             {
+                "question": " Warum sind manche Zeilen heller?",
+                "answer": "Hellere Zeilen (siehe Graphik unten) markieren Quellcode, den der Autor oder die Autorin unverändert aus dem Starterpacket übernommen hat."
+            },
+            {
+                "question": "Warum sind manche Dateien blau?",
+                "answer": "Die blaue Farbe kennzeichnet Dateien die vom Autor oder der Autorin bearbeitet wurden. Alle anderen Dateien wurden nicht bearbeitet."
+            },
+            {
                 "question": "Kann ich die Usability-Task-Beschreibung noch einmal lesen?",
                 "answer": "**Ja!** Klicke auf die Leiste `Steuerungselemente für Usability-Task einblenden` mittig oben und anschließend auf `Task-Beschreibung`."
             },
