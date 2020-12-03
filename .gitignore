@@ -112,3 +112,4 @@ out/
 
 # database
 db/
+dump.rdb
