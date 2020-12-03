@@ -109,3 +109,6 @@ reference/
 
 # jsdoc output
 out/
+
+# database
+data/
