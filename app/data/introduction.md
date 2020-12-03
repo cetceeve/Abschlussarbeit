@@ -1,6 +1,6 @@
 ## Einführung
 
-Danke, dass du dich dazu entschlossen hast an unserer Usability-Studie teilzunehmen. Im Zuge dieser Studie wird eine Web-Anwendung evaluiert, die dich beim Verfassen von Code-Reviews unterstützen soll. Mit der Anwendung können beispielsweise Studierende für ihre Kommiliton:innen Code-Reviews zu deren Studienleistungen (Programmieraufgaben) erstellen. Wenn du noch keine oder wenig Erfahrung mit Code-Review hast: Keine Sorge! Innerhalb der Anwendung findest du in den Bereichen `FAQ` und `Checkliste` Erklärungen und Tipps zum Thema Code-Review. Grundsätzlich soll die Anwendung ohne Vorerfahrung nutzbar sein und alle Informationen mitbringen die du brauchst.
+Danke, dass du dich dazu entschlossen hast an unserer Usability-Studie teilzunehmen. Im Zuge dieser Studie wird eine Web-Anwendung evaluiert, die dich beim Verfassen von Code-Reviews unterstützen soll. Mit der Anwendung können beispielsweise Studierende für ihre Kommiliton:innen Code-Reviews zu deren Studienleistungen (Programmieraufgaben) erstellen. Wenn du noch keine oder wenig Erfahrung mit Code-Review hast: Keine Sorge! Innerhalb der Anwendung findest du in den Bereichen `FAQ` und `Checkliste` Erklärungen und Tipps zum Thema Code-Review. Grundsätzlich soll die Anwendung ohne Vorerfahrung nutzbar sein und alle Informationen mitbringen, die du brauchst.
 
 Es handelt sich bei der Software um einen späten **Prototypen**. Die Anwendung sollte aber weitestgehend fehlerfrei laufen. Wir sind dir sehr dankbar, wenn du uns im Feedbackfeld - am Ende der Studie - auf Bugs und Performanceprobleme aufmerksam machst.
 
@@ -34,5 +34,9 @@ Wir speichern deinen letzten Bearbeitungsstand lokal in deinem Browser. Du kanns
 ### Offline
 
 Du kannst die Studie leider nicht offline durchführen. Es werden kontinuierlich log-Daten an unseren Server geschickt und auch die Ergebnisse der Fragebögen werden sofort auf unserem Server gespeichert.
+
+### Studie beenden
+
+Du hast immer nach Bearbeitung eines Tasks fünf Minuten Zeit, um auf `Studie beenden` zu klicken. Grund dafür ist, dass die Berantwortung des Abschlussfragebogens kurs nach Beanutzung des Systems stattfinden muss.
 
 ### Datenschutz

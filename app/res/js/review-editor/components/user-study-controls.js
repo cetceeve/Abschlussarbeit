@@ -49,9 +49,6 @@ let UserStudyControlsComponent = {
             // Sanitizing snarkdowns Html-output is very important to avoid XSS attacks
             return HtmlSanitizer.SanitizeHtml(snarkdown(this.currentTask.description));
         },
-        barContent() {
-            return this.taskControlsAreVisible ? "Steuerungselemente für Usability-Task ausblenden" : "Steuerungselemente für Usability-Task einblenden";
-        },
         barIcon() {
             return this.taskControlsAreVisible ? "caret up" : "caret down";
         },
@@ -76,19 +73,22 @@ let UserStudyControlsComponent = {
             if (this.currentTask.id !== null) {
                 this.taskEndTime = Date.now();
 
-                // update current task. this is a saveguard in case multiple tabs are used
-                let task = localStorage.getItem("currentTask") !== null ? JSON.parse(localStorage.getItem("currentTask")) : { id: null, name: "unknown", description: "unknown" };
-                task.isFinished = true;
-                task.taskCompletionTime = Math.round((this.taskEndTime - this.taskStartTime) / 1000);
-                localStorage.setItem("currentTask", JSON.stringify(task));
-
-                // clear localstroage
-                localStorage.removeItem("state");
-                localStorage.removeItem("hideUsabilityTaskDescription");
-                localStorage.removeItem("startTaskTime");
-
-                // return to main page
-                location.href = "./";
+                // allow last log connection to close out
+                setTimeout(() => {
+                    // update current task. this is a saveguard in case multiple tabs are used
+                    let task = localStorage.getItem("currentTask") !== null ? JSON.parse(localStorage.getItem("currentTask")) : { id: null, name: "unknown", description: "unknown" };
+                    task.isFinished = true;
+                    task.taskCompletionTime = Math.round((this.taskEndTime - this.taskStartTime) / 1000);
+                    localStorage.setItem("currentTask", JSON.stringify(task));
+    
+                    // clear localstroage
+                    localStorage.removeItem("state");
+                    localStorage.removeItem("hideUsabilityTaskDescription");
+                    localStorage.removeItem("startTaskTime");
+    
+                    // return to main page
+                    location.href = "./";
+                }, 100);
             }
         },
         toggleExitConfirmation() {

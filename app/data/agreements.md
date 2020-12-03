@@ -16,7 +16,7 @@ Du bleibst selbstverständlich bei der Studie vollkommen anonym. Wir nutzen eine
 Mit Fragebögen werden verschiedene quantitative Daten gesammelt. Diese Informationen werden nach Bearbeitung auf unserem Server gespeichert. Über die *Session ID* lassen sich die Ergebnisse eines einzelnen Studienverlaufs nachverfolgen.
 
 
-Bei der Bearbeitung von Tasks innerhalb des *Code Review Editors* werden als Interaktionsdaten Mausklicks, Tastatenklicks, Texteingaben und *Scroll-Events* aufgezeichnet und an unseren Server gesendet.
+Bei der Bearbeitung von Tasks innerhalb des *Code Review Editors* werden als Interaktionsdaten Mausklicks, Tastatureingaben, Texteingaben und *Scroll-Events* aufgezeichnet und an unseren Server gesendet.
 
 > **Hinweis:** Es werden auch alle Texteingaben in Text-Felder aufgezeichnet. Bitte trage keine persönlichen oder vertraulichen Informationen ein. Schreibe bitte nichts, was dich identifizieren kann.
 

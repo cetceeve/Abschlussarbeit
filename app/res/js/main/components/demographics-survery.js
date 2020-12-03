@@ -59,20 +59,24 @@ let DemographicsSurveyComponent = {
                 ],
                 experienceOriginOptions: [
                     {
+                        key: "uni",
                         text: "Universität",
-                        value: 1,
+                        value: "uni",
                     },
                     {
+                        key: "job",
                         text: "Beruf",
-                        value: 2,
+                        value: "job",
                     },
                     {
+                        key: "leisure",
                         text: "Freizeit",
-                        value: 3,
+                        value: "leisure",
                     },
                     {
+                        key: "other",
                         text: "andere",
-                        value: 4,
+                        value: "other",
                     },
                 ],
                 experience: {
@@ -96,7 +100,7 @@ let DemographicsSurveyComponent = {
             return this.results.age !== null && this.results.studentStatus !== null && (this.results.semester !== null || this.results.studentStatus === 3) ;
         },
         experienceIsComplete() {
-            return this.results.experience === "0" || (this.results.experience === "1" && this.results.experienceOrigin !== null && this.results.experienceReview !== null && this.results.experienceCoding !== null);
+            return this.results.experience === "0" || (this.results.experience === "1" && this.results.experienceOrigin !== null && this.results.experienceOrigin.length !== 0 && this.results.experienceReview !== null && this.results.experienceCoding !== null);
         },
         assessmentIsComplete() {
             return this.results.assessmentReview !== null && this.results.assessmentTools !== null && this.results.assessmentCode !== null;
@@ -116,7 +120,7 @@ let DemographicsSurveyComponent = {
                 studentStatus: this.survey.studentStatusOptions.find(item => item.value === this.results.studentStatus).text,
                 semester: this.results.semester === null ? null : parseInt(this.results.semester),
                 experience: this.results.experience === null ? null : parseInt(this.results.experience),
-                experienceOrigin: this.results.experienceOrigin === null ? null : this.survey.experienceOriginOptions.find(item => item.value === this.results.experienceOrigin).text,
+                experienceOrigin: this.results.experienceOrigin === null || this.results.experienceOrigin.length === 0 ? null : this.results.experienceOrigin.reduce((acc, item) => acc + ", " + item),
                 experienceReview: this.results.experienceReview === null ? null : parseInt(this.results.experienceReview),
                 experienceCoding: this.results.experienceCoding === null ? null : parseInt(this.results.experienceCoding),
                 assessmentReview: this.results.assessmentReview === null ? null : parseInt(this.results.assessmentReview),
