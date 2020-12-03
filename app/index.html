@@ -137,9 +137,9 @@
                         </sui-form-field>
                     </sui-form-fields>
                     
-                    <sui-form-field inline :disabled="results.experience === '0'">
+                    <sui-form-field :disabled="results.experience === '0'">
                         <label>Wo konntest du bereits Erfahrung mit Code-Reviews sammeln?</label>
-                        <sui-dropdown placeholder="Herkunft" selection :options="survey.experienceOriginOptions" v-model="results.experienceOrigin"/>
+                        <sui-dropdown selection multiple :options="survey.experienceOriginOptions" v-model="results.experienceOrigin" placeholder="Wo konntest du bereits Erfahrung mit Code-Reviews sammeln?" />
                     </sui-form-field>
                     
                     <sui-form-field :disabled="results.experience === '0'">

@@ -35,4 +35,8 @@ Wir speichern deinen letzten Bearbeitungsstand lokal in deinem Browser. Du kanns
 
 Du kannst die Studie leider nicht offline durchführen. Es werden kontinuierlich log-Daten an unseren Server geschickt und auch die Ergebnisse der Fragebögen werden sofort auf unserem Server gespeichert.
 
+### Studie beenden
+
+Du hast immer nach Bearbeitung eines Tasks fünf Minuten Zeit, um auf `Studie beenden` zu klicken. Grund dafür ist, dass die Berantwortung des Abschlussfragebogens kurs nach Beanutzung des Systems stattfinden muss.
+
 ### Datenschutz
