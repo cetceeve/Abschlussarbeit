@@ -111,4 +111,4 @@ reference/
 out/
 
 # database
-data/
+db/
