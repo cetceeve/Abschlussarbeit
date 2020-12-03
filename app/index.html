@@ -59,7 +59,7 @@
     <script type="text/x-template" id="study-introduction-component-template">
         <div>
             <sui-segment basic>
-                <h1 is="sui-header">Willkommen zur Code-Review-Editor-Remote-Usabililty-Studie</h1>
+                <h1 is="sui-header">Willkommen zur Code-Review-Editor-Remote-Usability-Studie</h1>
             </sui-segment>
             <sui-segment :loading="rawMarkdown.length < 1">
                 <sui-accordion fluid>
@@ -369,14 +369,14 @@
     <script type="text/x-template" id="agreements-component-template">
         <sui-modal :open="open" loading>
             <sui-modal-header>
-                Vorraussetzungen und Datenschutz
+                Voraussetzungen und Datenschutz
             </sui-modal-header>
             <sui-modal-content scrolling>
                 <sui-loader :active="text.length < 1" />
                 <sui-container v-html="renderedMarkdown"></sui-container>
             </sui-modal-content>
             <sui-modal-actions>
-                <sui-checkbox toggle label="Ich erfülle die Vorraussetzungen und stimme den Datenschutzvereinbarungen zu." v-model="isChecked"></sui-checkbox>
+                <sui-checkbox toggle label="Ich erfülle die Voraussetzungen und stimme den Datenschutzvereinbarungen zu." v-model="isChecked"></sui-checkbox>
                 <sui-button positive @click.native="saveAgreement" :disabled="!isChecked">
                     Speichern
                 </sui-button>
