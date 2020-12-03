@@ -110,6 +110,5 @@ reference/
 # jsdoc output
 out/
 
-# database
-db/
+# redis data dump
 dump.rdb
