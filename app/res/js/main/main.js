@@ -124,7 +124,7 @@ new Vue({
             localStorage.setItem("currentTask", JSON.stringify(newTask));
         },
         startReviewEditor(taskId) {
-            taskId = "test"; //TODO: task id correct zuweißen!
+            taskId = "taskfindbug"; //TODO: task id correct zuweißen!
             fetch(`../../data/state_${taskId}.json`)
                 .then(response => response.text())
                 .then(stateString => {

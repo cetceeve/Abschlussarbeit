@@ -1,7 +1,6 @@
 {
     "meta": {
-        "id": "0000",
-        "ready": false,
+        "id": "exploration",
         "exitConfirmationIsVisible": false
     },
     "user": {
@@ -227,19 +226,7 @@
                     }
                 ],
                 "activeCommentSection": null, 
-                "comments": 
-                [
-                    {
-                        "id": "10001",
-                        "sectionId": "1",
-                        "authorId": "2",
-                        "authorAvatarUrl": "https://i.kym-cdn.com/photos/images/original/001/474/942/012.gif",
-                        "authorUrl": "https://i.imgflip.com/40ga2o.jpg",
-                        "authorName": "Winnie",
-                        "content": "Morning my Friend",
-                        "categoryId": "2"
-                    }
-                ]
+                "comments": []
             },
             "fileShaReadMe": {
                 "sha": "fileShaReadMe",
