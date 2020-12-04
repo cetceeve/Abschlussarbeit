@@ -108,7 +108,7 @@ new Vue({
             } else if (!this.currentTask.isFinished) {
                 this.startReviewEditor(this.currentTask.id);
             } else {
-                this.startTask();
+                this.startTask("taskeditcomment");
             }
         },
         startTask(taskId) {
@@ -124,7 +124,6 @@ new Vue({
             localStorage.setItem("currentTask", JSON.stringify(newTask));
         },
         startReviewEditor(taskId) {
-            taskId = "taskfindbug"; //TODO: task id correct zuweißen!
             fetch(`../../data/state_${taskId}.json`)
                 .then(response => response.text())
                 .then(stateString => {
