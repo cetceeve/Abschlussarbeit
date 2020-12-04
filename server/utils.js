@@ -23,7 +23,6 @@ class ServerUtils {
                 res.cookie("sessionId", newSessionId, { 
                     expires: new Date(Date.now() + 1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 30),
                     httpOnly: true,
-                    secure: true,
                 });
                 // register the new session
                 this.redis.sadd("sessions", newSessionId);
