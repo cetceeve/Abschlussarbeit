@@ -150,7 +150,7 @@ new Vue({
             localStorage.clear();
             localStorage.setItem("studyCompleted", "true");
             localStorage.setItem("agreementIsGiven", "true");
-            localStorage.setItem("numTasksCompleted", this.numTasksCompleted.toString());
+            localStorage.setItem("lTid", this.numTasksCompleted.toString());
             this.studyCompleted = true;
         },
         hideDemographicsSurvey() {
