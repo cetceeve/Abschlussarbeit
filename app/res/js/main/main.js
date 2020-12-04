@@ -108,7 +108,7 @@ new Vue({
             } else if (!this.currentTask.isFinished) {
                 this.startReviewEditor(this.currentTask.id);
             } else {
-                this.startTask("tasksearchvariable");
+                this.startTask();
             }
         },
         startTask(taskId) {
