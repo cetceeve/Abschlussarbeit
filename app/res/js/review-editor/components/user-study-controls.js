@@ -24,7 +24,12 @@ let UserStudyControlsComponent = {
     * Utilizing Vues built in reactivity the component will re-render if this data changes, see link below.
     * @see https://vuejs.org/v2/guide/reactivity.html
     * @property {Object} metaData - Data object for meta data which holds information relevant to the user study, see store.state.
-    * @property {Boolean} taskDescriptionIsVisible=true - Sentinel to determine if task desctiption should be visible.
+    * @property {Boolean} taskDescriptionIsVisible - Sentinel to determine if task desctiption should be visible.
+    * @property {Boolean} taskControlsAreVisible - Sentinel to determine if task controls should be visible.
+    * @property {Boolean} mainIsLoading - Used to show loading animation on page close.
+    * @property {Boolean} taskStarted - Sentinel to determine if task is already started. Used to return to correct state when user left the page.
+    * @property {Number} taskStartTime - Timestamp for when task was started. Used to compute task completion time.
+    * @property {Number} taskEndTime - Timestamp for when task was ended. Used to compute task completion time.
     */
     data() {
         return {
@@ -40,6 +45,8 @@ let UserStudyControlsComponent = {
     },
     /** Hold computed properties for the component.
     * @property {String} renderedDescription - Transformed markdown html string.
+    * @property {Object} currentTask - Object representing the current usability task.
+    * @property {String} barIcon - returns the icon to be displayed in the ui
     */
     computed: {
         currentTask() {
@@ -58,10 +65,12 @@ let UserStudyControlsComponent = {
     * @property {Function} toggleTaskDesciption - Toggles modal to show user study task description.
     * @property {Function} exitTask - Exits the code review editor.
     * @property {Function} toggleExitConfirmation - Toggles exit confirmation modal via application state.
+    * @property {Funtion} toggleTaskControls - Toggles task controls interface.
     */
     methods: {
         toggleTaskDesciption() {
             this.taskDescriptionIsVisible = !this.taskDescriptionIsVisible;
+            // set starting timestamp for task completion time
             if (!this.taskStarted) {
                 this.taskStarted = true;
                 this.taskStartTime = Date.now();
@@ -98,6 +107,7 @@ let UserStudyControlsComponent = {
             this.taskControlsAreVisible = !this.taskControlsAreVisible;
         },
     },
+    // triggered after page is fully loaded
     mounted() {
         // task is already finished, exit editor immidiatly
         if (this.currentTask.isFinished) {
