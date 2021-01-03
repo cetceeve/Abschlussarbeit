@@ -109,6 +109,7 @@ reference/
 
 # jsdoc output
 out/
+docs/
 
 # redis data dump
 dump.rdb
