@@ -124,7 +124,6 @@ new Vue({
             localStorage.setItem("currentTask", JSON.stringify(newTask));
         },
         startReviewEditor(taskId) {
-            taskId = "test"; //TODO: task id correct zuweißen!
             fetch(`../../data/state_${taskId}.json`)
                 .then(response => response.text())
                 .then(stateString => {
@@ -150,7 +149,7 @@ new Vue({
             localStorage.clear();
             localStorage.setItem("studyCompleted", "true");
             localStorage.setItem("agreementIsGiven", "true");
-            localStorage.setItem("numTasksCompleted", this.numTasksCompleted.toString());
+            localStorage.setItem("lTid", this.numTasksCompleted.toString());
             this.studyCompleted = true;
         },
         hideDemographicsSurvey() {

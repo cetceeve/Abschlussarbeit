@@ -63,7 +63,7 @@ let EndScreenComponent = {
     * @see https://vuejs.org/v2/guide/instance.html
     */
     mounted() {
-        this.numTasksFinished = localStorage.getItem("numTasksCompleted") || this.numTasksCompleted;
+        this.numTasksFinished = localStorage.getItem("lTid") || this.numTasksCompleted;
     },
 };
 

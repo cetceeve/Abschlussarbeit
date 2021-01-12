@@ -37,6 +37,6 @@ Du kannst die Studie leider nicht offline durchführen. Es werden kontinuierlich
 
 ### Studie beenden
 
-Du hast immer nach Bearbeitung eines Tasks fünf Minuten Zeit, um auf `Studie beenden` zu klicken. Grund dafür ist, dass die Berantwortung des Abschlussfragebogens kurs nach Beanutzung des Systems stattfinden muss.
+Du hast immer nach Bearbeitung eines Tasks fünf Minuten Zeit, um auf `Studie beenden` zu klicken. Grund dafür ist, dass die Berantwortung des Abschlussfragebogens kurs nach Beanutzung des Systems stattfinden muss. Bitte schließe die Studie bis zum **11.12.2020** ab.
 
 ### Datenschutz

@@ -44,7 +44,7 @@
     <script type="text/x-template" id="study-controls-component-template">
         <sui-segment>
             <sui-progress indicating :percent="progressPercent" :label="progressLabel" />
-            <sui-button v-show="!exitConfirmationIsVisible" @click="toggleExitConfirmation" :disabled="!allowExit && !allTasksComplete" :primary="allTasksComplete">Studie Beenden</sui-button>
+            <sui-button v-show="!exitConfirmationIsVisible" @click="toggleExitConfirmation" :disabled="!allowExit && !allTasksComplete" :primary="allTasksComplete">Studie beenden</sui-button>
             <div v-show="exitConfirmationIsVisible" style="display: inline-block;">
                 <h4 is="sui-header" style="display: inline-block; margin-right: 1rem;">Studie wirklich beenden?</h4>
                 <div is="sui-button-group">
@@ -107,7 +107,7 @@
                     </sui-form-field>
                     
                     <sui-form-field inline>
-                        <label>Stundenstatus</label>
+                        <label>Stundentenstatus</label>
                         <sui-dropdown placeholder="Studentenstatus" selection :options="survey.studentStatusOptions" v-model="results.studentStatus"/>
                     </sui-form-field>
                     

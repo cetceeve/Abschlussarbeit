@@ -12,8 +12,6 @@
 * @type {Object}
 * @property {Object} meta - Information regarding the Review-Editors context and status.
 * @property {String} meta.id - the ID of the current state.
-* @property {Boolean} meta.ready - Status of the state.
-* @property {module:review-editor/model/Store~Task} meta.task - The user study task this state is used for.
 * @property {Boolean} meta.exitConfirmationIsVisible - Sentinel to determine if exit confirmation should be visible.
 * 
 * @property {Object} user - Data for the logged in user.
@@ -108,14 +106,6 @@
 * @property {String} class - Name for the css class to be applied.
 * @property {Number[]} lines - Array of lines that the class should be applied to.
 * @see https://codemirror.net/doc/manual.html#addLineClass
-*/
-/**
-* Object for one user study task
-* @typedef Task
-* @type {Object}
-* @property {String} id
-* @property {String} name
-* @property {String} description
 */
 
 /**
