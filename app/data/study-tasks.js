@@ -27,7 +27,7 @@ const studyTasks = [
     {
         "id": "tasksearchvariable",
         "name": "Alternativen Variablennamen vorschlagen",
-        "description": "**Scenario:** \n\nDu bearbeitest auch in diesem Task ein Code-Review für eine typische Studienleistung in einem fortgeschrittenen Programmierkurs. In der Datei `index.js` in wird die Variable `res` genutzt. Du bist der Meinung, dass dieser Variablennamen nicht besonders lesbar ist und möchtest eine Alternative vorschlagen.\n\n**Aktivität:**\n\nFinde die Variable und schreibe einen kurzen Kommentar. Wähle dafür eine Code-Zeile die dir passend erscheint.\n\n**Ziel:**\n\nDie Aktivität ist abgeschlossen, wenn der Kommentar erstellt wurde.",
+        "description": "**Scenario:** \n\nDu bearbeitest auch in diesem Task ein Code-Review für eine typische Studienleistung in einem fortgeschrittenen Programmierkurs. In der Datei `index.js` in wird die Variable `resBird` genutzt. Du bist der Meinung, dass dieser Variablennamen nicht besonders lesbar ist und möchtest eine Alternative vorschlagen.\n\n**Aktivität:**\n\nFinde die Variable und schreibe einen kurzen Kommentar. Wähle dafür eine Code-Zeile die dir passend erscheint.\n\n**Ziel:**\n\nDie Aktivität ist abgeschlossen, wenn der Kommentar erstellt wurde.",
     },
 ];
 
